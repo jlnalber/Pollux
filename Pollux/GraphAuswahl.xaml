@@ -1,0 +1,30 @@
+﻿<Window x:Class="Pollux.GraphAuswahl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pollux"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow"
+        Title="GraphAuswahl" Height="600" Width="600" MaxWidth="700" MinWidth="400" MinHeight="300" MaxHeight="1000">
+    <StackPanel>
+        <TreeViewItem x:Name="LetzteDateiHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24">
+            <ListBox x:Name="LetzteDatei" HorizontalAlignment="Left" Height="Auto" Margin="0,10,0,0" VerticalAlignment="Top" Width="Auto" Background="Transparent" BorderBrush="Transparent" MaxWidth="600"/>
+        </TreeViewItem>
+        <TreeViewItem x:Name="DateiÖffnen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" Width="389">
+            <TextBlock x:Name="DateiSpeicherortText" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+            <TextBox x:Name="DateiSpeicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
+            <Button x:Name="DateiDurchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" Padding="3" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="DateiDurchsuchen_Click"/>
+            <Button x:Name="Öffnen" MinWidth="10" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Öffnen_Click"/>
+        </TreeViewItem>
+        <TreeViewItem x:Name="NeueDateiErstellenHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" Width="389">
+            <TextBlock x:Name="NeueDateiName" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+            <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="350" Background="LightGray" Padding="3"/>
+            <TextBlock x:Name="NeueDateiSpeicherort" HorizontalAlignment="Left" Margin="0,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+            <TextBox x:Name="Speicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
+            <Button x:Name="Durchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="Durchsuchen_Click"/>
+            <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
+        </TreeViewItem>
+    </StackPanel>
+</Window>
