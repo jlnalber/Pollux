@@ -169,26 +169,29 @@ namespace Pollux
             try
             {
                 SaveFileDialog saveFileDialog = new();
+                saveFileDialog.Filter = "poll files(*.poll) | *.poll";
+                saveFileDialog.FileName = (Name.Text == "") ? "graph.poll" : Name.Text + ".poll";
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     Speicherort.Text = saveFileDialog.FileName;
                 }
             }
-            catch
+            catch (Exception f)
             {
+                MessageBox.Show(f.Message);
             }
         }
 
         private void Erstellen_Click(object sender, RoutedEventArgs e)
         {
             //erstelle eine neue Datei und öffne diese, wenn das nicht möglich ist, dann mache einen Fehlersound und mache das Textfeld rot
-            string path = Speicherort.Text + @"\" + Name.Text + ".poll";
+            string path = Speicherort.Text;
             try
             {
                 //schreibe eine "leere" Datei
                 StreamWriter streamWriter1 = new StreamWriter(path);
                 streamWriter1.WriteLine("[NAME]");
-                streamWriter1.WriteLine(Name.Text.ToUpper());
+                streamWriter1.WriteLine(Name.Text == "" ? "GRAPH" : Name.Text.ToUpper());
                 streamWriter1.WriteLine("[/NAME]");
                 streamWriter1.WriteLine("[NODES]");
                 streamWriter1.WriteLine("[/NODES]");

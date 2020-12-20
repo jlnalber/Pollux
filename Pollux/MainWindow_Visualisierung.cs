@@ -117,9 +117,15 @@ namespace Pollux
                 menuItem1.Items.Add(menuItem2);
                 menuItem1.Items.Add(menuItem3);
 
+                //MenuItem zum Öffnen des Eiganschaften-Fensters
+                MenuItem menuItem4 = new();
+                menuItem4.Click += EigenschaftenFenster_Click;
+                menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
+
                 //Füge die MenuItems hinzu
                 graphCanvas.ContextMenu = new System.Windows.Controls.ContextMenu();
                 graphCanvas.ContextMenu.Items.Add(menuItem1);
+                graphCanvas.ContextMenu.Items.Add(menuItem4);
                 #endregion
 
                 //Eigene Darstellung
