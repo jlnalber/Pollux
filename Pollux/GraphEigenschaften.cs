@@ -14,7 +14,7 @@ namespace Pollux.Graph
                 //Prüfung, ob er eulersch ist
 
                 //erstelle eine Kopie von diesem Graphen
-                Graph copy = this.Kopie();
+                Graph copy = Kopie();
                 for (int i = 0; i < copy.GraphKnoten.Count; i++)
                 {
                     if (copy.GraphKnoten[i].IstIsolierteEcke)
@@ -77,9 +77,9 @@ namespace Pollux.Graph
             {
                 //Überprüfe, aus wievielen Flächen der Graph bestehen muss
 
-                if (Planar)
+                if (this.Planar)
                 {
-                    return -AnzahlKnoten + AnzahlKanten + 2;
+                    return -this.AnzahlKnoten + this.AnzahlKanten + 2;
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace Pollux.Graph
 
                 //Erstelle zwei Graph, die später zur Überprüfung genutzt werden
                 Graph vollständigesFünfeck = GraphTemplates.VollständigesVieleck(5);
-                Graph bipartiter33Graph = GraphTemplates.BipartiterGraph(3, 3);
+                Graph bipartiter33Graph = GraphTemplates.VollständigerBipartiterGraph(3, 3);
 
                 //Prüfe, ob dieser Graph ein Teilgraph oder eine Unterteilung von den beiden Grpahen "bipartiter33Graph" oder "vollständigesFünfeck" ist
                 return vollständigesFünfeck.IstTeilgraphVon(this) || vollständigesFünfeck.IstUnterteilungVon(this) || bipartiter33Graph.IstTeilgraphVon(this) || bipartiter33Graph.IstUnterteilungVon(this);
@@ -186,7 +186,7 @@ namespace Pollux.Graph
             {
                 //Prüfen aus wievielen Komponenten der Graph besteht
 
-                return Komponenten.Count;
+                return this.Komponenten.Count;
             }
         }
 
@@ -251,7 +251,7 @@ namespace Pollux.Graph
 
                 for (int i = 0; i < this.GraphKnoten.Count; i++)
                 {
-                    schlingen += Liste[i, i] / 2;
+                    schlingen += this.Liste[i, i] / 2;
                 }
 
                 return schlingen;
@@ -267,20 +267,20 @@ namespace Pollux.Graph
                 int paralleleKanten = 0;
 
                 //gehe die Liste durch, dabei aber nur die Hälfte, da sich der Rest ja doppelt
-                for (int i = 0; i < Liste.GetLength(0); i++)
+                for (int i = 0; i < this.Liste.GetLength(0); i++)
                 {
                     for (int f = 0; f <= i; f++)
                     {
                         if (i == f)
                         {
-                            if (Liste[i, f] / 2 >= 2)
+                            if (this.Liste[i, f] / 2 >= 2)
                             {
-                                paralleleKanten += Liste[i, f] / 2;
+                                paralleleKanten += this.Liste[i, f] / 2;
                             }
                         }
-                        else if (Liste[i, f] >= 2)
+                        else if (this.Liste[i, f] >= 2)
                         {
-                            paralleleKanten += Liste[i, f];
+                            paralleleKanten += this.Liste[i, f];
                         }
                     }
                 }
@@ -313,7 +313,7 @@ namespace Pollux.Graph
             get
             {
                 //gebe die Länge der Liste mit den Knoten zurück
-                return GraphKnoten.Count();
+                return this.GraphKnoten.Count();
             }
         }
     }

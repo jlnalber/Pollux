@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Pollux.Verschlüsselungen
+﻿namespace Pollux.Verschlüsselungen
 {
     public static partial class Verschlüsselungen
     {

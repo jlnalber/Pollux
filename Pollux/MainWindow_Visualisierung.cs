@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace Pollux
 {
-    partial class MainWindow
+    public partial class MainWindow
     {
         //Methoden zur Darstellung der Dateien
         public void OpenFile(string path)
@@ -184,15 +183,15 @@ namespace Pollux
                 //Finalisierung
                 #region
                 this.TabControl.SelectedIndex = this.TabControl.Items.Count - 1;
-                this.SaveOpenedFiles();
-                this.SaveAll();
+                SaveOpenedFiles();
+                SaveAll();
                 #endregion
             }
             catch (Exception e)
             {
                 //Mache einen ErrorSound, zeige die Error-Nachricht und entferne den Tab
                 SystemSounds.Asterisk.Play();
-                TabControl.Items.Remove(tab);
+                this.TabControl.Items.Remove(tab);
                 MessageBox.Show(e.Message);
             }
         }
@@ -209,7 +208,7 @@ namespace Pollux
 
             #region
             //finde den Graphen heraus und lege andere Variablen fest
-            GraphDarstellung graphDarstellung = this.GetOpenGraphDarstellung();
+            GraphDarstellung graphDarstellung = GetOpenGraphDarstellung();
             Graph.Graph graph = graphDarstellung.graph;
             List<GraphDarstellung.KantenDarstellung> kantenDarstellung = graphDarstellung.visuelleKanten;
             List<GraphDarstellung.KnotenDarstellung> knotenDarstellung = graphDarstellung.visuelleKnoten;
@@ -423,7 +422,7 @@ namespace Pollux
 
         public void DrawGraph()
         {
-            this.DrawGraph(this.GetOpenCanvas());
+            DrawGraph(GetOpenCanvas());
         }
 
         public TabItem AddNewTab<T>(string header, T content)
@@ -469,7 +468,7 @@ namespace Pollux
             this.Headers.Add(tab1, Title);
 
             //Füge Tab zu "TabControl" hinzu
-            TabControl.Items.Add(tab1);
+            this.TabControl.Items.Add(tab1);
 
             //Rückgabe von diesem Tab
             return tab1;

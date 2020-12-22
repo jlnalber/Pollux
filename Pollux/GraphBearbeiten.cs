@@ -10,15 +10,15 @@ namespace Pollux.Graph
         public Graph.Knoten AddKnoten(Knoten knote)
         {
             knote.Name = knote.Name.ToUpper();
-            GraphKnoten.Add(knote);
+            this.GraphKnoten.Add(knote);
             knote.Parent = this;
 
-            int[,] copy = new int[Liste.GetLength(0) + 1, Liste.GetLength(1) + 1];
-            for (int i = 0; i < Liste.GetLength(0); i++)
+            int[,] copy = new int[this.Liste.GetLength(0) + 1, this.Liste.GetLength(1) + 1];
+            for (int i = 0; i < this.Liste.GetLength(0); i++)
             {
-                for (int f = 0; f < Liste.GetLength(1); f++)
+                for (int f = 0; f < this.Liste.GetLength(1); f++)
                 {
-                    copy[i, f] = Liste[i, f];
+                    copy[i, f] = this.Liste[i, f];
                 }
             }
             this.Liste = copy;
@@ -28,13 +28,13 @@ namespace Pollux.Graph
 
         public Graph.Knoten AddKnoten()
         {
-            return this.AddKnoten("KNOTEN" + (GraphKnoten.Count + 1).ToString());
+            return AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString());
         }
 
         public Graph.Knoten AddKnoten(string name)
         {
             Knoten knote = new Knoten(this, new List<Kanten>(), name.ToUpper());
-            return this.AddKnoten(knote);
+            return AddKnoten(knote);
         }
         #endregion
 
@@ -44,13 +44,13 @@ namespace Pollux.Graph
         {
             kante.Name = kante.Name.ToUpper();
             kante.Parent = this;
-            GraphKanten.Add(kante);
+            this.GraphKanten.Add(kante);
             kante.Knoten[0] = start;
             kante.Knoten[1] = ende;
             start.Kanten.Add(kante);
             ende.Kanten.Add(kante);
-            this.Liste[GraphKnoten.IndexOf(start), GraphKnoten.IndexOf(ende)]++;
-            this.Liste[GraphKnoten.IndexOf(ende), GraphKnoten.IndexOf(start)]++;
+            this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)]++;
+            this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)]++;
 
             return kante;
         }
@@ -58,12 +58,12 @@ namespace Pollux.Graph
         public Graph.Kanten AddKante(string name, Knoten start, Knoten ende)
         {
             Kanten kante = new Kanten(this, new Knoten[2], name.ToUpper());
-            return this.AddKante(kante, start, ende);
+            return AddKante(kante, start, ende);
         }
 
         public Graph.Kanten AddKante(Knoten start, Knoten ende)
         {
-            return this.AddKante("KANTE" + (GraphKanten.Count + 1).ToString(), start, ende);
+            return AddKante("KANTE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
         }
         #endregion
 
@@ -100,8 +100,8 @@ namespace Pollux.Graph
         public Graph.Kanten RemoveKante(Graph.Kanten kante)
         {
             kante.Parent = null;
-            this.Liste[GraphKnoten.IndexOf(kante.Knoten[0]), GraphKnoten.IndexOf(kante.Knoten[1])]--;
-            this.Liste[GraphKnoten.IndexOf(kante.Knoten[1]), GraphKnoten.IndexOf(kante.Knoten[0])]--;
+            this.Liste[this.GraphKnoten.IndexOf(kante.Knoten[0]), this.GraphKnoten.IndexOf(kante.Knoten[1])]--;
+            this.Liste[this.GraphKnoten.IndexOf(kante.Knoten[1]), this.GraphKnoten.IndexOf(kante.Knoten[0])]--;
             kante.Knoten[0].Kanten.Remove(kante);
             kante.Knoten[1].Kanten.Remove(kante);
             this.GraphKanten.Remove(kante);

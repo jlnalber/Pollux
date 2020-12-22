@@ -21,7 +21,7 @@ namespace Pollux
         private delegate void Del(string path);
 
         //Das MainWindow, welches dann auch den Graphen darstellen soll
-        MainWindow MainWindow;
+        private MainWindow MainWindow;
 
         public GraphAuswahl(State state, MainWindow mainWindow)
         {
@@ -57,6 +57,10 @@ namespace Pollux
             this.VollständigesVieleckTemplate_Header.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Header", MainWindow.cul);
             this.VollständigesVieleckTemplate_Text.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Text", MainWindow.cul);
             this.VollständigesVieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_KnotenText", MainWindow.cul);
+            this.BipartiterGraphTemplate_Header.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Header", MainWindow.cul);
+            this.BipartiterGraphTemplate_Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Text", MainWindow.cul);
+            this.BipartiterGraphTemplate_Knoten1Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten1Text", MainWindow.cul);
+            this.BipartiterGraphTemplate_Knoten2Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten2Text", MainWindow.cul);
             #endregion
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
@@ -128,7 +132,7 @@ namespace Pollux
                 listBoxItem.Content = dock;
                 listBoxItem.Background = Brushes.White;
                 listBoxItem.MouseDoubleClick += ListBoxItem_Click;
-                LetzteDatei.Items.Add(listBoxItem);
+                this.LetzteDatei.Items.Add(listBoxItem);
             }
             #endregion
 
@@ -137,30 +141,30 @@ namespace Pollux
             if (state == State.All)
             {
                 //öffne alle TreeViewItems
-                DateiÖffnen.IsExpanded = true;
-                LetzteDateiHeader.IsExpanded = true;
-                NeueDateiErstellenHeader.IsExpanded = true;
+                this.DateiÖffnen.IsExpanded = true;
+                this.LetzteDateiHeader.IsExpanded = true;
+                this.NeueDateiErstellenHeader.IsExpanded = true;
             }
             else if (state == State.CreateNewFile)
             {
                 //öffne das TreeViewItem "NeueDateiErstellenHeader" zum Erstellen einer neuen Datei
-                NeueDateiErstellenHeader.IsExpanded = true;
+                this.NeueDateiErstellenHeader.IsExpanded = true;
             }
             else if (state == State.Open)
             {
                 //öffne das TreeViewItem "LetzteDateiHeader" zum Öffnen einer letztlich geöffneten Datei und das TreeViewItem "DateiÖffnen" zum Öffnen einer schon vorhandenen Datei
-                DateiÖffnen.IsExpanded = true;
-                LetzteDateiHeader.IsExpanded = true;
+                this.DateiÖffnen.IsExpanded = true;
+                this.LetzteDateiHeader.IsExpanded = true;
             }
             else if (state == State.OpenFile)
             {
                 //öffne das TreeViewItem "DateiÖffnen" zum Öffnen einer schon vorhandenen Datei
-                DateiÖffnen.IsExpanded = true;
+                this.DateiÖffnen.IsExpanded = true;
             }
             else if (state == State.OpenRecentFile)
             {
                 //öffne das TreeViewItem "LetzteDateiHeader" zum Öffnen einer letztlich geöffneten Datei
-                LetzteDateiHeader.IsExpanded = true;
+                this.LetzteDateiHeader.IsExpanded = true;
             }
             #endregion
         }
@@ -168,11 +172,11 @@ namespace Pollux
         private void ListBoxItem_Click(object sender, RoutedEventArgs e)
         {
             //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
-            Del handler = MainWindow.OpenFile;
-            Dispatcher.BeginInvoke(handler, paths[LetzteDatei.Items.IndexOf(LetzteDatei.SelectedItem)]);
+            Del handler = this.MainWindow.OpenFile;
+            this.Dispatcher.BeginInvoke(handler, paths[this.LetzteDatei.Items.IndexOf(this.LetzteDatei.SelectedItem)]);
 
             //schließe das Fenster
-            this.Close();
+            Close();
         }
 
         private void Durchsuchen_Click(object sender, RoutedEventArgs e)
@@ -182,10 +186,10 @@ namespace Pollux
             {
                 SaveFileDialog saveFileDialog = new();
                 saveFileDialog.Filter = "poll files(*.poll) | *.poll";
-                saveFileDialog.FileName = (Name.Text == "") ? "graph.poll" : Name.Text + ".poll";
+                saveFileDialog.FileName = (this.Name.Text == "") ? "graph.poll" : this.Name.Text + ".poll";
                 if (saveFileDialog.ShowDialog() == true)
                 {
-                    Speicherort.Text = saveFileDialog.FileName;
+                    this.Speicherort.Text = saveFileDialog.FileName;
                 }
             }
             catch (Exception f)
@@ -197,10 +201,10 @@ namespace Pollux
         private void Erstellen_Click(object sender, RoutedEventArgs e)
         {
             //erstelle eine neue Datei und öffne diese, wenn das nicht möglich ist, dann mache einen Fehlersound und mache das Textfeld rot
-            string path = Speicherort.Text;
+            string path = this.Speicherort.Text;
             try
             {
-                string name = Name.Text == "" ? "GRAPH" : Name.Text.ToUpper();
+                string name = this.Name.Text == "" ? "GRAPH" : this.Name.Text.ToUpper();
                 if (this.TemplateListBox.SelectedItem == this.NothingTemplate)
                 {
                     //schreibe eine "leere" Datei
@@ -241,10 +245,21 @@ namespace Pollux
                     streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
                     streamWriter1.Close();
                 }
+                else if (this.TemplateListBox.SelectedItem == this.BipartiterGraphTemplate)
+                {
+                    //Erstelle den Graphen
+                    Graph.Graph graph = Graph.Graph.GraphTemplates.VollständigerBipartiterGraph(int.Parse(this.BipartiterGraphTemplate_Knoten1.Text), int.Parse(this.BipartiterGraphTemplate_Knoten2.Text));
+                    graph.Name = name;
+
+                    //schreibe eine neue Datei für den Graphen
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.Close();
+                }
 
                 //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
-                Del handler = MainWindow.OpenFile;
-                Dispatcher.BeginInvoke(handler, path);
+                Del handler = this.MainWindow.OpenFile;
+                this.Dispatcher.BeginInvoke(handler, path);
 
                 //Füge die gerade erstellte Datei zu der recentFiles-Datei und zu "paths" hinzu
                 StreamWriter streamWriter2 = new StreamWriter(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
@@ -253,13 +268,13 @@ namespace Pollux
                 paths.Add(path);
 
                 //schließe das Fenster
-                this.Close();
+                Close();
             }
             catch
             {
                 //dann mache einen Fehlersound und mache das Textfeld rot
                 SystemSounds.Asterisk.Play();
-                Speicherort.BorderBrush = Brushes.Red;
+                this.Speicherort.BorderBrush = Brushes.Red;
             }
         }
 
@@ -279,7 +294,7 @@ namespace Pollux
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
                 }
-                DateiSpeicherort.Text = filePath;
+                this.DateiSpeicherort.Text = filePath;
             }
             catch
             {
@@ -288,12 +303,12 @@ namespace Pollux
 
         private void Öffnen_Click(object sender, RoutedEventArgs e)
         {
-            string path = DateiSpeicherort.Text;
+            string path = this.DateiSpeicherort.Text;
             try
             {
                 //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
-                Del handler = MainWindow.OpenFile;
-                Dispatcher.BeginInvoke(handler, path);
+                Del handler = this.MainWindow.OpenFile;
+                this.Dispatcher.BeginInvoke(handler, path);
 
                 //Füge die Datei zu der recentFiles-Datei und zu "paths" hinzu, wenn sie noch nicht da ist
                 if (!paths.Contains(path))
@@ -305,13 +320,13 @@ namespace Pollux
                 }
 
                 //schließe Fenster
-                this.Close();
+                Close();
             }
             catch
             {
                 //dann mache einen Fehlersound und mache das Textfeld rot
                 SystemSounds.Asterisk.Play();
-                DateiSpeicherort.BorderBrush = Brushes.Red;
+                this.DateiSpeicherort.BorderBrush = Brushes.Red;
             }
         }
 

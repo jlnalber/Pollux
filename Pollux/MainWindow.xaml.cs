@@ -3,13 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Media;
 using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -246,10 +242,10 @@ namespace Pollux
         ~MainWindow()
         {
             //abspeicheren, welche Dateien alle geöffnet sind
-            this.SaveOpenedFiles();
+            SaveOpenedFiles();
 
             //speichere die Dateien noch schnell ab
-            this.SaveAll();
+            SaveAll();
 
             if (main == this)
             {

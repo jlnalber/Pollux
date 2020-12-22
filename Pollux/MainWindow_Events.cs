@@ -7,29 +7,29 @@ using System.Windows.Input;
 
 namespace Pollux
 {
-    partial class MainWindow
+    public partial class MainWindow
     {
         //die Methoden für die verschiedenen Events
         public void CloseTab(object sender, RoutedEventArgs e)
         {
             //Speichere alles ab
-            this.SaveAll();
+            SaveAll();
 
             //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab, 
             TabItem tabItem = new TabItem();
             switch (sender)
             {
-                case System.Windows.Controls.Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: TabControl.Items.Remove(tab); break; } break; }; break;
-                default: TabControl.Items.Remove(TabControl.SelectedItem); break;
+                case System.Windows.Controls.Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: this.TabControl.Items.Remove(tab); break; } break; }; break;
+                default: this.TabControl.Items.Remove(this.TabControl.SelectedItem); break;
             }
 
             //Gucke, ob in dem Element "OpenedFiles" sich ein nicht geöffneter Tab befindet, wenn ja, dann entferne es aus "OpenedFiles"
             #region
             List<TabItem> save = new List<TabItem>(); //Hier werden die Tabs gespeichert, die später aus "OpenedFiles" entfernt werden muss; würde man diese direkt entfernen, so gibt es ein Error...
-            Dictionary<TabItem, string>.KeyCollection tabs = OpenedFiles.Keys;
+            Dictionary<TabItem, string>.KeyCollection tabs = this.OpenedFiles.Keys;
             foreach (TabItem i in tabs)
             {
-                if (!TabControl.Items.Contains(i))
+                if (!this.TabControl.Items.Contains(i))
                 {
                     save.Add(i);
                 }
@@ -38,15 +38,15 @@ namespace Pollux
             //Lösche jetzt sie Tabs aus "OpenedFiles"
             foreach (TabItem i in save)
             {
-                OpenedFiles.Remove(i);
+                this.OpenedFiles.Remove(i);
             }
             #endregion
 
             //Speichere die noch offenen Tabs ab
-            this.SaveOpenedFiles();
+            SaveOpenedFiles();
 
             //Falls keine Tabs mehr übrig sind, dann schließe komplette App;
-            if (TabControl.Items.Count == 0)
+            if (this.TabControl.Items.Count == 0)
             {
                 System.Windows.Application.Current.Shutdown();
             }
@@ -59,7 +59,7 @@ namespace Pollux
                 //Speichere die aktuell geöffnete Datei
                 TabItem tabItem = new TabItem();
 
-                switch (TabControl.SelectedItem)
+                switch (this.TabControl.SelectedItem)
                 {
                     case TabItem item: tabItem = item; break;
                 }
@@ -72,7 +72,7 @@ namespace Pollux
         private void AlleSpeichern_Click(object sender, RoutedEventArgs e)
         {
             //Speicher alle Tabs
-            this.SaveAll();
+            SaveAll();
         }
 
         private void Neu_Click(object sender, RoutedEventArgs e)
@@ -120,7 +120,7 @@ namespace Pollux
 
         private void Graph_HasToBeRedrawn(object sender, RoutedEventArgs e)
         {
-            this.DrawGraph();
+            DrawGraph();
         }
 
         private void HilfeDatei_Click(object sender, RoutedEventArgs e)
@@ -164,7 +164,7 @@ namespace Pollux
             else
             {
                 //Öffne ein neues "KantenHinzufügen"-Fenster
-                KnotenHinzufügen window = new(this.GetOpenGraph(), this);
+                KnotenHinzufügen window = new(GetOpenGraph(), this);
                 window.Show();
             }
         }
@@ -179,7 +179,7 @@ namespace Pollux
             else
             {
                 //Öffne ein neues "KantenHinzufügen"-Fenster
-                KanteHinzufügen window = new(this.GetOpenGraph(), this);
+                KanteHinzufügen window = new(GetOpenGraph(), this);
                 window.Show();
             }
         }
@@ -194,7 +194,7 @@ namespace Pollux
         private void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
         {
             //Öffne das Eigenschaften-Fenster durch die CommanConsole des geöffneten Tabs
-            this.GetOpenConsole().Command("SHOW");
+            GetOpenConsole().Command("SHOW");
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -205,8 +205,8 @@ namespace Pollux
                 {
                     if (e.Key == Key.S)
                     {
-                        this.SaveAll();
-                        this.SaveOpenedFiles();
+                        SaveAll();
+                        SaveOpenedFiles();
                     }
                     else if (e.Key == Key.E)
                     {
@@ -242,8 +242,8 @@ namespace Pollux
                     }
                     else if (e.Key == Key.S)
                     {
-                        this.SaveOpenFile();
-                        this.SaveOpenedFiles();
+                        SaveOpenFile();
+                        SaveOpenedFiles();
                     }
                 }
             }

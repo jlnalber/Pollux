@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace Pollux
 {
-    partial class MainWindow
+    public partial class MainWindow
     {
         //statiche Members
         #region

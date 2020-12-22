@@ -106,6 +106,42 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vollständiger bipartiter Graph ähnelt.
+        /// </summary>
+        public static string BipartiterGraphTemplate_Header {
+            get {
+                return ResourceManager.GetString("BipartiterGraphTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Knoten in erster Menge: ähnelt.
+        /// </summary>
+        public static string BipartiterGraphTemplate_Knoten1Text {
+            get {
+                return ResourceManager.GetString("BipartiterGraphTemplate_Knoten1Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Knoten in zweiter Menge: ähnelt.
+        /// </summary>
+        public static string BipartiterGraphTemplate_Knoten2Text {
+            get {
+                return ResourceManager.GetString("BipartiterGraphTemplate_Knoten2Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein vollständiger bipartiter m-n-Graph. ähnelt.
+        /// </summary>
+        public static string BipartiterGraphTemplate_Text {
+            get {
+                return ResourceManager.GetString("BipartiterGraphTemplate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Kreis ähnelt.
         /// </summary>
         public static string CircleTemplate_Header {

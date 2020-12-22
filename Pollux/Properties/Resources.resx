@@ -132,6 +132,18 @@
   <data name="Bestätigen" xml:space="preserve">
     <value>Bestätigen</value>
   </data>
+  <data name="BipartiterGraphTemplate_Header" xml:space="preserve">
+    <value>Vollständiger bipartiter Graph</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Knoten1Text" xml:space="preserve">
+    <value>Anzahl an Knoten in erster Menge:</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Knoten2Text" xml:space="preserve">
+    <value>Anzahl an Knoten in zweiter Menge:</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Text" xml:space="preserve">
+    <value>Ein vollständiger bipartiter m-n-Graph.</value>
+  </data>
   <data name="CircleTemplate_Header" xml:space="preserve">
     <value>Kreis</value>
   </data>

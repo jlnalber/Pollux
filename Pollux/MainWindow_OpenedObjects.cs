@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace Pollux
 {
-    partial class MainWindow
+    public partial class MainWindow
     {
         //Methoden um die geöffneten Graphen/Tabs etc. herauszufinden
         #region
@@ -12,7 +12,7 @@ namespace Pollux
         {
             //finde den geöffneten Tab heraus
             TabItem tab = new TabItem();
-            switch (TabControl.SelectedItem)
+            switch (this.TabControl.SelectedItem)
             {
                 case TabItem tabItem: tab = tabItem; break;
             }
@@ -39,7 +39,7 @@ namespace Pollux
         public Canvas GetOpenCanvas()
         {
             //Suche den geöffneten Graphen
-            return this.Canvases[this.GetOpenTab()];
+            return this.Canvases[GetOpenTab()];
         }
 
         public CommandConsole GetOpenConsole()
@@ -93,7 +93,7 @@ namespace Pollux
         public void SaveAll()
         {
             //Speicher alle Tabs
-            foreach (CommandConsole commandConsole in Consoles.Values)
+            foreach (CommandConsole commandConsole in this.Consoles.Values)
             {
                 commandConsole.Save();
             }
@@ -102,7 +102,7 @@ namespace Pollux
         public void SaveOpenFile()
         {
             //Speichere nur den geöffneten Tab ab
-            this.GetOpenConsole().Save();
+            GetOpenConsole().Save();
         }
         #endregion
     }

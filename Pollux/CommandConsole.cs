@@ -57,9 +57,9 @@ namespace Pollux
             if (command_splitted[0] == "SHOW")
             {
                 //falls der Graph leer ist, schreibe das aus, ansonsten öffne Eigenschaften-Fenster "Show"
-                if (usingGraph.GraphKnoten.Count == 0)
+                if (this.usingGraph.GraphKnoten.Count == 0)
                 {
-                    WriteLine("Graph \"" + usingGraph.Name + "\" is empty!");
+                    WriteLine("Graph \"" + this.usingGraph.Name + "\" is empty!");
                 }
                 else
                 {
@@ -92,8 +92,8 @@ namespace Pollux
                     WriteLine("Adding node \"" + command_splitted[1] + "\"...");
 
                     //Füge den Knoten hinzu
-                    Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(usingGraph, new List<Graph.Graph.Kanten>(), command_splitted[1]);
-                    usingGraph.AddKnoten(knoten);
+                    Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), command_splitted[1]);
+                    this.usingGraph.AddKnoten(knoten);
 
                     //Ausgabe
                     WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
@@ -114,7 +114,7 @@ namespace Pollux
                     if (this.usingGraph.GraphKnoten.Contains(start) && this.usingGraph.GraphKnoten.Contains(ende))
                     {
                         //Falls die Knoten tatsächlich existieren, füge die erstellte Kante hinzu
-                        usingGraph.AddKante(kante, start, ende);
+                        this.usingGraph.AddKante(kante, start, ende);
 
                         //Ausgabe
                         WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");

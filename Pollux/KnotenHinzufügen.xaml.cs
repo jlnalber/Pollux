@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -54,13 +44,13 @@ namespace Pollux
             try
             {
                 //Führe den Command aus
-                MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text);
+                this.MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text);
 
                 //Male den Graphen neu
                 this.MainWindow.DrawGraph();
 
                 //Schließe dieses Fenster wieder
-                this.Close();
+                Close();
             }
             catch (Pollux.Graph.Graph.GraphExceptions.NameAlreadyExistsException)
             {
@@ -74,7 +64,7 @@ namespace Pollux
             //Falls Enter gedrückt wird, löse das "Bestätigen_Click"-Event aus
             if (e.Key == Key.Enter)
             {
-                this.Bestätigen_Click(sender, e);
+                Bestätigen_Click(sender, e);
             }
         }
     }

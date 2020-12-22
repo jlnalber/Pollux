@@ -132,11 +132,23 @@
   <data name="Bestätigen" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="BipartiterGraphTemplate_Header" xml:space="preserve">
+    <value>Complete bipartite graph</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Knoten1Text" xml:space="preserve">
+    <value>Number of nodes of first amount:</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Knoten2Text" xml:space="preserve">
+    <value>Number of nodes of second amount:</value>
+  </data>
+  <data name="BipartiterGraphTemplate_Text" xml:space="preserve">
+    <value>A complete bipartite m-n-graph.</value>
+  </data>
   <data name="CircleTemplate_Header" xml:space="preserve">
     <value>Circle</value>
   </data>
   <data name="CircleTemplate_KnotenText" xml:space="preserve">
-    <value>Amount of nodes:</value>
+    <value>Number of nodes:</value>
   </data>
   <data name="CircleTemplate_Text" xml:space="preserve">
     <value>A circle with n-nodes.</value>
@@ -298,7 +310,7 @@
     <value>Polygon</value>
   </data>
   <data name="VieleckTemplate_KnotenText" xml:space="preserve">
-    <value>Amount of nodes:</value>
+    <value>Number of nodes:</value>
   </data>
   <data name="VieleckTemplate_Text" xml:space="preserve">
     <value>A polygon with n-nodes.</value>
@@ -307,7 +319,7 @@
     <value>Complete polygon</value>
   </data>
   <data name="VollständigesVieleckTemplate_KnotenText" xml:space="preserve">
-    <value>Amount of nodes:</value>
+    <value>Number of nodes:</value>
   </data>
   <data name="VollständigesVieleckTemplate_Text" xml:space="preserve">
     <value>A complete polygon with n-nodes.</value>

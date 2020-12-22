@@ -32,7 +32,7 @@ namespace Pollux.Graph
             }
 
             // Methode, die einen bipartiten n-n-Graph erstellt
-            public static Graph BipartiterGraph(int eckenErsteMenge, int eckenZweiteMenge)
+            public static Graph VollständigerBipartiterGraph(int eckenErsteMenge, int eckenZweiteMenge)
             {
                 //erstelle einen neuen Graphen
                 Graph graph = new Graph();
@@ -41,24 +41,22 @@ namespace Pollux.Graph
                 List<Graph.Knoten> knoten1 = new List<Knoten>();
                 for (int i = 0; i < eckenErsteMenge; i++)
                 {
-                    graph.AddKnoten();
-                    knoten1.Add(graph.GraphKnoten[i]);
+                    knoten1.Add(graph.AddKnoten());
                 }
 
                 //erstelle "eckenZweiteMenge"-viele Knoten
                 List<Graph.Knoten> knoten2 = new List<Knoten>();
                 for (int i = 0; i < eckenZweiteMenge; i++)
                 {
-                    graph.AddKnoten();
-                    knoten1.Add(graph.GraphKnoten[i + eckenErsteMenge]);
+                    knoten2.Add(graph.AddKnoten());
                 }
 
                 //mache eine Kante zwischen jedem Knoten der Menge "knoten1" und "knoten2"
-                for (int i = 0; i < eckenErsteMenge; i++)
+                foreach (Graph.Knoten i in knoten1)
                 {
-                    for (int f = 0; f < eckenZweiteMenge; f++)
+                    foreach (Graph.Knoten f in knoten2)
                     {
-                        graph.AddKante(knoten1[i], knoten2[f]);
+                        graph.AddKante(i, f);
                     }
                 }
 

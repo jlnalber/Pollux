@@ -53,7 +53,7 @@ namespace Pollux
             list.Add(new Elements("Schlingen", graph.Schlingen.ToString()));
             list.Add(new Elements("Anzahl an Knoten", graph.AnzahlKnoten.ToString()));
             list.Add(new Elements("Anzahl an Kanten", graph.AnzahlKanten.ToString()));
-            DataGrid.ItemsSource = list;
+            this.DataGrid.ItemsSource = list;
             #endregion
 
             //KnotenPicker
@@ -85,8 +85,8 @@ namespace Pollux
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = MainWindow.resman.GetString("KeineKanten", MainWindow.cul);
                 textBlock.Margin = thickness;
-                GridKanten.Children.Clear();
-                GridKanten.Children.Add(textBlock);
+                this.GridKanten.Children.Clear();
+                this.GridKanten.Children.Add(textBlock);
             }
             else
             {
@@ -109,12 +109,12 @@ namespace Pollux
             for (int i = 0; i <= graph.Liste.GetLength(0); i++)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition();
-                Table.ColumnDefinitions.Add(columnDefinition);
+                this.Table.ColumnDefinitions.Add(columnDefinition);
             }
             for (int i = 0; i <= graph.Liste.GetLength(1); i++)
             {
                 RowDefinition rowDefinition = new RowDefinition();
-                Table.RowDefinitions.Add(rowDefinition);
+                this.Table.RowDefinitions.Add(rowDefinition);
             }
 
             //stelle die Namen der Knoten im "Table" dar
@@ -140,8 +140,8 @@ namespace Pollux
                 Grid.SetRow(textBlock2, graph.GraphKnoten.IndexOf(i) + 1);
                 Grid.SetColumn(textBlock2, 0);
 
-                Table.Children.Add(textBlock1);
-                Table.Children.Add(textBlock2);
+                this.Table.Children.Add(textBlock1);
+                this.Table.Children.Add(textBlock2);
             }
 
             //stelle die Liste im "Table" dar, sie gibt an wieviele Kanten die Knoten jeweils verbinden
@@ -159,7 +159,7 @@ namespace Pollux
                     textBlock.Padding = thickness;
                     Grid.SetColumn(textBlock, f + 1);
                     Grid.SetRow(textBlock, i + 1);
-                    Table.Children.Add(textBlock);
+                    this.Table.Children.Add(textBlock);
                 }
             }
             #endregion
@@ -169,7 +169,7 @@ namespace Pollux
         private void KnotenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
             //erstelle Knoten, welcher der ausgewählte Knoten ist
-            Graph.Graph.Knoten knoten = this.graph.GraphKnoten[KnotenPicker.SelectedIndex];
+            Graph.Graph.Knoten knoten = this.graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
 
             //lege die Eigenschaften fest
             this.KnotenName.Text = knoten.Name;
@@ -200,7 +200,7 @@ namespace Pollux
                 {
                     ListBoxItem listBoxItem = new ListBoxItem();
                     listBoxItem.Content = i.Name;
-                    KnotenKanten.Items.Add(listBoxItem);
+                    this.KnotenKanten.Items.Add(listBoxItem);
                 }
             }
         }
@@ -209,7 +209,7 @@ namespace Pollux
         private void KantenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
             //erstelle Kante, welcher die ausgewählte Kante ist
-            Graph.Graph.Kanten kante = this.graph.GraphKanten[KantenPicker.SelectedIndex];
+            Graph.Graph.Kanten kante = this.graph.GraphKanten[this.KantenPicker.SelectedIndex];
 
             //lege die Eigenschaften fest
             this.KantenName.Text = kante.Name;

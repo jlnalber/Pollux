@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -78,26 +69,26 @@ namespace Pollux
             {
                 //Gucke nach dem ausgewählten ersten Knoten
                 ComboBoxItem Knoten1 = new();
-                switch (KnotenPicker1.SelectedItem)
+                switch (this.KnotenPicker1.SelectedItem)
                 {
                     case ComboBoxItem item: Knoten1 = item; break;
                 }
 
                 //Gucke nach dem ausgewählten zweiten Knoten
                 ComboBoxItem Knoten2 = new();
-                switch (KnotenPicker2.SelectedItem)
+                switch (this.KnotenPicker2.SelectedItem)
                 {
                     case ComboBoxItem item: Knoten2 = item; break;
                 }
 
                 //Führe den Command aus
-                MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text + " BETWEEN " + Knoten1.Content.ToString() + " AND " + Knoten2.Content.ToString());
+                this.MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text + " BETWEEN " + Knoten1.Content.ToString() + " AND " + Knoten2.Content.ToString());
 
                 //Male den Graphen neu
                 this.MainWindow.DrawGraph();
 
                 //Schließe dieses Fenster wieder
-                this.Close();
+                Close();
             }
             catch (Pollux.Graph.Graph.GraphExceptions.NameAlreadyExistsException)
             {
@@ -111,7 +102,7 @@ namespace Pollux
             //Falls Enter gedrückt wird, löse das "Bestätigen_Click"-Event aus
             if (e.Key == Key.Enter)
             {
-                this.Bestätigen_Click(sender, e);
+                Bestätigen_Click(sender, e);
             }
         }
     }
