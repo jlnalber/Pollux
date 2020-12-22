@@ -111,9 +111,10 @@ namespace Pollux
                     this.Inputs[tab].Text = "";
                 }
             }
-            catch
+            catch (Exception f)
             {
                 //spiele Error-Sound
+                MessageBox.Show(f.Message);
                 SystemSounds.Asterisk.Play();
             }
         }
@@ -207,6 +208,14 @@ namespace Pollux
                     {
                         this.SaveAll();
                         this.SaveOpenedFiles();
+                    }
+                    else if (e.Key == Key.E)
+                    {
+                        KanteHinzufügen_Click(sender, new());
+                    }
+                    else if (e.Key == Key.N)
+                    {
+                        KnotenHinzufügen_Click(sender, new());
                     }
                 }
                 else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)

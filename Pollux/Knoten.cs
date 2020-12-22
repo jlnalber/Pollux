@@ -18,7 +18,7 @@ namespace Pollux.Graph
             public Knoten(Graph graph, List<Kanten> kanten, string name)
             {
                 //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
-                if (graph.ConatinsKnoten(name))
+                if (graph.ContainsKnoten(name))
                 {
                     throw new GraphExceptions.NameAlreadyExistsException();
                 }

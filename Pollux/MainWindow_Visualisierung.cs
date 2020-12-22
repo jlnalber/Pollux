@@ -214,76 +214,127 @@ namespace Pollux
             List<GraphDarstellung.KantenDarstellung> kantenDarstellung = graphDarstellung.visuelleKanten;
             List<GraphDarstellung.KnotenDarstellung> knotenDarstellung = graphDarstellung.visuelleKnoten;
 
-            //erstelle die neuen "KnotenDarstellung"
-            //porvisorische Liste, damit die Knoten nach der Errstellung der Kanten im Canvas "graphCanvas" eingefügt werden können
-            List<GraphDarstellung.KnotenDarstellung> liste = new();
-            for (int i = knotenDarstellung.Count; i < graph.GraphKnoten.Count; i++)
+            //entferne die alten "KnotenDarstellung"
+            List<GraphDarstellung.KnotenDarstellung> entfernteKnoten = new();
+            foreach (GraphDarstellung.KnotenDarstellung i in knotenDarstellung)
             {
-                //Erstelle einen Label und einen KnotenDarstellung
-                Label label = new();
-                GraphDarstellung.KnotenDarstellung knoten = new(graph.GraphKnoten[i], new Ellipse(), label, graphCanvas);
+                if (!graph.ContainsKnoten(i.Knoten))
+                {
+                    entfernteKnoten.Add(i);
+                }
+            }
+            foreach (GraphDarstellung.KnotenDarstellung i in entfernteKnoten)
+            {
+                knotenDarstellung.Remove(i);
+                graphCanvas.Children.Remove(i.Ellipse);
+                graphCanvas.Children.Remove(i.Label);
+            }
 
-                //Füge die KnotenDarstellung "knoten" zu Listen hinzu
-                liste.Add(knoten);
-                knotenDarstellung.Add(knoten);
+            //erstelle die neuen "KnotenDarstellung"
 
-                //Mache Feinheiten an der Ellipse
-                knoten.Ellipse.Fill = new SolidColorBrush(Color.FromRgb(Pollux.Properties.Settings.Default.KnotenFarbe.R, Pollux.Properties.Settings.Default.KnotenFarbe.G, Pollux.Properties.Settings.Default.KnotenFarbe.B));
-                knoten.Ellipse.Stroke = Brushes.Black;
-                knoten.Ellipse.StrokeThickness = 2;
-                knoten.Ellipse.Width = 30;
-                knoten.Ellipse.Height = 30;
-                knotenDarstellung[i].Ellipse.Margin = new((i % 15) * 100 + 10, Convert.ToInt32(i / 15) * 100 + 10, 10, 10);
+            //porvisorische Liste, damit die Knoten nach der Errstellung der Kanten im Canvas "graphCanvas" eingefügt werden können
+            List<GraphDarstellung.KnotenDarstellung> neueKnoten = new();
+            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+            {
+                //Finde heraus, ob zu diesem Knoten "i" schon eine visuelle Darstellung existiert
+                bool exists = false;
+                foreach (GraphDarstellung.KnotenDarstellung n in knotenDarstellung)
+                {
+                    if (n.Knoten == i)
+                    {
+                        exists = true;
+                    }
+                }
 
-                //Mache Feinheiten an dem Label
-                label.Content = graph.GraphKnoten[i].Name;
-                label.HorizontalAlignment = HorizontalAlignment.Left;
-                label.VerticalAlignment = VerticalAlignment.Top;
-                label.Margin = new(knoten.Ellipse.Margin.Left + GraphDarstellung.KnotenDarstellung.LabelToRight, knoten.Ellipse.Margin.Top - GraphDarstellung.KnotenDarstellung.LabelToTop, 10, 10);
+                if (!exists)
+                {
+                    //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
+                    int index = graph.GraphKnoten.IndexOf(i);
+
+                    //Erstelle einen Label und einen KnotenDarstellung
+                    Label label = new();
+                    GraphDarstellung.KnotenDarstellung knoten = new(i, new Ellipse(), label, graphCanvas);
+
+                    //Füge die KnotenDarstellung "knoten" zu Listen hinzu
+                    neueKnoten.Add(knoten);
+                    knotenDarstellung.Add(knoten);
+
+                    //Mache Feinheiten an der Ellipse
+                    knoten.Ellipse.Fill = new SolidColorBrush(Color.FromRgb(Pollux.Properties.Settings.Default.KnotenFarbe.R, Pollux.Properties.Settings.Default.KnotenFarbe.G, Pollux.Properties.Settings.Default.KnotenFarbe.B));
+                    knoten.Ellipse.Stroke = Brushes.Black;
+                    knoten.Ellipse.StrokeThickness = 2;
+                    knoten.Ellipse.Width = 30;
+                    knoten.Ellipse.Height = 30;
+                    knoten.Ellipse.Margin = new((index % 15) * 100 + 10, Convert.ToInt32(index / 15) * 100 + 10, 10, 10);
+
+                    //Mache Feinheiten an dem Label
+                    label.Content = i.Name;
+                    label.HorizontalAlignment = HorizontalAlignment.Left;
+                    label.VerticalAlignment = VerticalAlignment.Top;
+                    label.Margin = new(knoten.Ellipse.Margin.Left + GraphDarstellung.KnotenDarstellung.LabelToRight, knoten.Ellipse.Margin.Top - GraphDarstellung.KnotenDarstellung.LabelToTop, 10, 10);
+                }
             }
 
             //richte die Position der neuen Kanten neu aus
+            List<GraphDarstellung.KantenDarstellung> entfernteKanten = new();
             foreach (GraphDarstellung.KantenDarstellung i in kantenDarstellung)
             {
-                //Gucke, ob das Element "i.Line" eine Line ist oder eine Ellipse, also eine ganz normale Kante darstellt oder eine Schlinge
-                Line line = new Line() { Fill = Brushes.Transparent };
-                Ellipse ellipse = new Ellipse() { Fill = Brushes.Transparent };
-                switch (i.Line)
+                if (graph.ContainsKanten(i.Kante))
                 {
-                    case Ellipse ellipse1: ellipse = ellipse1; break;
-                    case Line line1: line = line1; break;
-                }
+                    //Gucke, ob das Element "i.Line" eine Line ist oder eine Ellipse, also eine ganz normale Kante darstellt oder eine Schlinge
+                    Line line = new Line() { Fill = Brushes.Transparent };
+                    Ellipse ellipse = new Ellipse() { Fill = Brushes.Transparent };
+                    switch (i.Line)
+                    {
+                        case Ellipse ellipse1: ellipse = ellipse1; break;
+                        case Line line1: line = line1; break;
+                    }
 
-                //Rechne die Position nach und justiere sie
-                if (line.Fill == Brushes.Transparent)
-                {
-                    //Für den Fall, dass es eine Schlinge ist
-                    //Finde das Margin des Knotens zur Schlinge heraus
-                    Thickness knoten = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Margin;
+                    //Rechne die Position nach und justiere sie
+                    if (line.Fill == Brushes.Transparent)
+                    {
+                        //Für den Fall, dass es eine Schlinge ist
+                        //Finde das Margin des Knotens zur Schlinge heraus
+                        Thickness knoten = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Margin;
 
-                    //lege die Position fest
-                    ellipse.Margin = new Thickness(knoten.Left - ellipse.Width / 2 - 10, knoten.Top - 5, 10, 10);
+                        //lege die Position fest
+                        ellipse.Margin = new Thickness(knoten.Left - ellipse.Width / 2 - 10, knoten.Top - 5, 10, 10);
+
+                        graphCanvas.Children.Add(ellipse);
+                    }
+                    else
+                    {
+                        //Für den Fall, dass es eine ganz normale Kante ist
+                        //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
+                        Thickness marginKnoten0 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Margin;
+                        Thickness marginKnoten1 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[1])].Ellipse.Margin;
+                        double height = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Height;
+
+                        //finde dadurch die Position heraus, wo die Kante starten und enden muss
+                        double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
+                        x = (x > 30) ? 30 : (x < -30) ? -30 : x;
+                        double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
+                        y = (y > 30) ? 30 : (y < -30) ? -30 : y;
+
+                        //schreibe diese Eigenschaften in die Linie
+                        line.X1 = marginKnoten0.Left + height / 2 + x;
+                        line.Y1 = marginKnoten0.Top + height / 2 + y;
+                        line.X2 = marginKnoten1.Left + height / 2 - x;
+                        line.Y2 = marginKnoten1.Top + height / 2 - y;
+                    }
                 }
                 else
                 {
-                    //Für den Fall, dass es eine ganz normale Kante ist
-                    //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Margin;
-                    Thickness marginKnoten1 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[1])].Ellipse.Margin;
-                    double height = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Kante.Knoten[0])].Ellipse.Height;
-
-                    //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                    double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
-                    x = (x > 30) ? 30 : (x < -30) ? -30 : x;
-                    double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
-                    y = (y > 30) ? 30 : (y < -30) ? -30 : y;
-
-                    //schreibe diese Eigenschaften in die Linie
-                    line.X1 = marginKnoten0.Left + height / 2 + x;
-                    line.Y1 = marginKnoten0.Top + height / 2 + y;
-                    line.X2 = marginKnoten1.Left + height / 2 - x;
-                    line.Y2 = marginKnoten1.Top + height / 2 - y;
+                    //Falls einer die Kante gar nicht mehr zum Graphen hinzu gehört, entferne sie, indem sie zu der Liste "entfernteKanten" hinzugefügt wird
+                    entfernteKanten.Add(i);
                 }
+            }
+
+            foreach (GraphDarstellung.KantenDarstellung i in entfernteKanten)
+            {
+                //Falls einer die Kante gar nicht mehr zum Graphen hinzu gehört, entferne sie aus dem Canvas "graphCanvas" und aus dem GraphDarstellung
+                graphCanvas.Children.Remove(i.Line);
+                kantenDarstellung.Remove(i);
             }
 
             //erstelle die neuen Kanten
@@ -362,7 +413,7 @@ namespace Pollux
             }
 
             //stelle Knoten im Canvas "graphCanvas" dar; Kanten müssen nicht dargestellt werden, da eben schon passiert
-            foreach (GraphDarstellung.KnotenDarstellung i in liste)
+            foreach (GraphDarstellung.KnotenDarstellung i in neueKnoten)
             {
                 graphCanvas.Children.Add(i.Ellipse);
                 graphCanvas.Children.Add(i.Label);

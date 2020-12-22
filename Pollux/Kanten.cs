@@ -12,7 +12,7 @@
             public Kanten(Graph graph, Knoten[] knoten, string name)
             {
                 //falls schon eine Kante mit dem gelichen Namen existiert, werfe eine Exception
-                if (graph.ConatinsKanten(name))
+                if (graph.ContainsKanten(name))
                 {
                     throw new GraphExceptions.NameAlreadyExistsException();
                 }

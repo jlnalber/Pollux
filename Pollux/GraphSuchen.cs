@@ -42,7 +42,7 @@ namespace Pollux.Graph
             return kante;
         }
 
-        public bool ConatinsKnoten(string name)
+        public bool ContainsKnoten(string name)
         {
             //durchsuche die Liste "GraphKnoten", ob schon ein Knoten mit diesem Namen existiert
             foreach (Graph.Knoten i in this.GraphKnoten)
@@ -56,7 +56,12 @@ namespace Pollux.Graph
             return false;
         }
 
-        public bool ConatinsKanten(string name)
+        public bool ContainsKnoten(Graph.Knoten knoten)
+        {
+            return this.GraphKnoten.Contains(knoten);
+        }
+
+        public bool ContainsKanten(string name)
         {
             //durchsuche die Liste "GraphKanten", ob schon eine Kante mit diesem Namen existiert
             foreach (Graph.Kanten i in this.GraphKanten)
@@ -68,6 +73,11 @@ namespace Pollux.Graph
             }
 
             return false;
+        }
+
+        public bool ContainsKanten(Graph.Kanten kante)
+        {
+            return this.GraphKanten.Contains(kante);
         }
     }
 }

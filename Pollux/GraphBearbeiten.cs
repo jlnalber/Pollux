@@ -104,7 +104,6 @@ namespace Pollux.Graph
             this.Liste[GraphKnoten.IndexOf(kante.Knoten[1]), GraphKnoten.IndexOf(kante.Knoten[0])]--;
             kante.Knoten[0].Kanten.Remove(kante);
             kante.Knoten[1].Kanten.Remove(kante);
-            kante.Knoten = null;
             this.GraphKanten.Remove(kante);
 
             return kante;
