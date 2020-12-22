@@ -37,14 +37,23 @@ namespace Pollux
             #region
             //lege den Titel und weiteren Text je nach Kultur fest
             this.Title = MainWindow.resman.GetString("GraphAuswahlHeader", MainWindow.cul);
-            LetzteDateiHeader.Header = MainWindow.resman.GetString("LetzteDateien", MainWindow.cul);
-            NeueDateiErstellenHeader.Header = MainWindow.resman.GetString("ErstelleNeueDatei", MainWindow.cul);
-            NeueDateiName.Text = MainWindow.resman.GetString("NeueDateiName", MainWindow.cul);
-            NeueDateiSpeicherort.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
-            Erstellen.Content = MainWindow.resman.GetString("Erstelle", MainWindow.cul);
-            DateiÖffnen.Header = MainWindow.resman.GetString("DateiÖffnen", MainWindow.cul);
-            DateiSpeicherortText.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
-            Öffnen.Content = MainWindow.resman.GetString("Öffnen", MainWindow.cul);
+            this.LetzteDateiHeader.Header = MainWindow.resman.GetString("LetzteDateien", MainWindow.cul);
+            this.NeueDateiErstellenHeader.Header = MainWindow.resman.GetString("ErstelleNeueDatei", MainWindow.cul);
+            this.NeueDateiName.Text = MainWindow.resman.GetString("NeueDateiName", MainWindow.cul);
+            this.NeueDateiSpeicherort.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
+            this.Erstellen.Content = MainWindow.resman.GetString("Erstelle", MainWindow.cul);
+            this.DateiÖffnen.Header = MainWindow.resman.GetString("DateiÖffnen", MainWindow.cul);
+            this.DateiSpeicherortText.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
+            this.Öffnen.Content = MainWindow.resman.GetString("Öffnen", MainWindow.cul);
+            this.Template.Text = MainWindow.resman.GetString("Template", MainWindow.cul);
+            this.NothingTemplate_Header.Text = MainWindow.resman.GetString("NothingTemplate_Header", MainWindow.cul);
+            this.NothingTemplate_Text.Text = MainWindow.resman.GetString("NothingTemplate_Text", MainWindow.cul);
+            this.CircleTemplate_Header.Text = MainWindow.resman.GetString("CircleTemplate_Header", MainWindow.cul);
+            this.CircleTemplate_Text.Text = MainWindow.resman.GetString("CircleTemplate_Text", MainWindow.cul);
+            this.CircleTemplate_KnotenText.Text = MainWindow.resman.GetString("CircleTemplate_KnotenText", MainWindow.cul);
+            this.VieleckTemplate_Header.Text = MainWindow.resman.GetString("VieleckTemplate_Header", MainWindow.cul);
+            this.VieleckTemplate_Text.Text = MainWindow.resman.GetString("VieleckTemplate_Text", MainWindow.cul);
+            this.VieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VieleckTemplate_KnotenText", MainWindow.cul);
             #endregion
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
@@ -188,16 +197,36 @@ namespace Pollux
             string path = Speicherort.Text;
             try
             {
-                //schreibe eine "leere" Datei
-                StreamWriter streamWriter1 = new StreamWriter(path);
-                streamWriter1.WriteLine("[NAME]");
-                streamWriter1.WriteLine(Name.Text == "" ? "GRAPH" : Name.Text.ToUpper());
-                streamWriter1.WriteLine("[/NAME]");
-                streamWriter1.WriteLine("[NODES]");
-                streamWriter1.WriteLine("[/NODES]");
-                streamWriter1.WriteLine("[EDGES]");
-                streamWriter1.WriteLine("[/EDGES]");
-                streamWriter1.Close();
+                string name = Name.Text == "" ? "GRAPH" : Name.Text.ToUpper();
+                if (this.TemplateListBox.SelectedItem == this.NothingTemplate)
+                {
+                    //schreibe eine "leere" Datei
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new Graph.Graph(new(), new(), new int[0, 0], name)));
+                    streamWriter1.Close();
+                }
+                else if (this.TemplateListBox.SelectedItem == this.CircleTemplate)
+                {
+                    //Erstelle den Graphen
+                    Graph.Graph graph = Graph.Graph.GraphTemplates.Kreis(int.Parse(this.CircleTemplate_Knoten.Text));
+                    graph.Name = name;
+
+                    //schreibe eine neue Datei für den Graphen
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.Close();
+                }
+                else if (this.TemplateListBox.SelectedItem == this.VieleckTemplate)
+                {
+                    //Erstelle den Graphen
+                    Graph.Graph graph = Graph.Graph.GraphTemplates.Vieleck(int.Parse(this.VieleckTemplate_Knoten.Text));
+                    graph.Name = name;
+
+                    //schreibe eine neue Datei für den Graphen
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.Close();
+                }
 
                 //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
                 Del handler = MainWindow.OpenFile;

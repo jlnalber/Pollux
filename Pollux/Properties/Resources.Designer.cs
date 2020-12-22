@@ -106,6 +106,33 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kreis ähnelt.
+        /// </summary>
+        public static string CircleTemplate_Header {
+            get {
+                return ResourceManager.GetString("CircleTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Knoten: ähnelt.
+        /// </summary>
+        public static string CircleTemplate_KnotenText {
+            get {
+                return ResourceManager.GetString("CircleTemplate_KnotenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein Kreis mit n-Knoten. ähnelt.
+        /// </summary>
+        public static string CircleTemplate_Text {
+            get {
+                return ResourceManager.GetString("CircleTemplate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Datei ähnelt.
         /// </summary>
         public static string Datei {
@@ -494,6 +521,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Keine Vorlage ähnelt.
+        /// </summary>
+        public static string NothingTemplate_Header {
+            get {
+                return ResourceManager.GetString("NothingTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein leerer Graph ohne eine Vorlage. ähnelt.
+        /// </summary>
+        public static string NothingTemplate_Text {
+            get {
+                return ResourceManager.GetString("NothingTemplate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Öffnen ähnelt.
         /// </summary>
         public static string Öffnen {
@@ -548,6 +593,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorlagen: ähnelt.
+        /// </summary>
+        public static string Template {
+            get {
+                return ResourceManager.GetString("Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Pollux - neues Fenster ähnelt.
         /// </summary>
         public static string Title {
@@ -562,6 +616,33 @@ namespace Pollux.Properties {
         public static string Überstezen {
             get {
                 return ResourceManager.GetString("Überstezen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vieleck ähnelt.
+        /// </summary>
+        public static string VieleckTemplate_Header {
+            get {
+                return ResourceManager.GetString("VieleckTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Knoten: ähnelt.
+        /// </summary>
+        public static string VieleckTemplate_KnotenText {
+            get {
+                return ResourceManager.GetString("VieleckTemplate_KnotenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein Vieleck mit n-Knoten. ähnelt.
+        /// </summary>
+        public static string VieleckTemplate_Text {
+            get {
+                return ResourceManager.GetString("VieleckTemplate_Text", resourceCulture);
             }
         }
         

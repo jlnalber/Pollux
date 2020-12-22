@@ -24,6 +24,37 @@
             <TextBlock x:Name="NeueDateiSpeicherort" HorizontalAlignment="Left" Margin="0,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
             <TextBox x:Name="Speicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
             <Button x:Name="Durchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="Durchsuchen_Click"/>
+            <TextBlock x:Name="Template" Margin="0,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+            <ComboBox x:Name="TemplateListBox" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="30" MinWidth="350" SelectedIndex="0">
+                <ComboBoxItem x:Name="NothingTemplate">
+                    <ComboBoxItem.Content>
+                        <Grid>
+                            <TextBlock x:Name="NothingTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                            <TextBlock x:Name="NothingTemplate_Text" Margin="10,25,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                        </Grid>
+                    </ComboBoxItem.Content>
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="CircleTemplate">
+                    <ComboBoxItem.Content>
+                        <Grid>
+                            <TextBlock x:Name="CircleTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                            <TextBlock x:Name="CircleTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBlock x:Name="CircleTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBox x:Name="CircleTemplate_Knoten" Margin="200,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                        </Grid>
+                    </ComboBoxItem.Content>
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="VieleckTemplate">
+                    <ComboBoxItem.Content>
+                        <Grid>
+                            <TextBlock x:Name="VieleckTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                            <TextBlock x:Name="VieleckTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBlock x:Name="VieleckTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBox x:Name="VieleckTemplate_Knoten" Margin="200,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                        </Grid>
+                    </ComboBoxItem.Content>
+                </ComboBoxItem>
+            </ComboBox>
             <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
         </TreeViewItem>
     </StackPanel>

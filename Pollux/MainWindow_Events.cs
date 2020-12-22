@@ -111,10 +111,9 @@ namespace Pollux
                     this.Inputs[tab].Text = "";
                 }
             }
-            catch (Exception f)
+            catch
             {
                 //spiele Error-Sound
-                MessageBox.Show(f.Message);
                 SystemSounds.Asterisk.Play();
             }
         }
