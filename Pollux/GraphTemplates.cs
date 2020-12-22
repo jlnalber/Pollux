@@ -100,6 +100,32 @@ namespace Pollux.Graph
                 //Rückgabe
                 return graph;
             }
+
+            //Methode, die einen Baum zurück gibt
+            public static Graph Baum(int Stufen, int Verzweigungen)
+            {
+                Graph graph = new();
+                List<Graph.Knoten> lastStep = new() { graph.AddKnoten() };
+                for (int i = 1; i < Stufen; i++)
+                {
+                    List<Graph.Knoten> newStep = new();
+                    foreach (Graph.Knoten knoten in lastStep)
+                    {
+                        for (int f = 0; f < Verzweigungen; f++)
+                        {
+                            Knoten knoten1 = graph.AddKnoten();
+                            newStep.Add(knoten1);
+                            graph.AddKante(knoten, knoten1);
+                        }
+                    }
+                    lastStep.Clear();
+                    foreach (Graph.Knoten f in newStep)
+                    {
+                        lastStep.Add(f);
+                    }
+                }
+                return graph;
+            }
         }
     }
 }

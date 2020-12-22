@@ -315,6 +315,7 @@ namespace Pollux
             //Speichere die Graphen ab, falls etwas verändert wurde
             if (changed)
             {
+                this.MainWindow.DrawGraph();
                 this.MainWindow.SaveAll();
             }
         }
