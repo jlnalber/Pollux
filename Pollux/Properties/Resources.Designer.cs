@@ -88,6 +88,42 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Baum ähnelt.
+        /// </summary>
+        public static string BaumTemplate_Header {
+            get {
+                return ResourceManager.GetString("BaumTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Stufen: ähnelt.
+        /// </summary>
+        public static string BaumTemplate_StufenText {
+            get {
+                return ResourceManager.GetString("BaumTemplate_StufenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein Baum mit m Stufen und n Verzweigungen pro Stufe. ähnelt.
+        /// </summary>
+        public static string BaumTemplate_Text {
+            get {
+                return ResourceManager.GetString("BaumTemplate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Verzweigungen: ähnelt.
+        /// </summary>
+        public static string BaumTemplate_VerzweigungenText {
+            get {
+                return ResourceManager.GetString("BaumTemplate_VerzweigungenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Bearbeiten ähnelt.
         /// </summary>
         public static string Bearbeiten {

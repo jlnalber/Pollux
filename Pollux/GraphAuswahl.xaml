@@ -76,6 +76,18 @@
                         </Grid>
                     </ComboBoxItem.Content>
                 </ComboBoxItem>
+                <ComboBoxItem x:Name="BaumTemplate">
+                    <ComboBoxItem.Content>
+                        <Grid>
+                            <TextBlock x:Name="BaumTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                            <TextBlock x:Name="BaumTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBlock x:Name="BaumTemplate_StufenText" Margin="10,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBox x:Name="BaumTemplate_Stufen" Margin="220,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="3"/>
+                            <TextBlock x:Name="BaumTemplate_VerzweigungenText" Margin="10,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBox x:Name="BaumTemplate_Verzweigungen" Margin="220,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="2"/>
+                        </Grid>
+                    </ComboBoxItem.Content>
+                </ComboBoxItem>
             </ComboBox>
             <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
         </TreeViewItem>

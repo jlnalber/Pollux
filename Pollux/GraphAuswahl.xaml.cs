@@ -61,6 +61,10 @@ namespace Pollux
             this.BipartiterGraphTemplate_Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Text", MainWindow.cul);
             this.BipartiterGraphTemplate_Knoten1Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten1Text", MainWindow.cul);
             this.BipartiterGraphTemplate_Knoten2Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten2Text", MainWindow.cul);
+            this.BaumTemplate_Header.Text = MainWindow.resman.GetString("BaumTemplate_Header", MainWindow.cul);
+            this.BaumTemplate_Text.Text = MainWindow.resman.GetString("BaumTemplate_Text", MainWindow.cul);
+            this.BaumTemplate_StufenText.Text = MainWindow.resman.GetString("BaumTemplate_StufenText", MainWindow.cul);
+            this.BaumTemplate_VerzweigungenText.Text = MainWindow.resman.GetString("BaumTemplate_VerzweigungenText", MainWindow.cul);
             #endregion
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
@@ -204,7 +208,12 @@ namespace Pollux
             string path = this.Speicherort.Text;
             try
             {
+                //Lege den Namen fest
                 string name = this.Name.Text == "" ? "GRAPH" : this.Name.Text.ToUpper();
+
+                //Erstelle den Graphen bzw. seine Datei
+
+                #region
                 if (this.TemplateListBox.SelectedItem == this.NothingTemplate)
                 {
                     //schreibe eine "leere" Datei
@@ -256,6 +265,18 @@ namespace Pollux
                     streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
                     streamWriter1.Close();
                 }
+                else if (this.TemplateListBox.SelectedItem == this.BaumTemplate)
+                {
+                    //Erstelle den Graphen
+                    Graph.Graph graph = Graph.Graph.GraphTemplates.Baum(int.Parse(this.BaumTemplate_Stufen.Text), int.Parse(this.BaumTemplate_Verzweigungen.Text));
+                    graph.Name = name;
+
+                    //schreibe eine neue Datei für den Graphen
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.Close();
+                }
+                #endregion
 
                 //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
                 Del handler = this.MainWindow.OpenFile;

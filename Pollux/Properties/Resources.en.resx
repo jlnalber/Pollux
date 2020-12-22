@@ -126,6 +126,18 @@
   <data name="Ansicht" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="BaumTemplate_Header" xml:space="preserve">
+    <value>Tree</value>
+  </data>
+  <data name="BaumTemplate_StufenText" xml:space="preserve">
+    <value>Number of steps:</value>
+  </data>
+  <data name="BaumTemplate_Text" xml:space="preserve">
+    <value>A tree with m steps and n branches.</value>
+  </data>
+  <data name="BaumTemplate_VerzweigungenText" xml:space="preserve">
+    <value>Number of branches:</value>
+  </data>
   <data name="Bearbeiten" xml:space="preserve">
     <value>Edit</value>
   </data>
