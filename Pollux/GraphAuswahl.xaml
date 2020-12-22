@@ -54,6 +54,16 @@
                         </Grid>
                     </ComboBoxItem.Content>
                 </ComboBoxItem>
+                <ComboBoxItem x:Name="VollständigesVieleckTemplate">
+                    <ComboBoxItem.Content>
+                        <Grid>
+                            <TextBlock x:Name="VollständigesVieleckTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                            <TextBlock x:Name="VollständigesVieleckTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBlock x:Name="VollständigesVieleckTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            <TextBox x:Name="VollständigesVieleckTemplate_Knoten" Margin="200,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                        </Grid>
+                    </ComboBoxItem.Content>
+                </ComboBoxItem>
             </ComboBox>
             <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
         </TreeViewItem>

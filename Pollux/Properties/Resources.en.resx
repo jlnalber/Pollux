@@ -303,6 +303,15 @@
   <data name="VieleckTemplate_Text" xml:space="preserve">
     <value>A polygon with n-nodes.</value>
   </data>
+  <data name="VollständigesVieleckTemplate_Header" xml:space="preserve">
+    <value>Complete polygon</value>
+  </data>
+  <data name="VollständigesVieleckTemplate_KnotenText" xml:space="preserve">
+    <value>Amount of nodes:</value>
+  </data>
+  <data name="VollständigesVieleckTemplate_Text" xml:space="preserve">
+    <value>A complete polygon with n-nodes.</value>
+  </data>
   <data name="Weg" xml:space="preserve">
     <value>Path</value>
   </data>

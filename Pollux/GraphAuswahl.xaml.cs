@@ -54,6 +54,9 @@ namespace Pollux
             this.VieleckTemplate_Header.Text = MainWindow.resman.GetString("VieleckTemplate_Header", MainWindow.cul);
             this.VieleckTemplate_Text.Text = MainWindow.resman.GetString("VieleckTemplate_Text", MainWindow.cul);
             this.VieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VieleckTemplate_KnotenText", MainWindow.cul);
+            this.VollständigesVieleckTemplate_Header.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Header", MainWindow.cul);
+            this.VollständigesVieleckTemplate_Text.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Text", MainWindow.cul);
+            this.VollständigesVieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_KnotenText", MainWindow.cul);
             #endregion
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
@@ -220,6 +223,17 @@ namespace Pollux
                 {
                     //Erstelle den Graphen
                     Graph.Graph graph = Graph.Graph.GraphTemplates.Vieleck(int.Parse(this.VieleckTemplate_Knoten.Text));
+                    graph.Name = name;
+
+                    //schreibe eine neue Datei für den Graphen
+                    StreamWriter streamWriter1 = new StreamWriter(path);
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.Close();
+                }
+                else if (this.TemplateListBox.SelectedItem == this.VollständigesVieleckTemplate)
+                {
+                    //Erstelle den Graphen
+                    Graph.Graph graph = Graph.Graph.GraphTemplates.VollständigesVieleck(int.Parse(this.VollständigesVieleckTemplate_Knoten.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen

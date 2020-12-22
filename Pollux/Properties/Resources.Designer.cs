@@ -647,6 +647,33 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vollständiges Vieleck ähnelt.
+        /// </summary>
+        public static string VollständigesVieleckTemplate_Header {
+            get {
+                return ResourceManager.GetString("VollständigesVieleckTemplate_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Anzahl an Knoten: ähnelt.
+        /// </summary>
+        public static string VollständigesVieleckTemplate_KnotenText {
+            get {
+                return ResourceManager.GetString("VollständigesVieleckTemplate_KnotenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ein Vollständiges Vieleck mit n-Knoten. ähnelt.
+        /// </summary>
+        public static string VollständigesVieleckTemplate_Text {
+            get {
+                return ResourceManager.GetString("VollständigesVieleckTemplate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Speicherort ähnelt.
         /// </summary>
         public static string Weg {
