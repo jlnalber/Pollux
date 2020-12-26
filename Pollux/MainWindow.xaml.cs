@@ -102,34 +102,18 @@ namespace Pollux
 
             //Öffne die Tabs
             #region
-            //Lese die Datei aus, die alle paths von den zuletzt verwendeten Dateien enthält, falls die Datei nicht existiert, dann erstelle eine neuen Ordner mit einer solchen Datei
+            //Lese die Einstellung "OpenedFiles" aus, die alle paths von den zuletzt verwendeten Dateien enthält, falls die Datei nicht existiert, dann erstelle eine neuen Ordner mit einer solchen Datei
             List<string> paths = new List<string>();
-            try
+            string[] pathsAsString = Settings.Default.OpenedFiles.Split("\n");
+            foreach (string i in pathsAsString)
             {
-                /*StreamWriter streamWriter = new StreamWriter(AppDirectory + @"\Data\openedFiles.txt");
-                //streamWriter.WriteLine(@"C:\example\example.poll");
-                streamWriter.Close();*/
-
-                //lese die Datei aus und speicher es in dem Member "paths", mache das allerdings nur, wenn es auch wirklich ein Pfad ist
-                StreamReader streamReader = new StreamReader(AppDirectory + @"\Data\openedFiles.txt");
-                while (!streamReader.EndOfStream)
+                try
                 {
-                    string path;
-                    if ((path = streamReader.ReadLine()).Contains(@"\"))
-                    {
-                        paths.Add(path);
-                    }
+                    StreamReader streamReader = new StreamReader(i);
+                    streamReader.Close();
+                    paths.Add(i);
                 }
-                streamReader.Close();
-            }
-            catch
-            {
-                //erstelle Ordner
-                DirectoryInfo di = Directory.CreateDirectory(AppDirectory + @"\Data");
-
-                //erstelle Datei in diesem Ordner
-                StreamWriter streamWriter = new StreamWriter(AppDirectory + @"\Data\openedFiles.txt");
-                streamWriter.Close();
+                catch { }
             }
 
             //gucke nach, ob das Programm ausgeführt wurde, weil eine Datei angeklickt wurde, füge zu paths hinzu

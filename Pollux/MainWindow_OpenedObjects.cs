@@ -58,7 +58,16 @@ namespace Pollux
         public void SaveOpenedFiles()
         {
             //abspeicheren, welche Dateien alle geöffnet sind
-            try
+            string allPaths = "";
+            foreach (KeyValuePair<TabItem, string> kvp in this.OpenedFiles)
+            {
+                allPaths += kvp.Value;
+                allPaths += "\n";
+            }
+            Properties.Settings.Default.OpenedFiles = allPaths;
+            Properties.Settings.Default.Save();
+
+            /*try
             {
                 StreamWriter streamWriter = new StreamWriter(AppDirectory + @"\Data\openedFiles.txt", false);
                 string allPaths = "";
@@ -85,7 +94,7 @@ namespace Pollux
                 }
                 streamWriter.WriteLine(allPaths);
                 streamWriter.Close();
-            }
+            }*/
         }
 
         //Methoden zum Abspeichern von den Dateien

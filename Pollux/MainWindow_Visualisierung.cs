@@ -192,6 +192,12 @@ namespace Pollux
                 //Mache einen ErrorSound, zeige die Error-Nachricht und entferne den Tab
                 SystemSounds.Asterisk.Play();
                 this.TabControl.Items.Remove(tab);
+                this.OpenedFiles.Remove(tab);
+                this.Outputs.Remove(tab);
+                this.Inputs.Remove(tab);
+                this.Consoles.Remove(tab);
+                this.Canvases.Remove(tab);
+                this.Graphs.Remove(tab);
                 MessageBox.Show(e.Message);
             }
         }

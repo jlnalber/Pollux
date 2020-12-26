@@ -5,5 +5,11 @@
     <Setting Name="KnotenFarbe" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">SlateBlue</Value>
     </Setting>
+    <Setting Name="OpenedFiles" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RecentFiles" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
