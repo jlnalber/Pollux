@@ -102,7 +102,7 @@ namespace Pollux
 
             //Öffne die Tabs
             #region
-            //Lese die Einstellung "OpenedFiles" aus, die alle paths von den zuletzt verwendeten Dateien enthält, falls die Datei nicht existiert, dann erstelle eine neuen Ordner mit einer solchen Datei
+            //Lese die Einstellung "OpenedFiles" aus, die alle paths von den zuletzt verwendeten Dateien enthält; falls die Datei nicht existiert, lasse sie aus
             List<string> paths = new List<string>();
             string[] pathsAsString = Settings.Default.OpenedFiles.Split("\n");
             foreach (string i in pathsAsString)
@@ -148,7 +148,7 @@ namespace Pollux
                 AddNewTab<WebBrowser>(resman.GetString("Willkommen", cul), webBrowser);*/
                 #endregion
 
-                //Füge neuen Tab hinzu mit WillkommensContent, falls keine Datei in "OpenedFiles.txt" liegt
+                //Füge neuen Tab hinzu mit WillkommensContent, falls keine Datei in der Setting "OpenedFiles" liegt
                 Grid grid = new();
 
                 //Erstelle den ersten TextBlock
@@ -214,7 +214,7 @@ namespace Pollux
             }
             else
             {
-                //öffne jede Datei in der Liste "paths", welche jede Datei in "openedFiles.txt" repräsentiert
+                //öffne jede Datei in der Liste "paths", welche jede Datei in der Setting "OpenedFiles" repräsentiert
                 foreach (string path in paths)
                 {
                     OpenFile(path);

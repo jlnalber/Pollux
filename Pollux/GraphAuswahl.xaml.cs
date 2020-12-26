@@ -15,7 +15,7 @@ namespace Pollux
     public partial class GraphAuswahl : Window
     {
         //Liste enthält alle paths zu den zuletzt geöffneten Dateien
-        protected static List<string> paths = new List<string>();
+        protected static List<string> Paths = new List<string>();
 
         //delegate, um später Daten zu übertragen
         private delegate void Del(string path);
@@ -69,48 +69,36 @@ namespace Pollux
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
             #region
-            //Lese die Datei aus, die alle paths von den zuletzt verwendeten Dateien enthält, falls die Datei nicht existiert, dann erstelle eine neuen Ordner mit einer solchen Datei
-            try
+            //Lese die Einstellung "RecentFiles" aus, die alle paths von den zuletzt geöffneten Dateien enthält; falls die Datei nicht existiert, lasse sie aus
+            string[] pathsAsString = Properties.Settings.Default.OpenedFiles.Split("\n");
+            foreach (string i in pathsAsString)
             {
-                /*StreamWriter streamWriter = new StreamWriter(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
-                //streamWriter.WriteLine(@"C:\example\example.poll");
-                streamWriter.Close();*/
-
-                //lese die Datei aus und speicher es in dem Member "paths"
-                StreamReader streamReader = new StreamReader(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
-                while (!streamReader.EndOfStream)
+                try
                 {
-                    paths.Add(streamReader.ReadLine());
+                    StreamReader streamReader = new StreamReader(i);
+                    streamReader.Close();
+                    Paths.Add(i);
                 }
-                streamReader.Close();
-            }
-            catch
-            {
-                //erstelle Ordner
-                DirectoryInfo di = Directory.CreateDirectory(Environment.CurrentDirectory + @"\Data");
-
-                //erstelle Datei in diesem Ordner
-                StreamWriter streamWriter = new StreamWriter(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
-                streamWriter.Close();
+                catch { }
             }
 
             //Lösche alle Duplicates aus paths
             List<string> copy = new List<string>();
-            foreach (string i in paths)
+            foreach (string i in Paths)
             {
                 copy.Add(i);
             }
-            paths.Clear();
+            Paths.Clear();
             foreach (string i in copy)
             {
-                if (!paths.Contains(i))
+                if (!Paths.Contains(i))
                 {
-                    paths.Add(i);
+                    Paths.Add(i);
                 }
             }
 
             //gehe die Liste durch und füge zur ListBox ListBoxItems aus, die beim doppelt klicken einen neuen Tab mit dieser Datei im MainWindow öffnet
-            foreach (string i in paths)
+            foreach (string i in Paths)
             {
                 //neues DockPanel (kommt in LIstBoxItems)
                 DockPanel dock = new DockPanel();
@@ -177,7 +165,7 @@ namespace Pollux
         {
             //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
             Del handler = this.MainWindow.OpenFile;
-            this.Dispatcher.BeginInvoke(handler, paths[this.LetzteDatei.Items.IndexOf(this.LetzteDatei.SelectedItem)]);
+            this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.Items.IndexOf(this.LetzteDatei.SelectedItem)]);
 
             //schließe das Fenster
             Close();
@@ -282,11 +270,13 @@ namespace Pollux
                 Del handler = this.MainWindow.OpenFile;
                 this.Dispatcher.BeginInvoke(handler, path);
 
-                //Füge die gerade erstellte Datei zu der recentFiles-Datei und zu "paths" hinzu
-                StreamWriter streamWriter2 = new StreamWriter(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
-                streamWriter2.WriteLine(path);
-                streamWriter2.Close();
-                paths.Add(path);
+                //Füge die Datei zu der Setting "RecentFiles" und zu "paths" hinzu, wenn sie noch nicht da ist
+                if (!Properties.Settings.Default.RecentFiles.Contains(path))
+                {
+                    Properties.Settings.Default.RecentFiles += path + "\n";
+                    Properties.Settings.Default.Save();
+                    Paths.Add(path);
+                }
 
                 //schließe das Fenster
                 Close();
@@ -331,13 +321,12 @@ namespace Pollux
                 Del handler = this.MainWindow.OpenFile;
                 this.Dispatcher.BeginInvoke(handler, path);
 
-                //Füge die Datei zu der recentFiles-Datei und zu "paths" hinzu, wenn sie noch nicht da ist
-                if (!paths.Contains(path))
+                //Füge die Datei zu der Setting "RecentFiles" und zu "paths" hinzu, wenn sie noch nicht da ist
+                if (!Properties.Settings.Default.RecentFiles.Contains(path))
                 {
-                    StreamWriter streamWriter2 = new StreamWriter(Environment.CurrentDirectory + @"\Data\recentFiles.txt");
-                    streamWriter2.WriteLine(path);
-                    streamWriter2.Close();
-                    paths.Add(path);
+                    Properties.Settings.Default.RecentFiles += path + "\n";
+                    Properties.Settings.Default.Save();
+                    Paths.Add(path);
                 }
 
                 //schließe Fenster
