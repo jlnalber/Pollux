@@ -163,7 +163,7 @@ namespace Pollux
             }
             else
             {
-                //Öffne ein neues "KantenHinzufügen"-Fenster
+                //Öffne ein neues "KnotenHinzufügen"-Fenster
                 KnotenHinzufügen window = new(GetOpenGraph(), this);
                 window.Show();
             }
