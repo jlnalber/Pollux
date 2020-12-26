@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Media;
 
 namespace Pollux
 {
@@ -82,7 +83,15 @@ namespace Pollux
                 }
 
                 //Führe den Command aus
-                this.MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text + " BETWEEN " + Knoten1.Content.ToString() + " AND " + Knoten2.Content.ToString());
+                try
+                {
+                    this.MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text + " BETWEEN " + Knoten1.Content.ToString() + " AND " + Knoten2.Content.ToString());
+                }
+                catch
+                {
+                    //Spiele den Error-Sound
+                    SystemSounds.Asterisk.Play();
+                }
 
                 //Male den Graphen neu
                 this.MainWindow.DrawGraph();
