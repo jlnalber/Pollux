@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A" xml:space="preserve">
+    <value>A (Alpha)</value>
+  </data>
   <data name="AlleSchließen" xml:space="preserve">
     <value>Alles Schließen</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="Appearance" xml:space="preserve">
     <value>Erscheinung</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B (Blau)</value>
   </data>
   <data name="BaumTemplate_Header" xml:space="preserve">
     <value>Baum</value>
@@ -174,6 +180,12 @@
   <data name="DateiÖffnen" xml:space="preserve">
     <value>Öffne eine Datei</value>
   </data>
+  <data name="Edge_DesignBorder_Text" xml:space="preserve">
+    <value>Farbe der Kanten</value>
+  </data>
+  <data name="Edge_Design_Text" xml:space="preserve">
+    <value>Design der Kanten</value>
+  </data>
   <data name="Eigenschaft" xml:space="preserve">
     <value>Eigenschaft</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Fenster" xml:space="preserve">
     <value>Fenster</value>
+  </data>
+  <data name="G" xml:space="preserve">
+    <value>G (Grün)</value>
   </data>
   <data name="GraphAuswahlHeader" xml:space="preserve">
     <value>Pollux - Neuen Graph hinzufügen</value>
@@ -301,11 +316,23 @@
   <data name="NeuesFenster" xml:space="preserve">
     <value>Neues Fenster</value>
   </data>
+  <data name="Node_DesignBorder_Text" xml:space="preserve">
+    <value>Farbe des Randes der Knoten</value>
+  </data>
+  <data name="Node_DesignFilling_Text" xml:space="preserve">
+    <value>Farbe der Füllung der Knoten</value>
+  </data>
+  <data name="Node_Design_Text" xml:space="preserve">
+    <value>Design der Knoten</value>
+  </data>
   <data name="NothingTemplate_Header" xml:space="preserve">
     <value>Keine Vorlage</value>
   </data>
   <data name="NothingTemplate_Text" xml:space="preserve">
     <value>Ein leerer Graph ohne eine Vorlage.</value>
+  </data>
+  <data name="R" xml:space="preserve">
+    <value>R (Rot)</value>
   </data>
   <data name="Schließen" xml:space="preserve">
     <value>Schließen</value>

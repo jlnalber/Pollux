@@ -219,6 +219,11 @@ namespace Pollux
             List<GraphDarstellung.KantenDarstellung> kantenDarstellung = graphDarstellung.visuelleKanten;
             List<GraphDarstellung.KnotenDarstellung> knotenDarstellung = graphDarstellung.visuelleKnoten;
 
+            //Lese die Farben in den Einstellungen nach
+            SolidColorBrush knoten_FarbeFilling = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeFilling.A, Properties.Settings.Default.Knoten_FarbeFilling.R, Properties.Settings.Default.Knoten_FarbeFilling.G, Properties.Settings.Default.Knoten_FarbeFilling.B));
+            SolidColorBrush knoten_FarbeBorder = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeBorder.A, Properties.Settings.Default.Knoten_FarbeBorder.R, Properties.Settings.Default.Knoten_FarbeBorder.G, Properties.Settings.Default.Knoten_FarbeBorder.B));
+            SolidColorBrush kanten_FarbeBorder = new(Color.FromArgb(Properties.Settings.Default.Kante_FarbeBorder.A, Properties.Settings.Default.Kante_FarbeBorder.R, Properties.Settings.Default.Kante_FarbeBorder.G, Properties.Settings.Default.Kante_FarbeBorder.B));
+
             //entferne die alten "KnotenDarstellung"
             List<GraphDarstellung.KnotenDarstellung> entfernteKnoten = new();
             foreach (GraphDarstellung.KnotenDarstellung i in knotenDarstellung)
@@ -226,6 +231,12 @@ namespace Pollux
                 if (!graph.ContainsKnoten(i.Knoten))
                 {
                     entfernteKnoten.Add(i);
+                }
+                else
+                {
+                    //Fahre noch mal die Farbe nach
+                    i.Ellipse.Fill = knoten_FarbeFilling;
+                    i.Ellipse.Stroke = knoten_FarbeBorder;
                 }
             }
             foreach (GraphDarstellung.KnotenDarstellung i in entfernteKnoten)
@@ -265,8 +276,8 @@ namespace Pollux
                     knotenDarstellung.Add(knoten);
 
                     //Mache Feinheiten an der Ellipse
-                    knoten.Ellipse.Fill = new SolidColorBrush(Color.FromRgb(Pollux.Properties.Settings.Default.Knoten_FarbeFilling.R, Pollux.Properties.Settings.Default.Knoten_FarbeFilling.G, Pollux.Properties.Settings.Default.Knoten_FarbeFilling.B));
-                    knoten.Ellipse.Stroke = Brushes.Black;
+                    knoten.Ellipse.Fill = knoten_FarbeFilling;
+                    knoten.Ellipse.Stroke = knoten_FarbeBorder;
                     knoten.Ellipse.StrokeThickness = 2;
                     knoten.Ellipse.Width = 30;
                     knoten.Ellipse.Height = 30;
@@ -305,7 +316,8 @@ namespace Pollux
                         //lege die Position fest
                         ellipse.Margin = new Thickness(knoten.Left - ellipse.Width / 2 - 10, knoten.Top - 5, 10, 10);
 
-                        graphCanvas.Children.Add(ellipse);
+                        //Fahre die Farbe nach
+                        ellipse.Stroke = kanten_FarbeBorder;
                     }
                     else
                     {
@@ -320,6 +332,9 @@ namespace Pollux
                         x = (x > 30) ? 30 : (x < -30) ? -30 : x;
                         double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
                         y = (y > 30) ? 30 : (y < -30) ? -30 : y;
+
+                        //Fahre die Farbe nach
+                        line.Stroke = kanten_FarbeBorder;
 
                         //schreibe diese Eigenschaften in die Linie
                         line.X1 = marginKnoten0.Left + height / 2 + x;
@@ -345,7 +360,7 @@ namespace Pollux
             //erstelle die neuen Kanten
             for (int i = kantenDarstellung.Count; i < graph.GraphKanten.Count; i++)
             {
-                Pollux.Graph.Graph.Kanten kante = graph.GraphKanten[i];
+                Graph.Graph.Kanten kante = graph.GraphKanten[i];
                 if (kante.Knoten[0] == kante.Knoten[1])
                 {
                     //erstelle die Linie, die nachher dargestellt werden soll
@@ -363,7 +378,7 @@ namespace Pollux
                     //Lege noch andere Werte der Linie fest
                     ellipse.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                     ellipse.VerticalAlignment = VerticalAlignment.Bottom;
-                    ellipse.Stroke = Brushes.Black;
+                    ellipse.Stroke = kanten_FarbeBorder;
                     ellipse.StrokeThickness = 2;
                     ellipse.Fill = Brushes.Transparent;
                     ellipse.Height = height;
@@ -406,7 +421,7 @@ namespace Pollux
                     //Lege noch andere Werte der Linie fest
                     line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                     line.VerticalAlignment = VerticalAlignment.Bottom;
-                    line.Stroke = Brushes.Black;
+                    line.Stroke = kanten_FarbeBorder;
                     line.StrokeThickness = 2;
 
                     //füge die Linie zu der Liste "kantenDarstellung" hinzu

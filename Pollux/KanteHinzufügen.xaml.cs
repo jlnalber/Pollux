@@ -104,6 +104,11 @@ namespace Pollux
                 //Zeige, dass der ausgewählte Name schon existiert
                 this.AusgewählterName.Foreground = Brushes.Red;
             }
+            catch
+            {
+                //Spiele einen Error-Sound
+                SystemSounds.Asterisk.Play();
+            }
         }
 
         private void AusgewählterName_KeyUp(object sender, KeyEventArgs e)

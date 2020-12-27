@@ -61,6 +61,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die A (Alpha) ähnelt.
+        /// </summary>
+        public static string A {
+            get {
+                return ResourceManager.GetString("A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Alles Schließen ähnelt.
         /// </summary>
         public static string AlleSchließen {
@@ -93,6 +102,15 @@ namespace Pollux.Properties {
         public static string Appearance {
             get {
                 return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die B (Blau) ähnelt.
+        /// </summary>
+        public static string B {
+            get {
+                return ResourceManager.GetString("B", resourceCulture);
             }
         }
         
@@ -232,6 +250,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Design der Kanten ähnelt.
+        /// </summary>
+        public static string Edge_Design_Text {
+            get {
+                return ResourceManager.GetString("Edge_Design_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Kanten ähnelt.
+        /// </summary>
+        public static string Edge_DesignBorder_Text {
+            get {
+                return ResourceManager.GetString("Edge_DesignBorder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Eigenschaft ähnelt.
         /// </summary>
         public static string Eigenschaft {
@@ -327,6 +363,15 @@ namespace Pollux.Properties {
         public static string Fenster {
             get {
                 return ResourceManager.GetString("Fenster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die G (Grün) ähnelt.
+        /// </summary>
+        public static string G {
+            get {
+                return ResourceManager.GetString("G", resourceCulture);
             }
         }
         
@@ -611,6 +656,33 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Design der Knoten ähnelt.
+        /// </summary>
+        public static string Node_Design_Text {
+            get {
+                return ResourceManager.GetString("Node_Design_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe des Randes der Knoten ähnelt.
+        /// </summary>
+        public static string Node_DesignBorder_Text {
+            get {
+                return ResourceManager.GetString("Node_DesignBorder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Füllung der Knoten ähnelt.
+        /// </summary>
+        public static string Node_DesignFilling_Text {
+            get {
+                return ResourceManager.GetString("Node_DesignFilling_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Keine Vorlage ähnelt.
         /// </summary>
         public static string NothingTemplate_Header {
@@ -634,6 +706,15 @@ namespace Pollux.Properties {
         public static string Öffnen {
             get {
                 return ResourceManager.GetString("Öffnen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die R (Rot) ähnelt.
+        /// </summary>
+        public static string R {
+            get {
+                return ResourceManager.GetString("R", resourceCulture);
             }
         }
         
