@@ -132,6 +132,9 @@
   <data name="Appearance" xml:space="preserve">
     <value>Erscheinung</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
   <data name="B" xml:space="preserve">
     <value>B (Blau)</value>
   </data>

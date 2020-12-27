@@ -129,6 +129,9 @@
   <data name="Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="BaumTemplate_Header" xml:space="preserve">
     <value>Tree</value>
   </data>

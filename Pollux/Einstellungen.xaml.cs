@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Pollux
 {
@@ -36,6 +37,8 @@ namespace Pollux
             this.Slider_GEdge_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
             this.Slider_BEdge_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
             this.Slider_AEdge_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+            this.Apply.Content = MainWindow.resman.GetString("Apply", MainWindow.cul);
             #endregion
 
             //Stelle die Slider ein
@@ -55,6 +58,20 @@ namespace Pollux
             this.Slider_BEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.B;
             this.Slider_AEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.A;
             #endregion
+        }
+
+        private void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            //Wende die Eintellungen an
+            Properties.Settings.Default.Knoten_FarbeFilling = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString()));
+            Properties.Settings.Default.Knoten_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString()));
+            Properties.Settings.Default.Kante_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString()));
+
+            //Speichere ab
+            Properties.Settings.Default.Save();
+
+            //Schließe das Fenster
+            this.Close();
         }
     }
 }

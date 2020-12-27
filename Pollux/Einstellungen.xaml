@@ -8,6 +8,7 @@
         Height="500" Width="900">
     <Grid>
         <TabControl x:Name="TabControl" Padding="10" Margin="5">
+            <!-- TabItem for Appearance-Settings -->
             <TabItem x:Name="Appearance" Header="" FontSize="13">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="Panel_Appearance">
@@ -46,5 +47,7 @@
                 </ScrollViewer>
             </TabItem>
         </TabControl>
+
+        <Button x:Name="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,140,30" Padding="5" Click="Apply_Click"/>
     </Grid>
 </Window>
