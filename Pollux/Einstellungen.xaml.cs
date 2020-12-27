@@ -41,7 +41,7 @@ namespace Pollux
             this.Apply.Content = MainWindow.resman.GetString("Apply", MainWindow.cul);
             #endregion
 
-            //Stelle die Slider ein
+            //Stelle die Slider (je nach Einstellung) ein
             #region
             this.Slider_RNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.R;
             this.Slider_GNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.G;
@@ -71,7 +71,7 @@ namespace Pollux
             Properties.Settings.Default.Save();
 
             //Schließe das Fenster
-            this.Close();
+            Close();
         }
     }
 }
