@@ -265,7 +265,7 @@ namespace Pollux
                     knotenDarstellung.Add(knoten);
 
                     //Mache Feinheiten an der Ellipse
-                    knoten.Ellipse.Fill = new SolidColorBrush(Color.FromRgb(Pollux.Properties.Settings.Default.KnotenFarbe.R, Pollux.Properties.Settings.Default.KnotenFarbe.G, Pollux.Properties.Settings.Default.KnotenFarbe.B));
+                    knoten.Ellipse.Fill = new SolidColorBrush(Color.FromRgb(Pollux.Properties.Settings.Default.Knoten_FarbeFilling.R, Pollux.Properties.Settings.Default.Knoten_FarbeFilling.G, Pollux.Properties.Settings.Default.Knoten_FarbeFilling.B));
                     knoten.Ellipse.Stroke = Brushes.Black;
                     knoten.Ellipse.StrokeThickness = 2;
                     knoten.Ellipse.Width = 30;

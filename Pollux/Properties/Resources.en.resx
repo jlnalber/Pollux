@@ -126,6 +126,9 @@
   <data name="Ansicht" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
   <data name="BaumTemplate_Header" xml:space="preserve">
     <value>Tree</value>
   </data>
@@ -184,6 +187,9 @@
     <value>Loading the graph's properties...</value>
   </data>
   <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="EinstellungenTitle" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="EinstellungsFenster" xml:space="preserve">

@@ -88,6 +88,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Erscheinung ähnelt.
+        /// </summary>
+        public static string Appearance {
+            get {
+                return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Baum ähnelt.
         /// </summary>
         public static string BaumTemplate_Header {
@@ -264,6 +273,15 @@ namespace Pollux.Properties {
         public static string Einstellungen {
             get {
                 return ResourceManager.GetString("Einstellungen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Einstellungen ähnelt.
+        /// </summary>
+        public static string EinstellungenTitle {
+            get {
+                return ResourceManager.GetString("EinstellungenTitle", resourceCulture);
             }
         }
         

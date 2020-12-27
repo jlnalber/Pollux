@@ -5,7 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pollux"
         mc:Ignorable="d"
-        Title="Einstellungen" Height="450" Width="800">
+        Height="450" Width="800">
     <Grid>
+        <TabControl x:Name="TabControl" Padding="10" Margin="5">
+            <TabItem x:Name="Appearance" Header="">
+                <Grid x:Name="Grid_Appearance">
+                    <TextBlock x:Name="Node_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="16"/>
+                    <Slider x:Name="Slider_RNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Width="256"/>
+                    <Slider x:Name="Slider_GNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,40,0,0" Width="256"/>
+                    <Slider x:Name="Slider_BNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" Width="256"/>
+                    <Slider x:Name="Slider_RNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,110,0,0" Width="256"/>
+                    <Slider x:Name="Slider_GNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,140,0,0" Width="256"/>
+                    <Slider x:Name="Slider_BNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" Width="256"/>
+                    <TextBlock x:Name="Edge_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="16"/>
+                    <Slider x:Name="Slider_REdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" Width="256"/>
+                    <Slider x:Name="Slider_GEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,250,0,0" Width="256"/>
+                    <Slider x:Name="Slider_BEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,280,0,0" Width="256"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Pollux.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="KnotenFarbe" Type="System.Drawing.Color" Scope="User">
+    <Setting Name="Knoten_FarbeFilling" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">SlateBlue</Value>
     </Setting>
     <Setting Name="OpenedFiles" Type="System.String" Scope="User">
@@ -10,6 +10,12 @@
     </Setting>
     <Setting Name="RecentFiles" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Knoten_FarbeBorder" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="Kante_FarbeBorder" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
     </Setting>
   </Settings>
 </SettingsFile>

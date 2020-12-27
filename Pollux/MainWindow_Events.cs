@@ -217,6 +217,15 @@ namespace Pollux
                         KnotenHinzufügen_Click(sender, new());
                     }
                 }
+                else if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Alt))
+                {
+                    if (e.Key == Key.S)
+                    {
+                        //Erstelle ein Einstellungs-Fenster "window"
+                        Einstellungen window = new Einstellungen();
+                        window.Show();
+                    }
+                }
                 else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
                 {
                     if (e.Key == Key.N)

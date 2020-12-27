@@ -26,12 +26,12 @@ namespace Pollux.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SlateBlue")]
-        public global::System.Drawing.Color KnotenFarbe {
+        public global::System.Drawing.Color Knoten_FarbeFilling {
             get {
-                return ((global::System.Drawing.Color)(this["KnotenFarbe"]));
+                return ((global::System.Drawing.Color)(this["Knoten_FarbeFilling"]));
             }
             set {
-                this["KnotenFarbe"] = value;
+                this["Knoten_FarbeFilling"] = value;
             }
         }
         
@@ -56,6 +56,30 @@ namespace Pollux.Properties {
             }
             set {
                 this["RecentFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color Knoten_FarbeBorder {
+            get {
+                return ((global::System.Drawing.Color)(this["Knoten_FarbeBorder"]));
+            }
+            set {
+                this["Knoten_FarbeBorder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color Kante_FarbeBorder {
+            get {
+                return ((global::System.Drawing.Color)(this["Kante_FarbeBorder"]));
+            }
+            set {
+                this["Kante_FarbeBorder"] = value;
             }
         }
     }
