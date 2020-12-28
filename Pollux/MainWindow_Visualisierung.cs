@@ -224,6 +224,12 @@ namespace Pollux
             SolidColorBrush knoten_FarbeBorder = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeBorder.A, Properties.Settings.Default.Knoten_FarbeBorder.R, Properties.Settings.Default.Knoten_FarbeBorder.G, Properties.Settings.Default.Knoten_FarbeBorder.B));
             SolidColorBrush kanten_FarbeBorder = new(Color.FromArgb(Properties.Settings.Default.Kante_FarbeBorder.A, Properties.Settings.Default.Kante_FarbeBorder.R, Properties.Settings.Default.Kante_FarbeBorder.G, Properties.Settings.Default.Kante_FarbeBorder.B));
 
+            //Lese die Höhen und die Thickness in den Einstellungen nach
+            double knoten_Height = Properties.Settings.Default.Knoten_Höhe;
+            double knoten_Width = Properties.Settings.Default.Knoten_Breite;
+            double knoten_Border_Thickness = Properties.Settings.Default.Knoten_Border_Thickness;
+            double kanten_Thickness = Properties.Settings.Default.Kanten_Thickness;
+
             //entferne die alten "KnotenDarstellung"
             List<GraphDarstellung.KnotenDarstellung> entfernteKnoten = new();
             foreach (GraphDarstellung.KnotenDarstellung i in knotenDarstellung)
@@ -237,6 +243,11 @@ namespace Pollux
                     //Fahre noch mal die Farbe nach
                     i.Ellipse.Fill = knoten_FarbeFilling;
                     i.Ellipse.Stroke = knoten_FarbeBorder;
+
+                    //und gebe noch einmal die Dicke, Höhe und Breite an
+                    i.Ellipse.Width = knoten_Width;
+                    i.Ellipse.Height = knoten_Height;
+                    i.Ellipse.StrokeThickness = knoten_Border_Thickness;
                 }
             }
             foreach (GraphDarstellung.KnotenDarstellung i in entfernteKnoten)
@@ -278,9 +289,9 @@ namespace Pollux
                     //Mache Feinheiten an der Ellipse
                     knoten.Ellipse.Fill = knoten_FarbeFilling;
                     knoten.Ellipse.Stroke = knoten_FarbeBorder;
-                    knoten.Ellipse.StrokeThickness = 2;
-                    knoten.Ellipse.Width = 30;
-                    knoten.Ellipse.Height = 30;
+                    knoten.Ellipse.StrokeThickness = knoten_Border_Thickness;
+                    knoten.Ellipse.Height = knoten_Height;
+                    knoten.Ellipse.Width = knoten_Width;
                     knoten.Ellipse.Margin = new((index % 15) * 100 + 10, Convert.ToInt32(index / 15) * 100 + 10, 10, 10);
 
                     //Mache Feinheiten an dem Label
@@ -318,6 +329,9 @@ namespace Pollux
 
                         //Fahre die Farbe nach
                         ellipse.Stroke = kanten_FarbeBorder;
+
+                        //Gebe noch einmal die Dicke der Border an
+                        ellipse.StrokeThickness = kanten_Thickness;
                     }
                     else
                     {
@@ -335,6 +349,9 @@ namespace Pollux
 
                         //Fahre die Farbe nach
                         line.Stroke = kanten_FarbeBorder;
+
+                        //Gebe noch einmal die Dicke der Border an
+                        line.StrokeThickness = kanten_Thickness;
 
                         //schreibe diese Eigenschaften in die Linie
                         line.X1 = marginKnoten0.Left + height / 2 + x;
@@ -379,7 +396,7 @@ namespace Pollux
                     ellipse.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                     ellipse.VerticalAlignment = VerticalAlignment.Bottom;
                     ellipse.Stroke = kanten_FarbeBorder;
-                    ellipse.StrokeThickness = 2;
+                    ellipse.StrokeThickness = kanten_Thickness;
                     ellipse.Fill = Brushes.Transparent;
                     ellipse.Height = height;
                     ellipse.Width = height;
@@ -404,7 +421,7 @@ namespace Pollux
                     //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
                     Thickness marginKnoten0 = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[0])].Ellipse.Margin;
                     Thickness marginKnoten1 = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[1])].Ellipse.Margin;
-                    double height = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[0])].Ellipse.Height;
+                    double height = knoten_Height;
 
                     //finde dadurch die Position heraus, wo die Kante starten und enden muss
                     double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
@@ -422,7 +439,7 @@ namespace Pollux
                     line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                     line.VerticalAlignment = VerticalAlignment.Bottom;
                     line.Stroke = kanten_FarbeBorder;
-                    line.StrokeThickness = 2;
+                    line.StrokeThickness = kanten_Thickness;
 
                     //füge die Linie zu der Liste "kantenDarstellung" hinzu
                     kantenDarstellung.Add(kanten);

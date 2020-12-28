@@ -5,49 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pollux"
         mc:Ignorable="d"
-        Height="500" Width="900">
+        WindowStartupLocation="CenterScreen"
+        Height="700" Width="900" MinHeight="500" MinWidth="800">
     <Grid>
         <TabControl x:Name="TabControl" Padding="10" Margin="5">
             <!-- TabItem for Appearance-Settings -->
             <TabItem x:Name="Appearance" Header="" FontSize="13">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="Panel_Appearance">
-                        <TextBlock x:Name="Node_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="17"/>
-                        <TextBlock x:Name="Node_DesignFilling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
-                        <TextBlock x:Name="Slider_RNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
-                        <Slider x:Name="Slider_RNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_GNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_GNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_BNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_BNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_ANode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_ANode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
+                    <Grid ShowGridLines="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
                         
-                        <TextBlock x:Name="Node_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" FontSize="14"/>
-                        <TextBlock x:Name="Slider_RNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_RNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_GNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_GNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_BNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_BNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_ANode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_ANode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
+                        <!-- The actual settings -->
+                        <StackPanel x:Name="PanelNode_Appearance" Grid.Column="0" Grid.Row="0">
+                            <TextBlock x:Name="Node_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="17"/>
+                            <TextBlock x:Name="Node_DesignFilling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
+                            <TextBlock x:Name="Slider_ANode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
+                            <Slider x:Name="Slider_ANode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_RNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_RNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_GNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_GNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_BNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_BNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+
+                            <TextBlock x:Name="Node_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" FontSize="14"/>
+                            <TextBlock x:Name="Slider_ANode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
+                            <Slider x:Name="Slider_ANode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_RNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_RNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_GNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_GNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_BNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_BNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="PanelEdge_Appearance" Grid.Column="0" Grid.Row="1">
+                            <TextBlock x:Name="Edge_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,25,0,0" FontSize="17"/>
+                            <TextBlock x:Name="Edge_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
+                            <TextBlock x:Name="Slider_AEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
+                            <Slider x:Name="Slider_AEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_REdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_REdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_GEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_GEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBlock x:Name="Slider_BEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_BEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                        </StackPanel>
+
+                        <!-- Visual elements for preview -->
+                        <TextBlock x:Name="Preview_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" FontSize="16" Grid.Column="1" Grid.Row="0"/>
+                        <TextBlock x:Name="Knoten_Preview_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0" FontSize="14" Grid.Column="1" Grid.Row="0"/>
+                        <Ellipse x:Name="EllipsePreview" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,150,0,0" Grid.Column="1" Grid.Row="0"/>
                         
-                        <TextBlock x:Name="Edge_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,25,0,0" FontSize="17"/>
-                        <TextBlock x:Name="Edge_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
-                        <TextBlock x:Name="Slider_REdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
-                        <Slider x:Name="Slider_REdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_GEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_GEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_BEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_BEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                        <TextBlock x:Name="Slider_AEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
-                        <Slider x:Name="Slider_AEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256"/>
-                    </StackPanel>
+                        <TextBlock x:Name="Kanten_Preview_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+                        <Line x:Name="Kanten_Preview" HorizontalAlignment="Left" VerticalAlignment="Top" X1="0" X2="200" Y1="0" Y2="20" Margin="10,100,0,0" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock x:Name="KantenSchlinge_Preview_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+                        <Ellipse x:Name="KantenSchlinge_Preview" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,200,0,0" Grid.Column="1" Grid.Row="1" Height="40" Width="40" Fill="Transparent"/>
+
+                        <Button x:Name="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,30,80,30" Padding="5" Click="Apply_Click" Grid.Column="1" Grid.Row="2"/>
+                    </Grid>
                 </ScrollViewer>
             </TabItem>
         </TabControl>
-
-        <Button x:Name="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,140,30" Padding="5" Click="Apply_Click"/>
     </Grid>
 </Window>

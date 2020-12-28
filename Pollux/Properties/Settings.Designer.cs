@@ -82,5 +82,53 @@ namespace Pollux.Properties {
                 this["Kante_FarbeBorder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public double Knoten_Höhe {
+            get {
+                return ((double)(this["Knoten_Höhe"]));
+            }
+            set {
+                this["Knoten_Höhe"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public double Knoten_Breite {
+            get {
+                return ((double)(this["Knoten_Breite"]));
+            }
+            set {
+                this["Knoten_Breite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double Knoten_Border_Thickness {
+            get {
+                return ((double)(this["Knoten_Border_Thickness"]));
+            }
+            set {
+                this["Knoten_Border_Thickness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double Kanten_Thickness {
+            get {
+                return ((double)(this["Kanten_Thickness"]));
+            }
+            set {
+                this["Kanten_Thickness"] = value;
+            }
+        }
     }
 }

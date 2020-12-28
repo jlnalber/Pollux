@@ -17,5 +17,17 @@
     <Setting Name="Kante_FarbeBorder" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>
     </Setting>
+    <Setting Name="Knoten_Höhe" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="Knoten_Breite" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="Knoten_Border_Thickness" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="Kanten_Thickness" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -268,7 +268,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Kanten ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Kanten: ähnelt.
         /// </summary>
         public static string Edge_DesignBorder_Text {
             get {
@@ -467,6 +467,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Kanten: ähnelt.
+        /// </summary>
+        public static string Kanten_Preview_Text {
+            get {
+                return ResourceManager.GetString("Kanten_Preview_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Ende: ähnelt.
         /// </summary>
         public static string KantenEndeText {
@@ -512,6 +521,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Schlingen: ähnelt.
+        /// </summary>
+        public static string KantenSchlinge_Preview_Text {
+            get {
+                return ResourceManager.GetString("KantenSchlinge_Preview_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Start: ähnelt.
         /// </summary>
         public static string KantenStartText {
@@ -526,6 +544,15 @@ namespace Pollux.Properties {
         public static string KeineKanten {
             get {
                 return ResourceManager.GetString("KeineKanten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Knoten: ähnelt.
+        /// </summary>
+        public static string Knoten_Preview_Text {
+            get {
+                return ResourceManager.GetString("Knoten_Preview_Text", resourceCulture);
             }
         }
         
@@ -674,7 +701,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe des Randes der Knoten ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe des Randes der Knoten: ähnelt.
         /// </summary>
         public static string Node_DesignBorder_Text {
             get {
@@ -683,7 +710,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Füllung der Knoten ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Füllung der Knoten: ähnelt.
         /// </summary>
         public static string Node_DesignFilling_Text {
             get {
@@ -715,6 +742,15 @@ namespace Pollux.Properties {
         public static string Öffnen {
             get {
                 return ResourceManager.GetString("Öffnen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau: ähnelt.
+        /// </summary>
+        public static string Preview_Text {
+            get {
+                return ResourceManager.GetString("Preview_Text", resourceCulture);
             }
         }
         

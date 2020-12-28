@@ -178,7 +178,7 @@
     <value>Open a file</value>
   </data>
   <data name="Edge_DesignBorder_Text" xml:space="preserve">
-    <value>Color of the edge</value>
+    <value>Color of the edge:</value>
   </data>
   <data name="Edge_Design_Text" xml:space="preserve">
     <value>Design of the edges</value>
@@ -255,8 +255,14 @@
   <data name="KantenPickerText" xml:space="preserve">
     <value>Choose edge:</value>
   </data>
+  <data name="KantenSchlinge_Preview_Text" xml:space="preserve">
+    <value>Preview of loops:</value>
+  </data>
   <data name="KantenStartText" xml:space="preserve">
     <value>Start:</value>
+  </data>
+  <data name="Kanten_Preview_Text" xml:space="preserve">
+    <value>Preview of edges:</value>
   </data>
   <data name="KeineKanten" xml:space="preserve">
     <value>Seems like this graph doesn't contain any edges!</value>
@@ -285,6 +291,9 @@
   <data name="KnotenPickerText" xml:space="preserve">
     <value>Choose node:</value>
   </data>
+  <data name="Knoten_Preview_Text" xml:space="preserve">
+    <value>Preview of the nodes:</value>
+  </data>
   <data name="KontenLaden" xml:space="preserve">
     <value>Loading the graph's nodes...</value>
   </data>
@@ -307,10 +316,10 @@
     <value>New window</value>
   </data>
   <data name="Node_DesignBorder_Text" xml:space="preserve">
-    <value>Color of the node's border</value>
+    <value>Color of the node's border:</value>
   </data>
   <data name="Node_DesignFilling_Text" xml:space="preserve">
-    <value>Color of the node's filling</value>
+    <value>Color of the node's filling:</value>
   </data>
   <data name="Node_Design_Text" xml:space="preserve">
     <value>Design of the nodes</value>
@@ -320,6 +329,9 @@
   </data>
   <data name="NothingTemplate_Text" xml:space="preserve">
     <value>An empty graph without a template.</value>
+  </data>
+  <data name="Preview_Text" xml:space="preserve">
+    <value>Preview:</value>
   </data>
   <data name="Schließen" xml:space="preserve">
     <value>Close</value>

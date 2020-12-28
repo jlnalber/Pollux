@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Pollux
 {
@@ -39,6 +40,10 @@ namespace Pollux
             this.Slider_AEdge_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
 
             this.Apply.Content = MainWindow.resman.GetString("Apply", MainWindow.cul);
+            this.Preview_Text.Text = MainWindow.resman.GetString("Preview_Text", MainWindow.cul);
+            this.Knoten_Preview_Text.Text = MainWindow.resman.GetString("Knoten_Preview_Text", MainWindow.cul);
+            this.Kanten_Preview_Text.Text = MainWindow.resman.GetString("Kanten_Preview_Text", MainWindow.cul);
+            this.KantenSchlinge_Preview_Text.Text = MainWindow.resman.GetString("KantenSchlinge_Preview_Text", MainWindow.cul);
             #endregion
 
             //Stelle die Slider (je nach Einstellung) ein
@@ -72,6 +77,38 @@ namespace Pollux
 
             //Schließe das Fenster
             Close();
+        }
+
+        private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.EllipsePreview.StrokeThickness = Properties.Settings.Default.Knoten_Border_Thickness;
+            this.EllipsePreview.Height = Properties.Settings.Default.Knoten_Höhe;
+            this.EllipsePreview.Width = Properties.Settings.Default.Knoten_Breite;
+
+            this.Kanten_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
+            this.KantenSchlinge_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
+
+            byte knoten_AStroke = byte.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString());
+            byte knoten_RStroke = byte.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString());
+            byte knoten_GStroke = byte.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString());
+            byte knoten_BStroke = byte.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString());
+
+            byte knoten_AFill = byte.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString());
+            byte knoten_RFill = byte.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString());
+            byte knoten_GFill = byte.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString());
+            byte knoten_BFill = byte.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString());
+
+            byte kanten_AStroke = byte.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString());
+            byte kanten_RStroke = byte.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString());
+            byte kanten_GStroke = byte.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString());
+            byte kanten_BStroke = byte.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString());
+
+            this.EllipsePreview.Stroke = new SolidColorBrush(Color.FromArgb(knoten_AStroke, knoten_RStroke, knoten_GStroke, knoten_BStroke));
+            this.EllipsePreview.Fill = new SolidColorBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill));
+
+            SolidColorBrush kanten_Stroke = new SolidColorBrush(Color.FromArgb(kanten_AStroke, kanten_RStroke, kanten_GStroke, kanten_BStroke));
+            this.Kanten_Preview.Stroke = kanten_Stroke;
+            this.KantenSchlinge_Preview.Stroke = kanten_Stroke;
         }
     }
 }
