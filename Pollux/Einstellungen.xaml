@@ -54,6 +54,14 @@
                             <TextBlock x:Name="Slider_BNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_BNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
                             <TextBox x:Name="TextBox_BNode_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
+
+                            <TextBlock x:Name="Node_DesignSizes_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" FontSize="14"/>
+                            <TextBlock x:Name="Slider_Node_Size_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_Node_Size" Maximum="120" Minimum="20" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_Node_Size" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
+                            <TextBlock x:Name="Slider_Node_SizeStroke_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_Node_SizeStroke" Maximum="12" Minimum="1" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_Node_SizeStroke" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                         </StackPanel>
 
                         <StackPanel x:Name="PanelEdge_Appearance" Grid.Column="0" Grid.Row="1">
@@ -71,6 +79,11 @@
                             <TextBlock x:Name="Slider_BEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_BEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
                             <TextBox x:Name="TextBox_BEdge_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
+
+                            <TextBlock x:Name="Edge_DesignSizes_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" FontSize="14"/>
+                            <TextBlock x:Name="Slider_Edge_SizeStroke_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
+                            <Slider x:Name="Slider_Edge_SizeStroke" Maximum="12" Minimum="1" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_Edge_SizeStroke" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                         </StackPanel>
 
                         <!-- Visual elements for preview -->

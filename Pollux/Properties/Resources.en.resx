@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A" xml:space="preserve">
+    <value>A (alpha):</value>
+  </data>
   <data name="AlleSchließen" xml:space="preserve">
     <value>Close All</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B (blue):</value>
   </data>
   <data name="BaumTemplate_Header" xml:space="preserve">
     <value>Tree</value>
@@ -180,6 +186,9 @@
   <data name="Edge_DesignBorder_Text" xml:space="preserve">
     <value>Color of the edge:</value>
   </data>
+  <data name="Edge_DesignSizes_Text" xml:space="preserve">
+    <value>Edges:</value>
+  </data>
   <data name="Edge_Design_Text" xml:space="preserve">
     <value>Design of the edges</value>
   </data>
@@ -215,6 +224,9 @@
   </data>
   <data name="Fenster" xml:space="preserve">
     <value>Window</value>
+  </data>
+  <data name="G" xml:space="preserve">
+    <value>G (green):</value>
   </data>
   <data name="GraphAuswahlHeader" xml:space="preserve">
     <value>Pollux - Add new graph</value>
@@ -321,6 +333,9 @@
   <data name="Node_DesignFilling_Text" xml:space="preserve">
     <value>Color of the node's filling:</value>
   </data>
+  <data name="Node_DesignSizes_Text" xml:space="preserve">
+    <value>Nodes:</value>
+  </data>
   <data name="Node_Design_Text" xml:space="preserve">
     <value>Design of the nodes</value>
   </data>
@@ -333,8 +348,20 @@
   <data name="Preview_Text" xml:space="preserve">
     <value>Preview:</value>
   </data>
+  <data name="R" xml:space="preserve">
+    <value>R (red):</value>
+  </data>
   <data name="Schließen" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="Slider_Edge_SizeStroke_Text" xml:space="preserve">
+    <value>Thickness:</value>
+  </data>
+  <data name="Slider_Node_SizeStroke_Text" xml:space="preserve">
+    <value>Border:</value>
+  </data>
+  <data name="Slider_Node_Size_Text" xml:space="preserve">
+    <value>Size:</value>
   </data>
   <data name="Speichern" xml:space="preserve">
     <value>Save</value>

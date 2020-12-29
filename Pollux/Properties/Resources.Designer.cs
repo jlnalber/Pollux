@@ -61,7 +61,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die A (Alpha) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die A (Alpha): ähnelt.
         /// </summary>
         public static string A {
             get {
@@ -115,7 +115,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die B (Blau) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die B (Blau): ähnelt.
         /// </summary>
         public static string B {
             get {
@@ -277,6 +277,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kanten: ähnelt.
+        /// </summary>
+        public static string Edge_DesignSizes_Text {
+            get {
+                return ResourceManager.GetString("Edge_DesignSizes_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Eigenschaft ähnelt.
         /// </summary>
         public static string Eigenschaft {
@@ -376,7 +385,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die G (Grün) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die G (Grün): ähnelt.
         /// </summary>
         public static string G {
             get {
@@ -719,6 +728,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten: ähnelt.
+        /// </summary>
+        public static string Node_DesignSizes_Text {
+            get {
+                return ResourceManager.GetString("Node_DesignSizes_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Keine Vorlage ähnelt.
         /// </summary>
         public static string NothingTemplate_Header {
@@ -755,7 +773,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die R (Rot) ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die R (Rot): ähnelt.
         /// </summary>
         public static string R {
             get {
@@ -769,6 +787,33 @@ namespace Pollux.Properties {
         public static string Schließen {
             get {
                 return ResourceManager.GetString("Schließen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dicke: ähnelt.
+        /// </summary>
+        public static string Slider_Edge_SizeStroke_Text {
+            get {
+                return ResourceManager.GetString("Slider_Edge_SizeStroke_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Größe: ähnelt.
+        /// </summary>
+        public static string Slider_Node_Size_Text {
+            get {
+                return ResourceManager.GetString("Slider_Node_Size_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rand: ähnelt.
+        /// </summary>
+        public static string Slider_Node_SizeStroke_Text {
+            get {
+                return ResourceManager.GetString("Slider_Node_SizeStroke_Text", resourceCulture);
             }
         }
         

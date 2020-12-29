@@ -68,11 +68,6 @@ namespace Pollux
             this.KanteHinzufügen.Icon = " + ";
             this.KnotenHinzufügen.Icon = " + ";
 
-            //Mache die MenuItems, die noch keine Funktion haben ausgegraut
-            this.Einstellungen.IsEnabled = false;
-            this.EinstellungsFenster.IsEnabled = false;
-            //this.ZwischenTabsSpringen.IsEnabled = false;
-
             //setze die Texte auf die jeweils richtige Sprache
             #region
             this.Title = resman.GetString("Title", cul);

@@ -17,7 +17,7 @@
                 <MenuItem x:Name="Öffnen" MinHeight="20" Click="Open_Click"/>
                 <MenuItem x:Name="Neu" MinHeight="20" Click="Neu_Click"/>
                 <Separator/>
-                <MenuItem x:Name="Einstellungen" MinHeight="20"/>
+                <MenuItem x:Name="Einstellungen" MinHeight="20" Click="Einstellungen_Click"/>
                 <MenuItem x:Name="Schließen" MinHeight="20" Click="CloseTab"/>
                 <MenuItem x:Name="AllesSchließen" MinHeight="20" Click="AllesSchließen_Click"/>
             </MenuItem>
@@ -33,7 +33,7 @@
             <MenuItem x:Name="Fenster" MinHeight="20">
                 <MenuItem x:Name="NeuesFenster" MinHeight="20" Click="NewWindow"/>
                 <Separator></Separator>
-                <MenuItem x:Name="EinstellungsFenster" MinHeight="20"/>
+                <MenuItem x:Name="EinstellungsFenster" MinHeight="20" Click="Einstellungen_Click"/>
                 <MenuItem x:Name="EigenschaftenFenster" MinHeight="20" Click="EigenschaftenFenster_Click"/>
             </MenuItem>
             <MenuItem x:Name="Hilfe" MinHeight="20">

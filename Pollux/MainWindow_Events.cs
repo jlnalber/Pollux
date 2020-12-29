@@ -199,6 +199,7 @@ namespace Pollux
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
+            //Die Shortcuts
             try
             {
                 if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
@@ -260,6 +261,13 @@ namespace Pollux
             {
                 SystemSounds.Asterisk.Play();
             }
+        }
+
+        private void Einstellungen_Click(object sender, RoutedEventArgs e)
+        {
+            //Öffne ein Einstellungs-Fenster
+            Einstellungen window = new();
+            window.Show();
         }
     }
 }
