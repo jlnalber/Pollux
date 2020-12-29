@@ -213,6 +213,9 @@
   <data name="EinstellungsFenster" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
+  <data name="ErrorEinstellungen" xml:space="preserve">
+    <value>Scheinbar sind die Einstellungen nicht richtig!</value>
+  </data>
   <data name="Erstelle" xml:space="preserve">
     <value>Erstellen</value>
   </data>

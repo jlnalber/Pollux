@@ -349,6 +349,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Scheinbar sind die Einstellungen nicht richtig! ähnelt.
+        /// </summary>
+        public static string ErrorEinstellungen {
+            get {
+                return ResourceManager.GetString("ErrorEinstellungen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Erstellen ähnelt.
         /// </summary>
         public static string Erstelle {

@@ -213,6 +213,9 @@
   <data name="EinstellungsFenster" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ErrorEinstellungen" xml:space="preserve">
+    <value>Seemingly, the settings are damaged!</value>
+  </data>
   <data name="Erstelle" xml:space="preserve">
     <value>Create</value>
   </data>
