@@ -128,7 +128,7 @@ namespace Pollux
                 byte kanten_BStroke = byte.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString());
 
                 //Finde den Wert für die Dicke der Kanten heraus
-                double kanten_Thickness = Math.Round(Slider_Edge_SizeStroke.Value, 2);
+                double kanten_Thickness = Math.Round(this.Slider_Edge_SizeStroke.Value, 2);
                 #endregion
 
                 //Lege die gerundeten Werte für die Slider fest, sodass sie keine Gleitkommazahlen enthalten können
