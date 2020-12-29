@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Pollux"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        NumberSubstitution.Substitution="European"
         Height="700" Width="900" MinHeight="500" MinWidth="800">
     <Grid>
         <TabControl x:Name="TabControl" Padding="10" Margin="5">
@@ -29,22 +30,30 @@
                             <TextBlock x:Name="Node_DesignFilling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
                             <TextBlock x:Name="Slider_ANode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
                             <Slider x:Name="Slider_ANode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_ANode_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_RNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_RNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_RNode_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_GNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_GNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_GNode_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_BNode_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_BNode_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_BNode_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
 
                             <TextBlock x:Name="Node_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" FontSize="14"/>
                             <TextBlock x:Name="Slider_ANode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
                             <Slider x:Name="Slider_ANode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_ANode_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_RNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_RNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_RNode_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_GNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_GNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_GNode_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_BNode_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_BNode_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_BNode_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                         </StackPanel>
 
                         <StackPanel x:Name="PanelEdge_Appearance" Grid.Column="0" Grid.Row="1">
@@ -52,12 +61,16 @@
                             <TextBlock x:Name="Edge_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" FontSize="14"/>
                             <TextBlock x:Name="Slider_AEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Height="15"/>
                             <Slider x:Name="Slider_AEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_AEdge_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_REdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_REdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_REdge_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_GEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_GEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_GEdge_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                             <TextBlock x:Name="Slider_BEdge_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Height="15"/>
                             <Slider x:Name="Slider_BEdge_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged"/>
+                            <TextBox x:Name="TextBox_BEdge_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus"/>
                         </StackPanel>
 
                         <!-- Visual elements for preview -->

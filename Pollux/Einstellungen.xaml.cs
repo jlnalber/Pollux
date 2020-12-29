@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Windows;
 using System.Windows.Media;
 
@@ -63,6 +64,9 @@ namespace Pollux
             this.Slider_BEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.B;
             this.Slider_AEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.A;
             #endregion
+
+            //Stelle die TextBoxes nach den Slidern ein
+            SyncSlidersAndTextBoxes(false);
         }
 
         private void Apply_Click(object sender, RoutedEventArgs e)
@@ -81,34 +85,242 @@ namespace Pollux
 
         private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            this.EllipsePreview.StrokeThickness = Properties.Settings.Default.Knoten_Border_Thickness;
-            this.EllipsePreview.Height = Properties.Settings.Default.Knoten_Höhe;
-            this.EllipsePreview.Width = Properties.Settings.Default.Knoten_Breite;
-
-            this.Kanten_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
-            this.KantenSchlinge_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
-
-            byte knoten_AStroke = byte.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString());
-            byte knoten_RStroke = byte.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString());
-            byte knoten_GStroke = byte.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString());
-            byte knoten_BStroke = byte.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString());
-
+            //Finde die Werte für die Farbe der Füllung der Knoten heraus und runde sie
             byte knoten_AFill = byte.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString());
             byte knoten_RFill = byte.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString());
             byte knoten_GFill = byte.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString());
             byte knoten_BFill = byte.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString());
 
+            //Finde die Werte für die Farbe der Border der Knoten heraus und runde sie
+            byte knoten_AStroke = byte.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString());
+            byte knoten_RStroke = byte.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString());
+            byte knoten_GStroke = byte.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString());
+            byte knoten_BStroke = byte.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString());
+
+            //Finde die Werte für die Farbe der Kanten heraus und runde sie
             byte kanten_AStroke = byte.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString());
             byte kanten_RStroke = byte.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString());
             byte kanten_GStroke = byte.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString());
             byte kanten_BStroke = byte.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString());
 
+            //Lege die gerundeten Werte für die Slider fest, sodass sie keine Gleitkommazahlen enthalten können
+            this.Slider_ANode_Filling.Value = knoten_AFill;
+            this.Slider_RNode_Filling.Value = knoten_RFill;
+            this.Slider_GNode_Filling.Value = knoten_GFill;
+            this.Slider_BNode_Filling.Value = knoten_BFill;
+            this.Slider_ANode_Border.Value = knoten_AStroke;
+            this.Slider_RNode_Border.Value = knoten_RStroke;
+            this.Slider_GNode_Border.Value = knoten_GStroke;
+            this.Slider_BNode_Border.Value = knoten_BStroke;
+            this.Slider_AEdge_Border.Value = kanten_AStroke;
+            this.Slider_REdge_Border.Value = kanten_RStroke;
+            this.Slider_GEdge_Border.Value = kanten_GStroke;
+            this.Slider_BEdge_Border.Value = kanten_BStroke;
+
+            //Lege die Höhen/Breiten/Dicken für die Knoten fest
+            this.EllipsePreview.StrokeThickness = Properties.Settings.Default.Knoten_Border_Thickness;
+            this.EllipsePreview.Height = Properties.Settings.Default.Knoten_Höhe;
+            this.EllipsePreview.Width = Properties.Settings.Default.Knoten_Breite;
+
+            //Lege die Dicken der Kanten fest
+            this.Kanten_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
+            this.KantenSchlinge_Preview.StrokeThickness = Properties.Settings.Default.Kanten_Thickness;
+
+            //Finde die eben berechneten Farben für die Knoten heraus und lege sie fest
             this.EllipsePreview.Stroke = new SolidColorBrush(Color.FromArgb(knoten_AStroke, knoten_RStroke, knoten_GStroke, knoten_BStroke));
             this.EllipsePreview.Fill = new SolidColorBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill));
 
+            //Finde die eben berechneten Farben für die Kanten heraus und lege sie fest
             SolidColorBrush kanten_Stroke = new SolidColorBrush(Color.FromArgb(kanten_AStroke, kanten_RStroke, kanten_GStroke, kanten_BStroke));
             this.Kanten_Preview.Stroke = kanten_Stroke;
             this.KantenSchlinge_Preview.Stroke = kanten_Stroke;
+
+            //Synchronisiere die TextBoxen mit den Slidern
+            this.TextBox_ANode_Filling.Text = knoten_AFill.ToString();
+            this.TextBox_RNode_Filling.Text = knoten_RFill.ToString();
+            this.TextBox_GNode_Filling.Text = knoten_GFill.ToString();
+            this.TextBox_BNode_Filling.Text = knoten_BFill.ToString();
+            this.TextBox_ANode_Border.Text = knoten_AStroke.ToString();
+            this.TextBox_RNode_Border.Text = knoten_RStroke.ToString();
+            this.TextBox_GNode_Border.Text = knoten_GStroke.ToString();
+            this.TextBox_BNode_Border.Text = knoten_BStroke.ToString();
+            this.TextBox_AEdge_Border.Text = kanten_AStroke.ToString();
+            this.TextBox_REdge_Border.Text = kanten_RStroke.ToString();
+            this.TextBox_GEdge_Border.Text = kanten_GStroke.ToString();
+            this.TextBox_BEdge_Border.Text = kanten_BStroke.ToString();
+        }
+
+        private void TextBoxes_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Falls in einer der TextBoxen "Enter" gedrückt wird, synchronisiere die TextBoxen mit den Slidern
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                SyncSlidersAndTextBoxes(true);
+            }
+        }
+
+        private void TextBoxes_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //Wenn eine TextBox den Fokus verliert, synchronisiere die TextBoxen mit den Slidern
+            SyncSlidersAndTextBoxes(true);
+        }
+
+        private void SyncSlidersAndTextBoxes(bool playErrorSound)
+        {
+            bool errorSound = false;//Variable, die angibt, ob nachher wirklich ein Error-Sound gespielt werden muss
+
+            //Knoten-Füllung
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_ANode_Filling.Value = byte.Parse(this.TextBox_ANode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_ANode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_ANode_Filling.Text = this.Slider_ANode_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RNode_Filling.Value = byte.Parse(this.TextBox_RNode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RNode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RNode_Filling.Text = this.Slider_RNode_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GNode_Filling.Value = byte.Parse(this.TextBox_GNode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GNode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GNode_Filling.Text = this.Slider_GNode_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BNode_Filling.Value = byte.Parse(this.TextBox_BNode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BNode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BNode_Filling.Text = this.Slider_BNode_Filling.Value.ToString();
+            }
+
+            //Knoten-Stroke
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_ANode_Border.Value = byte.Parse(this.TextBox_ANode_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_ANode_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_ANode_Border.Text = this.Slider_ANode_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RNode_Border.Value = byte.Parse(this.TextBox_RNode_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RNode_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RNode_Border.Text = this.Slider_RNode_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GNode_Border.Value = byte.Parse(this.TextBox_GNode_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GNode_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GNode_Border.Text = this.Slider_GNode_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BNode_Border.Value = byte.Parse(this.TextBox_BNode_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BNode_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BNode_Border.Text = this.Slider_BNode_Border.Value.ToString();
+            }
+
+            //Kanten-Stroke
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_AEdge_Border.Value = byte.Parse(this.TextBox_AEdge_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_AEdge_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_AEdge_Border.Text = this.Slider_AEdge_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_REdge_Border.Value = byte.Parse(this.TextBox_REdge_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_REdge_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_REdge_Border.Text = this.Slider_REdge_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GEdge_Border.Value = byte.Parse(this.TextBox_GEdge_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GEdge_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GEdge_Border.Text = this.Slider_GEdge_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BEdge_Border.Value = byte.Parse(this.TextBox_BEdge_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BEdge_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BEdge_Border.Text = this.Slider_BEdge_Border.Value.ToString();
+            }
+
+            //Spiele einen Error-Sound, falls etwas schiefging
+            if (errorSound)
+            {
+                SystemSounds.Asterisk.Play();
+            }
         }
     }
 }
