@@ -248,6 +248,9 @@ namespace Pollux
                     i.Ellipse.Width = knoten_Width;
                     i.Ellipse.Height = knoten_Height;
                     i.Ellipse.StrokeThickness = knoten_Border_Thickness;
+
+                    //Gebe den Namen auch noch einmal an
+                    i.Label.Content = i.Knoten.Name;
                 }
             }
             foreach (GraphDarstellung.KnotenDarstellung i in entfernteKnoten)
@@ -309,16 +312,17 @@ namespace Pollux
                 if (graph.ContainsKanten(i.Kante))
                 {
                     //Gucke, ob das Element "i.Line" eine Line ist oder eine Ellipse, also eine ganz normale Kante darstellt oder eine Schlinge
-                    Line line = new Line() { Fill = Brushes.Transparent };
-                    Ellipse ellipse = new Ellipse() { Fill = Brushes.Transparent };
+                    Line line = new Line();
+                    Ellipse ellipse = new Ellipse();
+                    bool isLine = true;
                     switch (i.Line)
                     {
-                        case Ellipse ellipse1: ellipse = ellipse1; break;
-                        case Line line1: line = line1; break;
+                        case Ellipse ellipse1: ellipse = ellipse1; isLine = false; break;
+                        case Line line1: line = line1; isLine = true; break;
                     }
 
                     //Rechne die Position nach und justiere sie
-                    if (line.Fill == Brushes.Transparent)
+                    if (!isLine)
                     {
                         //Für den Fall, dass es eine Schlinge ist
                         //Finde das Margin des Knotens zur Schlinge heraus
