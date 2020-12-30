@@ -204,8 +204,7 @@ namespace Pollux.Verschlüsselungen
             return str;
         }
 
-
-        public static string hochstellen(double numbers)
+        public static string Hochstellen(double numbers)
         {
             string str = numbers.ToString();
             string solution = "";
@@ -229,6 +228,11 @@ namespace Pollux.Verschlüsselungen
                 }
             }
             return solution;
+        }
+
+        public static string DoubleAsString(double number)
+        {
+            return number.ToString().Replace(',', '.');
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace Pollux
 {
@@ -283,6 +284,31 @@ namespace Pollux
 
             //Male den Graphen neu
             DrawGraph();
+        }
+
+        private void AlsSVGSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+            //Finde den Pfad heraus, wo die Datei gespeichert werden soll
+            string filePath = "";
+            try
+            {
+                //Create a OpenFileDialog "openFileDialog"
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = " (*.svg)|*.svg";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+                }
+            }
+            catch { }
+
+            //Erstelle die Datei in der gewollten Datei
+            this.GetOpenGraphDarstellung().SaveAsSVG(filePath);
         }
     }
 }

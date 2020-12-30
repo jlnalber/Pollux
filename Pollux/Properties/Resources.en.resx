@@ -357,6 +357,9 @@
   <data name="R" xml:space="preserve">
     <value>R (red):</value>
   </data>
+  <data name="SaveAsSVG" xml:space="preserve">
+    <value>Save as .svg</value>
+  </data>
   <data name="Schließen" xml:space="preserve">
     <value>Close</value>
   </data>

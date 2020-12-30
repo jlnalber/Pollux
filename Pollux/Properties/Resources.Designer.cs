@@ -800,6 +800,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Als .svg speichern ähnelt.
+        /// </summary>
+        public static string SaveAsSVG {
+            get {
+                return ResourceManager.GetString("SaveAsSVG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Schließen ähnelt.
         /// </summary>
         public static string Schließen {

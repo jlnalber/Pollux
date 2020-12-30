@@ -78,6 +78,7 @@ namespace Pollux
             this.Bearbeiten.Header = resman.GetString("Bearbeiten", cul);
             this.Speichern.Header = resman.GetString("Speichern", cul);
             this.AlleSpeichern.Header = resman.GetString("AlleSpeichern", cul);
+            this.AlsSVGSpeichern.Header = resman.GetString("SaveAsSVG", cul);
             this.Neu.Header = resman.GetString("Neu", cul);
             this.Einstellungen.Header = resman.GetString("Einstellungen", cul);
             this.Schließen.Header = resman.GetString("Schließen", cul);

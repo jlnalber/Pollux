@@ -14,6 +14,7 @@
             <MenuItem x:Name="Datei" MinHeight="20">
                 <MenuItem x:Name="Speichern" MinHeight="20" Click="Speichern_Click"/>
                 <MenuItem x:Name="AlleSpeichern" MinHeight="20" Click="AlleSpeichern_Click"/>
+                <MenuItem x:Name="AlsSVGSpeichern" MinHeight="20" Click="AlsSVGSpeichern_Click"/>
                 <MenuItem x:Name="Öffnen" MinHeight="20" Click="Open_Click"/>
                 <MenuItem x:Name="Neu" MinHeight="20" Click="Neu_Click"/>
                 <Separator/>
