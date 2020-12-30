@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Win32;
 
 namespace Pollux
 {
@@ -308,7 +308,7 @@ namespace Pollux
             catch { }
 
             //Erstelle die Datei in der gewollten Datei
-            this.GetOpenGraphDarstellung().SaveAsSVG(filePath);
+            GetOpenGraphDarstellung().SaveAsSVG(filePath);
         }
     }
 }
