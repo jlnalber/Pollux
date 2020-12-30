@@ -122,7 +122,7 @@ namespace Pollux
                 menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
 
                 //Füge die MenuItems hinzu
-                graphCanvas.ContextMenu = new System.Windows.Controls.ContextMenu();
+                graphCanvas.ContextMenu = new ContextMenu();
                 graphCanvas.ContextMenu.Items.Add(menuItem1);
                 graphCanvas.ContextMenu.Items.Add(menuItem4);
                 #endregion
@@ -308,6 +308,50 @@ namespace Pollux
                     label.HorizontalAlignment = HorizontalAlignment.Left;
                     label.VerticalAlignment = VerticalAlignment.Top;
                     label.Margin = new(knoten.Ellipse.Margin.Left + GraphDarstellung.KnotenDarstellung.LabelToRight, knoten.Ellipse.Margin.Top - GraphDarstellung.KnotenDarstellung.LabelToTop, 10, 10);
+
+                    //Füge ein ContextMenu hinzu
+                    #region
+                    //ContextMenu "contextMenu"
+                    ContextMenu contextMenu = new ContextMenu();
+                    knoten.Ellipse.ContextMenu = contextMenu;
+
+                    //MenuItem zum Löschen des Knoten
+                    MenuItem löschen = new MenuItem();
+                    löschen.Header = resman.GetString("Löschen", cul);
+                    löschen.Icon = " - ";
+                    löschen.Click += MenuItemLöschen_Click;
+
+                    //MenuItem zur Bearbeitung von Graph
+                    MenuItem menuItem1 = new();
+                    menuItem1.Header = resman.GetString("GraphBearbeiten", cul);
+
+                    //MenuItem zum Hinzufügen von Kanten
+                    MenuItem menuItem2 = new();
+                    menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
+                    menuItem2.Icon = " + ";
+                    menuItem2.Click += KanteHinzufügen_Click;
+
+                    //MenuItem zum Hinzufügen von Knoten
+                    MenuItem menuItem3 = new();
+                    menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
+                    menuItem3.Icon = " + ";
+                    menuItem3.Click += KnotenHinzufügen_Click;
+
+                    //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
+                    menuItem1.Items.Add(menuItem2);
+                    menuItem1.Items.Add(menuItem3);
+
+                    //MenuItem zum Öffnen des Eiganschaften-Fensters
+                    MenuItem menuItem4 = new();
+                    menuItem4.Click += EigenschaftenFenster_Click;
+                    menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
+
+                    //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
+                    contextMenu.Items.Add(löschen);
+                    contextMenu.Items.Add(new Separator());
+                    contextMenu.Items.Add(menuItem1);
+                    contextMenu.Items.Add(menuItem4);
+                    #endregion
                 }
             }
 

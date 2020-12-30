@@ -665,6 +665,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten entfernen ähnelt.
+        /// </summary>
+        public static string Löschen {
+            get {
+                return ResourceManager.GetString("Löschen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
         /// </summary>
         public static string Name {

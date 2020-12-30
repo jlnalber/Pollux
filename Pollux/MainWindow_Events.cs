@@ -247,12 +247,11 @@ namespace Pollux
                     }
                     else if (e.Key == Key.E)
                     {
-                        Pollux.Show show = new(GetOpenGraph());
-                        show.Show();
+                        GetOpenConsole().Command("SHOW");
                     }
                     else if (e.Key == Key.S)
                     {
-                        SaveOpenFile();
+                        GetOpenConsole().Command("SAVE");
                         SaveOpenedFiles();
                     }
                 }
@@ -268,6 +267,22 @@ namespace Pollux
             //Öffne ein Einstellungs-Fenster
             Einstellungen window = new();
             window.Show();
+        }
+
+        private void MenuItemLöschen_Click(object sender, RoutedEventArgs e)
+        {
+            //Lösche den Knoten, bei dem das MenuItem das Event ausgelöst hat
+            for (int i = 0; i < GetOpenGraphDarstellung().visuelleKnoten.Count; i++)
+            {
+                if (GetOpenGraphDarstellung().visuelleKnoten[i].Ellipse.ContextMenu.Items.Contains(sender))
+                {
+                    GetOpenConsole().Command("REMOVE " + GetOpenGraphDarstellung().visuelleKnoten[i].Label.Content.ToString());
+                    i--;
+                }
+            }
+
+            //Male den Graphen neu
+            DrawGraph();
         }
     }
 }
