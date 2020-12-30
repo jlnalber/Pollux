@@ -295,7 +295,7 @@ namespace Pollux
                 //Create a OpenFileDialog "openFileDialog"
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = " (*.svg)|*.svg";
+                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 
