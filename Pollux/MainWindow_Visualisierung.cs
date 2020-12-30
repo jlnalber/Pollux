@@ -245,12 +245,18 @@ namespace Pollux
                     i.Ellipse.Stroke = knoten_FarbeBorder;
 
                     //und gebe noch einmal die Dicke, Höhe und Breite an
-                    i.Ellipse.Width = knoten_Width;
-                    i.Ellipse.Height = knoten_Height;
-                    i.Ellipse.StrokeThickness = knoten_Border_Thickness;
+                    if (i.Ellipse.Width != knoten_Width | i.Ellipse.Height != knoten_Height | i.Ellipse.StrokeThickness != knoten_Border_Thickness)
+                    {
+                        i.Ellipse.Width = knoten_Width;
+                        i.Ellipse.Height = knoten_Height;
+                        i.Ellipse.StrokeThickness = knoten_Border_Thickness;
+                    }
 
                     //Gebe den Namen auch noch einmal an
-                    i.Label.Content = i.Knoten.Name;
+                    if (i.Label.Content.ToString() != i.Knoten.Name)
+                    {
+                        i.Label.Content = i.Knoten.Name;
+                    }
                 }
             }
             foreach (GraphDarstellung.KnotenDarstellung i in entfernteKnoten)

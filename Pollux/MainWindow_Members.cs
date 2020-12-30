@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Resources;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Pollux
 {
