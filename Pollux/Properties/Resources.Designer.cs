@@ -800,7 +800,7 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Als .svg speichern ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Als Bild speichern ähnelt.
         /// </summary>
         public static string SaveAsSVG {
             get {

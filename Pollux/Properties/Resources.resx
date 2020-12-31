@@ -362,7 +362,7 @@
     <value>R (Rot):</value>
   </data>
   <data name="SaveAsSVG" xml:space="preserve">
-    <value>Als .svg speichern</value>
+    <value>Als Bild speichern</value>
   </data>
   <data name="Schließen" xml:space="preserve">
     <value>Schließen</value>

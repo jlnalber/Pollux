@@ -292,11 +292,12 @@ namespace Pollux
             string filePath = "";
             try
             {
-                //Create a OpenFileDialog "openFileDialog"
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+                //Erstelle einen SaveFileDialog "openFileDialog"
+                SaveFileDialog openFileDialog = new();
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg";
+                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Exchangeable Image File Format (*.exif)|*exif|JPEG-File (*jpg)|*jpg|Portable Network Graphics (*png)|*png|Tagged Image File Format (*tiff)|*tiff";
                 openFileDialog.FilterIndex = 2;
+                openFileDialog.FileName = "graph.svg";
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == true)
@@ -304,11 +305,23 @@ namespace Pollux
                     //Get the path of specified file
                     filePath = openFileDialog.FileName;
                 }
+
+                if (!(filePath.EndsWith(".svg") || filePath.EndsWith(".bmp") || filePath.EndsWith(".gif") || filePath.EndsWith(".exif") || filePath.EndsWith(".jpg") || filePath.EndsWith(".png") || filePath.EndsWith(".tiff")))
+                {
+                    filePath += ".svg";
+                }
+
+                //Erstelle die Datei in der gewollten Datei
+                if (filePath.EndsWith(".svg"))
+                {
+                    GetOpenGraphDarstellung().SaveAsSVG(filePath);
+                }
+                else
+                {
+                    GetOpenGraphDarstellung().SaveAsBitmap(filePath);
+                }
             }
             catch { }
-
-            //Erstelle die Datei in der gewollten Datei
-            GetOpenGraphDarstellung().SaveAsSVG(filePath);
         }
     }
 }
