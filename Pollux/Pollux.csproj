@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Hilfe\Hilfe.pdf" />
+    <None Remove="Pollux.ico" />
     <None Remove="SplashScreen.png" />
   </ItemGroup>
 
@@ -38,6 +39,9 @@
 
   <ItemGroup>
     <Content Include="Hilfe\Hilfe.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pollux.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
