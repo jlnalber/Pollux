@@ -286,7 +286,7 @@ namespace Pollux
             DrawGraph();
         }
 
-        private void AlsSVGSpeichern_Click(object sender, RoutedEventArgs e)
+        private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
         {
             //Finde den Pfad heraus, wo die Datei gespeichert werden soll
             string filePath = "";

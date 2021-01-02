@@ -48,22 +48,15 @@ namespace Pollux
                     height = int.Parse(Math.Round(i.Label.Margin.Top + i.Label.ActualHeight + 10).ToString());
                 }
             }
+
             streamWriter.WriteLine("<svg width=\"" + width + "\" height=\"" + height + "\" xmlns=\"http://www.w3.org/2000/svg\">");
 
             //Schreibe die Kanten in die Datei hinein
             foreach (KantenDarstellung i in this.visuelleKanten)
             {
                 //Finde heraus, ob das Element eine Schlinge (Ellipse) oder eine ganz normale Kante (Line) ist
-                bool IsLine = true;
-                Line line = new();
-                Ellipse ellipse = new();
-                switch (i.Line)
-                {
-                    case Line line1: IsLine = true; line = line1; break;
-                    case Ellipse ellipse1: IsLine = false; ellipse = ellipse1; break;
-                }
 
-                if (IsLine)
+                if (i.Line is Line line)
                 {
                     //Falls die Kante eine ganz normale Kante ist, also keine Schlinge schreibe sie als "line" hinein
                     //Finde die Attribute der Kante heraus
@@ -77,7 +70,7 @@ namespace Pollux
                     //Schreibe die Ergebnisse in die Datei
                     streamWriter.WriteLine("\t<line x1=\"" + x1 + "\" y1=\"" + y1 + "\" x2=\"" + x2 + "\" y2=\"" + y2 + "\" stroke=\"" + stroke + "\" stroke-width=\"" + strokeWidth + "\"/>");
                 }
-                else
+                else if (i.Line is Ellipse ellipse)
                 {
                     //Falls die Kante eine Schlinge ist, schreibe sie als "ellipse" hinein
                     //Finde die Attribute de Schlinge heraus

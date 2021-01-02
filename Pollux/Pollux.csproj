@@ -4,16 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Icon(1).ico</ApplicationIcon>
+    <ApplicationIcon>pollux.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Hilfe\Hilfe.pdf" />
-    <None Remove="Icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <SplashScreen Include="Icon.png" />
+    <None Remove="SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +44,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>

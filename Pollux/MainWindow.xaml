@@ -14,7 +14,7 @@
             <MenuItem x:Name="Datei" MinHeight="20">
                 <MenuItem x:Name="Speichern" MinHeight="20" Click="Speichern_Click"/>
                 <MenuItem x:Name="AlleSpeichern" MinHeight="20" Click="AlleSpeichern_Click"/>
-                <MenuItem x:Name="AlsSVGSpeichern" MinHeight="20" Click="AlsSVGSpeichern_Click"/>
+                <MenuItem x:Name="AlsSVGSpeichern" MinHeight="20" Click="AlsBildSpeichern_Click"/>
                 <MenuItem x:Name="Öffnen" MinHeight="20" Click="Open_Click"/>
                 <MenuItem x:Name="Neu" MinHeight="20" Click="Neu_Click"/>
                 <Separator/>
@@ -42,9 +42,15 @@
             </MenuItem>
         </Menu>
 
-        <StatusBar Height="20" Margin="0,0,0,0" VerticalAlignment="Bottom" Background="#00BF00" DockPanel.Dock="Bottom">
+        <StatusBar Height="20" Margin="0,0,0,0" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
+            <StatusBar.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FF6464FF" Offset="0.0"/>
+                    <GradientStop Color="#FF9C46C8" Offset="0.5"/>
+                </LinearGradientBrush>
+            </StatusBar.Background>
             <StackPanel Margin="0,0,0,0" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock Text="Pollux" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom"/>
+                <TextBlock Text="Pollux" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="White"/>
                 <TextBlock x:Name="ProgramTextBox" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom"/>
             </StackPanel>
         </StatusBar>
