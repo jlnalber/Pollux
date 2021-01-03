@@ -115,6 +115,7 @@ namespace Pollux
         {
             //Der Vergrößerungsfaktor "factor"
             const int factor = 8;
+            const int padding = factor * 10;
 
             //Finde heraus, wie weit und wie hoch die Datei sein muss und schreibe das in sie hinein
             int width = 0;
@@ -145,7 +146,7 @@ namespace Pollux
             }
 
             //Erstelle eine Bitmap
-            Bitmap bmp = new(width * factor, height * factor);
+            Bitmap bmp = new(width * factor + padding * 2, height * factor + padding * 2);
 
             Graphics graphics = Graphics.FromImage(bmp);
             graphics.Clear(System.Drawing.Color.Transparent);
@@ -158,12 +159,12 @@ namespace Pollux
                 {
                     //Falls die Kante eine ganz normale Kante ist, also keine Schlinge schreibe sie als "line" hinein
                     //Finde die Attribute der Kante heraus
-                    float x1 = (float)Math.Round(line.X1, 2) * factor;
-                    float x2 = (float)Math.Round(line.X2, 2) * factor;
-                    float y1 = (float)Math.Round(line.Y1, 2) * factor;
-                    float y2 = (float)Math.Round(line.Y2, 2) * factor;
+                    float x1 = (float)Math.Round(line.X1, 2) * factor + padding;
+                    float x2 = (float)Math.Round(line.X2, 2) * factor + padding;
+                    float y1 = (float)Math.Round(line.Y1, 2) * factor + padding;
+                    float y2 = (float)Math.Round(line.Y2, 2) * factor + padding;
                     System.Windows.Media.Color stroke = ((SolidColorBrush)line.Stroke).Color;
-                    float strokeWidth = (float)Math.Round(line.StrokeThickness, 2) * factor;
+                    float strokeWidth = (float)Math.Round(line.StrokeThickness, 2) * factor + padding;
                     System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
 
                     //Male die Ergebnisse in die Datei
@@ -173,11 +174,11 @@ namespace Pollux
                 {
                     //Falls die Kante eine Schlinge ist, schreibe sie als "ellipse" hinein
                     //Finde die Attribute de Schlinge heraus
-                    float x = (float)Math.Round(ellipse.Margin.Left, 2) * factor;
-                    float y = (float)Math.Round(ellipse.Margin.Top, 2) * factor;
-                    float widthEllipse = (float)Math.Round(ellipse.Width, 2) * factor;
-                    float heightEllipse = (float)Math.Round(ellipse.Height, 2) * factor;
-                    float strokeWidth = (float)Math.Round(ellipse.StrokeThickness, 2) * factor;
+                    float x = (float)Math.Round(ellipse.Margin.Left, 2) * factor + padding;
+                    float y = (float)Math.Round(ellipse.Margin.Top, 2) * factor + padding;
+                    float widthEllipse = (float)Math.Round(ellipse.Width, 2) * factor + padding;
+                    float heightEllipse = (float)Math.Round(ellipse.Height, 2) * factor + padding;
+                    float strokeWidth = (float)Math.Round(ellipse.StrokeThickness, 2) * factor + padding;
                     System.Windows.Media.Color stroke = ((SolidColorBrush)ellipse.Stroke).Color;
                     System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
 
@@ -190,28 +191,29 @@ namespace Pollux
             foreach (KnotenDarstellung i in this.visuelleKnoten)
             {
                 //Finde die Attribute von dem Knoten heraus
-                int x = (int)Math.Round(i.Ellipse.Margin.Left) * factor;
-                int y = (int)Math.Round(i.Ellipse.Margin.Top) * factor;
-                int widthEllipse = (int)Math.Round(i.Ellipse.Width) * factor;
-                int heightEllipse = (int)Math.Round(i.Ellipse.Height) * factor;
+                int x = (int)Math.Round(i.Ellipse.Margin.Left) * factor + padding;
+                int y = (int)Math.Round(i.Ellipse.Margin.Top) * factor + padding;
+                int widthEllipse = (int)Math.Round(i.Ellipse.Width) * factor + padding;
+                int heightEllipse = (int)Math.Round(i.Ellipse.Height) * factor + padding;
                 SolidColorBrush fillEllipse = (SolidColorBrush)i.Ellipse.Fill;
                 System.Drawing.Color fill = System.Drawing.Color.FromArgb(fillEllipse.Color.A, fillEllipse.Color.R, fillEllipse.Color.G, fillEllipse.Color.B);
                 SolidBrush brush = new(fill);
 
-                float strokeWidth = (float)Math.Round(i.Ellipse.StrokeThickness, 2) * factor;
+                float strokeWidth = (float)Math.Round(i.Ellipse.StrokeThickness, 2) * factor + padding;
                 System.Windows.Media.Color stroke = ((SolidColorBrush)i.Ellipse.Stroke).Color;
                 System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
                 System.Drawing.Rectangle rectangle = new(x, y, widthEllipse, heightEllipse);
                 graphics.FillEllipse((System.Drawing.Brush)brush, rectangle);
 
                 //Finde die Attribute von dem Label heraus
-                float xLabel = (float)Math.Round(i.Label.Margin.Left, 2) * factor;
-                float yLabel = (float)Math.Round(i.Label.Margin.Top, 2) * factor;
-                float fontSize = (float)Math.Round(i.Label.FontSize, 2) * factor;
+                float xLabel = (float)Math.Round(i.Label.Margin.Left, 2) * factor + padding;
+                float yLabel = (float)Math.Round(i.Label.Margin.Top, 2) * factor + padding;
+                float fontSize = (float)Math.Round(i.Label.FontSize, 2) * factor + padding;
                 string fontFamily = i.Label.FontFamily.Source;
 
                 //Schreibe schließlich alles in die Datei
                 graphics.DrawEllipse(pen, rectangle);
+                graphics.DrawString(i.Label.Content.ToString(), new Font(fontFamily, fontSize), new SolidBrush(System.Drawing.Color.Black), xLabel, yLabel);
             }
 
             graphics.Save();

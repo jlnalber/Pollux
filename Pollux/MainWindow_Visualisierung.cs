@@ -318,6 +318,7 @@ namespace Pollux
                     knoten.Ellipse.Height = knoten_Height;
                     knoten.Ellipse.Width = knoten_Width;
                     knoten.Ellipse.Margin = new((index % 15) * 100 + 10, Convert.ToInt32(index / 15) * 100 + 10, 10, 10);
+                    knoten.Ellipse.Cursor = System.Windows.Input.Cursors.Hand;
 
                     //Mache Feinheiten an dem Label
                     label.Content = i.Name;
