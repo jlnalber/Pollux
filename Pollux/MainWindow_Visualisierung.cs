@@ -67,7 +67,7 @@ namespace Pollux
                 inputThickness.Right = 5;
 
                 //Konsolen-Eingabe (kleine TextBox)
-                System.Windows.Controls.TextBox consoleInput = new System.Windows.Controls.TextBox();
+                TextBox consoleInput = new();
                 consoleInput.KeyDown += KeyDown_ConsoleInput;
                 consoleInput.AcceptsReturn = false;
                 consoleInput.Padding = inputThickness;
@@ -90,24 +90,30 @@ namespace Pollux
 
                 //erstelle die Elemente für die Graph-Visualisierung
                 #region
+                //DockPanel "dockPanel", in dem sich alle Elemente befinden werden
+                DockPanel dockPanel = new DockPanel();
+
+                //Grid "grid" für die Eigenschaften (wird später zugewiesen)
+                Grid grid = new();
+
                 //erstelle Canvas für den Graphen
                 Canvas graphCanvas = new Canvas();
+                DockPanel.SetDock(graphCanvas, Dock.Left);
 
                 //lege Eigenschaften für ihn fest
                 //MenuItems
-                #region
                 //MenuItem zur Bearbeitung von Graph
-                System.Windows.Controls.MenuItem menuItem1 = new System.Windows.Controls.MenuItem();
+                MenuItem menuItem1 = new();
                 menuItem1.Header = resman.GetString("GraphBearbeiten", cul);
 
                 //MenuItem zum Hinzufügen von Kanten
-                System.Windows.Controls.MenuItem menuItem2 = new System.Windows.Controls.MenuItem();
+                MenuItem menuItem2 = new();
                 menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
                 menuItem2.Icon = " + ";
                 menuItem2.Click += KanteHinzufügen_Click;
 
                 //MenuItem zum Hinzufügen von Knoten
-                System.Windows.Controls.MenuItem menuItem3 = new System.Windows.Controls.MenuItem();
+                MenuItem menuItem3 = new();
                 menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
                 menuItem3.Icon = " + ";
                 menuItem3.Click += KnotenHinzufügen_Click;
@@ -125,20 +131,17 @@ namespace Pollux
                 graphCanvas.ContextMenu = new ContextMenu();
                 graphCanvas.ContextMenu.Items.Add(menuItem1);
                 graphCanvas.ContextMenu.Items.Add(menuItem4);
-                #endregion
 
                 //Eigene Darstellung
-                #region
                 graphCanvas.Background = Brushes.White;
                 graphCanvas.Margin = new Thickness(5, 5, 5, 5);
-                #endregion
 
                 //füge ihn zum TabItem hinzu
-                tabGraph.Content = graphCanvas;
+                tabGraph.Content = dockPanel;
                 #endregion
 
                 //erstelle einen neuen Tab
-                tab = AddNewTab<System.Windows.Controls.TabControl>(path.Substring(path.LastIndexOf(@"\") + 1), tabControl);
+                tab = AddNewTab<TabControl>(path.Substring(path.LastIndexOf(@"\") + 1), tabControl);
 
                 //fokusiere auf das Eingabe-Feld
                 consoleInput.Focus();
@@ -154,11 +157,24 @@ namespace Pollux
                 }
                 catch
                 {
-                    MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
+                    System.Windows.MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
                 }
 
                 //erstelle die CommandConsole zum Graph
                 CommandConsole commandConsole = new CommandConsole(graph, consoleOutput, path, this, tab);
+                #endregion
+
+                //Erstelle weitere visuelle Elemente
+                #region
+                Show show = new Show(graph);
+                grid = show.ContentGrid;
+                show.Content = new Grid();
+                grid.Width = 400;
+                DockPanel.SetDock(grid, Dock.Right);
+                dockPanel.Children.Add(grid);
+                show.Close();
+
+                dockPanel.Children.Add(graphCanvas);
                 #endregion
 
                 //stelle die Knoten des Graphen im Canvas "graphCanvas" dar, die Kanten werden später noch dargestellt durch ein Event
@@ -198,7 +214,7 @@ namespace Pollux
                 this.Consoles.Remove(tab);
                 this.Canvases.Remove(tab);
                 this.Graphs.Remove(tab);
-                MessageBox.Show(e.Message);
+                System.Windows.MessageBox.Show(e.Message);
             }
         }
 
@@ -526,7 +542,7 @@ namespace Pollux
             tab1.Content = content;
 
             //erstelle Header
-            DockPanel headerPanel = new DockPanel();
+            System.Windows.Controls.DockPanel headerPanel = new System.Windows.Controls.DockPanel();
 
             //Füge TextBlock zum Header hinzu
             TextBlock Title = new TextBlock();
@@ -534,7 +550,7 @@ namespace Pollux
             headerPanel.Children.Add(Title);
 
             //Füge Button zum Schließen zum Header hinzu
-            Button closeButton = new();
+            System.Windows.Controls.Button closeButton = new();
             closeButton.Content = "x";
             closeButton.Background = Brushes.Transparent;
             closeButton.BorderBrush = Brushes.Transparent;

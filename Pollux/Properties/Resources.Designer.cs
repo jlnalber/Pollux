@@ -295,6 +295,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Eigenschaft: ähnelt.
+        /// </summary>
+        public static string EigenschaftDataGrid {
+            get {
+                return ResourceManager.GetString("EigenschaftDataGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Eigenschaften ähnelt.
         /// </summary>
         public static string Eigenschaften {
@@ -448,6 +457,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Graph ähnelt.
+        /// </summary>
+        public static string GraphTab_Header {
+            get {
+                return ResourceManager.GetString("GraphTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Hilfe ähnelt.
         /// </summary>
         public static string Hilfe {
@@ -481,6 +499,15 @@ namespace Pollux.Properties {
         public static string KanteHinzufügen {
             get {
                 return ResourceManager.GetString("KanteHinzufügen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kanten: ähnelt.
+        /// </summary>
+        public static string Kanten {
+            get {
+                return ResourceManager.GetString("Kanten", resourceCulture);
             }
         }
         
@@ -557,11 +584,29 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kanten ähnelt.
+        /// </summary>
+        public static string KantenTab_Header {
+            get {
+                return ResourceManager.GetString("KantenTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Sieht so aus als würde dieser Graph keine Knoten beinhalten! ähnelt.
         /// </summary>
         public static string KeineKanten {
             get {
                 return ResourceManager.GetString("KeineKanten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten: ähnelt.
+        /// </summary>
+        public static string Knoten {
+            get {
+                return ResourceManager.GetString("Knoten", resourceCulture);
             }
         }
         
@@ -643,6 +688,15 @@ namespace Pollux.Properties {
         public static string KnotenPickerText {
             get {
                 return ResourceManager.GetString("KnotenPickerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten ähnelt.
+        /// </summary>
+        public static string KnotenTab_Header {
+            get {
+                return ResourceManager.GetString("KnotenTab_Header", resourceCulture);
             }
         }
         
@@ -976,6 +1030,15 @@ namespace Pollux.Properties {
         public static string Wert {
             get {
                 return ResourceManager.GetString("Wert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Wert: ähnelt.
+        /// </summary>
+        public static string WertDataGrid {
+            get {
+                return ResourceManager.GetString("WertDataGrid", resourceCulture);
             }
         }
         

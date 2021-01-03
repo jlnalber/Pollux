@@ -34,6 +34,9 @@ namespace Pollux
             this.KantenParentText.Text = MainWindow.resman.GetString("KantenParentText", MainWindow.cul);
             this.KantenStartText.Text = MainWindow.resman.GetString("KantenStartText", MainWindow.cul);
             this.KantenEndeText.Text = MainWindow.resman.GetString("KantenEndeText", MainWindow.cul);
+            this.KantenTab.Header = MainWindow.resman.GetString("KantenTab_Header", MainWindow.cul);
+            this.KnotenTab.Header = MainWindow.resman.GetString("KnotenTab_Header", MainWindow.cul);
+            this.GraphTab.Header = MainWindow.resman.GetString("GraphTab_Header", MainWindow.cul);
             #endregion
 
             //DataGrid
@@ -53,6 +56,8 @@ namespace Pollux
             list.Add(new Elements("Schlingen", graph.Schlingen.ToString()));
             list.Add(new Elements("Anzahl an Knoten", graph.AnzahlKnoten.ToString()));
             list.Add(new Elements("Anzahl an Kanten", graph.AnzahlKanten.ToString()));
+            this.Wert.Header = MainWindow.resman.GetString("WertDataGrid", MainWindow.cul);
+            this.Eigenschaft.Header = MainWindow.resman.GetString("EigenschaftDataGrid", MainWindow.cul);
             this.DataGrid.ItemsSource = list;
             #endregion
 
@@ -102,6 +107,7 @@ namespace Pollux
             }
             #endregion
 
+            /*
             //Grid-Table
             #region
             //füge genügend "Columns" und "Rows" zum "Table" hinzu
@@ -162,7 +168,7 @@ namespace Pollux
                     this.Table.Children.Add(textBlock);
                 }
             }
-            #endregion
+            #endregion*/
         }
 
         //Eventhandler, falls die Combobox in "KnotenGrid" geändert wird
@@ -203,6 +209,18 @@ namespace Pollux
                     this.KnotenKanten.Items.Add(listBoxItem);
                 }
             }
+
+            //Tabelle
+            #region
+            List<ElementsKnoten> list = new();
+            for (int i = 0; i < graph.GraphKnoten.Count; i++)
+            {
+                list.Add(new ElementsKnoten(graph.GraphKnoten[i].Name, graph[graph.GraphKnoten.IndexOf(knoten), i]));
+            }
+            this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
+            this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
+            this.DataGridKnoten.ItemsSource = list;
+            #endregion
         }
 
         //Eventhandler, falls die Combobox in "KantenGrid" geändert wird
@@ -219,7 +237,7 @@ namespace Pollux
         }
 
         //private Klasse um die Eigenschaften des Graphens im "DataGrid" darzustellen
-        private class Elements
+        private record Elements
         {
             public string Eigenschaft { get; set; }
             public string Wert { get; set; }
@@ -227,6 +245,17 @@ namespace Pollux
             {
                 this.Eigenschaft = eigenschaft;
                 this.Wert = wert;
+            }
+        }
+
+        private record ElementsKnoten
+        {
+            public string Node { get; set; }
+            public int Edge { get; set; }
+            public ElementsKnoten(string node, int edge)
+            {
+                this.Node = node;
+                this.Edge = edge;
             }
         }
     }

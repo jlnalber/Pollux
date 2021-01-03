@@ -79,5 +79,28 @@ namespace Pollux.Graph
         {
             return this.GraphKanten.Contains(kante);
         }
+
+        //Indexer
+        public int this[int x, int y]
+        {
+            get
+            {
+                return this.Liste[x, y];
+            }
+            set
+            {
+                this.Liste[x, y] = value;
+            }
+        }
+
+        public Knoten this[int index]
+        {
+            get { return this.GraphKnoten[index]; }
+        }
+
+        public Knoten this[string name]
+        {
+            get { return this.SucheKnoten(name); }
+        }
     }
 }

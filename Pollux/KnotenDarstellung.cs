@@ -15,8 +15,8 @@ namespace Pollux
             public Canvas Canvas;
             public MouseButtonEventArgs MouseButtonEventArgs;
             public Label Label;
-            public const int LabelToRight = 25;
-            public const int LabelToTop = -20;
+            public const int LabelToRight = 40;
+            public const int LabelToTop = 20;
 
             //Konstruktor der Klasse
             public KnotenDarstellung(Graph.Graph.Knoten knoten, Ellipse ellipse, Label label, Canvas canvas)

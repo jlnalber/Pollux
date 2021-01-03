@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="A" xml:space="preserve">
     <value>A (alpha):</value>
@@ -195,6 +195,9 @@
   <data name="Eigenschaft" xml:space="preserve">
     <value>Property</value>
   </data>
+  <data name="EigenschaftDataGrid" xml:space="preserve">
+    <value>Property:</value>
+  </data>
   <data name="Eigenschaften" xml:space="preserve">
     <value>Properties</value>
   </data>
@@ -243,6 +246,9 @@
   <data name="GraphLaden" xml:space="preserve">
     <value>Loading the window...</value>
   </data>
+  <data name="GraphTab_Header" xml:space="preserve">
+    <value>Graph</value>
+  </data>
   <data name="GraphÖffnen" xml:space="preserve">
     <value>Open a graph (.poll-file)</value>
   </data>
@@ -254,6 +260,9 @@
   </data>
   <data name="KanteHinzufügen" xml:space="preserve">
     <value>Add edge</value>
+  </data>
+  <data name="Kanten" xml:space="preserve">
+    <value>Edges:</value>
   </data>
   <data name="KantenEndeText" xml:space="preserve">
     <value>End:</value>
@@ -276,11 +285,17 @@
   <data name="KantenStartText" xml:space="preserve">
     <value>Start:</value>
   </data>
+  <data name="KantenTab_Header" xml:space="preserve">
+    <value>Edges</value>
+  </data>
   <data name="Kanten_Preview_Text" xml:space="preserve">
     <value>Preview of edges:</value>
   </data>
   <data name="KeineKanten" xml:space="preserve">
     <value>Seems like this graph doesn't contain any edges!</value>
+  </data>
+  <data name="Knoten" xml:space="preserve">
+    <value>Nodes:</value>
   </data>
   <data name="Knoten1" xml:space="preserve">
     <value>First node:</value>
@@ -305,6 +320,9 @@
   </data>
   <data name="KnotenPickerText" xml:space="preserve">
     <value>Choose node:</value>
+  </data>
+  <data name="KnotenTab_Header" xml:space="preserve">
+    <value>Nodes</value>
   </data>
   <data name="Knoten_Preview_Text" xml:space="preserve">
     <value>Preview of the nodes:</value>
@@ -413,6 +431,9 @@
   </data>
   <data name="Wert" xml:space="preserve">
     <value>Value</value>
+  </data>
+  <data name="WertDataGrid" xml:space="preserve">
+    <value>Value:</value>
   </data>
   <data name="Willkommen" xml:space="preserve">
     <value>Welcome!</value>
