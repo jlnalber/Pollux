@@ -213,9 +213,9 @@ namespace Pollux
             //Tabelle
             #region
             List<ElementsKnoten> list = new();
-            for (int i = 0; i < graph.GraphKnoten.Count; i++)
+            for (int i = 0; i < this.graph.GraphKnoten.Count; i++)
             {
-                list.Add(new ElementsKnoten(graph.GraphKnoten[i].Name, graph[graph.GraphKnoten.IndexOf(knoten), i]));
+                list.Add(new ElementsKnoten(this.graph.GraphKnoten[i].Name, this.graph[this.graph.GraphKnoten.IndexOf(knoten), i]));
             }
             this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
             this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
