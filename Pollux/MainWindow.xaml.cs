@@ -55,6 +55,8 @@ namespace Pollux
             this.Canvases = new Dictionary<TabItem, Canvas>();
             this.Graphs = new Dictionary<TabItem, GraphDarstellung>();
             this.Headers = new Dictionary<TabItem, TextBlock>();
+            this.OpenedEigenschaftenFenster = new Dictionary<TabItem, Show>();
+            this.OpenedEigenschaftenFensterGrid = new Dictionary<TabItem, Grid>();
             #endregion
 
             //Mache verschiedene Darstellungen

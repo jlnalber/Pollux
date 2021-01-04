@@ -10,6 +10,7 @@ namespace Pollux
         //Members
         #region
         public Graph.Graph usingGraph;
+        public GraphDarstellung usingGraphDarstellung;
         private TextBox output;
         public string user = "User";
         public string lastCommand;
@@ -19,9 +20,10 @@ namespace Pollux
         #endregion
 
         //Konstruktor
-        public CommandConsole(Graph.Graph usingGraph, TextBox output, string path, MainWindow main, TabItem tabItem)
+        public CommandConsole(Graph.Graph usingGraph, GraphDarstellung usingGraphDarstellung, TextBox output, string path, MainWindow main, TabItem tabItem)
         {
             this.usingGraph = usingGraph;
+            this.usingGraphDarstellung = usingGraphDarstellung;
             this.output = output;
             this.path = path;
             this.MainWindow = main;
@@ -66,7 +68,7 @@ namespace Pollux
                     try
                     {
                         //öffne ein neues EIgenschaften-Fenster "Show"
-                        Show show = new Show(this.usingGraph);
+                        Show show = new Show(this.usingGraphDarstellung, this);
                         show.Show();
                         WriteLine("Task complete!");
                     }
@@ -317,6 +319,7 @@ namespace Pollux
             {
                 this.MainWindow.DrawGraph();
                 this.MainWindow.SaveAll();
+                this.MainWindow.AktualisiereEigenschaftenFenster(TabItem);
             }
         }
 

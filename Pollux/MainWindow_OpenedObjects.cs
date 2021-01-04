@@ -52,6 +52,18 @@ namespace Pollux
             //suche nach dem geöffneten Tab und gib dann seinen Header zurück
             return this.Headers[GetOpenTab()];
         }
+
+        public Show GetOpenEigenschaftenFenster()
+        {
+            //Gebe das aktuell geöffnete Eigenschaften-Fenster zurück
+            return this.OpenedEigenschaftenFenster[this.GetOpenTab()];
+        }
+
+        public Grid GetOpenEigenschaftenFensterGrid()
+        {
+            //Gebe das aktuell geöffnete Eigenschaften-Fenster-Grid zurück
+            return this.OpenedEigenschaftenFensterGrid[this.GetOpenTab()];
+        }
         #endregion
 
         public void SaveOpenedFiles()

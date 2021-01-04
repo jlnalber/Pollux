@@ -9,19 +9,23 @@ namespace Pollux
     /// </summary>
     public partial class Show : Window
     {
-        public Graph.Graph graph;
+        public Graph.Graph Graph;
+        public GraphDarstellung GraphDarstellung;
+        public CommandConsole CommandConsole;
 
-        public Show(Graph.Graph graph)
+        public Show(GraphDarstellung graph, CommandConsole commandConsole)
         {
             //Erstelle das Fenster
             InitializeComponent();
 
             //Initialisierung der Member
-            this.graph = graph;
+            this.GraphDarstellung = graph;
+            this.Graph = graph.graph;
+            this.CommandConsole = commandConsole;
 
             //Übersetze die Texte und stelle sie dar
             #region
-            this.Title = graph.Name + " - " + MainWindow.resman.GetString("Eigenschaften", MainWindow.cul);
+            this.Title = this.Graph.Name + " - " + MainWindow.resman.GetString("Eigenschaften", MainWindow.cul);
             this.Eigenschaft.Header = MainWindow.resman.GetString("Eigenschaft", MainWindow.cul);
             this.Wert.Header = MainWindow.resman.GetString("Wert", MainWindow.cul);
             this.KnotenPickerText.Text = MainWindow.resman.GetString("KnotenPickerText", MainWindow.cul);
@@ -43,19 +47,19 @@ namespace Pollux
             #region
             //erstelle Elemente für das DataGrid und rechne sie aus, stelle dann das DataGrid dar
             List<Elements> list = new List<Elements>();
-            list.Add(new Elements("Ist Eulersch", graph.IstEulersch.ToString()));
-            list.Add(new Elements("Ist ein Baum", graph.IstBaum.ToString()));
-            list.Add(new Elements("Ist Bipartit", graph.IstBipartit.ToString()));
+            list.Add(new Elements("Ist Eulersch", this.Graph.IstEulersch.ToString()));
+            list.Add(new Elements("Ist ein Baum", this.Graph.IstBaum.ToString()));
+            list.Add(new Elements("Ist Bipartit", this.Graph.IstBipartit.ToString()));
 
             //Eigenschafts-Wert stimmt noch nicht ganz, wird bald überarbeitet
             //list.Add(new Elements("Ist Hamiltonsch", graph.IstHamiltonsch.ToString()));
-            list.Add(new Elements("Ist Zusammenhängend", graph.IstZusammenhängend.ToString()));
-            list.Add(new Elements("Komponenten", graph.AnzahlKomponenten.ToString()));
-            list.Add(new Elements("Ist ein einfacher Graph", graph.EinfacherGraph.ToString()));
-            list.Add(new Elements("Parallele Kanten", graph.ParalleleKanten.ToString()));
-            list.Add(new Elements("Schlingen", graph.Schlingen.ToString()));
-            list.Add(new Elements("Anzahl an Knoten", graph.AnzahlKnoten.ToString()));
-            list.Add(new Elements("Anzahl an Kanten", graph.AnzahlKanten.ToString()));
+            list.Add(new Elements("Ist Zusammenhängend", this.Graph.IstZusammenhängend.ToString()));
+            list.Add(new Elements("Komponenten", this.Graph.AnzahlKomponenten.ToString()));
+            list.Add(new Elements("Ist ein einfacher Graph", this.Graph.EinfacherGraph.ToString()));
+            list.Add(new Elements("Parallele Kanten", this.Graph.ParalleleKanten.ToString()));
+            list.Add(new Elements("Schlingen", this.Graph.Schlingen.ToString()));
+            list.Add(new Elements("Anzahl an Knoten", this.Graph.AnzahlKnoten.ToString()));
+            list.Add(new Elements("Anzahl an Kanten", this.Graph.AnzahlKanten.ToString()));
             this.Wert.Header = MainWindow.resman.GetString("WertDataGrid", MainWindow.cul);
             this.Eigenschaft.Header = MainWindow.resman.GetString("EigenschaftDataGrid", MainWindow.cul);
             this.DataGrid.ItemsSource = list;
@@ -65,7 +69,7 @@ namespace Pollux
             #region
             //schreibe in die ComboBox, welche Ecken es alle gibt
 
-            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+            foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Content = i.Name;
@@ -79,7 +83,7 @@ namespace Pollux
             #region
             //schreibe in die ComboBox, welche Kanten es alle gibt
 
-            if (graph.GraphKanten.Count == 0)
+            if (this.Graph.GraphKanten.Count == 0)
             {
                 //falls es keine Kanten gibt, schreibe das anstatt von dem restlichen Inhalt von "GridKanten"
                 Thickness thickness = new Thickness();//für Margin
@@ -96,9 +100,9 @@ namespace Pollux
             else
             {
                 //schreibe in die ComboBox, welche Ecken es alle gibt
-                foreach (Graph.Graph.Kanten i in graph.GraphKanten)
+                foreach (Graph.Graph.Kanten i in this.Graph.GraphKanten)
                 {
-                    ComboBoxItem comboBoxItem = new ComboBoxItem();
+                    ComboBoxItem comboBoxItem = new();
                     comboBoxItem.Content = i.Name;
                     this.KantenPicker.Items.Add(comboBoxItem);
                 }
@@ -175,7 +179,7 @@ namespace Pollux
         private void KnotenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
             //erstelle Knoten, welcher der ausgewählte Knoten ist
-            Graph.Graph.Knoten knoten = this.graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
+            Graph.Graph.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
 
             //lege die Eigenschaften fest
             this.KnotenName.Text = knoten.Name;
@@ -213,9 +217,9 @@ namespace Pollux
             //Tabelle
             #region
             List<ElementsKnoten> list = new();
-            for (int i = 0; i < this.graph.GraphKnoten.Count; i++)
+            for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
             {
-                list.Add(new ElementsKnoten(this.graph.GraphKnoten[i].Name, this.graph[this.graph.GraphKnoten.IndexOf(knoten), i]));
+                list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, this.Graph[this.Graph.GraphKnoten.IndexOf(knoten), i]));
             }
             this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
             this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
@@ -227,7 +231,7 @@ namespace Pollux
         private void KantenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
             //erstelle Kante, welcher die ausgewählte Kante ist
-            Graph.Graph.Kanten kante = this.graph.GraphKanten[this.KantenPicker.SelectedIndex];
+            Graph.Graph.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
 
             //lege die Eigenschaften fest
             this.KantenName.Text = kante.Name;
@@ -257,6 +261,24 @@ namespace Pollux
                 this.Node = node;
                 this.Edge = edge;
             }
+        }
+
+        private void KnotenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (this.KnotenName.Text != this.Graph.SucheKnoten(this.KnotenPicker.SelectedItem.ToString()).Name)
+            {
+                this.UmbennenKnoten.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
+        {
+            this.CommandConsole.Command("RENAME " + this.KnotenPicker.SelectedIndex.ToString() + " TO " + this.KnotenName.Text);
+        }
+
+        public void AktualisiereGrid()
+        {
+            //Aktualisiere das Fenster
         }
     }
 }

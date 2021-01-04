@@ -160,13 +160,17 @@ namespace Pollux
                     System.Windows.MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
                 }
 
+                //Erstelle einen GraphDarstellung "graphDarstellung"
+                GraphDarstellung graphDarstellung = new();
+                graphDarstellung.graph = graph;
+
                 //erstelle die CommandConsole zum Graph
-                CommandConsole commandConsole = new CommandConsole(graph, consoleOutput, path, this, tab);
+                CommandConsole commandConsole = new CommandConsole(graph, graphDarstellung, consoleOutput, path, this, tab);
                 #endregion
 
                 //Erstelle weitere visuelle Elemente
                 #region
-                Show show = new Show(graph);
+                Show show = new Show(graphDarstellung, commandConsole);
                 grid = show.ContentGrid;
                 show.Content = new Grid();
                 grid.Width = 400;
@@ -181,9 +185,11 @@ namespace Pollux
                 #region
                 //erstelle Liste für die Knoten
                 List<GraphDarstellung.KnotenDarstellung> knotenDarstellung = new List<GraphDarstellung.KnotenDarstellung>();
+                graphDarstellung.visuelleKnoten = knotenDarstellung;
 
                 //erstelle die Liste für die Kanten
                 List<GraphDarstellung.KantenDarstellung> kantenDarstellung = new List<GraphDarstellung.KantenDarstellung>();
+                graphDarstellung.visuelleKanten = kantenDarstellung;
                 #endregion
 
                 //speichere in der Liste ab, dass diese Datei gerade geöffnet ist und speichere auch ab, welche TextBox hier der Output ist, und welche Input, sowie die Commands
@@ -193,7 +199,9 @@ namespace Pollux
                 this.Inputs.Add(tab, consoleInput);
                 this.Consoles.Add(tab, commandConsole);
                 this.Canvases.Add(tab, graphCanvas);
-                this.Graphs.Add(tab, new GraphDarstellung() { graph = graph, visuelleKanten = kantenDarstellung, visuelleKnoten = knotenDarstellung });//erstelle einen neuen "GraphDarstellungen" und gebe ihm den Graphen und die visuellen Kanten und Knoten hinzu
+                this.Graphs.Add(tab, graphDarstellung);
+                this.OpenedEigenschaftenFenster.Add(tab, show);
+                this.OpenedEigenschaftenFensterGrid.Add(tab, grid);
                 #endregion
 
                 //Finalisierung
@@ -214,6 +222,8 @@ namespace Pollux
                 this.Consoles.Remove(tab);
                 this.Canvases.Remove(tab);
                 this.Graphs.Remove(tab);
+                this.OpenedEigenschaftenFenster.Remove(tab);
+                this.OpenedEigenschaftenFensterGrid.Remove(tab);
                 System.Windows.MessageBox.Show(e.Message);
             }
         }
@@ -581,6 +591,18 @@ namespace Pollux
 
             //Rückgabe von diesem Tab
             return tab1;
+        }
+
+        public void AktualisiereEigenschaftenFenster(TabItem tabItem)
+        {
+            //Aktualisiere das Eigenschaften-Fenster
+            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGrid();
+        }
+
+        public void AktualisiereEigenschaftenFenster()
+        {
+            //Aktualisiere das Eigenschaften-Fenster, die Daten + Rückgabe
+            this.AktualisiereEigenschaftenFenster(this.GetOpenTab());
         }
     }
 }

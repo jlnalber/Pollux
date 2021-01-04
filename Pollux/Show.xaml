@@ -33,7 +33,8 @@
                         <ComboBox x:Name="KnotenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,-20,0,10"/>
 
                         <TextBlock x:Name="KnotenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
-                        <TextBlock x:Name="KnotenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-20,0,10"/>
+                        <TextBox x:Name="KnotenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" Width="100" Padding="5" KeyUp="KnotenName_KeyUp"/>
+                        <Button x:Name="UmbennenKnoten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,20,0,10" Click="UmbennenKnoten_Click" Visibility="Hidden"/>
 
                         <TextBlock x:Name="KnotenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
                         <TextBlock x:Name="KnotenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-20,0,10"/>
