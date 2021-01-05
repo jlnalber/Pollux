@@ -296,6 +296,9 @@
     <value>Vorschau der Kanten:</value>
   </data>
   <data name="KeineKanten" xml:space="preserve">
+    <value>Sieht so aus als würde dieser Graph keine Kanten beinhalten!</value>
+  </data>
+  <data name="KeineKnoten" xml:space="preserve">
     <value>Sieht so aus als würde dieser Graph keine Knoten beinhalten!</value>
   </data>
   <data name="Knoten" xml:space="preserve">

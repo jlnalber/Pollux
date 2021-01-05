@@ -593,11 +593,20 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Sieht so aus als würde dieser Graph keine Knoten beinhalten! ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sieht so aus als würde dieser Graph keine Kanten beinhalten! ähnelt.
         /// </summary>
         public static string KeineKanten {
             get {
                 return ResourceManager.GetString("KeineKanten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sieht so aus als würde dieser Graph keine Knoten beinhalten! ähnelt.
+        /// </summary>
+        public static string KeineKnoten {
+            get {
+                return ResourceManager.GetString("KeineKnoten", resourceCulture);
             }
         }
         

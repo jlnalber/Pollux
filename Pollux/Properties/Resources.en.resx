@@ -294,6 +294,9 @@
   <data name="KeineKanten" xml:space="preserve">
     <value>Seems like this graph doesn't contain any edges!</value>
   </data>
+  <data name="KeineKnoten" xml:space="preserve">
+    <value>Seems like this graph doesn't contain any nodes!</value>
+  </data>
   <data name="Knoten" xml:space="preserve">
     <value>Nodes:</value>
   </data>

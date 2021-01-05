@@ -30,20 +30,20 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="KnotenContent" Width="Auto" Margin="20,30,20,0" VerticalAlignment="Top" Height="Auto" MaxWidth="500">
                         <TextBlock x:Name="KnotenPickerText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
-                        <ComboBox x:Name="KnotenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,-20,0,10"/>
+                        <ComboBox x:Name="KnotenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,-26,0,10"/>
 
-                        <TextBlock x:Name="KnotenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
+                        <TextBlock x:Name="KnotenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
                         <TextBox x:Name="KnotenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" Width="100" Padding="5" KeyUp="KnotenName_KeyUp"/>
-                        <Button x:Name="UmbennenKnoten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,20,0,10" Click="UmbennenKnoten_Click" Visibility="Hidden"/>
+                        <Button x:Name="UmbennenKnoten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,10,0,10" Click="UmbennenKnoten_Click" Visibility="Hidden"/>
 
-                        <TextBlock x:Name="KnotenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
-                        <TextBlock x:Name="KnotenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-20,0,10"/>
+                        <TextBlock x:Name="KnotenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <TextBlock x:Name="KnotenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
 
-                        <TextBlock x:Name="KnotenGradText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
-                        <TextBlock x:Name="KnotenGrad" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-20,0,10"/>
+                        <TextBlock x:Name="KnotenGradText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <TextBlock x:Name="KnotenGrad" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
 
-                        <TextBlock x:Name="KnotenKantenText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,40,0,10"/>
-                        <ListBox x:Name="KnotenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-20,0,10" MaxHeight="300" MaxWidth="300"/>
+                        <TextBlock x:Name="KnotenKantenText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <ListBox x:Name="KnotenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" MaxHeight="300" MaxWidth="300"/>
 
                         <DataGrid x:Name="DataGridKnoten" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,40,0,10" Width="Auto" Height="Auto" MaxWidth="300" MaxColumnWidth="200">
                             <DataGrid.Columns>
@@ -56,23 +56,23 @@
             </TabItem>
             <TabItem x:Name="KantenTab">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid Width="Auto" Margin="20,30,20,0" VerticalAlignment="Top" Height="Auto" x:Name="GridKanten" MaxWidth="500">
+                    <StackPanel Width="Auto" Margin="20,30,20,0" VerticalAlignment="Top" Height="Auto" x:Name="GridKanten" MaxWidth="500">
                         <TextBlock x:Name="KantenPickerText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
-                        <ComboBox x:Name="KantenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,10,0,10"/>
+                        <ComboBox x:Name="KantenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,-26,0,10"/>
 
-                        <TextBlock x:Name="KantenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,10"/>
-                        <TextBox x:Name="KantenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,50,0,10" Width="100" Padding="5" KeyUp="KantenName_KeyUp"/>
-                        <Button x:Name="UmbennenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,70,0,10" Click="UmbennenKanten_Click"  Visibility="Hidden"/>
+                        <TextBlock x:Name="KantenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
+                        <TextBox x:Name="KantenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" Width="100" Padding="5" KeyUp="KantenName_KeyUp"/>
+                        <Button x:Name="UmbennenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,10,0,10" Click="UmbennenKanten_Click"  Visibility="Hidden"/>
 
-                        <TextBlock x:Name="KantenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,110,0,10"/>
-                        <TextBlock x:Name="KantenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,110,0,10"/>
+                        <TextBlock x:Name="KantenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <TextBlock x:Name="KantenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
 
-                        <TextBlock x:Name="KantenStartText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,10"/>
-                        <TextBlock x:Name="KantenStart" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,150,0,10"/>
+                        <TextBlock x:Name="KantenStartText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <TextBlock x:Name="KantenStart" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
 
-                        <TextBlock x:Name="KantenEndeText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,190,0,10"/>
-                        <TextBlock x:Name="KantenEnde" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,190,0,10"/>
-                    </Grid>
+                        <TextBlock x:Name="KantenEndeText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
+                        <TextBlock x:Name="KantenEnde" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

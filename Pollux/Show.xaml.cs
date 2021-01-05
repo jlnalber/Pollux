@@ -60,7 +60,7 @@ namespace Pollux
             this.KantenPicker.SelectedIndex = 0;
 
             //Lasse das Grid aktualisieren
-            this.AktualisiereGrid();
+            AktualisiereGrid();
 
             /*
             //Grid-Table
@@ -226,7 +226,7 @@ namespace Pollux
         private void KnotenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Falls sich der Text in der TexBox "KnotenName" ändert
-            if (this.KnotenName.Text != this.GetSelectedKnoten().Name)
+            if (this.KnotenName.Text != GetSelectedKnoten().Name)
             {
                 this.UmbennenKnoten.Visibility = Visibility.Visible;
             }
@@ -239,13 +239,14 @@ namespace Pollux
         private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
         {
             //Falls der Knoten umbenannt wird
-            this.CommandConsole.Command("RENAME " + this.GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
+            this.CommandConsole.Command("RENAME " + GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
+            this.UmbennenKnoten.Visibility = Visibility.Hidden;
         }
 
         private void KantenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Falls sich der Text in der TexBox "KantenName" ändert
-            if (this.KantenName.Text != this.GetSelectedKante().Name)
+            if (this.KantenName.Text != GetSelectedKante().Name)
             {
                 this.UmbennenKanten.Visibility = Visibility.Visible;
             }
@@ -258,7 +259,8 @@ namespace Pollux
         private void UmbennenKanten_Click(object sender, RoutedEventArgs e)
         {
             //Falls die Kante umbenannt wird
-            this.CommandConsole.Command("RENAME " + this.GetSelectedKante().Name  + " TO " + this.KantenName.Text);
+            this.CommandConsole.Command("RENAME " + GetSelectedKante().Name + " TO " + this.KantenName.Text);
+            this.UmbennenKanten.Visibility = Visibility.Hidden;
         }
 
         public Graph.Graph.Knoten GetSelectedKnoten()
@@ -300,14 +302,51 @@ namespace Pollux
             //KnotenPicker
             #region
             //schreibe in die ComboBox, welche Ecken es alle gibt
-            this.KnotenPicker.Items.Clear();
-            foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
+            this.KnotenContent.Children.Clear();//Leere das StackPanel "KnotenContent"
+            if (this.Graph.GraphKnoten.Count == 0)
             {
-                ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = i.Name;
-                this.KnotenPicker.Items.Add(comboBoxItem);
+                //falls es keine Knoten gibt, schreibe das anstatt von dem restlichen Inhalt von "KnotenContent"
+                Thickness thickness = new Thickness();//für Margin
+                thickness.Left = 20;
+                thickness.Top = 10;
+                thickness.Bottom = 10;
+
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = MainWindow.resman.GetString("KeineKnoten", MainWindow.cul);
+                textBlock.Margin = thickness;
+                this.KnotenContent.Children.Add(textBlock);
             }
-            this.KnotenPicker.SelectedIndex = 0;
+            else
+            {
+                //Aktualisiere "KnotenPicker"
+                this.KnotenPicker.Items.Clear();
+                foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
+                {
+                    ComboBoxItem comboBoxItem = new ComboBoxItem();
+                    comboBoxItem.Content = i.Name;
+                    this.KnotenPicker.Items.Add(comboBoxItem);
+                }
+                this.KnotenPicker.SelectedIndex = 0;
+
+                //Füge wieder alle Elemente zum StackPanel "KnotenContent" hinzu
+                this.KnotenContent.Children.Add(this.KnotenPickerText);
+                this.KnotenContent.Children.Add(this.KnotenPicker);
+
+                this.KnotenContent.Children.Add(this.KnotenNameText);
+                this.KnotenContent.Children.Add(this.KnotenName);
+                this.KnotenContent.Children.Add(this.UmbennenKnoten);
+
+                this.KnotenContent.Children.Add(this.KnotenParentText);
+                this.KnotenContent.Children.Add(this.KnotenParent);
+
+                this.KnotenContent.Children.Add(this.KnotenGradText);
+                this.KnotenContent.Children.Add(this.KnotenGrad);
+
+                this.KnotenContent.Children.Add(this.KnotenKantenText);
+                this.KnotenContent.Children.Add(this.KnotenKanten);
+
+                this.KnotenContent.Children.Add(this.DataGridKnoten);
+            }
             #endregion
 
             //KantenPicker
