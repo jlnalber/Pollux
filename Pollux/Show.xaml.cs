@@ -41,75 +41,26 @@ namespace Pollux
             this.KantenTab.Header = MainWindow.resman.GetString("KantenTab_Header", MainWindow.cul);
             this.KnotenTab.Header = MainWindow.resman.GetString("KnotenTab_Header", MainWindow.cul);
             this.GraphTab.Header = MainWindow.resman.GetString("GraphTab_Header", MainWindow.cul);
+            this.UmbennenKnoten.Content = MainWindow.resman.GetString("UmbennenKnoten", MainWindow.cul);
+            this.UmbennenKanten.Content = MainWindow.resman.GetString("UmbennenKanten", MainWindow.cul);
             #endregion
 
-            //DataGrid
+            //Darstellung
             #region
-            //erstelle Elemente für das DataGrid und rechne sie aus, stelle dann das DataGrid dar
-            List<Elements> list = new List<Elements>();
-            list.Add(new Elements("Ist Eulersch", this.Graph.IstEulersch.ToString()));
-            list.Add(new Elements("Ist ein Baum", this.Graph.IstBaum.ToString()));
-            list.Add(new Elements("Ist Bipartit", this.Graph.IstBipartit.ToString()));
-
-            //Eigenschafts-Wert stimmt noch nicht ganz, wird bald überarbeitet
-            //list.Add(new Elements("Ist Hamiltonsch", graph.IstHamiltonsch.ToString()));
-            list.Add(new Elements("Ist Zusammenhängend", this.Graph.IstZusammenhängend.ToString()));
-            list.Add(new Elements("Komponenten", this.Graph.AnzahlKomponenten.ToString()));
-            list.Add(new Elements("Ist ein einfacher Graph", this.Graph.EinfacherGraph.ToString()));
-            list.Add(new Elements("Parallele Kanten", this.Graph.ParalleleKanten.ToString()));
-            list.Add(new Elements("Schlingen", this.Graph.Schlingen.ToString()));
-            list.Add(new Elements("Anzahl an Knoten", this.Graph.AnzahlKnoten.ToString()));
-            list.Add(new Elements("Anzahl an Kanten", this.Graph.AnzahlKanten.ToString()));
+            //DataGrid
             this.Wert.Header = MainWindow.resman.GetString("WertDataGrid", MainWindow.cul);
             this.Eigenschaft.Header = MainWindow.resman.GetString("EigenschaftDataGrid", MainWindow.cul);
-            this.DataGrid.ItemsSource = list;
-            #endregion
 
             //KnotenPicker
-            #region
-            //schreibe in die ComboBox, welche Ecken es alle gibt
-
-            foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
-            {
-                ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = i.Name;
-                this.KnotenPicker.Items.Add(comboBoxItem);
-            }
             this.KnotenPicker.SelectionChanged += KnotenPickerChanged;
             this.KnotenPicker.SelectedIndex = 0;
-            #endregion
 
             //KantenPicker
-            #region
-            //schreibe in die ComboBox, welche Kanten es alle gibt
+            this.KantenPicker.SelectionChanged += KantenPickerChanged;
+            this.KantenPicker.SelectedIndex = 0;
 
-            if (this.Graph.GraphKanten.Count == 0)
-            {
-                //falls es keine Kanten gibt, schreibe das anstatt von dem restlichen Inhalt von "GridKanten"
-                Thickness thickness = new Thickness();//für Margin
-                thickness.Left = 20;
-                thickness.Top = 10;
-                thickness.Bottom = 10;
-
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = MainWindow.resman.GetString("KeineKanten", MainWindow.cul);
-                textBlock.Margin = thickness;
-                this.GridKanten.Children.Clear();
-                this.GridKanten.Children.Add(textBlock);
-            }
-            else
-            {
-                //schreibe in die ComboBox, welche Ecken es alle gibt
-                foreach (Graph.Graph.Kanten i in this.Graph.GraphKanten)
-                {
-                    ComboBoxItem comboBoxItem = new();
-                    comboBoxItem.Content = i.Name;
-                    this.KantenPicker.Items.Add(comboBoxItem);
-                }
-                this.KantenPicker.SelectionChanged += KantenPickerChanged;
-                this.KantenPicker.SelectedIndex = 0;
-            }
-            #endregion
+            //Lasse das Grid aktualisieren
+            this.AktualisiereGrid();
 
             /*
             //Grid-Table
@@ -173,71 +124,80 @@ namespace Pollux
                 }
             }
             #endregion*/
+            #endregion
         }
 
         //Eventhandler, falls die Combobox in "KnotenGrid" geändert wird
         private void KnotenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
-            //erstelle Knoten, welcher der ausgewählte Knoten ist
-            Graph.Graph.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
-
-            //lege die Eigenschaften fest
-            this.KnotenName.Text = knoten.Name;
-            this.KnotenParent.Text = knoten.Parent.Name;
-            this.KnotenGrad.Text = knoten.Grad.ToString();
-
-            //mache die Listbox "KnotenKanten"
-            if (knoten.Grad == 0)
+            try
             {
-                //verstecke die Liste
-                this.KnotenKanten.Visibility = Visibility.Hidden;
-                this.KnotenKantenText.Visibility = Visibility.Hidden;
+                //erstelle Knoten, welcher der ausgewählte Knoten ist
+                Graph.Graph.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
 
-                //leere die Liste
-                this.KnotenKanten.Items.Clear();
-            }
-            else
-            {
-                //mache es sichtbar
-                this.KnotenKanten.Visibility = Visibility.Visible;
-                this.KnotenKantenText.Visibility = Visibility.Visible;
+                //lege die Eigenschaften fest
+                this.KnotenName.Text = knoten.Name;
+                this.KnotenParent.Text = knoten.Parent.Name;
+                this.KnotenGrad.Text = knoten.Grad.ToString();
 
-                //leere die Liste
-                this.KnotenKanten.Items.Clear();
-
-                //füge die Namen der Kanten zur Liste hinzu
-                foreach (Graph.Graph.Kanten i in knoten.Kanten)
+                //mache die Listbox "KnotenKanten"
+                if (knoten.Grad == 0)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem();
-                    listBoxItem.Content = i.Name;
-                    this.KnotenKanten.Items.Add(listBoxItem);
-                }
-            }
+                    //verstecke die Liste
+                    this.KnotenKanten.Visibility = Visibility.Hidden;
+                    this.KnotenKantenText.Visibility = Visibility.Hidden;
 
-            //Tabelle
-            #region
-            List<ElementsKnoten> list = new();
-            for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
-            {
-                list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, this.Graph[this.Graph.GraphKnoten.IndexOf(knoten), i]));
+                    //leere die Liste
+                    this.KnotenKanten.Items.Clear();
+                }
+                else
+                {
+                    //mache es sichtbar
+                    this.KnotenKanten.Visibility = Visibility.Visible;
+                    this.KnotenKantenText.Visibility = Visibility.Visible;
+
+                    //leere die Liste
+                    this.KnotenKanten.Items.Clear();
+
+                    //füge die Namen der Kanten zur Liste hinzu
+                    foreach (Graph.Graph.Kanten i in knoten.Kanten)
+                    {
+                        ListBoxItem listBoxItem = new ListBoxItem();
+                        listBoxItem.Content = i.Name;
+                        this.KnotenKanten.Items.Add(listBoxItem);
+                    }
+                }
+
+                //Tabelle
+                #region
+                List<ElementsKnoten> list = new();
+                for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
+                {
+                    list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, this.Graph[this.Graph.GraphKnoten.IndexOf(knoten), i]));
+                }
+                this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
+                this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
+                this.DataGridKnoten.ItemsSource = list;
+                #endregion
             }
-            this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
-            this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
-            this.DataGridKnoten.ItemsSource = list;
-            #endregion
+            catch { }
         }
 
         //Eventhandler, falls die Combobox in "KantenGrid" geändert wird
         private void KantenPickerChanged(object sender, SelectionChangedEventArgs e)
         {
-            //erstelle Kante, welcher die ausgewählte Kante ist
-            Graph.Graph.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
+            try
+            {
+                //erstelle Kante, welcher die ausgewählte Kante ist
+                Graph.Graph.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
 
-            //lege die Eigenschaften fest
-            this.KantenName.Text = kante.Name;
-            this.KantenParent.Text = kante.Parent.Name;
-            this.KantenStart.Text = kante[0].Name;
-            this.KantenEnde.Text = kante[1].Name;
+                //lege die Eigenschaften fest
+                this.KantenName.Text = kante.Name;
+                this.KantenParent.Text = kante.Parent.Name;
+                this.KantenStart.Text = kante[0].Name;
+                this.KantenEnde.Text = kante[1].Name;
+            }
+            catch { }
         }
 
         //private Klasse um die Eigenschaften des Graphens im "DataGrid" darzustellen
@@ -265,20 +225,138 @@ namespace Pollux
 
         private void KnotenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (this.KnotenName.Text != this.Graph.SucheKnoten(this.KnotenPicker.SelectedItem.ToString()).Name)
+            //Falls sich der Text in der TexBox "KnotenName" ändert
+            if (this.KnotenName.Text != this.GetSelectedKnoten().Name)
             {
                 this.UmbennenKnoten.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.UmbennenKnoten.Visibility = Visibility.Hidden;
             }
         }
 
         private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
         {
-            this.CommandConsole.Command("RENAME " + this.KnotenPicker.SelectedIndex.ToString() + " TO " + this.KnotenName.Text);
+            //Falls der Knoten umbenannt wird
+            this.CommandConsole.Command("RENAME " + this.GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
+        }
+
+        private void KantenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Falls sich der Text in der TexBox "KantenName" ändert
+            if (this.KantenName.Text != this.GetSelectedKante().Name)
+            {
+                this.UmbennenKanten.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.UmbennenKanten.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void UmbennenKanten_Click(object sender, RoutedEventArgs e)
+        {
+            //Falls die Kante umbenannt wird
+            this.CommandConsole.Command("RENAME " + this.GetSelectedKante().Name  + " TO " + this.KantenName.Text);
+        }
+
+        public Graph.Graph.Knoten GetSelectedKnoten()
+        {
+            string[] vs = this.KnotenPicker.SelectedItem.ToString().Split(' ');
+            return this.Graph.SucheKnoten(vs[vs.Length - 1]);
+        }
+
+        public Graph.Graph.Kanten GetSelectedKante()
+        {
+            string[] vs = this.KantenPicker.SelectedItem.ToString().Split(' ');
+            return this.Graph.SucheKanten(vs[vs.Length - 1]);
         }
 
         public void AktualisiereGrid()
         {
             //Aktualisiere das Fenster
+
+            //DataGrid
+            #region
+            //erstelle Elemente für das DataGrid und rechne sie aus, stelle dann das DataGrid dar
+            List<Elements> list = new List<Elements>();
+            list.Add(new Elements("Ist Eulersch", this.Graph.IstEulersch.ToString()));
+            list.Add(new Elements("Ist ein Baum", this.Graph.IstBaum.ToString()));
+            list.Add(new Elements("Ist Bipartit", this.Graph.IstBipartit.ToString()));
+
+            //Eigenschafts-Wert stimmt noch nicht ganz, wird bald überarbeitet
+            //list.Add(new Elements("Ist Hamiltonsch", graph.IstHamiltonsch.ToString()));
+            list.Add(new Elements("Ist Zusammenhängend", this.Graph.IstZusammenhängend.ToString()));
+            list.Add(new Elements("Komponenten", this.Graph.AnzahlKomponenten.ToString()));
+            list.Add(new Elements("Ist ein einfacher Graph", this.Graph.EinfacherGraph.ToString()));
+            list.Add(new Elements("Parallele Kanten", this.Graph.ParalleleKanten.ToString()));
+            list.Add(new Elements("Schlingen", this.Graph.Schlingen.ToString()));
+            list.Add(new Elements("Anzahl an Knoten", this.Graph.AnzahlKnoten.ToString()));
+            list.Add(new Elements("Anzahl an Kanten", this.Graph.AnzahlKanten.ToString()));
+            this.DataGrid.ItemsSource = list;
+            #endregion
+
+            //KnotenPicker
+            #region
+            //schreibe in die ComboBox, welche Ecken es alle gibt
+            this.KnotenPicker.Items.Clear();
+            foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
+            {
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = i.Name;
+                this.KnotenPicker.Items.Add(comboBoxItem);
+            }
+            this.KnotenPicker.SelectedIndex = 0;
+            #endregion
+
+            //KantenPicker
+            #region
+            //schreibe in die ComboBox, welche Kanten es alle gibt
+            this.GridKanten.Children.Clear();//Leere das Grid "GridKanten"
+            if (this.Graph.GraphKanten.Count == 0)
+            {
+                //falls es keine Kanten gibt, schreibe das anstatt von dem restlichen Inhalt von "GridKanten"
+                Thickness thickness = new Thickness();//für Margin
+                thickness.Left = 20;
+                thickness.Top = 10;
+                thickness.Bottom = 10;
+
+                TextBlock textBlock = new TextBlock();
+                textBlock.Text = MainWindow.resman.GetString("KeineKanten", MainWindow.cul);
+                textBlock.Margin = thickness;
+                this.GridKanten.Children.Add(textBlock);
+            }
+            else
+            {
+                //schreibe in die ComboBox, welche Ecken es alle gibt
+                this.KantenPicker.Items.Clear();
+                foreach (Graph.Graph.Kanten i in this.Graph.GraphKanten)
+                {
+                    ComboBoxItem comboBoxItem = new();
+                    comboBoxItem.Content = i.Name;
+                    this.KantenPicker.Items.Add(comboBoxItem);
+                }
+                this.KantenPicker.SelectedIndex = 0;
+
+                //Füge wieder alle Elemente zum Grid "GridKanten" hinzu
+                this.GridKanten.Children.Add(this.KantenPickerText);
+                this.GridKanten.Children.Add(this.KantenPicker);
+
+                this.GridKanten.Children.Add(this.KantenNameText);
+                this.GridKanten.Children.Add(this.KantenName);
+                this.GridKanten.Children.Add(this.UmbennenKanten);
+
+                this.GridKanten.Children.Add(this.KantenParentText);
+                this.GridKanten.Children.Add(this.KantenParent);
+
+                this.GridKanten.Children.Add(this.KantenStartText);
+                this.GridKanten.Children.Add(this.KantenStart);
+
+                this.GridKanten.Children.Add(this.KantenEndeText);
+                this.GridKanten.Children.Add(this.KantenEnde);
+            }
+            #endregion
         }
     }
 }

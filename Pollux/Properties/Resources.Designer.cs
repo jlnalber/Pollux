@@ -962,6 +962,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kante umbennen ähnelt.
+        /// </summary>
+        public static string UmbennenKanten {
+            get {
+                return ResourceManager.GetString("UmbennenKanten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten umbennen ähnelt.
+        /// </summary>
+        public static string UmbennenKnoten {
+            get {
+                return ResourceManager.GetString("UmbennenKnoten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Vieleck ähnelt.
         /// </summary>
         public static string VieleckTemplate_Header {

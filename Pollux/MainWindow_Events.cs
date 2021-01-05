@@ -157,7 +157,7 @@ namespace Pollux
 
         private void KnotenHinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Graphs.Count == 0)
+            if (this.GraphDarstellungen.Count == 0)
             {
                 //Spiele Error-Sound
                 SystemSounds.Asterisk.Play();
@@ -172,7 +172,7 @@ namespace Pollux
 
         private void KanteHinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Graphs.Count == 0)
+            if (this.GraphDarstellungen.Count == 0)
             {
                 //Spiele Error-Sound
                 SystemSounds.Asterisk.Play();

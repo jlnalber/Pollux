@@ -23,7 +23,8 @@ namespace Pollux
         public Dictionary<TabItem, TextBox> Inputs { get; set; }//enthält alle intput-TextBoxen mit ihren jeweiligen Tabs
         public Dictionary<TabItem, CommandConsole> Consoles { get; set; }//enthält alle CommandConsoles mit ihren jeweiligen Tabs
         public Dictionary<TabItem, Canvas> Canvases { get; set; }//enthält alle Canvases mit ihren jeweiligen Tabs
-        public Dictionary<TabItem, GraphDarstellung> Graphs { get; set; }//enthält alle Graphen (natürlich mit visuellen Elementen) mit ihren jeweiligen Tabs
+        public Dictionary<TabItem, GraphDarstellung> GraphDarstellungen { get; set; }//enthält alle Graphen (natürlich mit visuellen Elementen) mit ihren jeweiligen Tabs
+        public Dictionary<TabItem, Graph.Graph> Graphs { get; set; }//enthält alle Graphen mit ihren jeweiligen Tabs
         public Dictionary<TabItem, TextBlock> Headers { get; set; }//enthält alle Headers von den Tabs mit ihren jeweiligen Tabs
         public Dictionary<TabItem, Show> OpenedEigenschaftenFenster { get; set; }//Enthält alle Eigenschaften-Fenster ("Show"'s) mit ihren jeweiligen Tabs
         public Dictionary<TabItem, Grid> OpenedEigenschaftenFensterGrid { get; set; }//Enthält alle Eigenschaften-Fenster-Grids mit ihren jeweiligen Tabs

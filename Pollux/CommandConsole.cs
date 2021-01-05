@@ -30,7 +30,7 @@ namespace Pollux
             this.TabItem = tabItem;
         }
 
-        public void Command(string command)
+        public void Command(string command, string name)
         {
             bool changed = false;
 
@@ -47,7 +47,7 @@ namespace Pollux
             command = (command[command.Length - 1] == ' ') ? command.Remove(command.Length - 1).ToUpper() : command.ToUpper(); //entferne Leerzeichen am Ende und mach es groß
 
             //Zeige den Command im Output-Fenster
-            this.output.Text += "[" + DateTime.Now.ToString() + "] " + this.user + ": " + command + "\n";
+            this.output.Text += "[" + DateTime.Now.ToString() + "] " + name + ": " + command + "\n";
 
             //splitte den command auf, sodass er gleich verarbeitet werden kann
             string[] command_splitted = command.Split(' ');
@@ -147,8 +147,11 @@ namespace Pollux
                     {
                         //versuche einen neuen Graphen zu erstellen, schreibe das in die Konsole
                         WriteLine("Trying to empty the Graph!");
-                        this.usingGraph = new Graph.Graph(new List<Graph.Graph.Knoten>(), new List<Graph.Graph.Kanten>(), new int[0, 0], this.usingGraph.Name);
-                        WriteLine("Created a new Graph!");
+                        for (; this.usingGraph.GraphKnoten.Count != 0;)
+                        {
+                            this.usingGraph.RemoveKnoten(this.usingGraph[0]);
+                        }
+                        WriteLine("Done!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
@@ -319,8 +322,13 @@ namespace Pollux
             {
                 this.MainWindow.DrawGraph();
                 this.MainWindow.SaveAll();
-                this.MainWindow.AktualisiereEigenschaftenFenster(TabItem);
+                this.MainWindow.AktualisiereEigenschaftenFenster(this.TabItem);
             }
+        }
+
+        public void Command(string command)
+        {
+            Command(command, this.user);
         }
 
         public void WriteLine(string line)

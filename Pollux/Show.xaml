@@ -61,16 +61,17 @@
                         <ComboBox x:Name="KantenPicker" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="200,10,0,10"/>
 
                         <TextBlock x:Name="KantenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,10"/>
-                        <TextBlock x:Name="KantenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,50,0,10"/>
+                        <TextBox x:Name="KantenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,50,0,10" Width="100" Padding="5" KeyUp="KantenName_KeyUp"/>
+                        <Button x:Name="UmbennenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,70,0,10" Click="UmbennenKanten_Click"  Visibility="Hidden"/>
 
-                        <TextBlock x:Name="KantenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,90,0,10"/>
-                        <TextBlock x:Name="KantenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,90,0,10"/>
+                        <TextBlock x:Name="KantenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,110,0,10"/>
+                        <TextBlock x:Name="KantenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,110,0,10"/>
 
-                        <TextBlock x:Name="KantenStartText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,130,0,10"/>
-                        <TextBlock x:Name="KantenStart" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,130,0,10"/>
+                        <TextBlock x:Name="KantenStartText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,10"/>
+                        <TextBlock x:Name="KantenStart" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,150,0,10"/>
 
-                        <TextBlock x:Name="KantenEndeText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,170,0,10"/>
-                        <TextBlock x:Name="KantenEnde" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,170,0,10"/>
+                        <TextBlock x:Name="KantenEndeText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,190,0,10"/>
+                        <TextBlock x:Name="KantenEnde" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,190,0,10"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

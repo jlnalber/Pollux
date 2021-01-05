@@ -199,7 +199,8 @@ namespace Pollux
                 this.Inputs.Add(tab, consoleInput);
                 this.Consoles.Add(tab, commandConsole);
                 this.Canvases.Add(tab, graphCanvas);
-                this.Graphs.Add(tab, graphDarstellung);
+                this.Graphs.Add(tab, graph);
+                this.GraphDarstellungen.Add(tab, graphDarstellung);
                 this.OpenedEigenschaftenFenster.Add(tab, show);
                 this.OpenedEigenschaftenFensterGrid.Add(tab, grid);
                 #endregion
@@ -222,6 +223,7 @@ namespace Pollux
                 this.Consoles.Remove(tab);
                 this.Canvases.Remove(tab);
                 this.Graphs.Remove(tab);
+                this.GraphDarstellungen.Remove(tab);
                 this.OpenedEigenschaftenFenster.Remove(tab);
                 this.OpenedEigenschaftenFensterGrid.Remove(tab);
                 System.Windows.MessageBox.Show(e.Message);
@@ -327,7 +329,7 @@ namespace Pollux
                     knoten.Ellipse.StrokeThickness = knoten_Border_Thickness;
                     knoten.Ellipse.Height = knoten_Height;
                     knoten.Ellipse.Width = knoten_Width;
-                    knoten.Ellipse.Margin = new((index % 15) * 100 + 10, Convert.ToInt32(index / 15) * 100 + 10, 10, 10);
+                    knoten.Ellipse.Margin = new((index % 10) * 100 + 10, Convert.ToInt32(index / 10) * 100 + 10, 10, 10);
                     knoten.Ellipse.Cursor = System.Windows.Input.Cursors.Hand;
 
                     //Mache Feinheiten an dem Label
@@ -602,7 +604,7 @@ namespace Pollux
         public void AktualisiereEigenschaftenFenster()
         {
             //Aktualisiere das Eigenschaften-Fenster, die Daten + Rückgabe
-            this.AktualisiereEigenschaftenFenster(this.GetOpenTab());
+            AktualisiereEigenschaftenFenster(GetOpenTab());
         }
     }
 }

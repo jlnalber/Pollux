@@ -26,13 +26,16 @@ namespace Pollux
             TabItem tab = GetOpenTab();
 
             //Rückgabe
-            return this.Graphs[tab];
+            return this.GraphDarstellungen[tab];
         }
 
-        public Pollux.Graph.Graph GetOpenGraph()
+        public Graph.Graph GetOpenGraph()
         {
-            //Suche den geöffneten Graphen
-            return GetOpenGraphDarstellung().graph;
+            //find den geöffneten Tab heraus
+            TabItem tab = GetOpenTab();
+
+            //Rückgabe
+            return this.Graphs[tab];
         }
 
         public Canvas GetOpenCanvas()
@@ -56,13 +59,13 @@ namespace Pollux
         public Show GetOpenEigenschaftenFenster()
         {
             //Gebe das aktuell geöffnete Eigenschaften-Fenster zurück
-            return this.OpenedEigenschaftenFenster[this.GetOpenTab()];
+            return this.OpenedEigenschaftenFenster[GetOpenTab()];
         }
 
         public Grid GetOpenEigenschaftenFensterGrid()
         {
             //Gebe das aktuell geöffnete Eigenschaften-Fenster-Grid zurück
-            return this.OpenedEigenschaftenFensterGrid[this.GetOpenTab()];
+            return this.OpenedEigenschaftenFensterGrid[GetOpenTab()];
         }
         #endregion
 
