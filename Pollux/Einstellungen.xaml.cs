@@ -14,7 +14,7 @@ namespace Pollux
         {
             try
             {
-                InitializeComponent();
+                this.InitializeComponent();
 
                 //Übersetze die Texte
                 #region
@@ -80,7 +80,7 @@ namespace Pollux
                 #endregion
 
                 //Stelle die TextBoxes nach den Slidern ein
-                SyncSlidersAndTextBoxes(false);
+                this.SyncSlidersAndTextBoxes(false);
             }
             catch
             {
@@ -103,7 +103,7 @@ namespace Pollux
             Properties.Settings.Default.Save();
 
             //Schließe das Fenster
-            Close();
+            this.Close();
         }
 
         private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -202,14 +202,14 @@ namespace Pollux
             //Falls in einer der TextBoxen "Enter" gedrückt wird, synchronisiere die TextBoxen mit den Slidern
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                SyncSlidersAndTextBoxes(true);
+                this.SyncSlidersAndTextBoxes(true);
             }
         }
 
         private void TextBoxes_LostFocus(object sender, RoutedEventArgs e)
         {
             //Wenn eine TextBox den Fokus verliert, synchronisiere die TextBoxen mit den Slidern
-            SyncSlidersAndTextBoxes(true);
+            this.SyncSlidersAndTextBoxes(true);
         }
 
         private void SyncSlidersAndTextBoxes(bool playErrorSound)

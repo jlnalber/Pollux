@@ -61,7 +61,7 @@ namespace Pollux
                 //falls der Graph leer ist, schreibe das aus, ansonsten öffne Eigenschaften-Fenster "Show"
                 if (this.usingGraph.GraphKnoten.Count == 0)
                 {
-                    WriteLine("Graph \"" + this.usingGraph.Name + "\" is empty!");
+                    this.WriteLine("Graph \"" + this.usingGraph.Name + "\" is empty!");
                 }
                 else
                 {
@@ -70,12 +70,12 @@ namespace Pollux
                         //öffne ein neues EIgenschaften-Fenster "Show"
                         Show show = new Show(this.usingGraphDarstellung, this);
                         show.Show();
-                        WriteLine("Task complete!");
+                        this.WriteLine("Task complete!");
                     }
                     catch
                     {
                         //Schreibe die Error-Nachricht
-                        WriteLine("Seems like something went wrong!");
+                        this.WriteLine("Seems like something went wrong!");
                     }
                 }
             }
@@ -86,19 +86,19 @@ namespace Pollux
                 if (command_splitted.Length == 1)
                 {
                     //Error-Nachricht, für den Fall, dass nicht die richtige Anzahl an Argumenten gebracht wurde
-                    WriteLine("ERROR: No argument given, where at least one is needed: " + command);
+                    this.WriteLine("ERROR: No argument given, where at least one is needed: " + command);
                 }
                 else if (command_splitted.Length == 2)
                 {
                     //Ausgabe
-                    WriteLine("Adding node \"" + command_splitted[1] + "\"...");
+                    this.WriteLine("Adding node \"" + command_splitted[1] + "\"...");
 
                     //Füge den Knoten hinzu
                     Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), command_splitted[1]);
                     this.usingGraph.AddKnoten(knoten);
 
                     //Ausgabe
-                    WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
+                    this.WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
 
                     //Setze "changed" auf "true", weil etwas verändert wurde
                     changed = true;
@@ -106,7 +106,7 @@ namespace Pollux
                 else if (command_splitted.Length == 6 && command_splitted[2] == "BETWEEN" && command_splitted[4] == "AND")
                 {
                     //Ausgabe
-                    WriteLine("Adding edge \"" + command_splitted[1] + "\"...");
+                    this.WriteLine("Adding edge \"" + command_splitted[1] + "\"...");
 
                     //Erstelle eine Kante und suche nach den angegebenen Knoten
                     Graph.Graph.Kanten kante = new Graph.Graph.Kanten(this.usingGraph, new Graph.Graph.Knoten[2], command_splitted[1]);
@@ -119,7 +119,7 @@ namespace Pollux
                         this.usingGraph.AddKante(kante, start, ende);
 
                         //Ausgabe
-                        WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");
+                        this.WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
@@ -127,13 +127,13 @@ namespace Pollux
                     else
                     {
                         //Falls es keine solche Knoten gibt, gebe eine Error-Nachricht
-                        WriteLine("Error: Node \"" + command_splitted[3] + "\" or node \"" + command_splitted[5] + "\" not found!");
+                        this.WriteLine("Error: Node \"" + command_splitted[3] + "\" or node \"" + command_splitted[5] + "\" not found!");
                     }
                 }
                 else
                 {
                     //Error-Nachricht, für den Fall, dass nicht die richtige Anzahl an Argumenten gebracht wurde
-                    WriteLine("ERROR: \"" + command_splitted[2] + "\" in " + "\"" + command + "\"" + " is an unknown command!");
+                    this.WriteLine("ERROR: \"" + command_splitted[2] + "\" in " + "\"" + command + "\"" + " is an unknown command!");
                 }
             }
 
@@ -146,12 +146,12 @@ namespace Pollux
                     if (command_splitted[1] == "*")
                     {
                         //versuche einen neuen Graphen zu erstellen, schreibe das in die Konsole
-                        WriteLine("Trying to empty the Graph!");
+                        this.WriteLine("Trying to empty the Graph!");
                         for (; this.usingGraph.GraphKnoten.Count != 0;)
                         {
                             this.usingGraph.RemoveKnoten(this.usingGraph[0]);
                         }
-                        WriteLine("Done!");
+                        this.WriteLine("Done!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
@@ -159,7 +159,7 @@ namespace Pollux
                     else
                     {
                         //schreibe etwas in die Konsole
-                        WriteLine("Searching for \"" + command_splitted[1] + "\"...");
+                        this.WriteLine("Searching for \"" + command_splitted[1] + "\"...");
 
                         //suche nach dem Knoten/der Kante mit dem Namen
                         Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), "");
@@ -188,13 +188,13 @@ namespace Pollux
                             if (kante.Name == "")
                             {
                                 //falls keine Kante gefunden wurde, schreibe das aus
-                                WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
+                                this.WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
                             }
                             else
                             {
                                 //entferne die Kante und schreibe es aus
                                 this.usingGraph.RemoveKante(kante);
-                                WriteLine("Edge was succesfully removed!");
+                                this.WriteLine("Edge was succesfully removed!");
 
                                 //Setze "changed" auf "true", weil etwas verändert wurde
                                 changed = true;
@@ -204,7 +204,7 @@ namespace Pollux
                         {
                             //entferne den Knoten und schreibe es aus
                             this.usingGraph.RemoveKnoten(knoten);
-                            WriteLine("Node was succesfully removed!");
+                            this.WriteLine("Node was succesfully removed!");
 
                             //Setze "changed" auf "true", weil etwas verändert wurde
                             changed = true;
@@ -214,16 +214,16 @@ namespace Pollux
                 else
                 {
                     //schreibe die Fehlermeldung für einen unbekannten Befehl
-                    WriteLine("Error: \"" + command + "\" needs one argument but none or too many were given!");
+                    this.WriteLine("Error: \"" + command + "\" needs one argument but none or too many were given!");
                 }
             }
 
             //das Schlüsselwort "SAVE" speichert den Graphen ab
             else if (command_splitted[0] == "SAVE")
             {
-                WriteLine("Trying to save graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Ausgabe
-                Save();//speichere es ab
-                WriteLine("Succesfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
+                this.WriteLine("Trying to save graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Ausgabe
+                this.Save();//speichere es ab
+                this.WriteLine("Succesfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
             }
 
             //das Schlüsselwort "RENAME" ändert Namen von Elementen
@@ -232,14 +232,14 @@ namespace Pollux
                 if (command_splitted.Length == 4 && command_splitted[2] == "TO")
                 {
                     //schreibe etwas in die Konsole
-                    WriteLine("Searching for \"" + command_splitted[1] + "\"...");
+                    this.WriteLine("Searching for \"" + command_splitted[1] + "\"...");
 
                     //gucke nach, ob der Graph so heißt, ansonsten gucke nach einem Knoten oder einer Kante, die so heißt
                     if (this.usingGraph.Name == command_splitted[1])
                     {
                         //Benenne den Graphen um
                         this.usingGraph.Name = command_splitted[3];
-                        WriteLine("Graph was succesfully renamed!");
+                        this.WriteLine("Graph was succesfully renamed!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
@@ -273,13 +273,13 @@ namespace Pollux
                             if (kante.Name == "")
                             {
                                 //falls keine Kante gefunden wurde, schreibe das aus
-                                WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
+                                this.WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
                             }
                             else
                             {
                                 //benenne die Kante neu und schreibe es aus
                                 kante.Name = command_splitted[3];
-                                WriteLine("Edge was succesfully renamed!");
+                                this.WriteLine("Edge was succesfully renamed!");
 
                                 //Setze "changed" auf "true", weil etwas verändert wurde
                                 changed = true;
@@ -289,7 +289,7 @@ namespace Pollux
                         {
                             //benenne den Knoten neu und schreibe es aus
                             knoten.Name = command_splitted[3];
-                            WriteLine("Node was succesfully renamed!");
+                            this.WriteLine("Node was succesfully renamed!");
 
                             //Setze "changed" auf "true", weil etwas verändert wurde
                             changed = true;
@@ -301,11 +301,11 @@ namespace Pollux
                     //schreibe die Fehlermeldung für einen unbekannten Befehl
                     try
                     {
-                        WriteLine("Error: \"" + command_splitted[2] + "\" in \"" + command + "\" is an unknown command!");
+                        this.WriteLine("Error: \"" + command_splitted[2] + "\" in \"" + command + "\" is an unknown command!");
                     }
                     catch
                     {
-                        WriteLine("Error: \"" + command + "\" is an unknown command!");
+                        this.WriteLine("Error: \"" + command + "\" is an unknown command!");
                     }
                 }
             }
@@ -313,7 +313,7 @@ namespace Pollux
             //falls kein Schlüsselwort gefunden wurde, schreibe, das es ein Error gibt
             else
             {
-                WriteLine("ERROR: \"" + command_splitted[0] + "\" in " + "\"" + command + "\"" + " is an unknown command!");
+                this.WriteLine("ERROR: \"" + command_splitted[0] + "\" in " + "\"" + command + "\"" + " is an unknown command!");
             }
             #endregion
 
@@ -328,7 +328,7 @@ namespace Pollux
 
         public void Command(string command)
         {
-            Command(command, this.user);
+            this.Command(command, this.user);
         }
 
         public void WriteLine(string line)

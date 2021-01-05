@@ -340,7 +340,10 @@
   <data name="LetzteDateien" xml:space="preserve">
     <value>Zuletzt genutzte Dateien:</value>
   </data>
-  <data name="Löschen" xml:space="preserve">
+  <data name="LöschenKante" xml:space="preserve">
+    <value>Kante entfernen</value>
+  </data>
+  <data name="LöschenKnoten" xml:space="preserve">
     <value>Knoten entfernen</value>
   </data>
   <data name="Name" xml:space="preserve">

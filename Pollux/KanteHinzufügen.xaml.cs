@@ -17,7 +17,7 @@ namespace Pollux
         public KanteHinzufügen(Pollux.Graph.Graph graph, MainWindow mainWindow)
         {
             //Stelle das Fenster dar
-            InitializeComponent();
+            this.InitializeComponent();
 
             //Lege die Members fest
             #region
@@ -97,7 +97,7 @@ namespace Pollux
                 this.MainWindow.DrawGraph();
 
                 //Schließe dieses Fenster wieder
-                Close();
+                this.Close();
             }
             catch (Pollux.Graph.Graph.GraphExceptions.NameAlreadyExistsException)
             {
@@ -116,7 +116,7 @@ namespace Pollux
             //Falls Enter gedrückt wird, löse das "Bestätigen_Click"-Event aus
             if (e.Key == Key.Enter)
             {
-                Bestätigen_Click(sender, e);
+                this.Bestätigen_Click(sender, e);
             }
         }
     }

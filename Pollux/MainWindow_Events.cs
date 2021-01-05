@@ -5,6 +5,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -14,7 +15,7 @@ namespace Pollux
         public void CloseTab(object sender, RoutedEventArgs e)
         {
             //Speichere alles ab
-            SaveAll();
+            this.SaveAll();
 
             //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab, 
             TabItem tabItem = new TabItem();
@@ -44,7 +45,7 @@ namespace Pollux
             #endregion
 
             //Speichere die noch offenen Tabs ab
-            SaveOpenedFiles();
+            this.SaveOpenedFiles();
 
             //Falls keine Tabs mehr übrig sind, dann schließe komplette App;
             if (this.TabControl.Items.Count == 0)
@@ -73,7 +74,7 @@ namespace Pollux
         private void AlleSpeichern_Click(object sender, RoutedEventArgs e)
         {
             //Speicher alle Tabs
-            SaveAll();
+            this.SaveAll();
         }
 
         private void Neu_Click(object sender, RoutedEventArgs e)
@@ -105,7 +106,7 @@ namespace Pollux
                 if (e.Key == Key.Return)
                 {
                     //finde den geöffneten Tab heraus
-                    TabItem tab = GetOpenTab();
+                    TabItem tab = this.GetOpenTab();
 
                     //spreche die "CommandConsole" mit dem Text an und leere das Eingabe-Feld
                     this.Consoles[tab].Command(this.Inputs[tab].Text);
@@ -121,7 +122,7 @@ namespace Pollux
 
         private void Graph_HasToBeRedrawn(object sender, RoutedEventArgs e)
         {
-            DrawGraph();
+            this.DrawGraph();
         }
 
         private void HilfeDatei_Click(object sender, RoutedEventArgs e)
@@ -165,7 +166,7 @@ namespace Pollux
             else
             {
                 //Öffne ein neues "KnotenHinzufügen"-Fenster
-                KnotenHinzufügen window = new(GetOpenGraph(), this);
+                KnotenHinzufügen window = new(this.GetOpenGraph(), this);
                 window.Show();
             }
         }
@@ -180,7 +181,7 @@ namespace Pollux
             else
             {
                 //Öffne ein neues "KantenHinzufügen"-Fenster
-                KanteHinzufügen window = new(GetOpenGraph(), this);
+                KanteHinzufügen window = new(this.GetOpenGraph(), this);
                 window.Show();
             }
         }
@@ -195,7 +196,7 @@ namespace Pollux
         private void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
         {
             //Öffne das Eigenschaften-Fenster durch die CommanConsole des geöffneten Tabs
-            GetOpenConsole().Command("SHOW");
+            this.GetOpenConsole().Command("SHOW");
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -207,16 +208,16 @@ namespace Pollux
                 {
                     if (e.Key == Key.S)
                     {
-                        SaveAll();
-                        SaveOpenedFiles();
+                        this.SaveAll();
+                        this.SaveOpenedFiles();
                     }
                     else if (e.Key == Key.E)
                     {
-                        KanteHinzufügen_Click(sender, new());
+                        this.KanteHinzufügen_Click(sender, new());
                     }
                     else if (e.Key == Key.N)
                     {
-                        KnotenHinzufügen_Click(sender, new());
+                        this.KnotenHinzufügen_Click(sender, new());
                     }
                 }
                 else if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Alt))
@@ -248,12 +249,12 @@ namespace Pollux
                     }
                     else if (e.Key == Key.E)
                     {
-                        GetOpenConsole().Command("SHOW");
+                        this.GetOpenConsole().Command("SHOW");
                     }
                     else if (e.Key == Key.S)
                     {
-                        GetOpenConsole().Command("SAVE");
-                        SaveOpenedFiles();
+                        this.GetOpenConsole().Command("SAVE");
+                        this.SaveOpenedFiles();
                     }
                 }
             }
@@ -270,20 +271,53 @@ namespace Pollux
             window.Show();
         }
 
-        private void MenuItemLöschen_Click(object sender, RoutedEventArgs e)
+        private void LöschenKnoten_Click(object sender, RoutedEventArgs e)
         {
+            //Suche nach der offenen GraphDarstellung
+            GraphDarstellung openGraphDarstellung = this.GetOpenGraphDarstellung();
+
             //Lösche den Knoten, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < GetOpenGraphDarstellung().visuelleKnoten.Count; i++)
+            for (int i = 0; i < openGraphDarstellung.visuelleKnoten.Count; i++)
             {
-                if (GetOpenGraphDarstellung().visuelleKnoten[i].Ellipse.ContextMenu.Items.Contains(sender))
+                if (openGraphDarstellung.visuelleKnoten[i].Ellipse.ContextMenu.Items.Contains(sender))
                 {
-                    GetOpenConsole().Command("REMOVE " + GetOpenGraphDarstellung().visuelleKnoten[i].Label.Content.ToString());
+                    this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKnoten[i].Knoten.Name);
                     i--;
                 }
             }
 
             //Male den Graphen neu
-            DrawGraph();
+            this.DrawGraph();
+        }
+
+        private void LöschenKante_Click(object sender, RoutedEventArgs e)
+        {
+            //Suche nach der offenen GraphDarstellung
+            GraphDarstellung openGraphDarstellung = this.GetOpenGraphDarstellung();
+
+            //Lösche die Kante, bei dem das MenuItem das Event ausgelöst hat
+            for (int i = 0; i < openGraphDarstellung.visuelleKanten.Count; i++)
+            {
+                if (openGraphDarstellung.visuelleKanten[i].Line is Line line)
+                {
+                    if (line.ContextMenu.Items.Contains(sender))
+                    {
+                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKanten[i].Kante.Name);
+                        i--;
+                    }
+                }
+                else if (openGraphDarstellung.visuelleKanten[i].Line is Ellipse ellipse)
+                {
+                    if (ellipse.ContextMenu.Items.Contains(sender))
+                    {
+                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKanten[i].Kante.Name);
+                        i--;
+                    }
+                }
+            }
+
+            //Male den Graphen neu
+            this.DrawGraph();
         }
 
         private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
@@ -314,11 +348,11 @@ namespace Pollux
                 //Erstelle die Datei in der gewollten Datei
                 if (filePath.EndsWith(".svg"))
                 {
-                    GetOpenGraphDarstellung().SaveAsSVG(filePath);
+                    this.GetOpenGraphDarstellung().SaveAsSVG(filePath);
                 }
                 else
                 {
-                    GetOpenGraphDarstellung().SaveAsBitmap(filePath);
+                    this.GetOpenGraphDarstellung().SaveAsBitmap(filePath);
                 }
             }
             catch { }

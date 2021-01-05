@@ -16,7 +16,7 @@ namespace Pollux
         public Show(GraphDarstellung graph, CommandConsole commandConsole)
         {
             //Erstelle das Fenster
-            InitializeComponent();
+            this.InitializeComponent();
 
             //Initialisierung der Member
             this.GraphDarstellung = graph;
@@ -52,15 +52,15 @@ namespace Pollux
             this.Eigenschaft.Header = MainWindow.resman.GetString("EigenschaftDataGrid", MainWindow.cul);
 
             //KnotenPicker
-            this.KnotenPicker.SelectionChanged += KnotenPickerChanged;
+            this.KnotenPicker.SelectionChanged += this.KnotenPickerChanged;
             this.KnotenPicker.SelectedIndex = 0;
 
             //KantenPicker
-            this.KantenPicker.SelectionChanged += KantenPickerChanged;
+            this.KantenPicker.SelectionChanged += this.KantenPickerChanged;
             this.KantenPicker.SelectedIndex = 0;
 
             //Lasse das Grid aktualisieren
-            AktualisiereGrid();
+            this.AktualisiereGrid();
 
             /*
             //Grid-Table
@@ -226,7 +226,7 @@ namespace Pollux
         private void KnotenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Falls sich der Text in der TexBox "KnotenName" ändert
-            if (this.KnotenName.Text != GetSelectedKnoten().Name)
+            if (this.KnotenName.Text != this.GetSelectedKnoten().Name)
             {
                 this.UmbennenKnoten.Visibility = Visibility.Visible;
             }
@@ -239,14 +239,14 @@ namespace Pollux
         private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
         {
             //Falls der Knoten umbenannt wird
-            this.CommandConsole.Command("RENAME " + GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
+            this.CommandConsole.Command("RENAME " + this.GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
             this.UmbennenKnoten.Visibility = Visibility.Hidden;
         }
 
         private void KantenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Falls sich der Text in der TexBox "KantenName" ändert
-            if (this.KantenName.Text != GetSelectedKante().Name)
+            if (this.KantenName.Text != this.GetSelectedKante().Name)
             {
                 this.UmbennenKanten.Visibility = Visibility.Visible;
             }
@@ -259,7 +259,7 @@ namespace Pollux
         private void UmbennenKanten_Click(object sender, RoutedEventArgs e)
         {
             //Falls die Kante umbenannt wird
-            this.CommandConsole.Command("RENAME " + GetSelectedKante().Name + " TO " + this.KantenName.Text);
+            this.CommandConsole.Command("RENAME " + this.GetSelectedKante().Name + " TO " + this.KantenName.Text);
             this.UmbennenKanten.Visibility = Visibility.Hidden;
         }
 

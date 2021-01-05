@@ -26,7 +26,7 @@ namespace Pollux
         public GraphAuswahl(State state, MainWindow mainWindow)
         {
             //erstelle das Fenster
-            InitializeComponent();
+            this.InitializeComponent();
 
             //Lege die Members fest
             #region
@@ -123,7 +123,7 @@ namespace Pollux
                 ListBoxItem listBoxItem = new ListBoxItem();
                 listBoxItem.Content = dock;
                 listBoxItem.Background = Brushes.White;
-                listBoxItem.MouseDoubleClick += ListBoxItem_Click;
+                listBoxItem.MouseDoubleClick += this.ListBoxItem_Click;
                 this.LetzteDatei.Items.Add(listBoxItem);
             }
             #endregion
@@ -168,7 +168,7 @@ namespace Pollux
             this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.Items.IndexOf(this.LetzteDatei.SelectedItem)]);
 
             //schließe das Fenster
-            Close();
+            this.Close();
         }
 
         private void Durchsuchen_Click(object sender, RoutedEventArgs e)
@@ -279,7 +279,7 @@ namespace Pollux
                 }
 
                 //schließe das Fenster
-                Close();
+                this.Close();
             }
             catch
             {
@@ -330,7 +330,7 @@ namespace Pollux
                 }
 
                 //schließe Fenster
-                Close();
+                this.Close();
             }
             catch
             {

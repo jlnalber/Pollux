@@ -24,7 +24,7 @@ namespace Pollux
                 this.Knoten = knoten;
                 this.Ellipse = ellipse;
                 this.Canvas = canvas;
-                this.Ellipse.MouseMove += Ellipse_MouseMove;
+                this.Ellipse.MouseMove += this.Ellipse_MouseMove;
                 this.Label = label;
             }
 

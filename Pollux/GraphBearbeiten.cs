@@ -28,13 +28,13 @@ namespace Pollux.Graph
 
         public Graph.Knoten AddKnoten()
         {
-            return AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString());
+            return this.AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString());
         }
 
         public Graph.Knoten AddKnoten(string name)
         {
             Knoten knote = new Knoten(this, new List<Kanten>(), name.ToUpper());
-            return AddKnoten(knote);
+            return this.AddKnoten(knote);
         }
         #endregion
 
@@ -58,12 +58,12 @@ namespace Pollux.Graph
         public Graph.Kanten AddKante(string name, Knoten start, Knoten ende)
         {
             Kanten kante = new Kanten(this, new Knoten[2], name.ToUpper());
-            return AddKante(kante, start, ende);
+            return this.AddKante(kante, start, ende);
         }
 
         public Graph.Kanten AddKante(Knoten start, Knoten ende)
         {
-            return AddKante("KANTE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
+            return this.AddKante("KANTE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
         }
         #endregion
 
@@ -73,7 +73,7 @@ namespace Pollux.Graph
         {
             while (knoten.Kanten.Count != 0)
             {
-                RemoveKante(knoten.Kanten[0]);
+                this.RemoveKante(knoten.Kanten[0]);
             }
             knoten.Parent = null;
             knoten.Kanten.Clear();

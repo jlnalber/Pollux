@@ -19,7 +19,7 @@ namespace Pollux
         public MainWindow()
         {
             //Initialisiere dieses Fenster
-            InitializeComponent();
+            this.InitializeComponent();
 
             if (main == null)
             {
@@ -170,7 +170,7 @@ namespace Pollux
 
                 //Button zum Datei öffnen
                 Button button1 = new();
-                button1.Click += Open_Click;
+                button1.Click += this.Open_Click;
                 button1.Content = resman.GetString("GraphÖffnen", cul);
                 button1.Padding = new(10);
                 button1.HorizontalAlignment = HorizontalAlignment.Left;
@@ -180,7 +180,7 @@ namespace Pollux
 
                 //Button zum Datei erstellen
                 Button button2 = new();
-                button2.Click += Neu_Click;
+                button2.Click += this.Neu_Click;
                 button2.Content = resman.GetString("GraphErstellen", cul);
                 button2.Padding = new(10);
                 button2.HorizontalAlignment = HorizontalAlignment.Left;
@@ -190,7 +190,7 @@ namespace Pollux
 
                 //Button zum neuen Fenster öffnen
                 Button button3 = new();
-                button3.Click += NewWindow;
+                button3.Click += this.NewWindow;
                 button3.Content = resman.GetString("NeuesFenster", cul);
                 button3.Padding = new(10);
                 button3.HorizontalAlignment = HorizontalAlignment.Left;
@@ -200,7 +200,7 @@ namespace Pollux
 
                 //Button zum Hilfe-Datei öffnen
                 Button button4 = new();
-                button4.Click += HilfeDatei_Click;
+                button4.Click += this.HilfeDatei_Click;
                 button4.Content = resman.GetString("HilfeDateiÖffnen", cul);
                 button4.Padding = new(10);
                 button4.HorizontalAlignment = HorizontalAlignment.Left;
@@ -209,14 +209,14 @@ namespace Pollux
                 grid.Children.Add(button4);
 
                 //Füge den Tab zum Fenster hinzu
-                AddNewTab("Pollux", grid);
+                this.AddNewTab("Pollux", grid);
             }
             else
             {
                 //öffne jede Datei in der Liste "paths", welche jede Datei in der Setting "OpenedFiles" repräsentiert
                 foreach (string path in paths)
                 {
-                    OpenFile(path);
+                    this.OpenFile(path);
                 }
             }
             #endregion
@@ -225,10 +225,10 @@ namespace Pollux
         ~MainWindow()
         {
             //abspeicheren, welche Dateien alle geöffnet sind
-            SaveOpenedFiles();
+            this.SaveOpenedFiles();
 
             //speichere die Dateien noch schnell ab
-            SaveAll();
+            this.SaveAll();
 
             if (main == this)
             {

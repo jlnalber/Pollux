@@ -728,11 +728,20 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kante entfernen ähnelt.
+        /// </summary>
+        public static string LöschenKante {
+            get {
+                return ResourceManager.GetString("LöschenKante", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Knoten entfernen ähnelt.
         /// </summary>
-        public static string Löschen {
+        public static string LöschenKnoten {
             get {
-                return ResourceManager.GetString("Löschen", resourceCulture);
+                return ResourceManager.GetString("LöschenKnoten", resourceCulture);
             }
         }
         

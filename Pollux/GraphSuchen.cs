@@ -100,7 +100,7 @@ namespace Pollux.Graph
 
         public Knoten this[string name]
         {
-            get { return SucheKnoten(name); }
+            get { return this.SucheKnoten(name); }
         }
     }
 }

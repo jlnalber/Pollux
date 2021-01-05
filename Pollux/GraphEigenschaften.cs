@@ -14,7 +14,7 @@ namespace Pollux.Graph
                 //Prüfung, ob er eulersch ist
 
                 //erstelle eine Kopie von diesem Graphen
-                Graph copy = Kopie();
+                Graph copy = this.Kopie();
                 for (int i = 0; i < copy.GraphKnoten.Count; i++)
                 {
                     if (copy.GraphKnoten[i].IstIsolierteEcke)

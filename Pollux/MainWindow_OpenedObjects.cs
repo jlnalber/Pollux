@@ -23,7 +23,7 @@ namespace Pollux
         public GraphDarstellung GetOpenGraphDarstellung()
         {
             //find den geöffneten Tab heraus
-            TabItem tab = GetOpenTab();
+            TabItem tab = this.GetOpenTab();
 
             //Rückgabe
             return this.GraphDarstellungen[tab];
@@ -32,7 +32,7 @@ namespace Pollux
         public Graph.Graph GetOpenGraph()
         {
             //find den geöffneten Tab heraus
-            TabItem tab = GetOpenTab();
+            TabItem tab = this.GetOpenTab();
 
             //Rückgabe
             return this.Graphs[tab];
@@ -41,31 +41,31 @@ namespace Pollux
         public Canvas GetOpenCanvas()
         {
             //Suche den geöffneten Graphen
-            return this.Canvases[GetOpenTab()];
+            return this.Canvases[this.GetOpenTab()];
         }
 
         public CommandConsole GetOpenConsole()
         {
             //suche nach dem geöffneten Tab und gib dann seine CommanConsole zurück
-            return this.Consoles[GetOpenTab()];
+            return this.Consoles[this.GetOpenTab()];
         }
 
         public TextBlock GetOpenHeader()
         {
             //suche nach dem geöffneten Tab und gib dann seinen Header zurück
-            return this.Headers[GetOpenTab()];
+            return this.Headers[this.GetOpenTab()];
         }
 
         public Show GetOpenEigenschaftenFenster()
         {
             //Gebe das aktuell geöffnete Eigenschaften-Fenster zurück
-            return this.OpenedEigenschaftenFenster[GetOpenTab()];
+            return this.OpenedEigenschaftenFenster[this.GetOpenTab()];
         }
 
         public Grid GetOpenEigenschaftenFensterGrid()
         {
             //Gebe das aktuell geöffnete Eigenschaften-Fenster-Grid zurück
-            return this.OpenedEigenschaftenFensterGrid[GetOpenTab()];
+            return this.OpenedEigenschaftenFensterGrid[this.GetOpenTab()];
         }
         #endregion
 
@@ -96,7 +96,7 @@ namespace Pollux
         public void SaveOpenFile()
         {
             //Speichere nur den geöffneten Tab ab
-            GetOpenConsole().Save();
+            this.GetOpenConsole().Save();
         }
         #endregion
     }

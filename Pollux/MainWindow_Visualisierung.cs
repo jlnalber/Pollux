@@ -29,7 +29,7 @@ namespace Pollux
                 tabGraph.Header = "Graph";
                 tabGraph.Background = Brushes.White;
                 tabControl.Items.Add(tabGraph);
-                tabControl.SelectionChanged += Graph_HasToBeRedrawn;
+                tabControl.SelectionChanged += this.Graph_HasToBeRedrawn;
 
                 //der Tab für die Console
                 TabItem tabConsole = new TabItem();
@@ -68,7 +68,7 @@ namespace Pollux
 
                 //Konsolen-Eingabe (kleine TextBox)
                 TextBox consoleInput = new();
-                consoleInput.KeyDown += KeyDown_ConsoleInput;
+                consoleInput.KeyDown += this.KeyDown_ConsoleInput;
                 consoleInput.AcceptsReturn = false;
                 consoleInput.Padding = inputThickness;
                 consoleInput.Margin = inputThickness;
@@ -110,13 +110,13 @@ namespace Pollux
                 MenuItem menuItem2 = new();
                 menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
                 menuItem2.Icon = " + ";
-                menuItem2.Click += KanteHinzufügen_Click;
+                menuItem2.Click += this.KanteHinzufügen_Click;
 
                 //MenuItem zum Hinzufügen von Knoten
                 MenuItem menuItem3 = new();
                 menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
                 menuItem3.Icon = " + ";
-                menuItem3.Click += KnotenHinzufügen_Click;
+                menuItem3.Click += this.KnotenHinzufügen_Click;
 
                 //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
                 menuItem1.Items.Add(menuItem2);
@@ -124,7 +124,7 @@ namespace Pollux
 
                 //MenuItem zum Öffnen des Eiganschaften-Fensters
                 MenuItem menuItem4 = new();
-                menuItem4.Click += EigenschaftenFenster_Click;
+                menuItem4.Click += this.EigenschaftenFenster_Click;
                 menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
 
                 //Füge die MenuItems hinzu
@@ -141,7 +141,7 @@ namespace Pollux
                 #endregion
 
                 //erstelle einen neuen Tab
-                tab = AddNewTab<TabControl>(path.Substring(path.LastIndexOf(@"\") + 1), tabControl);
+                tab = this.AddNewTab(path.Substring(path.LastIndexOf(@"\") + 1), tabControl);
 
                 //fokusiere auf das Eingabe-Feld
                 consoleInput.Focus();
@@ -208,14 +208,15 @@ namespace Pollux
                 //Finalisierung
                 #region
                 this.TabControl.SelectedIndex = this.TabControl.Items.Count - 1;
-                SaveOpenedFiles();
-                SaveAll();
+                this.SaveOpenedFiles();
+                this.SaveAll();
                 #endregion
             }
             catch (Exception e)
             {
                 //Mache einen ErrorSound, zeige die Error-Nachricht und entferne den Tab
                 SystemSounds.Asterisk.Play();
+                #region
                 this.TabControl.Items.Remove(tab);
                 this.OpenedFiles.Remove(tab);
                 this.Outputs.Remove(tab);
@@ -227,6 +228,7 @@ namespace Pollux
                 this.OpenedEigenschaftenFenster.Remove(tab);
                 this.OpenedEigenschaftenFensterGrid.Remove(tab);
                 System.Windows.MessageBox.Show(e.Message);
+                #endregion
             }
         }
 
@@ -242,7 +244,7 @@ namespace Pollux
 
             #region
             //finde den Graphen heraus und lege andere Variablen fest
-            GraphDarstellung graphDarstellung = GetOpenGraphDarstellung();
+            GraphDarstellung graphDarstellung = this.GetOpenGraphDarstellung();
             Graph.Graph graph = graphDarstellung.graph;
             List<GraphDarstellung.KantenDarstellung> kantenDarstellung = graphDarstellung.visuelleKanten;
             List<GraphDarstellung.KnotenDarstellung> knotenDarstellung = graphDarstellung.visuelleKnoten;
@@ -295,7 +297,6 @@ namespace Pollux
             }
 
             //erstelle die neuen "KnotenDarstellung"
-
             //porvisorische Liste, damit die Knoten nach der Errstellung der Kanten im Canvas "graphCanvas" eingefügt werden können
             List<GraphDarstellung.KnotenDarstellung> neueKnoten = new();
             foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
@@ -346,9 +347,9 @@ namespace Pollux
 
                     //MenuItem zum Löschen des Knoten
                     MenuItem löschen = new MenuItem();
-                    löschen.Header = resman.GetString("Löschen", cul);
+                    löschen.Header = resman.GetString("LöschenKnoten", cul);
                     löschen.Icon = " - ";
-                    löschen.Click += MenuItemLöschen_Click;
+                    löschen.Click += this.LöschenKnoten_Click;
 
                     //MenuItem zur Bearbeitung von Graph
                     MenuItem menuItem1 = new();
@@ -358,13 +359,13 @@ namespace Pollux
                     MenuItem menuItem2 = new();
                     menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
                     menuItem2.Icon = " + ";
-                    menuItem2.Click += KanteHinzufügen_Click;
+                    menuItem2.Click += this.KanteHinzufügen_Click;
 
                     //MenuItem zum Hinzufügen von Knoten
                     MenuItem menuItem3 = new();
                     menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
                     menuItem3.Icon = " + ";
-                    menuItem3.Click += KnotenHinzufügen_Click;
+                    menuItem3.Click += this.KnotenHinzufügen_Click;
 
                     //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
                     menuItem1.Items.Add(menuItem2);
@@ -372,7 +373,7 @@ namespace Pollux
 
                     //MenuItem zum Öffnen des Eiganschaften-Fensters
                     MenuItem menuItem4 = new();
-                    menuItem4.Click += EigenschaftenFenster_Click;
+                    menuItem4.Click += this.EigenschaftenFenster_Click;
                     menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
 
                     //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
@@ -384,7 +385,7 @@ namespace Pollux
                 }
             }
 
-            //richte die Position der neuen Kanten neu aus
+            //richte die Position der Kanten neu aus
             List<GraphDarstellung.KantenDarstellung> entfernteKanten = new();
             foreach (GraphDarstellung.KantenDarstellung i in kantenDarstellung)
             {
@@ -449,7 +450,6 @@ namespace Pollux
                     entfernteKanten.Add(i);
                 }
             }
-
             foreach (GraphDarstellung.KantenDarstellung i in entfernteKanten)
             {
                 //Falls einer die Kante gar nicht mehr zum Graphen hinzu gehört, entferne sie aus dem Canvas "graphCanvas" und aus dem GraphDarstellung
@@ -458,81 +458,189 @@ namespace Pollux
             }
 
             //erstelle die neuen Kanten
-            for (int i = kantenDarstellung.Count; i < graph.GraphKanten.Count; i++)
+            //porvisorische Liste, damit die Knoten nach der Errstellung der Kanten im Canvas "graphCanvas" eingefügt werden können
+            List<GraphDarstellung.KantenDarstellung> neueKanten = new();
+            foreach (Graph.Graph.Kanten i in graph.GraphKanten)
             {
-                Graph.Graph.Kanten kante = graph.GraphKanten[i];
-                if (kante.Knoten[0] == kante.Knoten[1])
+                //Finde heraus, ob zu dieser Kante "i" schon eine visuelle Darstellung existiert
+                bool exists = false;
+                foreach (GraphDarstellung.KantenDarstellung n in kantenDarstellung)
                 {
-                    //erstelle die Linie, die nachher dargestellt werden soll
-                    Ellipse ellipse = new Ellipse();
-
-                    //Erstelle die visuelle Kante "kanten"
-                    GraphDarstellung.KantenDarstellung kanten = new GraphDarstellung.KantenDarstellung() { Kante = kante, Line = ellipse };
-
-                    //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[0])].Ellipse.Margin;
-
-                    //lege eine Konstante für die Höhe fest
-                    const int height = 40;
-
-                    //Lege noch andere Werte der Linie fest
-                    ellipse.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                    ellipse.VerticalAlignment = VerticalAlignment.Bottom;
-                    ellipse.Stroke = kanten_FarbeBorder;
-                    ellipse.StrokeThickness = kanten_Thickness;
-                    ellipse.Fill = Brushes.Transparent;
-                    ellipse.Height = height;
-                    ellipse.Width = height;
-
-                    //lege die Position fest
-                    ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
-
-                    //füge die Linie zu der Liste "kantenDarstellung" hinzu
-                    kantenDarstellung.Add(kanten);
-
-                    //Füge es zum Canvas hinzu
-                    graphCanvas.Children.Add(kanten.Line);
+                    if (n.Kante == i)
+                    {
+                        exists = true;
+                    }
                 }
-                else
+
+                if (!exists)
                 {
-                    //erstelle die Linie, die nachher dargestellt werden soll
-                    Line line = new Line();
+                    if (i.Knoten[0] == i.Knoten[1])
+                    {
+                        //erstelle die Linie, die nachher dargestellt werden soll
+                        Ellipse ellipse = new Ellipse();
 
-                    //Erstelle die visuelle Kante "kanten"
-                    GraphDarstellung.KantenDarstellung kanten = new GraphDarstellung.KantenDarstellung() { Kante = kante, Line = line };
+                        //Erstelle die visuelle Kante "kanten"
+                        GraphDarstellung.KantenDarstellung kante = new GraphDarstellung.KantenDarstellung() { Kante = i, Line = ellipse };
 
-                    //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[0])].Ellipse.Margin;
-                    Thickness marginKnoten1 = knotenDarstellung[graph.GraphKnoten.IndexOf(kante.Knoten[1])].Ellipse.Margin;
-                    double height = knoten_Height;
+                        //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
+                        Thickness marginKnoten = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Knoten[0])].Ellipse.Margin;
 
-                    //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                    double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
-                    x = (x > 30) ? 30 : (x < -30) ? -30 : x;
-                    double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
-                    y = (y > 30) ? 30 : (y < -30) ? -30 : y;
+                        //lege eine Konstante für die Höhe fest
+                        const int height = 40;
 
-                    //schreibe diese Eigenschaften in die Linie
-                    line.X1 = marginKnoten0.Left + height / 2 + x;
-                    line.Y1 = marginKnoten0.Top + height / 2 + y;
-                    line.X2 = marginKnoten1.Left + height / 2 - x;
-                    line.Y2 = marginKnoten1.Top + height / 2 - y;
+                        //Lege noch andere Werte der Linie fest
+                        ellipse.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                        ellipse.VerticalAlignment = VerticalAlignment.Bottom;
+                        ellipse.Stroke = kanten_FarbeBorder;
+                        ellipse.StrokeThickness = kanten_Thickness;
+                        ellipse.Fill = Brushes.Transparent;
+                        ellipse.Height = height;
+                        ellipse.Width = height;
 
-                    //Lege noch andere Werte der Linie fest
-                    line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                    line.VerticalAlignment = VerticalAlignment.Bottom;
-                    line.Stroke = kanten_FarbeBorder;
-                    line.StrokeThickness = kanten_Thickness;
+                        //lege die Position fest
+                        ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
 
-                    //füge die Linie zu der Liste "kantenDarstellung" hinzu
-                    kantenDarstellung.Add(kanten);
+                        //füge die Linie zu der Liste "kantenDarstellung" hinzu
+                        kantenDarstellung.Add(kante);
 
-                    //Füge es zum Canvas hinzu
-                    graphCanvas.Children.Add(kanten.Line);
+                        //Füge es zur Liste "neueKanten" hinuz
+                        neueKanten.Add(kante);
+
+                        //Füge ein ContextMenu hinzu
+                        #region
+                        //ContextMenu "contextMenu"
+                        ContextMenu contextMenu = new ContextMenu();
+                        ellipse.ContextMenu = contextMenu;
+
+                        //MenuItem zum Löschen des Knoten
+                        MenuItem löschen = new MenuItem();
+                        löschen.Header = resman.GetString("LöschenKante", cul);
+                        löschen.Icon = " - ";
+                        löschen.Click += this.LöschenKante_Click;
+
+                        //MenuItem zur Bearbeitung von Graph
+                        MenuItem menuItem1 = new();
+                        menuItem1.Header = resman.GetString("GraphBearbeiten", cul);
+
+                        //MenuItem zum Hinzufügen von Kanten
+                        MenuItem menuItem2 = new();
+                        menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
+                        menuItem2.Icon = " + ";
+                        menuItem2.Click += this.KanteHinzufügen_Click;
+
+                        //MenuItem zum Hinzufügen von Knoten
+                        MenuItem menuItem3 = new();
+                        menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
+                        menuItem3.Icon = " + ";
+                        menuItem3.Click += this.KnotenHinzufügen_Click;
+
+                        //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
+                        menuItem1.Items.Add(menuItem2);
+                        menuItem1.Items.Add(menuItem3);
+
+                        //MenuItem zum Öffnen des Eiganschaften-Fensters
+                        MenuItem menuItem4 = new();
+                        menuItem4.Click += this.EigenschaftenFenster_Click;
+                        menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
+
+                        //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
+                        contextMenu.Items.Add(löschen);
+                        contextMenu.Items.Add(new Separator());
+                        contextMenu.Items.Add(menuItem1);
+                        contextMenu.Items.Add(menuItem4);
+                        #endregion
+                    }
+                    else
+                    {
+                        //erstelle die Linie, die nachher dargestellt werden soll
+                        Line line = new Line();
+
+                        //Erstelle die visuelle Kante "kanten"
+                        GraphDarstellung.KantenDarstellung kante = new GraphDarstellung.KantenDarstellung() { Kante = i, Line = line };
+
+                        //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
+                        Thickness marginKnoten0 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Knoten[0])].Ellipse.Margin;
+                        Thickness marginKnoten1 = knotenDarstellung[graph.GraphKnoten.IndexOf(i.Knoten[1])].Ellipse.Margin;
+                        double height = knoten_Height;
+
+                        //finde dadurch die Position heraus, wo die Kante starten und enden muss
+                        double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
+                        x = (x > 30) ? 30 : (x < -30) ? -30 : x;
+                        double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
+                        y = (y > 30) ? 30 : (y < -30) ? -30 : y;
+
+                        //schreibe diese Eigenschaften in die Linie
+                        line.X1 = marginKnoten0.Left + height / 2 + x;
+                        line.Y1 = marginKnoten0.Top + height / 2 + y;
+                        line.X2 = marginKnoten1.Left + height / 2 - x;
+                        line.Y2 = marginKnoten1.Top + height / 2 - y;
+
+                        //Lege noch andere Werte der Linie fest
+                        line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                        line.VerticalAlignment = VerticalAlignment.Bottom;
+                        line.Stroke = kanten_FarbeBorder;
+                        line.StrokeThickness = kanten_Thickness;
+
+                        //füge die Linie zu der Liste "kantenDarstellung" hinzu
+                        kantenDarstellung.Add(kante);
+
+                        //Füge es zur Liste "neueKanten" hinzu
+                        neueKanten.Add(kante);
+
+                        //Füge ein ContextMenu hinzu
+                        #region
+                        //ContextMenu "contextMenu"
+                        ContextMenu contextMenu = new ContextMenu();
+                        line.ContextMenu = contextMenu;
+
+                        //MenuItem zum Löschen des Knoten
+                        MenuItem löschen = new MenuItem();
+                        löschen.Header = resman.GetString("LöschenKante", cul);
+                        löschen.Icon = " - ";
+                        löschen.Click += this.LöschenKante_Click;
+
+                        //MenuItem zur Bearbeitung von Graph
+                        MenuItem menuItem1 = new();
+                        menuItem1.Header = resman.GetString("GraphBearbeiten", cul);
+
+                        //MenuItem zum Hinzufügen von Kanten
+                        MenuItem menuItem2 = new();
+                        menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
+                        menuItem2.Icon = " + ";
+                        menuItem2.Click += this.KanteHinzufügen_Click;
+
+                        //MenuItem zum Hinzufügen von Knoten
+                        MenuItem menuItem3 = new();
+                        menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
+                        menuItem3.Icon = " + ";
+                        menuItem3.Click += this.KnotenHinzufügen_Click;
+
+                        //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
+                        menuItem1.Items.Add(menuItem2);
+                        menuItem1.Items.Add(menuItem3);
+
+                        //MenuItem zum Öffnen des Eiganschaften-Fensters
+                        MenuItem menuItem4 = new();
+                        menuItem4.Click += this.EigenschaftenFenster_Click;
+                        menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
+
+                        //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
+                        contextMenu.Items.Add(löschen);
+                        contextMenu.Items.Add(new Separator());
+                        contextMenu.Items.Add(menuItem1);
+                        contextMenu.Items.Add(menuItem4);
+                        #endregion
+                    }
                 }
             }
 
-            //stelle Knoten im Canvas "graphCanvas" dar; Kanten müssen nicht dargestellt werden, da eben schon passiert
+            //stelle Kanten im Canvas "graphCanvas" dar
+            foreach (GraphDarstellung.KantenDarstellung i in neueKanten)
+            {
+                graphCanvas.Children.Add(i.Line);
+            }
+
+            //stelle Knoten im Canvas "graphCanvas" dar
             foreach (GraphDarstellung.KnotenDarstellung i in neueKnoten)
             {
                 graphCanvas.Children.Add(i.Ellipse);
@@ -543,7 +651,7 @@ namespace Pollux
 
         public void DrawGraph()
         {
-            DrawGraph(GetOpenCanvas());
+            this.DrawGraph(this.GetOpenCanvas());
         }
 
         public TabItem AddNewTab<T>(string header, T content)
@@ -578,7 +686,7 @@ namespace Pollux
             thickness.Left = 8;
             closeButton.Margin = thickness;
             closeButton.FontSize = 10;
-            closeButton.Click += CloseTab;
+            closeButton.Click += this.CloseTab;
             headerPanel.Children.Add(closeButton);
 
             //Eigenschaften für das TabItem "tab1"
@@ -604,7 +712,7 @@ namespace Pollux
         public void AktualisiereEigenschaftenFenster()
         {
             //Aktualisiere das Eigenschaften-Fenster, die Daten + Rückgabe
-            AktualisiereEigenschaftenFenster(GetOpenTab());
+            this.AktualisiereEigenschaftenFenster(this.GetOpenTab());
         }
     }
 }
