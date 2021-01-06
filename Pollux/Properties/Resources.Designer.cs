@@ -818,6 +818,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Übergang ähnelt.
+        /// </summary>
+        public static string Node_DesignFilling2_CheckBox {
+            get {
+                return ResourceManager.GetString("Node_DesignFilling2_CheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Knoten: ähnelt.
         /// </summary>
         public static string Node_DesignSizes_Text {

@@ -364,6 +364,9 @@
   <data name="Node_DesignBorder_Text" xml:space="preserve">
     <value>Farbe des Randes der Knoten:</value>
   </data>
+  <data name="Node_DesignFilling2_CheckBox" xml:space="preserve">
+    <value>Übergang</value>
+  </data>
   <data name="Node_DesignFilling_Text" xml:space="preserve">
     <value>Farbe der Füllung der Knoten:</value>
   </data>

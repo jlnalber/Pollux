@@ -20,13 +20,14 @@ namespace Pollux
             //Schreibe den Anfang der Datei
             StreamWriter streamWriter = new(path);
             streamWriter.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">");
+            string defs = "\t<defs>\n";
 
             //Finde heraus, wie weit und wie hoch die Datei sein muss und schreibe das in sie hinein
             int width = 0;
             int height = 0;
             foreach (KnotenDarstellung i in this.visuelleKnoten)
             {
-                //Anahnd der Knoten
+                //Anhand der Knoten
                 if (i.Ellipse.Margin.Left + i.Ellipse.Width + i.Ellipse.StrokeThickness + 10 > width)
                 {
                     width = int.Parse(Math.Round(i.Ellipse.Margin.Left + i.Ellipse.Width + i.Ellipse.StrokeThickness + 10).ToString());
@@ -36,6 +37,11 @@ namespace Pollux
                 {
                     height = int.Parse(Math.Round(i.Ellipse.Margin.Top + i.Ellipse.Height + i.Ellipse.StrokeThickness + 10).ToString());
                 }
+
+                defs += "\t\t<linearGradient id=\"" + i.Knoten.Name + "\" gradientTransform=\"rotate(45)\">\n";
+                defs += "\t\t\t<stop offset=\"0%\"  stop-color=\"" + Hexadezimal.BrushAsHexa(((LinearGradientBrush)i.Ellipse.Fill).GradientStops[0].Color) + "\"/>\n";
+                defs += "\t\t\t<stop offset=\"100%\"  stop-color=\"" + Hexadezimal.BrushAsHexa(((LinearGradientBrush)i.Ellipse.Fill).GradientStops[1].Color) + "\"/>\n";
+                defs += "\t\t</linearGradient>\n";
 
                 //Anhand der Labels der Knoten
                 if (i.Label.Margin.Left + i.Label.ActualWidth + 10 > width)
@@ -49,7 +55,10 @@ namespace Pollux
                 }
             }
 
+            defs += "\t</defs>\n";
+
             streamWriter.WriteLine("<svg width=\"" + width + "\" height=\"" + height + "\" xmlns=\"http://www.w3.org/2000/svg\">");
+            streamWriter.WriteLine(defs);
 
             //Schreibe die Kanten in die Datei hinein
             foreach (KantenDarstellung i in this.visuelleKanten)
@@ -102,7 +111,7 @@ namespace Pollux
                 string fontFamily = i.Label.FontFamily.Source;
 
                 //Schreibe schließlich alles in die Datei
-                streamWriter.WriteLine("\t<ellipse cx=\"" + cx + "\" cy=\"" + cy + "\" rx=\"" + rx + "\" ry=\"" + ry + "\" style=\"fill:" + Hexadezimal.BrushAsHexa(i.Ellipse.Fill) + ";stroke:" + Hexadezimal.BrushAsHexa(i.Ellipse.Stroke) + ";stroke-width:" + strokeWidth + "\"/>");
+                streamWriter.WriteLine("\t<ellipse cx=\"" + cx + "\" cy=\"" + cy + "\" rx=\"" + rx + "\" ry=\"" + ry + "\" fill=\"url('#" + i.Knoten.Name + "')\" style=\"stroke:" + Hexadezimal.BrushAsHexa(i.Ellipse.Stroke) + ";stroke-width:" + strokeWidth + "\"/>");
                 streamWriter.WriteLine("\t<text x=\"" + x + "\" y=\"" + y + "\" style=\"font-size:" + fontSize + ";font-family:" + fontFamily + "\">" + i.Label.Content.ToString() + "</text>");
             }
 
@@ -164,7 +173,7 @@ namespace Pollux
                     float y1 = (float)Math.Round(line.Y1, 2) * factor + padding;
                     float y2 = (float)Math.Round(line.Y2, 2) * factor + padding;
                     System.Windows.Media.Color stroke = ((SolidColorBrush)line.Stroke).Color;
-                    float strokeWidth = (float)Math.Round(line.StrokeThickness, 2) * factor + padding;
+                    float strokeWidth = (float)Math.Round(line.StrokeThickness, 2) * factor;
                     System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
 
                     //Male die Ergebnisse in die Datei
@@ -176,9 +185,9 @@ namespace Pollux
                     //Finde die Attribute de Schlinge heraus
                     float x = (float)Math.Round(ellipse.Margin.Left, 2) * factor + padding;
                     float y = (float)Math.Round(ellipse.Margin.Top, 2) * factor + padding;
-                    float widthEllipse = (float)Math.Round(ellipse.Width, 2) * factor + padding;
-                    float heightEllipse = (float)Math.Round(ellipse.Height, 2) * factor + padding;
-                    float strokeWidth = (float)Math.Round(ellipse.StrokeThickness, 2) * factor + padding;
+                    float widthEllipse = (float)Math.Round(ellipse.Width, 2) * factor;
+                    float heightEllipse = (float)Math.Round(ellipse.Height, 2) * factor;
+                    float strokeWidth = (float)Math.Round(ellipse.StrokeThickness, 2) * factor;
                     System.Windows.Media.Color stroke = ((SolidColorBrush)ellipse.Stroke).Color;
                     System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
 
@@ -193,22 +202,23 @@ namespace Pollux
                 //Finde die Attribute von dem Knoten heraus
                 int x = (int)Math.Round(i.Ellipse.Margin.Left) * factor + padding;
                 int y = (int)Math.Round(i.Ellipse.Margin.Top) * factor + padding;
-                int widthEllipse = (int)Math.Round(i.Ellipse.Width) * factor + padding;
-                int heightEllipse = (int)Math.Round(i.Ellipse.Height) * factor + padding;
-                SolidColorBrush fillEllipse = (SolidColorBrush)i.Ellipse.Fill;
-                System.Drawing.Color fill = System.Drawing.Color.FromArgb(fillEllipse.Color.A, fillEllipse.Color.R, fillEllipse.Color.G, fillEllipse.Color.B);
-                SolidBrush brush = new(fill);
+                int widthEllipse = (int)Math.Round(i.Ellipse.Width) * factor;
+                int heightEllipse = (int)Math.Round(i.Ellipse.Height) * factor;
+                LinearGradientBrush fillEllipse = (LinearGradientBrush)i.Ellipse.Fill;
+                System.Drawing.Color fill1 = System.Drawing.Color.FromArgb(fillEllipse.GradientStops[0].Color.A, fillEllipse.GradientStops[0].Color.R, fillEllipse.GradientStops[0].Color.G, fillEllipse.GradientStops[0].Color.B);
+                System.Drawing.Color fill2 = System.Drawing.Color.FromArgb(fillEllipse.GradientStops[1].Color.A, fillEllipse.GradientStops[1].Color.R, fillEllipse.GradientStops[1].Color.G, fillEllipse.GradientStops[1].Color.B);
 
-                float strokeWidth = (float)Math.Round(i.Ellipse.StrokeThickness, 2) * factor + padding;
+                float strokeWidth = (float)Math.Round(i.Ellipse.StrokeThickness, 2) * factor;
                 System.Windows.Media.Color stroke = ((SolidColorBrush)i.Ellipse.Stroke).Color;
                 System.Drawing.Pen pen = new(System.Drawing.Color.FromArgb(stroke.A, stroke.R, stroke.G, stroke.B), strokeWidth);
                 System.Drawing.Rectangle rectangle = new(x, y, widthEllipse, heightEllipse);
+                System.Drawing.Drawing2D.LinearGradientBrush brush = new(rectangle, fill1, fill2, 45);
                 graphics.FillEllipse((System.Drawing.Brush)brush, rectangle);
 
                 //Finde die Attribute von dem Label heraus
                 float xLabel = (float)Math.Round(i.Label.Margin.Left, 2) * factor + padding;
                 float yLabel = (float)Math.Round(i.Label.Margin.Top, 2) * factor + padding;
-                float fontSize = (float)Math.Round(i.Label.FontSize, 2) * factor + padding;
+                float fontSize = (float)Math.Round(i.Label.FontSize, 2) * factor;
                 string fontFamily = i.Label.FontFamily.Source;
 
                 //Schreibe schließlich alles in die Datei

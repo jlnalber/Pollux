@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Knoten_FarbeFilling" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">SlateBlue</Value>
+      <Value Profile="(Default)">100, 100, 255</Value>
     </Setting>
     <Setting Name="OpenedFiles" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -28,6 +28,12 @@
     </Setting>
     <Setting Name="Kanten_Thickness" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="Knoten_FarbeFilling2" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">156, 70, 200</Value>
+    </Setting>
+    <Setting Name="Transition" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

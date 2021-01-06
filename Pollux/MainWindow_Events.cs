@@ -330,7 +330,7 @@ namespace Pollux
                 SaveFileDialog openFileDialog = new();
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Exchangeable Image File Format (*.exif)|*exif|JPEG-File (*jpg)|*jpg|Portable Network Graphics (*png)|*png|Tagged Image File Format (*tiff)|*tiff";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.FilterIndex = 1;
                 openFileDialog.FileName = "graph.svg";
                 openFileDialog.RestoreDirectory = true;
 

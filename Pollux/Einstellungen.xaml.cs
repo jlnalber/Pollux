@@ -19,7 +19,7 @@ namespace Pollux
                 //Übersetze die Texte
                 #region
                 this.Title = MainWindow.resman.GetString("EinstellungenTitle", MainWindow.cul);
-                this.Appearance.Header = MainWindow.resman.GetString("Appearance", MainWindow.cul);
+                //this.Appearance.Header = MainWindow.resman.GetString("Appearance", MainWindow.cul);
 
                 this.Node_Design_Text.Text = MainWindow.resman.GetString("Node_Design_Text", MainWindow.cul);
 
@@ -28,6 +28,12 @@ namespace Pollux
                 this.Slider_GNode_Filling_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
                 this.Slider_BNode_Filling_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
                 this.Slider_ANode_Filling_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+                this.Node_DesignFilling2_CheckBox.Content = MainWindow.resman.GetString("Node_DesignFilling2_CheckBox", MainWindow.cul);
+                this.Slider_RNode_Filling2_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
+                this.Slider_GNode_Filling2_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
+                this.Slider_BNode_Filling2_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
+                this.Slider_ANode_Filling2_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
 
                 this.Node_DesignBorder_Text.Text = MainWindow.resman.GetString("Node_DesignBorder_Text", MainWindow.cul);
                 this.Slider_RNode_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
@@ -63,6 +69,12 @@ namespace Pollux
                 this.Slider_BNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.B;
                 this.Slider_ANode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.A;
 
+                this.Node_DesignFilling2_CheckBox.IsChecked = Properties.Settings.Default.Transition;
+                this.Slider_RNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.R;
+                this.Slider_GNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.G;
+                this.Slider_BNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.B;
+                this.Slider_ANode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.A;
+
                 this.Slider_Node_Size.Value = Properties.Settings.Default.Knoten_Höhe;
                 this.Slider_Node_SizeStroke.Value = Properties.Settings.Default.Knoten_Border_Thickness;
 
@@ -92,12 +104,14 @@ namespace Pollux
         {
             //Wende die Eintellungen an
             Properties.Settings.Default.Knoten_FarbeFilling = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString()));
+            Properties.Settings.Default.Knoten_FarbeFilling2 = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling2.Value).ToString()));
             Properties.Settings.Default.Knoten_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString()));
             Properties.Settings.Default.Kante_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString()));
             Properties.Settings.Default.Knoten_Höhe = this.Slider_Node_Size.Value;
             Properties.Settings.Default.Knoten_Breite = this.Slider_Node_Size.Value;
             Properties.Settings.Default.Knoten_Border_Thickness = this.Slider_Node_SizeStroke.Value;
             Properties.Settings.Default.Kanten_Thickness = this.Slider_Edge_SizeStroke.Value;
+            Properties.Settings.Default.Transition = this.Node_DesignFilling2_CheckBox.IsChecked == true;
 
             //Speichere ab
             Properties.Settings.Default.Save();
@@ -117,6 +131,12 @@ namespace Pollux
                 byte knoten_RFill = byte.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString());
                 byte knoten_GFill = byte.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString());
                 byte knoten_BFill = byte.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString());
+
+                //Finde die Werte für die Farbe der 2. Füllung der Knoten heraus und runde sie
+                byte knoten_AFill2 = byte.Parse(Math.Round(this.Slider_ANode_Filling2.Value).ToString());
+                byte knoten_RFill2 = byte.Parse(Math.Round(this.Slider_RNode_Filling2.Value).ToString());
+                byte knoten_GFill2 = byte.Parse(Math.Round(this.Slider_GNode_Filling2.Value).ToString());
+                byte knoten_BFill2 = byte.Parse(Math.Round(this.Slider_BNode_Filling2.Value).ToString());
 
                 //Finde den Wert für die Größe der Knoten heraus
                 double knoten_Size = Math.Round(this.Slider_Node_Size.Value, 2);
@@ -144,6 +164,10 @@ namespace Pollux
                 this.Slider_RNode_Filling.Value = knoten_RFill;
                 this.Slider_GNode_Filling.Value = knoten_GFill;
                 this.Slider_BNode_Filling.Value = knoten_BFill;
+                this.Slider_ANode_Filling2.Value = knoten_AFill2;
+                this.Slider_RNode_Filling2.Value = knoten_RFill2;
+                this.Slider_GNode_Filling2.Value = knoten_GFill2;
+                this.Slider_BNode_Filling2.Value = knoten_BFill2;
                 this.Slider_ANode_Border.Value = knoten_AStroke;
                 this.Slider_RNode_Border.Value = knoten_RStroke;
                 this.Slider_GNode_Border.Value = knoten_GStroke;
@@ -167,7 +191,15 @@ namespace Pollux
 
                 //Finde die eben berechneten Farben für die Knoten heraus und lege sie fest
                 this.EllipsePreview.Stroke = new SolidColorBrush(Color.FromArgb(knoten_AStroke, knoten_RStroke, knoten_GStroke, knoten_BStroke));
-                this.EllipsePreview.Fill = new SolidColorBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill));
+                if (Node_DesignFilling2_CheckBox.IsChecked == true)
+                {
+                    this.EllipsePreview.Fill = new LinearGradientBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), Color.FromArgb(knoten_AFill2, knoten_RFill2, knoten_GFill2, knoten_BFill2), 45);
+                }
+                else
+                {
+
+                    this.EllipsePreview.Fill = new LinearGradientBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), 45);
+                }
 
                 //Finde die eben berechneten Farben für die Kanten heraus und lege sie fest
                 SolidColorBrush kanten_Stroke = new SolidColorBrush(Color.FromArgb(kanten_AStroke, kanten_RStroke, kanten_GStroke, kanten_BStroke));
@@ -181,6 +213,10 @@ namespace Pollux
                 this.TextBox_RNode_Filling.Text = knoten_RFill.ToString();
                 this.TextBox_GNode_Filling.Text = knoten_GFill.ToString();
                 this.TextBox_BNode_Filling.Text = knoten_BFill.ToString();
+                this.TextBox_ANode_Filling2.Text = knoten_AFill2.ToString();
+                this.TextBox_RNode_Filling2.Text = knoten_RFill2.ToString();
+                this.TextBox_GNode_Filling2.Text = knoten_GFill2.ToString();
+                this.TextBox_BNode_Filling2.Text = knoten_BFill2.ToString();
                 this.TextBox_ANode_Border.Text = knoten_AStroke.ToString();
                 this.TextBox_RNode_Border.Text = knoten_RStroke.ToString();
                 this.TextBox_GNode_Border.Text = knoten_GStroke.ToString();
@@ -241,28 +277,53 @@ namespace Pollux
                 this.TextBox_RNode_Filling.Text = this.Slider_RNode_Filling.Value.ToString();
             }
 
+            //Knoten-Füllung2
             try
             {
                 //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
-                this.Slider_GNode_Filling.Value = byte.Parse(this.TextBox_GNode_Filling.Text);
+                this.Slider_ANode_Filling2.Value = byte.Parse(this.TextBox_ANode_Filling2.Text);
             }
             catch
             {
-                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GNode_Filling" zurück
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_ANode_Filling2" zurück
                 errorSound = playErrorSound;
-                this.TextBox_GNode_Filling.Text = this.Slider_GNode_Filling.Value.ToString();
+                this.TextBox_ANode_Filling2.Text = this.Slider_ANode_Filling2.Value.ToString();
             }
 
             try
             {
                 //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
-                this.Slider_BNode_Filling.Value = byte.Parse(this.TextBox_BNode_Filling.Text);
+                this.Slider_RNode_Filling2.Value = byte.Parse(this.TextBox_RNode_Filling2.Text);
             }
             catch
             {
-                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BNode_Filling" zurück
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RNode_Filling2" zurück
                 errorSound = playErrorSound;
-                this.TextBox_BNode_Filling.Text = this.Slider_BNode_Filling.Value.ToString();
+                this.TextBox_RNode_Filling2.Text = this.Slider_RNode_Filling2.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GNode_Filling2.Value = byte.Parse(this.TextBox_GNode_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GNode_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GNode_Filling2.Text = this.Slider_GNode_Filling2.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BNode_Filling2.Value = byte.Parse(this.TextBox_BNode_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BNode_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BNode_Filling2.Text = this.Slider_BNode_Filling2.Value.ToString();
             }
 
             //Knoten-Stroke
@@ -406,6 +467,48 @@ namespace Pollux
             {
                 SystemSounds.Asterisk.Play();
             }
+        }
+
+        private void Node_DesignFilling2_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Slider_ANode_Filling2.IsEnabled = true;
+                this.Slider_RNode_Filling2.IsEnabled = true;
+                this.Slider_GNode_Filling2.IsEnabled = true;
+                this.Slider_BNode_Filling2.IsEnabled = true;
+                this.Slider_ANode_Filling2_Text.IsEnabled = true;
+                this.Slider_RNode_Filling2_Text.IsEnabled = true;
+                this.Slider_GNode_Filling2_Text.IsEnabled = true;
+                this.Slider_BNode_Filling2_Text.IsEnabled = true;
+                this.TextBox_ANode_Filling2.IsEnabled = true;
+                this.TextBox_RNode_Filling2.IsEnabled = true;
+                this.TextBox_GNode_Filling2.IsEnabled = true;
+                this.TextBox_BNode_Filling2.IsEnabled = true;
+                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+            }
+            catch { }
+        }
+
+        private void Node_DesignFilling2_CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Slider_ANode_Filling2.IsEnabled = false;
+                this.Slider_RNode_Filling2.IsEnabled = false;
+                this.Slider_GNode_Filling2.IsEnabled = false;
+                this.Slider_BNode_Filling2.IsEnabled = false;
+                this.Slider_ANode_Filling2_Text.IsEnabled = false;
+                this.Slider_RNode_Filling2_Text.IsEnabled = false;
+                this.Slider_GNode_Filling2_Text.IsEnabled = false;
+                this.Slider_BNode_Filling2_Text.IsEnabled = false;
+                this.TextBox_ANode_Filling2.IsEnabled = false;
+                this.TextBox_RNode_Filling2.IsEnabled = false;
+                this.TextBox_GNode_Filling2.IsEnabled = false;
+                this.TextBox_BNode_Filling2.IsEnabled = false;
+                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+            }
+            catch { }
         }
     }
 }

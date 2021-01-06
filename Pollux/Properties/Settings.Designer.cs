@@ -25,7 +25,7 @@ namespace Pollux.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SlateBlue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 255")]
         public global::System.Drawing.Color Knoten_FarbeFilling {
             get {
                 return ((global::System.Drawing.Color)(this["Knoten_FarbeFilling"]));
@@ -128,6 +128,30 @@ namespace Pollux.Properties {
             }
             set {
                 this["Kanten_Thickness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("156, 70, 200")]
+        public global::System.Drawing.Color Knoten_FarbeFilling2 {
+            get {
+                return ((global::System.Drawing.Color)(this["Knoten_FarbeFilling2"]));
+            }
+            set {
+                this["Knoten_FarbeFilling2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Transition {
+            get {
+                return ((bool)(this["Transition"]));
+            }
+            set {
+                this["Transition"] = value;
             }
         }
     }

@@ -37,5 +37,10 @@ namespace Pollux
         {
             return BrushAsHexa((SolidColorBrush)brush);
         }
+
+        public static string BrushAsHexa(Color brush)
+        {
+            return BrushAsHexa(new SolidColorBrush(brush));
+        }
     }
 }
