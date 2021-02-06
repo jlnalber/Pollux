@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Pollux.Graph;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -178,7 +179,7 @@ namespace Pollux
             {
                 SaveFileDialog saveFileDialog = new();
                 saveFileDialog.Filter = "poll files(*.poll) | *.poll";
-                saveFileDialog.FileName = (this.Name.Text == "") ? "graph.poll" : this.Name.Text + ".poll";
+                saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.poll" : this.NameDatei.Text + ".poll";
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     this.Speicherort.Text = saveFileDialog.FileName;
@@ -197,16 +198,15 @@ namespace Pollux
             try
             {
                 //Lege den Namen fest
-                string name = this.Name.Text == "" ? "GRAPH" : this.Name.Text.ToUpper();
+                string name = this.NameDatei.Text == "" ? "GRAPH" : this.NameDatei.Text.ToUpper();
 
                 //Erstelle den Graphen bzw. seine Datei
-
                 #region
                 if (this.TemplateListBox.SelectedItem == this.NothingTemplate)
                 {
                     //schreibe eine "leere" Datei
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new Graph.Graph(new(), new(), new int[0, 0], name)));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new GraphDarstellung(new(), new(), new int[0, 0], name)));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.CircleTemplate)
@@ -281,8 +281,9 @@ namespace Pollux
                 //schließe das Fenster
                 this.Close();
             }
-            catch
+            catch (Exception t)
             {
+                MessageBox.Show(t.Message);
                 //dann mache einen Fehlersound und mache das Textfeld rot
                 SystemSounds.Asterisk.Play();
                 this.Speicherort.BorderBrush = Brushes.Red;

@@ -6,8 +6,8 @@ namespace Pollux.Graph
     public partial class Graph
     {
         //Members dieses Graphen
-        public List<Knoten> GraphKnoten { get; set; }
-        public List<Kanten> GraphKanten { get; set; }
+        public virtual List<Knoten> GraphKnoten { get; set; }
+        public virtual List<Kanten> GraphKanten { get; set; }
         public int[,] Liste { get; set; }
         public string Name { get; set; }
 

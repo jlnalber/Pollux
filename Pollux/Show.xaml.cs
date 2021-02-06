@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Pollux.Graph;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,8 +10,7 @@ namespace Pollux
     /// </summary>
     public partial class Show : Window
     {
-        public Graph.Graph Graph;
-        public GraphDarstellung GraphDarstellung;
+        public GraphDarstellung Graph;
         public CommandConsole CommandConsole;
 
         public Show(GraphDarstellung graph, CommandConsole commandConsole)
@@ -19,8 +19,7 @@ namespace Pollux
             this.InitializeComponent();
 
             //Initialisierung der Member
-            this.GraphDarstellung = graph;
-            this.Graph = graph.graph;
+            this.Graph = graph;
             this.CommandConsole = commandConsole;
 
             //Übersetze die Texte und stelle sie dar
@@ -133,7 +132,7 @@ namespace Pollux
             try
             {
                 //erstelle Knoten, welcher der ausgewählte Knoten ist
-                Graph.Graph.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
+                GraphDarstellung.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
 
                 //lege die Eigenschaften fest
                 this.KnotenName.Text = knoten.Name;
@@ -160,7 +159,7 @@ namespace Pollux
                     this.KnotenKanten.Items.Clear();
 
                     //füge die Namen der Kanten zur Liste hinzu
-                    foreach (Graph.Graph.Kanten i in knoten.Kanten)
+                    foreach (GraphDarstellung.Kanten i in knoten.Kanten)
                     {
                         ListBoxItem listBoxItem = new ListBoxItem();
                         listBoxItem.Content = i.Name;
@@ -189,7 +188,7 @@ namespace Pollux
             try
             {
                 //erstelle Kante, welcher die ausgewählte Kante ist
-                Graph.Graph.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
+                GraphDarstellung.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
 
                 //lege die Eigenschaften fest
                 this.KantenName.Text = kante.Name;
@@ -263,13 +262,13 @@ namespace Pollux
             this.UmbennenKanten.Visibility = Visibility.Hidden;
         }
 
-        public Graph.Graph.Knoten GetSelectedKnoten()
+        public GraphDarstellung.Knoten GetSelectedKnoten()
         {
             string[] vs = this.KnotenPicker.SelectedItem.ToString().Split(' ');
             return this.Graph.SucheKnoten(vs[vs.Length - 1]);
         }
 
-        public Graph.Graph.Kanten GetSelectedKante()
+        public GraphDarstellung.Kanten GetSelectedKante()
         {
             string[] vs = this.KantenPicker.SelectedItem.ToString().Split(' ');
             return this.Graph.SucheKanten(vs[vs.Length - 1]);
@@ -320,7 +319,7 @@ namespace Pollux
             {
                 //Aktualisiere "KnotenPicker"
                 this.KnotenPicker.Items.Clear();
-                foreach (Graph.Graph.Knoten i in this.Graph.GraphKnoten)
+                foreach (GraphDarstellung.Knoten i in this.Graph.GraphKnoten)
                 {
                     ComboBoxItem comboBoxItem = new ComboBoxItem();
                     comboBoxItem.Content = i.Name;
@@ -370,7 +369,7 @@ namespace Pollux
             {
                 //schreibe in die ComboBox, welche Ecken es alle gibt
                 this.KantenPicker.Items.Clear();
-                foreach (Graph.Graph.Kanten i in this.Graph.GraphKanten)
+                foreach (GraphDarstellung.Kanten i in this.Graph.GraphKanten)
                 {
                     ComboBoxItem comboBoxItem = new();
                     comboBoxItem.Content = i.Name;

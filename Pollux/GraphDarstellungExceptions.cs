@@ -2,9 +2,9 @@
 
 namespace Pollux.Graph
 {
-    public partial class Graph
+    public partial class GraphDarstellung
     {
-        public class GraphExceptions
+        public new class GraphExceptions
         {
             public class NameAlreadyExistsException : Exception
             {

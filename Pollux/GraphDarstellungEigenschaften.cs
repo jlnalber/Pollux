@@ -3,18 +3,18 @@ using System.Linq;
 
 namespace Pollux.Graph
 {
-    public partial class Graph
+    public partial class GraphDarstellung
     {
         //Eigenschaften des Graphs
 
-        public virtual bool IstEulersch
+        public override bool IstEulersch
         {
             get
             {
                 //Prüfung, ob er eulersch ist
 
                 //erstelle eine Kopie von diesem Graphen
-                Graph copy = this.Kopie();
+                GraphDarstellung copy = this.Kopie();
                 for (int i = 0; i < copy.GraphKnoten.Count; i++)
                 {
                     if (copy.GraphKnoten[i].IstIsolierteEcke)
@@ -29,7 +29,7 @@ namespace Pollux.Graph
                     return false;
                 }
 
-                foreach (Graph.Knoten i in copy.GraphKnoten)
+                foreach (Knoten i in copy.GraphKnoten)
                 {
                     if (i.Grad % 2 != 0)
                     {
@@ -41,7 +41,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual bool IstHamiltonsch//muss noch überarbeitet werden
+        public override bool IstHamiltonsch//muss noch überarbeitet werden
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int Taillenweite//muss noch überarbeitet werden
+        public override int Taillenweite//muss noch überarbeitet werden
         {
             get
             {
@@ -61,7 +61,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int Durchmesser//muss noch überarbeitet werden
+        public override int Durchmesser//muss noch überarbeitet werden
         {
             get
             {
@@ -71,7 +71,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int? Flächen
+        public override int? Flächen
         {
             get
             {
@@ -88,22 +88,22 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual bool Planar
+        public override bool Planar
         {
             get
             {
                 //Überprüfe, ob der Graph planar ist
 
                 //Erstelle zwei Graph, die später zur Überprüfung genutzt werden
-                Graph vollständigesFünfeck = GraphTemplates.VollständigesVieleck(5);
-                Graph bipartiter33Graph = GraphTemplates.VollständigerBipartiterGraph(3, 3);
+                GraphDarstellung vollständigesFünfeck = GraphTemplates.VollständigesVieleck(5);
+                GraphDarstellung bipartiter33Graph = GraphTemplates.VollständigerBipartiterGraph(3, 3);
 
                 //Prüfe, ob dieser Graph ein Teilgraph oder eine Unterteilung von den beiden Grpahen "bipartiter33Graph" oder "vollständigesFünfeck" ist
-                return vollständigesFünfeck.IstTeilgraphVon(this) || vollständigesFünfeck.IstUnterteilungVon(this) || bipartiter33Graph.IstTeilgraphVon(this) || bipartiter33Graph.IstUnterteilungVon(this);
+                return vollständigesFünfeck.IstUnterteilungVon(this) || bipartiter33Graph.IstUnterteilungVon(this);
             }
         }
 
-        public virtual bool IstBipartit
+        public override bool IstBipartit
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Pollux.Graph
 
 
                 //nur hier gebraucht
-                bool AddNachbarnZuAndererFarbe(Graph.Knoten knoten, List<Graph.Knoten> meineFarbe, List<Graph.Knoten> andereFarbe)
+                bool AddNachbarnZuAndererFarbe(Knoten knoten, List<Knoten> meineFarbe, List<Knoten> andereFarbe)
                 {
                     if (!meineFarbe.Contains(knoten))
                     {
@@ -119,7 +119,7 @@ namespace Pollux.Graph
                     }
 
                     //gehe die Nachbarn des Knotens durch und füge diese, falls noch nicht getan, zur anderen Farbe (Liste) hinzu, gehe dann auch dessen Nachbarn durch (recursive method)
-                    foreach (Graph.Knoten i in knoten.BenachbarteKnoten)
+                    foreach (Knoten i in knoten.BenachbarteKnoten)
                     {
                         //falls diese Farbe den Knoten "i" schon enthält, so gebe falsch zurück
                         if (meineFarbe.Contains(i))
@@ -144,9 +144,9 @@ namespace Pollux.Graph
 
 
 
-                List<Graph.Knoten> rot = new List<Knoten>();
-                List<Graph.Knoten> blau = new List<Knoten>();
-                foreach (Graph.Knoten knoten in this.GraphKnoten)
+                List<Knoten> rot = new List<Knoten>();
+                List<Knoten> blau = new List<Knoten>();
+                foreach (Knoten knoten in this.GraphKnoten)
                 {
                     if (!rot.Contains(knoten) && !blau.Contains(knoten))
                     {
@@ -161,7 +161,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual bool IstBaum
+        public override bool IstBaum
         {
             get
             {
@@ -171,7 +171,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual bool IstZusammenhängend
+        public override bool IstZusammenhängend
         {
             get
             {
@@ -180,7 +180,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int AnzahlKomponenten
+        public override int AnzahlKomponenten
         {
             get
             {
@@ -190,17 +190,17 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual List<List<Graph.Knoten>> Komponenten
+        public new List<List<Knoten>> Komponenten
         {
             get
             {
                 //Prüfen, aus welchen Komponenten der Graph besteht
 
                 //nur hier gebraucht
-                void AddNachbarnZumKomponent(Graph.Knoten knoten, List<Graph.Knoten> knotenListe)
+                void AddNachbarnZumKomponent(Knoten knoten, List<Knoten> knotenListe)
                 {
                     //gehe die Nachbarn des Knotens durch und füge diese, falls noch nicht getan, zum Komponent hinzu, gehe dann auch dessen Nachbarn durch (recursive method)
-                    foreach (Graph.Knoten i in knoten.BenachbarteKnoten)
+                    foreach (Knoten i in knoten.BenachbarteKnoten)
                     {
                         if (!knotenListe.Contains(i))
                         {
@@ -211,13 +211,13 @@ namespace Pollux.Graph
                 }//Methode (recursive method), die alle Nachbarn eines Knoten in seinen Komponenten schreiben, dessen Nachbarn wieder usw.
 
 
-                List<List<Graph.Knoten>> liste = new List<List<Knoten>>();//Liste mit den Komponenten
+                List<List<Knoten>> liste = new List<List<Knoten>>();//Liste mit den Komponenten
 
-                foreach (Graph.Knoten i in this.GraphKnoten)
+                foreach (Knoten i in this.GraphKnoten)
                 {
                     //gucke, ob dieser Knoten "i" schon in einem Komponent drin ist, wenn nicht erstelle einen neuen Komponenten
                     bool schonVorhanden = false;
-                    foreach (List<Graph.Knoten> n in liste)
+                    foreach (List<Knoten> n in liste)
                     {
                         if (n.Contains(i))
                         {
@@ -229,7 +229,7 @@ namespace Pollux.Graph
                     if (!schonVorhanden)
                     {
                         //erstelle neuen Komponent, füge ihn hinzu
-                        List<Graph.Knoten> komponent = new List<Knoten>() { i };
+                        List<Knoten> komponent = new List<Knoten>() { i };
                         liste.Add(komponent);
 
                         //schreibe seine benachbarten Ecken in den gleichen Komponenten, und dessen benachbarten Ecken auch, usw.... (recursive method)
@@ -241,7 +241,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int Schlingen
+        public override int Schlingen
         {
             get
             {
@@ -258,7 +258,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int ParalleleKanten
+        public override int ParalleleKanten
         {
             get
             {
@@ -290,7 +290,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual bool EinfacherGraph
+        public override bool EinfacherGraph
         {
             get
             {
@@ -299,7 +299,7 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int AnzahlKanten
+        public override int AnzahlKanten
         {
             get
             {
@@ -308,12 +308,12 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual int AnzahlKnoten
+        public override int AnzahlKnoten
         {
             get
             {
                 //gebe die Länge der Liste mit den Knoten zurück
-                return this.GraphKnoten.Count();
+                return this.GraphKnoten.Count;
             }
         }
     }

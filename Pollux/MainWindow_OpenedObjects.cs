@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Pollux.Graph;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Pollux
@@ -20,16 +21,7 @@ namespace Pollux
             return tab;
         }
 
-        public GraphDarstellung GetOpenGraphDarstellung()
-        {
-            //find den geöffneten Tab heraus
-            TabItem tab = this.GetOpenTab();
-
-            //Rückgabe
-            return this.GraphDarstellungen[tab];
-        }
-
-        public Graph.Graph GetOpenGraph()
+        public GraphDarstellung GetOpenGraph()
         {
             //find den geöffneten Tab heraus
             TabItem tab = this.GetOpenTab();

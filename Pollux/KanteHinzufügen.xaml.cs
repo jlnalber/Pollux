@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using Pollux.Graph;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,9 +13,9 @@ namespace Pollux
     public partial class KanteHinzufügen : Window
     {
         private MainWindow MainWindow;
-        private Pollux.Graph.Graph Graph;
+        private GraphDarstellung Graph;
 
-        public KanteHinzufügen(Pollux.Graph.Graph graph, MainWindow mainWindow)
+        public KanteHinzufügen(GraphDarstellung graph, MainWindow mainWindow)
         {
             //Stelle das Fenster dar
             this.InitializeComponent();
@@ -45,7 +46,7 @@ namespace Pollux
             //Stelle die ComboBoxen dar
             #region
             //schreibe in die ComboBox "KnotenPicker1", welche Ecken es alle gibt
-            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+            foreach (GraphDarstellung.Knoten i in graph.GraphKnoten)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Content = i.Name;
@@ -54,13 +55,13 @@ namespace Pollux
             this.KnotenPicker1.SelectedIndex = 0;
 
             //schreibe in die ComboBox "KnotenPicker2", welche Ecken es alle gibt
-            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+            foreach (GraphDarstellung.Knoten i in graph.GraphKnoten)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Content = i.Name;
                 this.KnotenPicker2.Items.Add(comboBoxItem);
             }
-            this.KnotenPicker2.SelectedIndex = 1;
+            this.KnotenPicker2.SelectedIndex = graph.GraphKnoten.Count == 1 ? 0 : 1;
             #endregion
         }
 
@@ -92,9 +93,6 @@ namespace Pollux
                     //Spiele den Error-Sound
                     SystemSounds.Asterisk.Play();
                 }
-
-                //Male den Graphen neu
-                this.MainWindow.DrawGraph();
 
                 //Schließe dieses Fenster wieder
                 this.Close();

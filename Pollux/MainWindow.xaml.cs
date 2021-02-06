@@ -1,4 +1,5 @@
-﻿using Pollux.Properties;
+﻿using Pollux.Graph;
+using Pollux.Properties;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -53,8 +54,7 @@ namespace Pollux
             this.Inputs = new Dictionary<TabItem, System.Windows.Controls.TextBox>();
             this.Consoles = new Dictionary<TabItem, CommandConsole>();
             this.Canvases = new Dictionary<TabItem, Canvas>();
-            this.GraphDarstellungen = new Dictionary<TabItem, GraphDarstellung>();
-            this.Graphs = new Dictionary<TabItem, Graph.Graph>();
+            this.Graphs = new Dictionary<TabItem, GraphDarstellung>();
             this.Headers = new Dictionary<TabItem, TextBlock>();
             this.OpenedEigenschaftenFenster = new Dictionary<TabItem, Show>();
             this.OpenedEigenschaftenFensterGrid = new Dictionary<TabItem, Grid>();

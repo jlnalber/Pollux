@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pollux.Graph;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
@@ -9,8 +10,7 @@ namespace Pollux
     {
         //Members
         #region
-        public Graph.Graph usingGraph;
-        public GraphDarstellung usingGraphDarstellung;
+        public GraphDarstellung usingGraph;
         private TextBox output;
         public string user = "User";
         public string lastCommand;
@@ -20,10 +20,9 @@ namespace Pollux
         #endregion
 
         //Konstruktor
-        public CommandConsole(Graph.Graph usingGraph, GraphDarstellung usingGraphDarstellung, TextBox output, string path, MainWindow main, TabItem tabItem)
+        public CommandConsole(GraphDarstellung usingGraph, TextBox output, string path, MainWindow main, TabItem tabItem)
         {
             this.usingGraph = usingGraph;
-            this.usingGraphDarstellung = usingGraphDarstellung;
             this.output = output;
             this.path = path;
             this.MainWindow = main;
@@ -68,7 +67,7 @@ namespace Pollux
                     try
                     {
                         //öffne ein neues EIgenschaften-Fenster "Show"
-                        Show show = new Show(this.usingGraphDarstellung, this);
+                        Show show = new Show(this.usingGraph, this);
                         show.Show();
                         this.WriteLine("Task complete!");
                     }
@@ -94,8 +93,7 @@ namespace Pollux
                     this.WriteLine("Adding node \"" + command_splitted[1] + "\"...");
 
                     //Füge den Knoten hinzu
-                    Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), command_splitted[1]);
-                    this.usingGraph.AddKnoten(knoten);
+                    this.usingGraph.AddKnoten(command_splitted[1]);
 
                     //Ausgabe
                     this.WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
@@ -109,14 +107,13 @@ namespace Pollux
                     this.WriteLine("Adding edge \"" + command_splitted[1] + "\"...");
 
                     //Erstelle eine Kante und suche nach den angegebenen Knoten
-                    Graph.Graph.Kanten kante = new Graph.Graph.Kanten(this.usingGraph, new Graph.Graph.Knoten[2], command_splitted[1]);
-                    Graph.Graph.Knoten start = this.usingGraph.SucheKnoten(command_splitted[3]);
-                    Graph.Graph.Knoten ende = this.usingGraph.SucheKnoten(command_splitted[5]);
+                    GraphDarstellung.Knoten start = this.usingGraph.SucheKnoten(command_splitted[3]);
+                    GraphDarstellung.Knoten ende = this.usingGraph.SucheKnoten(command_splitted[5]);
 
                     if (this.usingGraph.GraphKnoten.Contains(start) && this.usingGraph.GraphKnoten.Contains(ende))
                     {
                         //Falls die Knoten tatsächlich existieren, füge die erstellte Kante hinzu
-                        this.usingGraph.AddKante(kante, start, ende);
+                        this.usingGraph.AddKante(command_splitted[1], start, ende);
 
                         //Ausgabe
                         this.WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");
@@ -147,7 +144,7 @@ namespace Pollux
                     {
                         //versuche einen neuen Graphen zu erstellen, schreibe das in die Konsole
                         this.WriteLine("Trying to empty the Graph!");
-                        for (; this.usingGraph.GraphKnoten.Count != 0;)
+                        while (this.usingGraph.GraphKnoten.Count != 0)
                         {
                             this.usingGraph.RemoveKnoten(this.usingGraph[0]);
                         }
@@ -162,30 +159,13 @@ namespace Pollux
                         this.WriteLine("Searching for \"" + command_splitted[1] + "\"...");
 
                         //suche nach dem Knoten/der Kante mit dem Namen
-                        Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), "");
-                        Graph.Graph.Kanten kante = new Graph.Graph.Kanten(this.usingGraph, new Graph.Graph.Knoten[2], "");
-
-                        //Gucke, ob ein Knoten diesen Namen hat
-                        foreach (Graph.Graph.Knoten i in this.usingGraph.GraphKnoten)
-                        {
-                            if (i.Name == command_splitted[1])
-                            {
-                                knoten = i;
-                            }
-                        }
+                        GraphDarstellung.Knoten knoten = this.usingGraph.SucheKnoten(command_splitted[1]);
+                        GraphDarstellung.Kanten kante = this.usingGraph.SucheKanten(command_splitted[1]);
 
                         //falls nichts gefunden wurde, versuche die Kante dazu zu finden
-                        if (knoten.Name == "")
+                        if (knoten == null)
                         {
-                            foreach (Graph.Graph.Kanten i in this.usingGraph.GraphKanten)
-                            {
-                                if (i.Name == command_splitted[1])
-                                {
-                                    kante = i;
-                                }
-                            }
-
-                            if (kante.Name == "")
+                            if (kante == null)
                             {
                                 //falls keine Kante gefunden wurde, schreibe das aus
                                 this.WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
@@ -194,7 +174,7 @@ namespace Pollux
                             {
                                 //entferne die Kante und schreibe es aus
                                 this.usingGraph.RemoveKante(kante);
-                                this.WriteLine("Edge was succesfully removed!");
+                                this.WriteLine("Edge was successfully removed!");
 
                                 //Setze "changed" auf "true", weil etwas verändert wurde
                                 changed = true;
@@ -204,7 +184,7 @@ namespace Pollux
                         {
                             //entferne den Knoten und schreibe es aus
                             this.usingGraph.RemoveKnoten(knoten);
-                            this.WriteLine("Node was succesfully removed!");
+                            this.WriteLine("Node was successfully removed!");
 
                             //Setze "changed" auf "true", weil etwas verändert wurde
                             changed = true;
@@ -223,7 +203,7 @@ namespace Pollux
             {
                 this.WriteLine("Trying to save graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Ausgabe
                 this.Save();//speichere es ab
-                this.WriteLine("Succesfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
+                this.WriteLine("successfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
             }
 
             //das Schlüsselwort "RENAME" ändert Namen von Elementen
@@ -239,7 +219,7 @@ namespace Pollux
                     {
                         //Benenne den Graphen um
                         this.usingGraph.Name = command_splitted[3];
-                        this.WriteLine("Graph was succesfully renamed!");
+                        this.WriteLine("Graph was successfully renamed!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
@@ -247,30 +227,13 @@ namespace Pollux
                     else
                     {
                         //suche nach dem Knoten/der Kante mit dem Namen
-                        Graph.Graph.Knoten knoten = new Graph.Graph.Knoten(this.usingGraph, new List<Graph.Graph.Kanten>(), "");
-                        Graph.Graph.Kanten kante = new Graph.Graph.Kanten(this.usingGraph, new Graph.Graph.Knoten[2], "");
-
-                        //Gucke, ob ein Knoten diesen Namen hat
-                        foreach (Graph.Graph.Knoten i in this.usingGraph.GraphKnoten)
-                        {
-                            if (i.Name == command_splitted[1])
-                            {
-                                knoten = i;
-                            }
-                        }
+                        GraphDarstellung.Knoten knoten = this.usingGraph.SucheKnoten(command_splitted[1]);
+                        GraphDarstellung.Kanten kante = this.usingGraph.SucheKanten(command_splitted[1]);
 
                         //falls nichts gefunden wurde, versuche die Kante dazu zu finden
-                        if (knoten.Name == "")
+                        if (knoten == null)
                         {
-                            foreach (Graph.Graph.Kanten i in this.usingGraph.GraphKanten)
-                            {
-                                if (i.Name == command_splitted[1])
-                                {
-                                    kante = i;
-                                }
-                            }
-
-                            if (kante.Name == "")
+                            if (kante == null)
                             {
                                 //falls keine Kante gefunden wurde, schreibe das aus
                                 this.WriteLine("Error: Object \"" + command_splitted[1] + "\" not found!");
@@ -279,7 +242,7 @@ namespace Pollux
                             {
                                 //benenne die Kante neu und schreibe es aus
                                 kante.Name = command_splitted[3];
-                                this.WriteLine("Edge was succesfully renamed!");
+                                this.WriteLine("Edge was successfully renamed!");
 
                                 //Setze "changed" auf "true", weil etwas verändert wurde
                                 changed = true;
@@ -289,7 +252,7 @@ namespace Pollux
                         {
                             //benenne den Knoten neu und schreibe es aus
                             knoten.Name = command_splitted[3];
-                            this.WriteLine("Node was succesfully renamed!");
+                            this.WriteLine("Node was successfully renamed!");
 
                             //Setze "changed" auf "true", weil etwas verändert wurde
                             changed = true;
@@ -320,8 +283,7 @@ namespace Pollux
             //Speichere die Graphen ab, falls etwas verändert wurde
             if (changed)
             {
-                this.MainWindow.DrawGraph();
-                this.MainWindow.SaveAll();
+                this.Save();
                 this.MainWindow.AktualisiereEigenschaftenFenster(this.TabItem);
             }
         }
@@ -344,7 +306,7 @@ namespace Pollux
             TransformGraphToFile(this.usingGraph, this.path);
         }
 
-        public static Pollux.Graph.Graph TransformFileToGraph(string path)
+        public static Graph.Graph TransformFileToGraph(string path)
         {
             //Initialisiere Variablen
             #region
@@ -390,7 +352,101 @@ namespace Pollux
             return graph;
         }
 
-        public static string TransformGraphToString(Pollux.Graph.Graph graph)
+        public static GraphDarstellung TransformFileToGraphDarstellung(string path, Canvas canvas)
+        {
+            //Initialisiere Variablen
+            #region
+            GraphDarstellung graph = new(new List<GraphDarstellung.Knoten>(), new List<GraphDarstellung.Kanten>(), new int[0, 0], "", canvas);//Erstelle den Graphen
+            List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
+            #endregion
+
+            //auslesen der Datei
+            #region
+            //lese die Datei aus
+            StreamReader reader = new StreamReader(path);
+            while (!reader.EndOfStream)
+            {
+                file.Add(reader.ReadLine());
+            }
+            reader.Close();
+            #endregion
+
+            //nutze die Informationen aus der Datei, um den Graphen zu vervollständigen
+            #region
+            //Suche nach dem Namen
+            int positionName = file.IndexOf("[NAME]");
+            graph.Name = file[positionName + 1];
+
+            //Suche nach den Knoten
+            int positionKnoten = file.IndexOf("[NODES]");
+            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; i++)
+            {
+                graph.AddKnoten(new GraphDarstellung.Knoten(graph, new List<GraphDarstellung.Kanten>(), file[i], canvas));
+            }
+
+            //Suche nach Kanten
+            int positionKanten = file.IndexOf("[EDGES]");
+            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; i++)
+            {
+                string[] liste = file[i].Split('\t');
+                graph.AddKante(liste[0], graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+            }
+            #endregion
+
+            //Rückgabe
+            return graph;
+        }
+
+        public static string TransformGraphToString(GraphDarstellung graph)
+        {
+            //Intialisiere die Variable "file"
+            string file = "";
+
+            //speichere den Namen vom Graphen
+            file += "[NAME]\n";
+            file += graph.Name + "\n";
+            file += "[/NAME]\n";
+
+            //speichere die Knoten ab
+            file += "[NODES]\n";
+            foreach (GraphDarstellung.Knoten i in graph.GraphKnoten)
+            {
+                file += i.Name + "\n";
+            }
+            file += "[/NODES]\n";
+
+            //speichere die Kanten ab
+            file += "[EDGES]\n";
+            foreach (GraphDarstellung.Kanten i in graph.GraphKanten)
+            {
+                string str = "";
+                foreach (GraphDarstellung.Knoten f in i.Knoten)
+                {
+                    str += "\t" + f.Name;
+                }
+                file += i.Name + str + "\n";
+            }
+            file += "[/EDGES]\n";
+
+            /*//speichere die Liste des Graphs ab
+            file += "[GRAPH]\n";
+            for (int i = 0; i < graph.Liste.GetLength(1); i++)
+            {
+                string str = "";
+                for (int f = 0; f < graph.Liste.GetLength(0); f++)
+                {
+                    str += graph.Liste[f, i] + "\t";
+                }
+                str = str.Remove(str.Length - 1);
+                file += str + "\n";
+            }
+            file += "[/GRAPH]\n";*/
+
+            //Rückgabe
+            return file;
+        }
+
+        public static string TransformGraphToString(Graph.Graph graph)
         {
             //Intialisiere die Variable "file"
             string file = "";
@@ -421,7 +477,7 @@ namespace Pollux
             }
             file += "[/EDGES]\n";
 
-            //speichere die Liste des Graphs ab
+            /*//speichere die Liste des Graphs ab
             file += "[GRAPH]\n";
             for (int i = 0; i < graph.Liste.GetLength(1); i++)
             {
@@ -433,13 +489,21 @@ namespace Pollux
                 str = str.Remove(str.Length - 1);
                 file += str + "\n";
             }
-            file += "[/GRAPH]\n";
+            file += "[/GRAPH]\n";*/
 
             //Rückgabe
             return file;
         }
 
-        public static void TransformGraphToFile(Pollux.Graph.Graph graph, string path)
+        public static void TransformGraphToFile(GraphDarstellung graph, string path)
+        {
+            //Erstelle den StreamWriter "streamWriter", füge dann den Inhalt hinzu und schließe den StreamWriter "streamWriter"
+            StreamWriter streamWriter = new(path);
+            streamWriter.WriteLine(TransformGraphToString(graph));
+            streamWriter.Close();
+        }
+
+        public static void TransformGraphToFile(Graph.Graph graph, string path)
         {
             //Erstelle den StreamWriter "streamWriter", füge dann den Inhalt hinzu und schließe den StreamWriter "streamWriter"
             StreamWriter streamWriter = new(path);

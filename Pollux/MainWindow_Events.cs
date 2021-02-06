@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Pollux.Graph;
 using System;
 using System.Collections.Generic;
 using System.Media;
@@ -14,15 +15,11 @@ namespace Pollux
         //die Methoden für die verschiedenen Events
         public void CloseTab(object sender, RoutedEventArgs e)
         {
-            //Speichere alles ab
-            this.SaveAll();
-
-            //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab, 
-            TabItem tabItem = new TabItem();
+            //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab
             switch (sender)
             {
-                case System.Windows.Controls.Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: this.TabControl.Items.Remove(tab); break; } break; }; break;
-                default: this.TabControl.Items.Remove(this.TabControl.SelectedItem); break;
+                case Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: this.Consoles[tab].Save(); this.TabControl.Items.Remove(tab); break; } break; }; break;
+                default: if (this.TabControl.SelectedItem is TabItem tab1) { this.Consoles[tab1].Save(); this.TabControl.Items.Remove(tab1); } break;
             }
 
             //Gucke, ob in dem Element "OpenedFiles" sich ein nicht geöffneter Tab befindet, wenn ja, dann entferne es aus "OpenedFiles"
@@ -37,7 +34,7 @@ namespace Pollux
                 }
             }
 
-            //Lösche jetzt sie Tabs aus "OpenedFiles"
+            //Lösche jetzt die Tabs aus "OpenedFiles"
             foreach (TabItem i in save)
             {
                 this.OpenedFiles.Remove(i);
@@ -59,14 +56,7 @@ namespace Pollux
             try
             {
                 //Speichere die aktuell geöffnete Datei
-                TabItem tabItem = new TabItem();
-
-                switch (this.TabControl.SelectedItem)
-                {
-                    case TabItem item: tabItem = item; break;
-                }
-
-                this.Consoles[tabItem].Save();
+                this.GetOpenConsole().Save();
             }
             catch { }
         }
@@ -120,11 +110,6 @@ namespace Pollux
             }
         }
 
-        private void Graph_HasToBeRedrawn(object sender, RoutedEventArgs e)
-        {
-            this.DrawGraph();
-        }
-
         private void HilfeDatei_Click(object sender, RoutedEventArgs e)
         {
             //Diese Methode wird ausgeführt, wenn das MenuItem "HilfeDatei" geklickt wird
@@ -156,9 +141,9 @@ namespace Pollux
             }
         }
 
-        private void KnotenHinzufügen_Click(object sender, RoutedEventArgs e)
+        public void KnotenHinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            if (this.GraphDarstellungen.Count == 0)
+            if (this.Graphs.Count == 0)
             {
                 //Spiele Error-Sound
                 SystemSounds.Asterisk.Play();
@@ -171,9 +156,9 @@ namespace Pollux
             }
         }
 
-        private void KanteHinzufügen_Click(object sender, RoutedEventArgs e)
+        public void KanteHinzufügen_Click(object sender, RoutedEventArgs e)
         {
-            if (this.GraphDarstellungen.Count == 0)
+            if (this.Graphs.Count == 0)
             {
                 //Spiele Error-Sound
                 SystemSounds.Asterisk.Play();
@@ -193,7 +178,7 @@ namespace Pollux
             mainWindow.Show();
         }
 
-        private void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
+        public void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
         {
             //Öffne das Eigenschaften-Fenster durch die CommanConsole des geöffneten Tabs
             this.GetOpenConsole().Command("SHOW");
@@ -271,53 +256,53 @@ namespace Pollux
             window.Show();
         }
 
-        private void LöschenKnoten_Click(object sender, RoutedEventArgs e)
+        public void LöschenKnoten_Click(object sender, RoutedEventArgs e)
         {
             //Suche nach der offenen GraphDarstellung
-            GraphDarstellung openGraphDarstellung = this.GetOpenGraphDarstellung();
+            GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
 
             //Lösche den Knoten, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.visuelleKnoten.Count; i++)
+            for (int i = 0; i < openGraphDarstellung.GraphKnoten.Count; i++)
             {
-                if (openGraphDarstellung.visuelleKnoten[i].Ellipse.ContextMenu.Items.Contains(sender))
+                if (((GraphDarstellung.Knoten)openGraphDarstellung.GraphKnoten[i]).Ellipse.ContextMenu.Items.Contains(sender))
                 {
-                    this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKnoten[i].Knoten.Name);
+                    this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKnoten[i].Name);
                     i--;
                 }
             }
-
+            /*
             //Male den Graphen neu
-            this.DrawGraph();
+            this.DrawGraph();*/
         }
 
-        private void LöschenKante_Click(object sender, RoutedEventArgs e)
+        public void LöschenKante_Click(object sender, RoutedEventArgs e)
         {
             //Suche nach der offenen GraphDarstellung
-            GraphDarstellung openGraphDarstellung = this.GetOpenGraphDarstellung();
+            GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
 
             //Lösche die Kante, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.visuelleKanten.Count; i++)
+            for (int i = 0; i < openGraphDarstellung.GraphKanten.Count; i++)
             {
-                if (openGraphDarstellung.visuelleKanten[i].Line is Line line)
+                if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Line line)
                 {
                     if (line.ContextMenu.Items.Contains(sender))
                     {
-                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKanten[i].Kante.Name);
+                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
                         i--;
                     }
                 }
-                else if (openGraphDarstellung.visuelleKanten[i].Line is Ellipse ellipse)
+                else if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Ellipse ellipse)
                 {
                     if (ellipse.ContextMenu.Items.Contains(sender))
                     {
-                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.visuelleKanten[i].Kante.Name);
+                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
                         i--;
                     }
                 }
             }
-
+            /*
             //Male den Graphen neu
-            this.DrawGraph();
+            this.DrawGraph();*/
         }
 
         private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
@@ -348,11 +333,11 @@ namespace Pollux
                 //Erstelle die Datei in der gewollten Datei
                 if (filePath.EndsWith(".svg"))
                 {
-                    this.GetOpenGraphDarstellung().SaveAsSVG(filePath);
+                    this.GetOpenGraph().SaveAsSVG(filePath);
                 }
                 else
                 {
-                    this.GetOpenGraphDarstellung().SaveAsBitmap(filePath);
+                    this.GetOpenGraph().SaveAsBitmap(filePath);
                 }
             }
             catch { }

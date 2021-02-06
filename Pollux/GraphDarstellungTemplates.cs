@@ -2,17 +2,17 @@
 
 namespace Pollux.Graph
 {
-    public partial class Graph
+    public partial class GraphDarstellung
     {
-        public static class GraphTemplates
+        public new static class GraphTemplates
         {
             //Methoden, die Vorlagen erstellen
 
             // Methode, die ein vollständiges Vieleck mit n-Ecken zurückgibt
-            public static Graph VollständigesVieleck(int ecken)
+            public static GraphDarstellung VollständigesVieleck(int ecken)
             {
                 //erstelle Graph
-                Graph graph = new Graph();
+                GraphDarstellung graph = new();
 
                 //erstelle die Ecken
                 for (int i = 0; i < ecken; i++)
@@ -34,29 +34,29 @@ namespace Pollux.Graph
             }
 
             // Methode, die einen bipartiten n-n-Graph erstellt
-            public static Graph VollständigerBipartiterGraph(int eckenErsteMenge, int eckenZweiteMenge)
+            public static GraphDarstellung VollständigerBipartiterGraph(int eckenErsteMenge, int eckenZweiteMenge)
             {
                 //erstelle einen neuen Graphen
-                Graph graph = new Graph();
+                GraphDarstellung graph = new();
 
                 //erstelle "eckenErsteMenge"-viele Knoten
-                List<Graph.Knoten> knoten1 = new List<Knoten>();
+                List<Knoten> knoten1 = new List<Knoten>();
                 for (int i = 0; i < eckenErsteMenge; i++)
                 {
                     knoten1.Add(graph.AddKnoten());
                 }
 
                 //erstelle "eckenZweiteMenge"-viele Knoten
-                List<Graph.Knoten> knoten2 = new List<Knoten>();
+                List<Knoten> knoten2 = new List<Knoten>();
                 for (int i = 0; i < eckenZweiteMenge; i++)
                 {
                     knoten2.Add(graph.AddKnoten());
                 }
 
                 //mache eine Kante zwischen jedem Knoten der Menge "knoten1" und "knoten2"
-                foreach (Graph.Knoten i in knoten1)
+                foreach (Knoten i in knoten1)
                 {
-                    foreach (Graph.Knoten f in knoten2)
+                    foreach (Knoten f in knoten2)
                     {
                         graph.AddKante(i, f);
                     }
@@ -67,10 +67,10 @@ namespace Pollux.Graph
             }
 
             //Methode, die einen Kreis erstellt
-            public static Graph Kreis(int länge)
+            public static GraphDarstellung Kreis(int länge)
             {
                 //Erstelle einen neuen Graphen
-                Graph graph = new Graph();
+                GraphDarstellung graph = new();
 
                 //erstelle den Kreis, indem immer eine neue Ecke hinzugefügt wird und dann die Kante zur vorherigen Ecke
                 graph.AddKnoten();
@@ -86,10 +86,10 @@ namespace Pollux.Graph
             }
 
             //Methode, die ein Vieleck mit n-Ecken zurück gibt
-            public static Graph Vieleck(int ecken)
+            public static GraphDarstellung Vieleck(int ecken)
             {
                 //Erstelle einen Graphen
-                Graph graph = new Graph();
+                GraphDarstellung graph = new();
 
                 //Füge dem Graphen "Ecken"-viele Knoten hinzu
                 for (int i = 0; i < ecken; i++)
@@ -102,14 +102,14 @@ namespace Pollux.Graph
             }
 
             //Methode, die einen Baum zurück gibt
-            public static Graph Baum(int stufen, int verzweigungen)
+            public static GraphDarstellung Baum(int stufen, int verzweigungen)
             {
-                Graph graph = new();
-                List<Graph.Knoten> lastStep = new() { graph.AddKnoten() };
+                GraphDarstellung graph = new();
+                List<Knoten> lastStep = new() { graph.AddKnoten() };
                 for (int i = 1; i < stufen; i++)
                 {
-                    List<Graph.Knoten> newStep = new();
-                    foreach (Graph.Knoten knoten in lastStep)
+                    List<Knoten> newStep = new();
+                    foreach (Knoten knoten in lastStep)
                     {
                         for (int f = 0; f < verzweigungen; f++)
                         {
@@ -119,7 +119,7 @@ namespace Pollux.Graph
                         }
                     }
                     lastStep.Clear();
-                    foreach (Graph.Knoten f in newStep)
+                    foreach (Knoten f in newStep)
                     {
                         lastStep.Add(f);
                     }

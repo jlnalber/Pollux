@@ -70,10 +70,18 @@ namespace Pollux.Graph
 
             //Methoden zum Vergleichen von Knoten
             #region
-            public bool IstBenachbart(Graph.Knoten knoten)
+            public bool IstBenachbart(Knoten knoten)
             {
                 //Überprüfe, ob der Knoten zu den benachbarten Knoten dieses Knoten gehört
-                return this.BenachbarteKnoten.Contains(knoten);
+                foreach (Kanten i in this.Kanten)
+                {
+                    if (i.Knoten[0] == knoten || i.Knoten[1] == knoten)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
             #endregion
         }

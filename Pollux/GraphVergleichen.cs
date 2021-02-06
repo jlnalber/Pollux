@@ -10,19 +10,19 @@ namespace Pollux.Graph
         {
             //Vegleiche, ob die Graphen isomorph zueinander sind
             return false;
-        }
+        }//Muss noch überarbeitet werden
 
         public bool IstTeilgraphVon(Graph graph)
         {
             //Vegleiche, ob der Graph ein Teilgraph vom anderen ist
             return false;
-        }
+        }//Muss noch überarbeitet werden
 
         public bool IstUnterteilungVon(Graph graph)
         {
             //Untersuche, ob der Graph eine Unterteilung vom anderen ist
             return false;
-        }
+        }//Muss noch überarbeitet werden
 
         public Graph Kopie()
         {
@@ -42,6 +42,7 @@ namespace Pollux.Graph
                 copy.AddKante(kante, copy.SucheKnoten(i[0].Name), copy.SucheKnoten(i[1].Name));
             }
 
+            //Rückgabe
             return copy;
         }
     }

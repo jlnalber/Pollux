@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Pollux.Graph;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -10,9 +11,9 @@ namespace Pollux
     public partial class KnotenHinzufügen : Window
     {
         private MainWindow MainWindow;
-        private Pollux.Graph.Graph Graph;
+        private GraphDarstellung Graph;
 
-        public KnotenHinzufügen(Pollux.Graph.Graph graph, MainWindow mainWindow)
+        public KnotenHinzufügen(GraphDarstellung graph, MainWindow mainWindow)
         {
             //Stelle das Fenster dar
             this.InitializeComponent();
@@ -45,9 +46,6 @@ namespace Pollux
             {
                 //Führe den Command aus
                 this.MainWindow.GetOpenConsole().Command("ADD " + this.AusgewählterName.Text);
-
-                //Male den Graphen neu
-                this.MainWindow.DrawGraph();
 
                 //Schließe dieses Fenster wieder
                 this.Close();
