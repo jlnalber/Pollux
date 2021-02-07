@@ -92,13 +92,18 @@ namespace Pollux
                 #region
                 //DockPanel "dockPanel", in dem sich alle Elemente befinden werden
                 DockPanel dockPanel = new DockPanel();
+                dockPanel.Background = Brushes.White;
 
                 //Grid "grid" für die Eigenschaften (wird später zugewiesen)
                 Grid grid = new();
 
                 //erstelle Canvas für den Graphen
+                Grid gridAroundCanvas = new Grid();
                 Canvas graphCanvas = new Canvas();
-                DockPanel.SetDock(graphCanvas, Dock.Left);
+                gridAroundCanvas.Children.Add(graphCanvas);
+                DockPanel.SetDock(gridAroundCanvas, Dock.Left);
+                DockPanel.SetZIndex(gridAroundCanvas, 0);
+                DockPanel.SetZIndex(grid, 200);
 
                 //lege Eigenschaften für ihn fest
                 //MenuItems
@@ -132,9 +137,16 @@ namespace Pollux
                 graphCanvas.ContextMenu.Items.Add(menuItem1);
                 graphCanvas.ContextMenu.Items.Add(menuItem4);
 
+                //Wenn Maus-Rad bewegt wird
+                graphCanvas.MouseWheel += GraphCanvas_MouseWheel;
+
                 //Eigene Darstellung
                 graphCanvas.Background = Brushes.White;
-                graphCanvas.Margin = new Thickness(5, 5, 5, 5);
+                gridAroundCanvas.Background = Brushes.Transparent;
+                graphCanvas.Margin = new Thickness(0);
+                gridAroundCanvas.Margin = new Thickness(5);
+                graphCanvas.ClipToBounds = true;
+                gridAroundCanvas.ClipToBounds = true;
 
                 //füge ihn zum TabItem hinzu
                 tabGraph.Content = dockPanel;
@@ -174,7 +186,7 @@ namespace Pollux
                 dockPanel.Children.Add(grid);
                 show.Close();
 
-                dockPanel.Children.Add(graphCanvas);
+                dockPanel.Children.Add(gridAroundCanvas);
                 #endregion
 
                 //speichere in der Liste ab, dass diese Datei gerade geöffnet ist und speichere auch ab, welche TextBox hier der Output ist, und welche Input, sowie die Commands
@@ -224,7 +236,7 @@ namespace Pollux
             tab1.Content = content;
 
             //erstelle Header
-            System.Windows.Controls.DockPanel headerPanel = new System.Windows.Controls.DockPanel();
+            DockPanel headerPanel = new DockPanel();
 
             //Füge TextBlock zum Header hinzu
             TextBlock Title = new TextBlock();
@@ -236,7 +248,7 @@ namespace Pollux
             closeButton.Content = "x";
             closeButton.Background = Brushes.Transparent;
             closeButton.BorderBrush = Brushes.Transparent;
-            closeButton.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            closeButton.HorizontalAlignment = HorizontalAlignment.Right;
             closeButton.VerticalAlignment = VerticalAlignment.Top;
             closeButton.Width = 20;
             closeButton.Height = 20;

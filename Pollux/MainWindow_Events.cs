@@ -6,6 +6,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Pollux
@@ -270,9 +271,6 @@ namespace Pollux
                     i--;
                 }
             }
-            /*
-            //Male den Graphen neu
-            this.DrawGraph();*/
         }
 
         public void LöschenKante_Click(object sender, RoutedEventArgs e)
@@ -300,9 +298,6 @@ namespace Pollux
                     }
                 }
             }
-            /*
-            //Male den Graphen neu
-            this.DrawGraph();*/
         }
 
         private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
@@ -341,6 +336,64 @@ namespace Pollux
                 }
             }
             catch { }
+        }
+
+        private void GraphCanvas_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            const double ScrollSpeed = 0.25;
+            if (sender is Canvas graphCanvas)
+            {
+                //Zoom
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    const double zoomMax = 5;
+                    const double zoomMin = 0.25;
+                    const double zoomSpeed = 0.001;
+                    double height = graphCanvas.ActualHeight;
+                    double width = graphCanvas.ActualWidth;
+                    Point point = e.GetPosition(graphCanvas);
+                    if (graphCanvas.Children.Count != 0)
+                    {
+                        double top = Canvas.GetTop(graphCanvas.Children[0]);
+                        double left = Canvas.GetLeft(graphCanvas.Children[0]);
+                        double zoom = 1 + e.Delta * zoomSpeed;
+                        try
+                        {
+                            zoom = e.Delta * zoomSpeed + ((ScaleTransform)graphCanvas.RenderTransform).ScaleX;
+                        }
+                        catch { }
+
+                        if (zoom >= 1 && zoom < zoomMax)
+                        {
+                            graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
+                        }
+                        else if (zoom > zoomMin && zoom < 1)
+                        {
+                            graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, left, top);
+                            graphCanvas.Width = width / zoom;
+                            graphCanvas.Height = height / zoom;
+                        }
+                    }
+                }
+
+                //Horizontaler Scroll
+                else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    foreach (UIElement i in graphCanvas.Children)
+                    {
+                        Canvas.SetLeft(i, Canvas.GetLeft(i) + e.Delta * ScrollSpeed);
+                    }
+                }
+
+                //Vertikaler Scroll
+                else
+                {
+                    foreach (UIElement i in graphCanvas.Children)
+                    {
+                        Canvas.SetTop(i, Canvas.GetTop(i) + e.Delta * ScrollSpeed);
+                    }
+                }
+            }
         }
     }
 }

@@ -80,6 +80,8 @@ namespace Pollux.Graph
                     ellipse.Fill = Brushes.Transparent;
                     ellipse.Height = height;
                     ellipse.Width = height;
+                    Canvas.SetTop(ellipse, 0);
+                    Canvas.SetLeft(ellipse, 0);
 
                     //lege die Position fest
                     ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
@@ -153,6 +155,8 @@ namespace Pollux.Graph
                     line.Y1 = marginKnoten0.Top + height / 2 + y;
                     line.X2 = marginKnoten1.Left + height / 2 - x;
                     line.Y2 = marginKnoten1.Top + height / 2 - y;
+                    Canvas.SetTop(line, 0);
+                    Canvas.SetLeft(line, 0);
 
                     //Lege noch andere Werte der Linie fest
                     line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;

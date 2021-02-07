@@ -124,8 +124,12 @@ namespace Pollux.Graph
                 //Platziere die Ellipse
                 Thickness thickness = new Thickness();
                 Point point = Mouse.GetPosition(this.Canvas);
+                point.X -= Canvas.GetLeft(this.Ellipse);
+                point.Y -= Canvas.GetTop(this.Ellipse);
                 thickness.Left = point.X - this.Ellipse.Width / 2;
                 thickness.Top = point.Y - this.Ellipse.Height / 2;
+                thickness.Bottom = 10;
+                thickness.Right = 10;
                 this.Ellipse.Margin = thickness;
 
                 //Gebe den Namen auch noch einmal an
@@ -202,9 +206,13 @@ namespace Pollux.Graph
                 ellipse.StrokeThickness = knoten_Border_Thickness;
                 ellipse.Height = knoten_Height;
                 ellipse.Width = knoten_Width;
-                ellipse.Margin = new((index % 10) * 100 + 10, Convert.ToInt32(index / 10) * 100 + 10, 10, 10);
+                ellipse.Margin = new((index % 10) * 100 + 20, Convert.ToInt32(index / 10) * 100 + 25, 10, 10);
                 ellipse.Cursor = Cursors.Hand;
+                ellipse.HorizontalAlignment = HorizontalAlignment.Left;
+                ellipse.VerticalAlignment = VerticalAlignment.Top;
                 Canvas.SetZIndex(ellipse, 100);
+                Canvas.SetTop(ellipse, 0);
+                Canvas.SetLeft(ellipse, 0);
 
                 //Füge ein ContextMenu hinzu
                 #region
@@ -265,6 +273,8 @@ namespace Pollux.Graph
                 label.VerticalAlignment = VerticalAlignment.Top;
                 label.Margin = new(this.Ellipse.Margin.Left + LabelToRight, this.Ellipse.Margin.Top - LabelToTop, 10, 10);
                 Canvas.SetZIndex(label, 100);
+                Canvas.SetTop(label, 0);
+                Canvas.SetLeft(label, 0);
 
                 return label;
             }
