@@ -344,12 +344,10 @@ namespace Pollux
                 {
                     const double zoomMax = 5;
                     const double zoomMin = 0.25;
-                    const double zoomSpeed = 0.001;
+                    const double zoomSpeed = 0.001;   
                     double height = graphCanvas.ActualHeight;
                     double width = graphCanvas.ActualWidth;
                     Point point = e.GetPosition(graphCanvas);
-                    double top = Canvas.GetTop(graphCanvas.Children[0]);
-                    double left = Canvas.GetLeft(graphCanvas.Children[0]);
                     double zoom = 1 + e.Delta * zoomSpeed;
                     try
                     {
@@ -359,14 +357,13 @@ namespace Pollux
 
                     if (zoom >= 1 && zoom < zoomMax)
                     {
-                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X > left ? point.X : left, point.Y > top ? point.Y : top);
+                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
                     }
                     else if (zoom > zoomMin && zoom < 1)
                     {
-                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, left, top);
+                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, 0, 0);
                         graphCanvas.Width = width / zoom;
                         graphCanvas.Height = height / zoom;
-                        graphCanvas.Margin = new Thickness(0);
                     }
                 }
 
