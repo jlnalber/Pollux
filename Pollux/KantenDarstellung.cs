@@ -146,7 +146,7 @@ namespace Pollux.Graph
 
                     //finde dadurch die Position heraus, wo die Kante starten und enden muss
                     const int maxDistance = 20;
-                    double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
+                    double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.08;
                     x = (x > maxDistance) ? maxDistance : (x < -maxDistance) ? -maxDistance : x;
                     double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
                     y = (y > maxDistance) ? maxDistance : (y < -maxDistance) ? -maxDistance : y;
@@ -160,7 +160,7 @@ namespace Pollux.Graph
                     Canvas.SetLeft(line, 0);
 
                     //Lege noch andere Werte der Linie fest
-                    line.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    line.HorizontalAlignment = HorizontalAlignment.Left;
                     line.VerticalAlignment = VerticalAlignment.Bottom;
                     line.Stroke = kanten_FarbeBorder;
                     line.StrokeThickness = kanten_Thickness;

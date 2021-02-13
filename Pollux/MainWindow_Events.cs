@@ -19,7 +19,7 @@ namespace Pollux
             //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab
             switch (sender)
             {
-                case Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: this.Consoles[tab].Save(); this.TabControl.Items.Remove(tab); break; } break; }; break;
+                case Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: if (this.Consoles.ContainsKey(tab)) this.Consoles[tab].Save(); this.TabControl.Items.Remove(tab); break; } break; }; break;
                 default: if (this.TabControl.SelectedItem is TabItem tab1) { this.Consoles[tab1].Save(); this.TabControl.Items.Remove(tab1); } break;
             }
 

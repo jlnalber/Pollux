@@ -45,5 +45,27 @@ namespace Pollux.Graph
             //Rückgabe
             return copy;
         }
+
+        public static bool operator ==(Graph graph1, Graph graph2)
+        {
+            return graph1.IstIsomorph(graph2);
+        }
+
+        public static bool operator !=(Graph graph1, Graph graph2)
+        {
+            return !graph1.IstIsomorph(graph2);
+        }
+
+        #region
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        #endregion
     }
 }
