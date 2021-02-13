@@ -347,5 +347,26 @@ namespace Pollux
                 Canvas.SetTop(i, y);
             }
         }
+
+        public void SetZoom(double zoom, Point point, Canvas graphCanvas)
+        {
+            //Initialisierung
+            const double zoomMax = 5;
+            const double zoomMin = 0.25;
+            double height = graphCanvas.ActualHeight;
+            double width = graphCanvas.ActualWidth;
+
+            //Zoome herein oder heraus
+            if (zoom >= 1 && zoom < zoomMax)
+            {
+                graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
+            }
+            else if (zoom > zoomMin && zoom < 1)
+            {
+                graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, 0, 0);
+                graphCanvas.Width = width / zoom;
+                graphCanvas.Height = height / zoom;
+            }
+        }
     }
 }

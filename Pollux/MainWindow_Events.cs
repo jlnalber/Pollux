@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using Pollux.Graph;
 using System;
-using System.Collections.Generic;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
@@ -342,11 +341,8 @@ namespace Pollux
                 //Zoom
                 if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
                 {
-                    const double zoomMax = 5;
-                    const double zoomMin = 0.25;
-                    const double zoomSpeed = 0.001;   
-                    double height = graphCanvas.ActualHeight;
-                    double width = graphCanvas.ActualWidth;
+                    //Berechne den Zoom und suche nach der Position der Maus
+                    const double zoomSpeed = 0.001;
                     Point point = e.GetPosition(graphCanvas);
                     double zoom = 1 + e.Delta * zoomSpeed;
                     try
@@ -355,16 +351,8 @@ namespace Pollux
                     }
                     catch { }
 
-                    if (zoom >= 1 && zoom < zoomMax)
-                    {
-                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
-                    }
-                    else if (zoom > zoomMin && zoom < 1)
-                    {
-                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, 0, 0);
-                        graphCanvas.Width = width / zoom;
-                        graphCanvas.Height = height / zoom;
-                    }
+                    //Zoome herein oder heraus
+                    this.SetZoom(zoom, point, graphCanvas);
                 }
 
                 //Horizontaler Scroll

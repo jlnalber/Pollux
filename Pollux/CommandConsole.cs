@@ -240,22 +240,38 @@ namespace Pollux
                             }
                             else
                             {
-                                //benenne die Kante neu und schreibe es aus
-                                kante.Name = command_splitted[3];
-                                this.WriteLine("Edge was successfully renamed!");
+                                if (this.usingGraph.SucheKanten(command_splitted[3]) == null)
+                                {
+                                    //benenne die Kante neu und schreibe es aus
+                                    kante.Name = command_splitted[3];
+                                    this.WriteLine("Edge was successfully renamed!");
 
-                                //Setze "changed" auf "true", weil etwas verändert wurde
-                                changed = true;
+                                    //Setze "changed" auf "true", weil etwas verändert wurde
+                                    changed = true;
+                                }
+                                else
+                                {
+                                    //Schreibe eine Fehlermeldung
+                                    this.WriteLine("Edge of the same name already exists!");
+                                }
                             }
                         }
                         else
                         {
-                            //benenne den Knoten neu und schreibe es aus
-                            knoten.Name = command_splitted[3];
-                            this.WriteLine("Node was successfully renamed!");
+                            if (this.usingGraph.SucheKnoten(command_splitted[3]) == null)
+                            {
+                                //benenne den Knoten neu und schreibe es aus
+                                knoten.Name = command_splitted[3];
+                                this.WriteLine("Node was successfully renamed!");
 
-                            //Setze "changed" auf "true", weil etwas verändert wurde
-                            changed = true;
+                                //Setze "changed" auf "true", weil etwas verändert wurde
+                                changed = true;
+                            }
+                            else
+                            {
+                                //Schreibe eine Fehlermeldung
+                                this.WriteLine("Node of the same name already exists!");
+                            }
                         }
                     }
                 }
