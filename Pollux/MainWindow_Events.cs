@@ -84,7 +84,7 @@ namespace Pollux
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void KeyDown_ConsoleInput(object sender, System.Windows.Input.KeyEventArgs e)
+        private void KeyDown_ConsoleInput(object sender, KeyEventArgs e)
         {
             //wird ausgelöst, wenn man was im Eingabe-Feld eine Taste drückt
             try
@@ -336,8 +336,8 @@ namespace Pollux
 
         private void GraphCanvas_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
-            const double ScrollSpeed = 0.25;
-            if (sender is Canvas graphCanvas)
+            const double scrollSpeed = 0.25;
+            if (sender is Canvas graphCanvas && graphCanvas.Children.Count != 0)
             {
                 //Zoom
                 if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -348,46 +348,38 @@ namespace Pollux
                     double height = graphCanvas.ActualHeight;
                     double width = graphCanvas.ActualWidth;
                     Point point = e.GetPosition(graphCanvas);
-                    if (graphCanvas.Children.Count != 0)
+                    double top = Canvas.GetTop(graphCanvas.Children[0]);
+                    double left = Canvas.GetLeft(graphCanvas.Children[0]);
+                    double zoom = 1 + e.Delta * zoomSpeed;
+                    try
                     {
-                        double top = Canvas.GetTop(graphCanvas.Children[0]);
-                        double left = Canvas.GetLeft(graphCanvas.Children[0]);
-                        double zoom = 1 + e.Delta * zoomSpeed;
-                        try
-                        {
-                            zoom = e.Delta * zoomSpeed + ((ScaleTransform)graphCanvas.RenderTransform).ScaleX;
-                        }
-                        catch { }
+                        zoom = e.Delta * zoomSpeed + ((ScaleTransform)graphCanvas.RenderTransform).ScaleX;
+                    }
+                    catch { }
 
-                        if (zoom >= 1 && zoom < zoomMax)
-                        {
-                            graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
-                        }
-                        else if (zoom > zoomMin && zoom < 1)
-                        {
-                            graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, left, top);
-                            graphCanvas.Width = width / zoom;
-                            graphCanvas.Height = height / zoom;
-                        }
+                    if (zoom >= 1 && zoom < zoomMax)
+                    {
+                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X > left ? point.X : left, point.Y > top ? point.Y : top);
+                    }
+                    else if (zoom > zoomMin && zoom < 1)
+                    {
+                        graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, left, top);
+                        graphCanvas.Width = width / zoom;
+                        graphCanvas.Height = height / zoom;
+                        graphCanvas.Margin = new Thickness(0);
                     }
                 }
 
                 //Horizontaler Scroll
                 else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
                 {
-                    foreach (UIElement i in graphCanvas.Children)
-                    {
-                        Canvas.SetLeft(i, Canvas.GetLeft(i) + e.Delta * ScrollSpeed);
-                    }
+                    this.SetScrollX(Canvas.GetLeft(graphCanvas.Children[0]) + e.Delta * scrollSpeed, graphCanvas);
                 }
 
                 //Vertikaler Scroll
                 else
                 {
-                    foreach (UIElement i in graphCanvas.Children)
-                    {
-                        Canvas.SetTop(i, Canvas.GetTop(i) + e.Delta * ScrollSpeed);
-                    }
+                    this.SetScrollY(Canvas.GetTop(graphCanvas.Children[0]) + e.Delta * scrollSpeed, graphCanvas);
                 }
             }
         }

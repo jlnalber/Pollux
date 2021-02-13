@@ -329,5 +329,23 @@ namespace Pollux
                 System.Windows.Application.Current.Shutdown();
             }
         }
+
+        public void SetScrollX(double x, Canvas graphCanvas)
+        {
+            //Methode, um horizontal zu scrollen
+            foreach (UIElement i in graphCanvas.Children)
+            {
+                Canvas.SetLeft(i, x);
+            }
+        }
+
+        public void SetScrollY(double y, Canvas graphCanvas)
+        {
+            //Methode, um vertikal zu scrollen
+            foreach (UIElement i in graphCanvas.Children)
+            {
+                Canvas.SetTop(i, y);
+            }
+        }
     }
 }
