@@ -6,6 +6,13 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>pollux.ico</ApplicationIcon>
 	<UseWindowsForms>true</UseWindowsForms>
+	<Version>0.9.1</Version>
+	<Authors>Julian Alber</Authors>
+	<Company>-</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

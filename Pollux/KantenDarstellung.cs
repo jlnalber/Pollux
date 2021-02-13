@@ -145,10 +145,11 @@ namespace Pollux.Graph
                     double height = knoten_Height;
 
                     //finde dadurch die Position heraus, wo die Kante starten und enden muss
+                    const int maxDistance = 20;
                     double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.1;
-                    x = (x > 30) ? 30 : (x < -30) ? -30 : x;
+                    x = (x > maxDistance) ? maxDistance : (x < -maxDistance) ? -maxDistance : x;
                     double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
-                    y = (y > 30) ? 30 : (y < -30) ? -30 : y;
+                    y = (y > maxDistance) ? maxDistance : (y < -maxDistance) ? -maxDistance : y;
 
                     //schreibe diese Eigenschaften in die Linie
                     line.X1 = marginKnoten0.Left + height / 2 + x;

@@ -47,5 +47,16 @@ namespace Pollux.Graph
             //Rückgabe
             return copy;
         }
+
+        //Die Operatoren
+        public static bool operator ==(GraphDarstellung graphDarstellung1, GraphDarstellung graphDarstellung2)
+        {
+            return graphDarstellung1.IstIsomorph(graphDarstellung2);
+        }
+
+        public static bool operator !=(GraphDarstellung graphDarstellung1, GraphDarstellung graphDarstellung2)
+        {
+            return !graphDarstellung1.IstIsomorph(graphDarstellung2);
+        }
     }
 }

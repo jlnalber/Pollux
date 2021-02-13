@@ -30,7 +30,7 @@ namespace Pollux
             #region
             //Übersetze die Texte
             this.Title = MainWindow.resman.GetString("GraphBearbeiten", MainWindow.cul) + " > " + MainWindow.resman.GetString("KanteHinzufügen", MainWindow.cul);
-            this.Name.Text = MainWindow.resman.GetString("Name", MainWindow.cul);
+            this.NameText.Text = MainWindow.resman.GetString("Name", MainWindow.cul);
             this.Knoten1.Text = MainWindow.resman.GetString("Knoten1", MainWindow.cul);
             this.Knoten2.Text = MainWindow.resman.GetString("Knoten2", MainWindow.cul);
             this.Bestätigen.Content = MainWindow.resman.GetString("Bestätigen", MainWindow.cul);

@@ -10,7 +10,7 @@
         Height="325" Width="200" MinWidth="150" MinHeight="250" MaxWidth="250" MaxHeight="400" KeyUp="AusgewählterName_KeyUp">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
-            <TextBlock Text="" x:Name="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+            <TextBlock x:Name="NameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
             <TextBox x:Name="AusgewählterName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" AllowDrop="False" Width="100" Height="23"/>
             <TextBlock Text="" x:Name="Knoten1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,80,0,0"/>
             <ComboBox x:Name="KnotenPicker1" IsEditable="False" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="100" Margin="10,110,0,0"/>

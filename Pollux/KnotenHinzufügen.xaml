@@ -10,7 +10,7 @@
         Height="150" Width="200" MinWidth="150" MinHeight="100" MaxWidth="250" MaxHeight="250">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="AusgewählterName_KeyUp">
         <Grid>
-            <TextBlock Text="" x:Name="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+            <TextBlock Text="" x:Name="NameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
             <TextBox x:Name="AusgewählterName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" AllowDrop="False" Width="100" Height="23"/>
             <Button x:Name="Bestätigen" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,80,0,0" Width="100" Height="20" Click="Bestätigen_Click"/>
         </Grid>

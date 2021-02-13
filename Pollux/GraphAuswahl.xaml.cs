@@ -46,7 +46,7 @@ namespace Pollux
             this.DateiÖffnen.Header = MainWindow.resman.GetString("DateiÖffnen", MainWindow.cul);
             this.DateiSpeicherortText.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
             this.Öffnen.Content = MainWindow.resman.GetString("Öffnen", MainWindow.cul);
-            this.Template.Text = MainWindow.resman.GetString("Template", MainWindow.cul);
+            this.TemplateText.Text = MainWindow.resman.GetString("Template", MainWindow.cul);
             this.NothingTemplate_Header.Text = MainWindow.resman.GetString("NothingTemplate_Header", MainWindow.cul);
             this.NothingTemplate_Text.Text = MainWindow.resman.GetString("NothingTemplate_Text", MainWindow.cul);
             this.CircleTemplate_Header.Text = MainWindow.resman.GetString("CircleTemplate_Header", MainWindow.cul);
