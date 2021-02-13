@@ -14,41 +14,37 @@ namespace Pollux
     public partial class MainWindow
     {
         //die Methoden für die verschiedenen Events
-        public void CloseTab(object sender, RoutedEventArgs e)
+        public void CloseTab_ButtonClick(object sender, RoutedEventArgs e)
         {
             //finde das TabItem des Buttons heraus, der gerade gedrückt wurde und lösche es, falls kein Button es ausgelöst hat, entferne den aktuell geöffneten Tab
             switch (sender)
             {
-                case Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: if (this.Consoles.ContainsKey(tab)) this.Consoles[tab].Save(); this.TabControl.Items.Remove(tab); break; } break; }; break;
-                default: if (this.TabControl.SelectedItem is TabItem tab1) { this.Consoles[tab1].Save(); this.TabControl.Items.Remove(tab1); } break;
+                case Button ui: switch (ui.Parent) { case DockPanel dock: switch (dock.Parent) { case TabItem tab: this.CloseTab(tab); break; } break; }; break;
+                default: if (this.TabControl.SelectedItem is TabItem tab1) { this.CloseTab(tab1); } break;
             }
+        }
 
-            //Gucke, ob in dem Element "OpenedFiles" sich ein nicht geöffneter Tab befindet, wenn ja, dann entferne es aus "OpenedFiles"
-            #region
-            List<TabItem> save = new List<TabItem>(); //Hier werden die Tabs gespeichert, die später aus "OpenedFiles" entfernt werden muss; würde man diese direkt entfernen, so gibt es ein Error...
-            Dictionary<TabItem, string>.KeyCollection tabs = this.OpenedFiles.Keys;
-            foreach (TabItem i in tabs)
+        private void Panel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
             {
-                if (!this.TabControl.Items.Contains(i))
+                if (sender is DockPanel dockPanel)
                 {
-                    save.Add(i);
+                    if (dockPanel.Parent is TabItem tab)
+                    {
+                        this.CloseTab(tab);
+                    }
                 }
-            }
-
-            //Lösche jetzt die Tabs aus "OpenedFiles"
-            foreach (TabItem i in save)
-            {
-                this.OpenedFiles.Remove(i);
-            }
-            #endregion
-
-            //Speichere die noch offenen Tabs ab
-            this.SaveOpenedFiles();
-
-            //Falls keine Tabs mehr übrig sind, dann schließe komplette App;
-            if (this.TabControl.Items.Count == 0)
-            {
-                System.Windows.Application.Current.Shutdown();
+                else if (sender is TextBlock textBlock)
+                {
+                    if (textBlock.Parent is DockPanel dockPanel1)
+                    {
+                        if (dockPanel1.Parent is TabItem tab)
+                        {
+                            this.CloseTab(tab);
+                        }
+                    }
+                }
             }
         }
 

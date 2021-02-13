@@ -237,14 +237,16 @@ namespace Pollux
 
             //erstelle Header
             DockPanel headerPanel = new DockPanel();
+            headerPanel.MouseDown += Panel_MouseDown;
 
             //Füge TextBlock zum Header hinzu
-            TextBlock Title = new TextBlock();
-            Title.Text = header;
-            headerPanel.Children.Add(Title);
+            TextBlock title = new TextBlock();
+            title.MouseDown += Panel_MouseDown;
+            title.Text = header;
+            headerPanel.Children.Add(title);
 
             //Füge Button zum Schließen zum Header hinzu
-            System.Windows.Controls.Button closeButton = new();
+            Button closeButton = new();
             closeButton.Content = "x";
             closeButton.Background = Brushes.Transparent;
             closeButton.BorderBrush = Brushes.Transparent;
@@ -259,7 +261,7 @@ namespace Pollux
             thickness.Left = 8;
             closeButton.Margin = thickness;
             closeButton.FontSize = 10;
-            closeButton.Click += this.CloseTab;
+            closeButton.Click += this.CloseTab_ButtonClick;
             headerPanel.Children.Add(closeButton);
 
             //Eigenschaften für das TabItem "tab1"
@@ -267,7 +269,7 @@ namespace Pollux
             tab1.Background = Brushes.White;
 
             //Füge den Header zum Element "Headers" hinzu
-            this.Headers.Add(tab1, Title);
+            this.Headers.Add(tab1, title);
 
             //Füge Tab zu "TabControl" hinzu
             this.TabControl.Items.Add(tab1);
@@ -286,6 +288,46 @@ namespace Pollux
         {
             //Aktualisiere das Eigenschaften-Fenster, die Daten + Rückgabe
             this.AktualisiereEigenschaftenFenster(this.GetOpenTab());
+        }
+
+        public void CloseTab(TabItem tab)
+        {
+            //Speichere den Graphen des Tabs ab, falls er überhaupt einen Graph enthält
+            if (this.Consoles.ContainsKey(tab))
+            {
+                this.Consoles[tab].Save();
+            }
+
+            //Entferne den Tab aus dem TabControl "TabControl"
+            this.TabControl.Items.Remove(tab);
+
+            //Gucke, ob in dem Element "OpenedFiles" sich ein nicht geöffneter Tab befindet, wenn ja, dann entferne es aus "OpenedFiles"
+            #region
+            List<TabItem> save = new List<TabItem>(); //Hier werden die Tabs gespeichert, die später aus "OpenedFiles" entfernt werden muss; würde man diese direkt entfernen, so gibt es ein Error...
+            Dictionary<TabItem, string>.KeyCollection tabs = this.OpenedFiles.Keys;
+            foreach (TabItem i in tabs)
+            {
+                if (!this.TabControl.Items.Contains(i))
+                {
+                    save.Add(i);
+                }
+            }
+
+            //Lösche jetzt die Tabs aus "OpenedFiles"
+            foreach (TabItem i in save)
+            {
+                this.OpenedFiles.Remove(i);
+            }
+            #endregion
+
+            //Speichere die noch offenen Tabs ab
+            this.SaveOpenedFiles();
+
+            //Falls keine Tabs mehr übrig sind, dann schließe komplette App;
+            if (this.TabControl.Items.Count == 0)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
         }
     }
 }
