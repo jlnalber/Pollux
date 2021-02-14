@@ -52,7 +52,27 @@ namespace Pollux
             try
             {
                 //Speichere die aktuell geöffnete Datei
-                this.GetOpenConsole().Save();
+                this.Save();
+            }
+            catch { }
+        }
+
+        private void Speichern_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                //Speichere die aktuell geöffnete Datei
+                this.Save();
+            }
+            catch { }
+        }
+
+        private void AllesSpeichern_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                //Speichere die aktuell geöffneten Dateien
+                this.SaveAll();
             }
             catch { }
         }

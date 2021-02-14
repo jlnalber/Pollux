@@ -165,11 +165,16 @@ namespace Pollux
                 GraphDarstellung graph = new(new List<GraphDarstellung.Knoten>(), new List<GraphDarstellung.Kanten>(), new int[0, 0], "GRAPH");
                 try
                 {
+                    //Öffne die Datei
                     graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas);
                 }
                 catch
                 {
+                    //Gebe eine Fehlermeldung aus
                     MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
+
+                    //Gebe eine Nachricht aus
+                    DisplayMessage(resman.GetString("DateiNichtGeöffnetNachricht", cul) + path);
                 }
 
                 //erstelle die CommandConsole zum Graph
@@ -206,6 +211,9 @@ namespace Pollux
                 this.TabControl.SelectedIndex = this.TabControl.Items.Count - 1;
                 this.SaveOpenedFiles();
                 this.SaveAll();
+
+                //Gebe eine Nachricht aus
+                DisplayMessage(resman.GetString("DateiGeöffnetNachricht", cul) + path);
                 #endregion
             }
             catch (Exception e)
@@ -223,6 +231,9 @@ namespace Pollux
                 this.OpenedEigenschaftenFenster.Remove(tab);
                 this.OpenedEigenschaftenFensterGrid.Remove(tab);
                 MessageBox.Show(e.Message);
+
+                //Gebe eine Nachricht aus
+                DisplayMessage(resman.GetString("DateiNichtGeöffnetNachricht", cul) + path);
                 #endregion
             }
         }
@@ -367,6 +378,18 @@ namespace Pollux
                 graphCanvas.Width = width / zoom;
                 graphCanvas.Height = height / zoom;
             }
+        }
+
+        public void DisplayMessageFromResman(string stringName)
+        {
+            //Stelle die Nachricht rechts unten im TextBlock "ProgramTextBlock" in der entsprechenden Sprache dar
+            DisplayMessage(resman.GetString(stringName, cul));
+        }
+
+        public void DisplayMessage(string message)
+        {
+            //Stelle die Nachricht rechts unten im TextBlock "ProgramTextBlock" dar
+            this.ProgramTextBlock.Text = message;
         }
     }
 }

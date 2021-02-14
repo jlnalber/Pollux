@@ -180,6 +180,12 @@
   <data name="Datei" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="DateiGeöffnetNachricht" xml:space="preserve">
+    <value>The file was opened: </value>
+  </data>
+  <data name="DateiNichtGeöffnetNachricht" xml:space="preserve">
+    <value>Couldn't open file: </value>
+  </data>
   <data name="DateiÖffnen" xml:space="preserve">
     <value>Open a file</value>
   </data>

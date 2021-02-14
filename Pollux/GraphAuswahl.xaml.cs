@@ -166,7 +166,7 @@ namespace Pollux
         {
             //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
             Del handler = this.MainWindow.OpenFile;
-            this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.Items.IndexOf(this.LetzteDatei.SelectedItem)]);
+            this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.SelectedIndex]);
 
             //schließe das Fenster
             this.Close();
@@ -180,6 +180,7 @@ namespace Pollux
                 SaveFileDialog saveFileDialog = new();
                 saveFileDialog.Filter = "poll files(*.poll) | *.poll";
                 saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.poll" : this.NameDatei.Text + ".poll";
+                saveFileDialog.RestoreDirectory = true;
                 if (saveFileDialog.ShowDialog() == true)
                 {
                     this.Speicherort.Text = saveFileDialog.FileName;

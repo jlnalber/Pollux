@@ -7,8 +7,24 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         WindowState="Maximized"
-        KeyUp="Window_KeyUp"
         Title="MainWindow" MinHeight="400" MinWidth="600">
+    
+    <!-- Die HotKeys für das Fenster MainWindow -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <RoutedUICommand x:Key="Save"/>
+            <RoutedUICommand x:Key="SaveAll"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{StaticResource Save}"/>
+        <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{StaticResource SaveAll}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Save}" Executed="Speichern_Executed"/>
+        <CommandBinding Command="{StaticResource SaveAll}" Executed="AllesSpeichern_Executed"/>
+    </Window.CommandBindings>
+    
     <DockPanel x:Name="Panel" LastChildFill="True">
         <Menu x:Name="menu" VerticalAlignment="Top" DockPanel.Dock="Top">
             <MenuItem x:Name="Datei" MinHeight="20">
@@ -49,10 +65,22 @@
                     <GradientStop Color="#FF9C46C8" Offset="0.5"/>
                 </LinearGradientBrush>
             </StatusBar.Background>
-            <StackPanel Margin="0,0,0,0" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock Text="Pollux" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Foreground="White"/>
-                <TextBlock x:Name="ProgramTextBox" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom"/>
-            </StackPanel>
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Margin="0,0,0,0" Height="20" Width="Auto"  ClipToBounds="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="Pollux" HorizontalAlignment="Left" Margin="0,0,0,-4" VerticalAlignment="Bottom" Height="20" Foreground="White"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Right">
+                <TextBlock x:Name="ProgramTextBlock" HorizontalAlignment="Right" Margin="0,0,10,-4" VerticalAlignment="Bottom" Height="20" Foreground="White" Width="Auto"/>
+            </StatusBarItem>
         </StatusBar>
 
         <TabControl x:Name="TabControl" DockPanel.Dock="Top" Margin="5,5,5,5"/>

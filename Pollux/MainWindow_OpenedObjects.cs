@@ -81,14 +81,14 @@ namespace Pollux
             //Speicher alle Tabs
             foreach (CommandConsole commandConsole in this.Consoles.Values)
             {
-                commandConsole.Save();
+                commandConsole.Command("SAVE");
             }
         }
 
-        public void SaveOpenFile()
+        public void Save()
         {
             //Speichere nur den geöffneten Tab ab
-            this.GetOpenConsole().Save();
+            this.GetOpenConsole().Command("SAVE");
         }
         #endregion
     }

@@ -250,6 +250,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Die Datei wurde geöffnet:  ähnelt.
+        /// </summary>
+        public static string DateiGeöffnetNachricht {
+            get {
+                return ResourceManager.GetString("DateiGeöffnetNachricht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Die Datei konnte nicht geöffnet werden:  ähnelt.
+        /// </summary>
+        public static string DateiNichtGeöffnetNachricht {
+            get {
+                return ResourceManager.GetString("DateiNichtGeöffnetNachricht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Öffne eine Datei ähnelt.
         /// </summary>
         public static string DateiÖffnen {
