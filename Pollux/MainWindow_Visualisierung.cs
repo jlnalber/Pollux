@@ -334,6 +334,9 @@ namespace Pollux
             //Speichere die noch offenen Tabs ab
             this.SaveOpenedFiles();
 
+            //Gebe eine Nachricht aus
+            this.DisplayMessageFromResman("TabGeschlossenNachricht");
+
             //Falls keine Tabs mehr übrig sind, dann schließe komplette App;
             if (this.TabControl.Items.Count == 0)
             {

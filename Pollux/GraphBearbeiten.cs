@@ -9,10 +9,15 @@ namespace Pollux.Graph
         #region
         public virtual Graph.Knoten AddKnoten(Knoten knote)
         {
+            //Erstelle den Knoten
+            //Lege den Namen fest
             knote.Name = knote.Name.ToUpper();
+
+            //Füge den Knoten dem Graphen hinzu
             this.GraphKnoten.Add(knote);
             knote.Parent = this;
 
+            //Füge den Knoten der Liste "Liste" des Graphen hinzu
             int[,] copy = new int[this.Liste.GetLength(0) + 1, this.Liste.GetLength(1) + 1];
             for (int i = 0; i < this.Liste.GetLength(0); i++)
             {
@@ -23,12 +28,8 @@ namespace Pollux.Graph
             }
             this.Liste = copy;
 
+            //Rückgabe
             return knote;
-        }
-
-        public virtual Graph.Knoten AddKnoten()
-        {
-            return this.AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString());
         }
 
         public virtual Graph.Knoten AddKnoten(string name)
@@ -36,22 +37,38 @@ namespace Pollux.Graph
             Knoten knote = new Knoten(this, new List<Kanten>(), name.ToUpper());
             return this.AddKnoten(knote);
         }
+
+        public virtual Graph.Knoten AddKnoten()
+        {
+            return this.AddKnoten("NODE" + (this.GraphKnoten.Count + 1).ToString());
+        }
         #endregion
 
         //Methode zum Hinzufügen von Kanten
         #region
         public virtual Graph.Kanten AddKante(Kanten kante, Knoten start, Knoten ende)
         {
+            //Erstelle die Kante
+            //Füge den Namen hinzu
             kante.Name = kante.Name.ToUpper();
+
+            //Füge dem Graphen die Kante hinzu
             kante.Parent = this;
             this.GraphKanten.Add(kante);
+
+            //Setze die Knoten zu den Start und Endknoten der Kante
             kante.Knoten[0] = start;
             kante.Knoten[1] = ende;
+
+            //Füge die Kante den angegebenen Knoten hinzu
             start.Kanten.Add(kante);
             ende.Kanten.Add(kante);
+
+            //Erhöhe die Zahl an der Matrix
             this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)]++;
             this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)]++;
 
+            //Rückgabe
             return kante;
         }
 
@@ -63,7 +80,7 @@ namespace Pollux.Graph
 
         public virtual Graph.Kanten AddKante(Knoten start, Knoten ende)
         {
-            return this.AddKante("KANTE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
+            return this.AddKante("EDGE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
         }
         #endregion
 

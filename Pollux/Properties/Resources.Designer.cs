@@ -70,6 +70,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alle geöffneten Dateien wurden abgespeichert. ähnelt.
+        /// </summary>
+        public static string AlleDateienGespeichertNachricht {
+            get {
+                return ResourceManager.GetString("AlleDateienGespeichertNachricht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Alles Schließen ähnelt.
         /// </summary>
         public static string AlleSchließen {
@@ -277,6 +286,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Die Datei wurde abgespeichert:  ähnelt.
+        /// </summary>
+        public static string DateiSpeichernNachricht {
+            get {
+                return ResourceManager.GetString("DateiSpeichernNachricht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Design der Kanten ähnelt.
         /// </summary>
         public static string Edge_Design_Text {
@@ -336,6 +354,15 @@ namespace Pollux.Properties {
         public static string EigenschaftenFenster {
             get {
                 return ResourceManager.GetString("EigenschaftenFenster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Das Eigenschaften-Fenster wurde geöffnet. ähnelt.
+        /// </summary>
+        public static string EigenschaftenFensterÖffnenNachricht {
+            get {
+                return ResourceManager.GetString("EigenschaftenFensterÖffnenNachricht", resourceCulture);
             }
         }
         
@@ -967,6 +994,15 @@ namespace Pollux.Properties {
         public static string TabelleLaden {
             get {
                 return ResourceManager.GetString("TabelleLaden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Der Tab wurde geschlossen. ähnelt.
+        /// </summary>
+        public static string TabGeschlossenNachricht {
+            get {
+                return ResourceManager.GetString("TabGeschlossenNachricht", resourceCulture);
             }
         }
         

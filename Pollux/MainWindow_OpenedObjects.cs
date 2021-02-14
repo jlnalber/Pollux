@@ -6,7 +6,7 @@ namespace Pollux
 {
     public partial class MainWindow
     {
-        //Methoden um die geöffneten Graphen/Tabs etc. herauszufinden
+        //Methoden um die geöffneten Graphen, Tabs, etc. herauszufinden
         #region
         public TabItem GetOpenTab()
         {
@@ -21,13 +21,28 @@ namespace Pollux
             return tab;
         }
 
-        public GraphDarstellung GetOpenGraph()
+        public string GetOpenPath()
         {
-            //find den geöffneten Tab heraus
-            TabItem tab = this.GetOpenTab();
+            //Gebe den Pfad des aktuell geöffneten Tabs zurück
+            return this.OpenedFiles[this.GetOpenTab()];
+        }
 
-            //Rückgabe
-            return this.Graphs[tab];
+        public TextBox GetOpenOutput()
+        {
+            //Suche nach der Output-TextBox des geöffneten Tabs
+            return this.Outputs[this.GetOpenTab()];
+        }
+
+        public TextBox GetOpenInput()
+        {
+            //Suche nach der Input-TextBox des geöffneten Tabs
+            return this.Inputs[this.GetOpenTab()];
+        }
+
+        public CommandConsole GetOpenConsole()
+        {
+            //suche nach dem geöffneten Tab und gib dann seine CommanConsole zurück
+            return this.Consoles[this.GetOpenTab()];
         }
 
         public Canvas GetOpenCanvas()
@@ -36,10 +51,13 @@ namespace Pollux
             return this.Canvases[this.GetOpenTab()];
         }
 
-        public CommandConsole GetOpenConsole()
+        public GraphDarstellung GetOpenGraph()
         {
-            //suche nach dem geöffneten Tab und gib dann seine CommanConsole zurück
-            return this.Consoles[this.GetOpenTab()];
+            //find den geöffneten Tab heraus
+            TabItem tab = this.GetOpenTab();
+
+            //Rückgabe
+            return this.Graphs[tab];
         }
 
         public TextBlock GetOpenHeader()

@@ -190,7 +190,7 @@ namespace Pollux
 
                 //Button zum neuen Fenster öffnen
                 Button button3 = new();
-                button3.Click += this.NewWindow;
+                button3.Click += this.NewWindow_Click;
                 button3.Content = resman.GetString("NeuesFenster", cul);
                 button3.Padding = new(10);
                 button3.HorizontalAlignment = HorizontalAlignment.Left;

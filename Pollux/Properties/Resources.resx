@@ -120,6 +120,9 @@
   <data name="A" xml:space="preserve">
     <value>A (Alpha):</value>
   </data>
+  <data name="AlleDateienGespeichertNachricht" xml:space="preserve">
+    <value>Alle geöffneten Dateien wurden abgespeichert.</value>
+  </data>
   <data name="AlleSchließen" xml:space="preserve">
     <value>Alles Schließen</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="DateiNichtGeöffnetNachricht" xml:space="preserve">
     <value>Die Datei konnte nicht geöffnet werden: </value>
   </data>
+  <data name="DateiSpeichernNachricht" xml:space="preserve">
+    <value>Die Datei wurde abgespeichert: </value>
+  </data>
   <data name="DateiÖffnen" xml:space="preserve">
     <value>Öffne eine Datei</value>
   </data>
@@ -209,6 +215,9 @@
   </data>
   <data name="EigenschaftenFenster" xml:space="preserve">
     <value>Eigenschaften-Fenster</value>
+  </data>
+  <data name="EigenschaftenFensterÖffnenNachricht" xml:space="preserve">
+    <value>Das Eigenschaften-Fenster wurde geöffnet.</value>
   </data>
   <data name="EigenschaftenLaden" xml:space="preserve">
     <value>Lade die Eigenschaften des Graphen...</value>
@@ -417,6 +426,9 @@
   </data>
   <data name="TabelleLaden" xml:space="preserve">
     <value>Lade die Tabelle des Graphen...</value>
+  </data>
+  <data name="TabGeschlossenNachricht" xml:space="preserve">
+    <value>Der Tab wurde geschlossen.</value>
   </data>
   <data name="TabSchließen" xml:space="preserve">
     <value>Schließe Tab</value>

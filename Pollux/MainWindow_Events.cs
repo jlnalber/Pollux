@@ -25,8 +25,10 @@ namespace Pollux
 
         private void Panel_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //Methode, die den Tab schließt, falls dieser Tab mit dem Mausrad gedrückt wird
             if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
             {
+                //Falls das DockPanel "dockPanel" berührt wird
                 if (sender is DockPanel dockPanel)
                 {
                     if (dockPanel.Parent is TabItem tab)
@@ -34,6 +36,8 @@ namespace Pollux
                         this.CloseTab(tab);
                     }
                 }
+
+                //Falls der TextBlock "textBlock" mit dem Titel berührt wird
                 else if (sender is TextBlock textBlock)
                 {
                     if (textBlock.Parent is DockPanel dockPanel1)
@@ -53,34 +57,68 @@ namespace Pollux
             {
                 //Speichere die aktuell geöffnete Datei
                 this.Save();
+
+                //Speichere ab, welche Dateien aktuell geöffnet sind
+                this.SaveOpenedFiles();
+
+                //Gebe eine Nachricht aus
+                this.DisplayMessage(resman.GetString("DateiSpeichernNachricht", cul) + this.OpenedFiles[this.GetOpenTab()]);
             }
             catch { }
         }
 
-        private void Speichern_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            try
-            {
-                //Speichere die aktuell geöffnete Datei
-                this.Save();
-            }
-            catch { }
-        }
-
-        private void AllesSpeichern_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void AllesSpeichern_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //Speichere die aktuell geöffneten Dateien
                 this.SaveAll();
+
+                //Speichere ab, welche Dateien aktuell geöffnet sind
+                this.SaveOpenedFiles();
+
+                //Gebe eine Nachricht aus
+                this.DisplayMessageFromResman("AlleDateienGespeichertNachricht");
             }
             catch { }
         }
 
-        private void AlleSpeichern_Click(object sender, RoutedEventArgs e)
+        private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
         {
-            //Speicher alle Tabs
-            this.SaveAll();
+            //Finde den Pfad heraus, wo die Datei gespeichert werden soll
+            string filePath = "";
+            try
+            {
+                //Erstelle einen SaveFileDialog "openFileDialog"
+                SaveFileDialog openFileDialog = new();
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Exchangeable Image File Format (*.exif)|*exif|JPEG-File (*jpg)|*jpg|Portable Network Graphics (*png)|*png|Tagged Image File Format (*tiff)|*tiff";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.FileName = "graph.svg";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+                }
+
+                if (!(filePath.EndsWith(".svg") || filePath.EndsWith(".bmp") || filePath.EndsWith(".gif") || filePath.EndsWith(".exif") || filePath.EndsWith(".jpg") || filePath.EndsWith(".png") || filePath.EndsWith(".tiff")))
+                {
+                    filePath += ".svg";
+                }
+
+                //Erstelle die Datei in der gewollten Datei
+                if (filePath.EndsWith(".svg"))
+                {
+                    this.GetOpenGraph().SaveAsSVG(filePath);
+                }
+                else
+                {
+                    this.GetOpenGraph().SaveAsBitmap(filePath);
+                }
+            }
+            catch { }
         }
 
         private void Neu_Click(object sender, RoutedEventArgs e)
@@ -95,6 +133,33 @@ namespace Pollux
             //öffne das Fenster, um Datei auszuwählen, die man öffnen möchte
             GraphAuswahl fenster = new GraphAuswahl(GraphAuswahl.State.Open, this);
             fenster.Show();
+        }
+
+        public void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Öffne das Eigenschaften-Fenster durch die CommanConsole des geöffneten Tabs
+                this.GetOpenConsole().Command("SHOW");
+
+                //Gebe eine Nachricht aus
+                this.DisplayMessageFromResman("EigenschaftenFensterÖffnenNachricht");
+            }
+            catch { }
+        }
+
+        private void NewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            //Erstelle ein neues "MainWindow"
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+        }
+
+        private void Einstellungen_Click(object sender, RoutedEventArgs e)
+        {
+            //Öffne ein Einstellungs-Fenster
+            Einstellungen window = new();
+            window.Show();
         }
 
         private void AllesSchließen_Click(object sender, RoutedEventArgs e)
@@ -187,91 +252,6 @@ namespace Pollux
             }
         }
 
-        private void NewWindow(object sender, RoutedEventArgs e)
-        {
-            //Erstelle ein neues "MainWindow"
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
-
-        public void EigenschaftenFenster_Click(object sender, RoutedEventArgs e)
-        {
-            //Öffne das Eigenschaften-Fenster durch die CommanConsole des geöffneten Tabs
-            this.GetOpenConsole().Command("SHOW");
-        }
-
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-            //Die Shortcuts
-            try
-            {
-                if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
-                {
-                    if (e.Key == Key.S)
-                    {
-                        this.SaveAll();
-                        this.SaveOpenedFiles();
-                    }
-                    else if (e.Key == Key.E)
-                    {
-                        this.KanteHinzufügen_Click(sender, new());
-                    }
-                    else if (e.Key == Key.N)
-                    {
-                        this.KnotenHinzufügen_Click(sender, new());
-                    }
-                }
-                else if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Alt))
-                {
-                    if (e.Key == Key.S)
-                    {
-                        //Erstelle ein Einstellungs-Fenster "window"
-                        Einstellungen window = new Einstellungen();
-                        window.Show();
-                    }
-                }
-                else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
-                {
-                    if (e.Key == Key.N)
-                    {
-                        GraphAuswahl graphAuswahl = new(GraphAuswahl.State.CreateNewFile, this);
-                        graphAuswahl.Show();
-                    }
-                    else if (e.Key == Key.O)
-                    {
-                        GraphAuswahl graphAuswahl = new(GraphAuswahl.State.Open, this);
-                        graphAuswahl.Show();
-                    }
-                    else if (e.Key == Key.OemPlus)
-                    {
-                        //Erstelle ein neues "MainWindow"
-                        MainWindow mainWindow = new();
-                        mainWindow.Show();
-                    }
-                    else if (e.Key == Key.E)
-                    {
-                        this.GetOpenConsole().Command("SHOW");
-                    }
-                    else if (e.Key == Key.S)
-                    {
-                        this.GetOpenConsole().Command("SAVE");
-                        this.SaveOpenedFiles();
-                    }
-                }
-            }
-            catch
-            {
-                SystemSounds.Asterisk.Play();
-            }
-        }
-
-        private void Einstellungen_Click(object sender, RoutedEventArgs e)
-        {
-            //Öffne ein Einstellungs-Fenster
-            Einstellungen window = new();
-            window.Show();
-        }
-
         public void LöschenKnoten_Click(object sender, RoutedEventArgs e)
         {
             //Suche nach der offenen GraphDarstellung
@@ -313,44 +293,6 @@ namespace Pollux
                     }
                 }
             }
-        }
-
-        private void AlsBildSpeichern_Click(object sender, RoutedEventArgs e)
-        {
-            //Finde den Pfad heraus, wo die Datei gespeichert werden soll
-            string filePath = "";
-            try
-            {
-                //Erstelle einen SaveFileDialog "openFileDialog"
-                SaveFileDialog openFileDialog = new();
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Exchangeable Image File Format (*.exif)|*exif|JPEG-File (*jpg)|*jpg|Portable Network Graphics (*png)|*png|Tagged Image File Format (*tiff)|*tiff";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.FileName = "graph.svg";
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    //Get the path of specified file
-                    filePath = openFileDialog.FileName;
-                }
-
-                if (!(filePath.EndsWith(".svg") || filePath.EndsWith(".bmp") || filePath.EndsWith(".gif") || filePath.EndsWith(".exif") || filePath.EndsWith(".jpg") || filePath.EndsWith(".png") || filePath.EndsWith(".tiff")))
-                {
-                    filePath += ".svg";
-                }
-
-                //Erstelle die Datei in der gewollten Datei
-                if (filePath.EndsWith(".svg"))
-                {
-                    this.GetOpenGraph().SaveAsSVG(filePath);
-                }
-                else
-                {
-                    this.GetOpenGraph().SaveAsBitmap(filePath);
-                }
-            }
-            catch { }
         }
 
         private void GraphCanvas_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)

@@ -14,22 +14,46 @@
         <ResourceDictionary>
             <RoutedUICommand x:Key="Save"/>
             <RoutedUICommand x:Key="SaveAll"/>
+            <RoutedUICommand x:Key="SaveAsPicture"/>
+            <RoutedUICommand x:Key="New"/>
+            <RoutedUICommand x:Key="Open"/>
+            <RoutedUICommand x:Key="Show"/>
+            <RoutedUICommand x:Key="NewWindow"/>
+            <RoutedUICommand x:Key="NewNode"/>
+            <RoutedUICommand x:Key="NewEdge"/>
+            <RoutedUICommand x:Key="Settings"/>
         </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="S" Command="{StaticResource Save}"/>
         <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{StaticResource SaveAll}"/>
+        <KeyBinding Modifiers="Ctrl" Key="P" Command="{StaticResource SaveAsPicture}"/>
+        <KeyBinding Modifiers="Ctrl" Key="N" Command="{StaticResource New}"/>
+        <KeyBinding Modifiers="Ctrl" Key="O" Command="{StaticResource Open}"/>
+        <KeyBinding Key="F5" Command="{StaticResource Show}"/>
+        <KeyBinding Modifiers="Ctrl+Shift" Key="N" Command="{StaticResource NewWindow}"/>
+        <KeyBinding Modifiers="Ctrl" Key="OemPlus" Command="{StaticResource NewNode}"/>
+        <KeyBinding Modifiers="Ctrl+Shift" Key="OemPlus" Command="{StaticResource NewEdge}"/>
+        <KeyBinding Modifiers="Ctrl" Key="I" Command="{StaticResource Settings}"/>
     </Window.InputBindings>
     <Window.CommandBindings>
-        <CommandBinding Command="{StaticResource Save}" Executed="Speichern_Executed"/>
-        <CommandBinding Command="{StaticResource SaveAll}" Executed="AllesSpeichern_Executed"/>
+        <CommandBinding Command="{StaticResource Save}" Executed="Speichern_Click"/>
+        <CommandBinding Command="{StaticResource SaveAll}" Executed="AllesSpeichern_Click"/>
+        <CommandBinding Command="{StaticResource SaveAsPicture}" Executed="AlsBildSpeichern_Click"/>
+        <CommandBinding Command="{StaticResource New}" Executed="Neu_Click"/>
+        <CommandBinding Command="{StaticResource Open}" Executed="Open_Click"/>
+        <CommandBinding Command="{StaticResource Show}" Executed="EigenschaftenFenster_Click"/>
+        <CommandBinding Command="{StaticResource NewWindow}" Executed="NewWindow_Click"/>
+        <CommandBinding Command="{StaticResource NewNode}" Executed="KnotenHinzufügen_Click"/>
+        <CommandBinding Command="{StaticResource NewEdge}" Executed="KanteHinzufügen_Click"/>
+        <CommandBinding Command="{StaticResource Settings}" Executed="Einstellungen_Click"/>
     </Window.CommandBindings>
-    
+
     <DockPanel x:Name="Panel" LastChildFill="True">
         <Menu x:Name="menu" VerticalAlignment="Top" DockPanel.Dock="Top">
             <MenuItem x:Name="Datei" MinHeight="20">
                 <MenuItem x:Name="Speichern" MinHeight="20" Click="Speichern_Click"/>
-                <MenuItem x:Name="AlleSpeichern" MinHeight="20" Click="AlleSpeichern_Click"/>
+                <MenuItem x:Name="AlleSpeichern" MinHeight="20" Click="AllesSpeichern_Click"/>
                 <MenuItem x:Name="AlsSVGSpeichern" MinHeight="20" Click="AlsBildSpeichern_Click"/>
                 <MenuItem x:Name="Öffnen" MinHeight="20" Click="Open_Click"/>
                 <MenuItem x:Name="Neu" MinHeight="20" Click="Neu_Click"/>
@@ -48,7 +72,7 @@
                 <MenuItem x:Name="ZwischenTabsSpringen" MinHeight="20"/>
             </MenuItem>-->
             <MenuItem x:Name="Fenster" MinHeight="20">
-                <MenuItem x:Name="NeuesFenster" MinHeight="20" Click="NewWindow"/>
+                <MenuItem x:Name="NeuesFenster" MinHeight="20" Click="NewWindow_Click"/>
                 <Separator></Separator>
                 <MenuItem x:Name="EinstellungsFenster" MinHeight="20" Click="Einstellungen_Click"/>
                 <MenuItem x:Name="EigenschaftenFenster" MinHeight="20" Click="EigenschaftenFenster_Click"/>
