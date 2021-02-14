@@ -367,6 +367,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Öffne ihre Eigenschaften ähnelt.
+        /// </summary>
+        public static string EigenschaftenKante {
+            get {
+                return ResourceManager.GetString("EigenschaftenKante", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Öffne seine Eigenschaften ähnelt.
+        /// </summary>
+        public static string EigenschaftenKnoten {
+            get {
+                return ResourceManager.GetString("EigenschaftenKnoten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Lade die Eigenschaften des Graphen... ähnelt.
         /// </summary>
         public static string EigenschaftenLaden {

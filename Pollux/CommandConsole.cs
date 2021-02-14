@@ -244,6 +244,7 @@ namespace Pollux
                                 {
                                     //benenne die Kante neu und schreibe es aus
                                     kante.Name = command_splitted[3];
+                                    kante[0].RedrawName();
                                     this.WriteLine("Edge was successfully renamed!");
 
                                     //Setze "changed" auf "true", weil etwas verändert wurde
@@ -262,6 +263,7 @@ namespace Pollux
                             {
                                 //benenne den Knoten neu und schreibe es aus
                                 knoten.Name = command_splitted[3];
+                                knoten.RedrawName();
                                 this.WriteLine("Node was successfully renamed!");
 
                                 //Setze "changed" auf "true", weil etwas verändert wurde

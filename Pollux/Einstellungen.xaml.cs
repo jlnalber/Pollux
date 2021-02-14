@@ -19,7 +19,7 @@ namespace Pollux
                 //Übersetze die Texte
                 #region
                 this.Title = MainWindow.resman.GetString("EinstellungenTitle", MainWindow.cul);
-                //this.Appearance.Header = MainWindow.resman.GetString("Appearance", MainWindow.cul);
+                this.AppearanceHeader.Text = MainWindow.resman.GetString("Appearance", MainWindow.cul);
 
                 this.Node_Design_Text.Text = MainWindow.resman.GetString("Node_Design_Text", MainWindow.cul);
 

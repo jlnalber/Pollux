@@ -219,6 +219,12 @@
   <data name="EigenschaftenFensterÖffnenNachricht" xml:space="preserve">
     <value>Opened the properties window.</value>
   </data>
+  <data name="EigenschaftenKante" xml:space="preserve">
+    <value>Open properties</value>
+  </data>
+  <data name="EigenschaftenKnoten" xml:space="preserve">
+    <value>Open propeties</value>
+  </data>
   <data name="EigenschaftenLaden" xml:space="preserve">
     <value>Loading the graph's properties...</value>
   </data>

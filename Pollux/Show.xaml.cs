@@ -169,10 +169,15 @@ namespace Pollux
 
                 //Tabelle
                 #region
+                int position = this.Graph.GraphKnoten.IndexOf(knoten);
                 List<ElementsKnoten> list = new();
                 for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
                 {
-                    list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, this.Graph[this.Graph.GraphKnoten.IndexOf(knoten), i]));
+                    int contentListe = this.Graph[position, i];
+                    if (contentListe != 0)
+                    {
+                        list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, contentListe));
+                    }
                 }
                 this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
                 this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
@@ -396,5 +401,36 @@ namespace Pollux
             }
             #endregion
         }
+
+        //Methoden, um die Eigenschaften von Kanten und Knoten herauszufinden
+        #region
+        public void OpenNode(string name)
+        {
+            //Gehe zu dem Tab und wähle den Knoten aus
+            this.TabControl.SelectedIndex = 1;
+            this.KnotenPicker.SelectedIndex = this.Graph.GraphKnoten.IndexOf(this.Graph.SucheKnoten(name));
+        }
+
+        public void OpenNode(GraphDarstellung.Knoten knoten)
+        {
+            //Gehe zu dem Tab und wähle den Knoten aus
+            this.TabControl.SelectedIndex = 1;
+            this.KnotenPicker.SelectedIndex = this.Graph.GraphKnoten.IndexOf(knoten);
+        }
+
+        public void OpenEdge(string name)
+        {
+            //Gehe zu dem Tab und wähle die Kante aus
+            this.TabControl.SelectedIndex = 2;
+            this.KantenPicker.SelectedIndex = this.Graph.GraphKanten.IndexOf(this.Graph.SucheKanten(name));
+        }
+
+        public void OpenEdge(GraphDarstellung.Kanten kante)
+        {
+            //Gehe zu dem Tab und wähle die Kante aus
+            this.TabControl.SelectedIndex = 2;
+            this.KantenPicker.SelectedIndex = this.Graph.GraphKanten.IndexOf(kante);
+        }
+        #endregion
     }
 }

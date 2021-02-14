@@ -155,8 +155,8 @@ namespace Pollux.Graph
                     {
                         //Für den Fall, dass es eine ganz normale Kante ist
                         //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                        Thickness marginKnoten0 = ((Knoten)i.Knoten[0]).Ellipse.Margin;
-                        Thickness marginKnoten1 = ((Knoten)i.Knoten[1]).Ellipse.Margin;
+                        Thickness marginKnoten0 = i.Knoten[0].Ellipse.Margin;
+                        Thickness marginKnoten1 = i.Knoten[1].Ellipse.Margin;
                         double height = this.Ellipse.Height;
 
                         //finde dadurch die Position heraus, wo die Kante starten und enden muss
@@ -172,6 +172,15 @@ namespace Pollux.Graph
                         line.X2 = marginKnoten1.Left + height / 2 - x;
                         line.Y2 = marginKnoten1.Top + height / 2 - y;
                     }
+                }
+            }
+
+            //Methode, um den Namen nachzufahren
+            public void RedrawName()
+            {
+                if (this.Label.Content.ToString() != this.Name)
+                {
+                    this.Label.Content = this.Name;
                 }
             }
 
@@ -221,6 +230,11 @@ namespace Pollux.Graph
                 ContextMenu contextMenu = new ContextMenu();
                 ellipse.ContextMenu = contextMenu;
 
+                //MenuItem zum Anzeigen seiner Eigenschaften
+                MenuItem eigenschaften = new();
+                eigenschaften.Header = MainWindow.resman.GetString("EigenschaftenKnoten", MainWindow.cul);
+                eigenschaften.Click += Eigenschaften_Click;
+
                 //MenuItem zum Löschen des Knoten
                 MenuItem löschen = new MenuItem();
                 löschen.Header = MainWindow.resman.GetString("LöschenKnoten", MainWindow.cul);
@@ -253,13 +267,21 @@ namespace Pollux.Graph
                 menuItem4.Header = MainWindow.resman.GetString("EigenschaftenFenster", MainWindow.cul);
 
                 //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
+                contextMenu.Items.Add(eigenschaften);
                 contextMenu.Items.Add(löschen);
                 contextMenu.Items.Add(new Separator());
                 contextMenu.Items.Add(menuItem1);
                 contextMenu.Items.Add(menuItem4);
                 #endregion
 
+                //Rückgabe
                 return ellipse;
+            }
+
+            private void Eigenschaften_Click(object sender, RoutedEventArgs e)
+            {
+                //Falls das MenuItem "eigenschaften" geklickt wurde
+                MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenNode(this);
             }
 
             //Methode, um einen Label zum Knoten zu erstellen

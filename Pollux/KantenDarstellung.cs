@@ -171,6 +171,11 @@ namespace Pollux.Graph
                     ContextMenu contextMenu = new ContextMenu();
                     line.ContextMenu = contextMenu;
 
+                    //MenuItem zum Öffnen der Eigenschaften
+                    MenuItem eigenschaften = new();
+                    eigenschaften.Header = MainWindow.resman.GetString("EigenschaftenKante", MainWindow.cul);
+                    eigenschaften.Click += Eigenschaften_Click;
+             
                     //MenuItem zum Löschen des Knoten
                     MenuItem löschen = new MenuItem();
                     löschen.Header = MainWindow.resman.GetString("LöschenKante", MainWindow.cul);
@@ -203,14 +208,22 @@ namespace Pollux.Graph
                     menuItem4.Header = MainWindow.resman.GetString("EigenschaftenFenster", MainWindow.cul);
 
                     //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
+                    contextMenu.Items.Add(eigenschaften);
                     contextMenu.Items.Add(löschen);
                     contextMenu.Items.Add(new Separator());
                     contextMenu.Items.Add(menuItem1);
                     contextMenu.Items.Add(menuItem4);
                     #endregion
 
+                    //Rückgabe
                     return line;
                 }
+            }
+
+            private void Eigenschaften_Click(object sender, RoutedEventArgs e)
+            {
+                //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
+                MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenEdge(this);
             }
 
             //Indexer

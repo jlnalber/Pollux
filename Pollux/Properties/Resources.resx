@@ -219,6 +219,12 @@
   <data name="EigenschaftenFensterÖffnenNachricht" xml:space="preserve">
     <value>Das Eigenschaften-Fenster wurde geöffnet.</value>
   </data>
+  <data name="EigenschaftenKante" xml:space="preserve">
+    <value>Öffne ihre Eigenschaften</value>
+  </data>
+  <data name="EigenschaftenKnoten" xml:space="preserve">
+    <value>Öffne seine Eigenschaften</value>
+  </data>
   <data name="EigenschaftenLaden" xml:space="preserve">
     <value>Lade die Eigenschaften des Graphen...</value>
   </data>
