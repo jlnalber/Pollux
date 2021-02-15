@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Media;
 using System.Windows.Media;
 
 namespace Pollux
@@ -409,7 +409,7 @@ namespace Pollux
                 this.KnotenContent.Children.Add(this.KnotenKanten);
 
                 this.KnotenContent.Children.Add(this.Knoten_Design_Text);
-;
+                ;
                 this.KnotenContent.Children.Add(this.DataGridKnoten);
             }
             #endregion
