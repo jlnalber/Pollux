@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pollux.Graph
+namespace Pollux
 {
     public partial class GraphDarstellung
     {
@@ -37,9 +37,19 @@ namespace Pollux.Graph
             return this.AddKnoten(new Knoten(this, new List<Kanten>(), name.ToUpper(), this.Canvas));
         }
 
+        public Knoten AddKnoten(string name, double x, double y)
+        {
+            return this.AddKnoten(new Knoten(this, new List<Kanten>(), name.ToUpper(), this.Canvas, x, y));
+        }
+
         public new Knoten AddKnoten()
         {
             return this.AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString());
+        }
+
+        public Knoten AddKnoten(double x, double y)
+        {
+            return this.AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString(), x, y);
         }
         #endregion
 

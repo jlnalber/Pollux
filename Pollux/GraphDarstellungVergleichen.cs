@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pollux.Graph
+namespace Pollux
 {
     public partial class GraphDarstellung
     {

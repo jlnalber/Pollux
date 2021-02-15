@@ -1,5 +1,4 @@
-﻿using Pollux.Graph;
-using Pollux.Properties;
+﻿using Pollux.Properties;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -135,18 +134,18 @@ namespace Pollux
             {
                 //Experimenteller Browser
                 #region
-                /*
-                //füge einen neuen WebBrowser "webBrowser" hinzu, um die HTML-Datei anzuzeigen
+                /*//füge einen neuen WebBrowser "webBrowser" hinzu, um die HTML-Datei anzuzeigen
                 WebBrowser webBrowser = new WebBrowser();
-                webBrowser.Navigate(@"file:\" + Files + @"HTML\HTMLWelcomePage.html");
+                string content = (new StreamReader(Files + @"HTML\index.html")).ReadToEnd();
+                webBrowser.NavigateToString(content);
                 webBrowser.Margin = new Thickness(5);
                 webBrowser.HorizontalAlignment = HorizontalAlignment.Left;
                 webBrowser.VerticalAlignment = VerticalAlignment.Top;
 
                 //Füge den WebBrowser "webBrowser"
-                AddNewTab<WebBrowser>(resman.GetString("Willkommen", cul), webBrowser);*/
+                AddNewTab<WebBrowser>("Pollux", webBrowser);*/
                 #endregion
-
+                
                 //Füge neuen Tab hinzu mit WillkommensContent, falls keine Datei in der Setting "OpenedFiles" liegt
                 Grid grid = new();
 

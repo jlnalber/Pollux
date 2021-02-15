@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Pollux.Graph
+namespace Pollux
 {
     public partial class GraphDarstellung
     {
@@ -80,8 +80,16 @@ namespace Pollux.Graph
                     ellipse.Fill = Brushes.Transparent;
                     ellipse.Height = height;
                     ellipse.Width = height;
-                    Canvas.SetTop(ellipse, 0);
-                    Canvas.SetLeft(ellipse, 0);
+                    if (this.Canvas.Children.Count != 0)
+                    {
+                        Canvas.SetTop(ellipse, Canvas.GetTop(this.Canvas.Children[0]));
+                        Canvas.SetLeft(ellipse, Canvas.GetLeft(this.Canvas.Children[0]));
+                    }
+                    else
+                    {
+                        Canvas.SetTop(ellipse, 0);
+                        Canvas.SetLeft(ellipse, 0);
+                    }
 
                     //lege die Position fest
                     ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
@@ -175,7 +183,7 @@ namespace Pollux.Graph
                     MenuItem eigenschaften = new();
                     eigenschaften.Header = MainWindow.resman.GetString("EigenschaftenKante", MainWindow.cul);
                     eigenschaften.Click += Eigenschaften_Click;
-             
+
                     //MenuItem zum Löschen des Knoten
                     MenuItem löschen = new MenuItem();
                     löschen.Header = MainWindow.resman.GetString("LöschenKante", MainWindow.cul);

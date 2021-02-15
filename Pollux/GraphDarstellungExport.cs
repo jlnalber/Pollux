@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Pollux.Graph
+namespace Pollux
 {
     public partial class GraphDarstellung
     {

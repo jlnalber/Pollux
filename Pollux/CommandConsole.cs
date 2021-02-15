@@ -1,5 +1,4 @@
-﻿using Pollux.Graph;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
@@ -39,10 +38,7 @@ namespace Pollux
             this.lastCommand = command;
 
             //Verändere den Befehle, sodass er Sinn ergibt
-            while (command.Contains("  "))
-            {
-                command = command.Replace("  ", " ");
-            }
+            for (; command.Contains("  "); command = command.Replace("  ", " ")) ;
             command = (command[command.Length - 1] == ' ') ? command.Remove(command.Length - 1).ToUpper() : command.ToUpper(); //entferne Leerzeichen am Ende und mach es groß
 
             //Zeige den Command im Output-Fenster
@@ -89,42 +85,88 @@ namespace Pollux
                 }
                 else if (command_splitted.Length == 2)
                 {
-                    //Ausgabe
-                    this.WriteLine("Adding node \"" + command_splitted[1] + "\"...");
-
-                    //Füge den Knoten hinzu
-                    this.usingGraph.AddKnoten(command_splitted[1]);
-
-                    //Ausgabe
-                    this.WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
-
-                    //Setze "changed" auf "true", weil etwas verändert wurde
-                    changed = true;
-                }
-                else if (command_splitted.Length == 6 && command_splitted[2] == "BETWEEN" && command_splitted[4] == "AND")
-                {
-                    //Ausgabe
-                    this.WriteLine("Adding edge \"" + command_splitted[1] + "\"...");
-
-                    //Erstelle eine Kante und suche nach den angegebenen Knoten
-                    GraphDarstellung.Knoten start = this.usingGraph.SucheKnoten(command_splitted[3]);
-                    GraphDarstellung.Knoten ende = this.usingGraph.SucheKnoten(command_splitted[5]);
-
-                    if (this.usingGraph.GraphKnoten.Contains(start) && this.usingGraph.GraphKnoten.Contains(ende))
+                    try
                     {
-                        //Falls die Knoten tatsächlich existieren, füge die erstellte Kante hinzu
-                        this.usingGraph.AddKante(command_splitted[1], start, ende);
+                        //Ausgabe
+                        this.WriteLine("Adding node \"" + command_splitted[1] + "\"...");
+
+                        //Füge den Knoten hinzu
+                        this.usingGraph.AddKnoten(command_splitted[1]);
 
                         //Ausgabe
-                        this.WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");
+                        this.WriteLine("Node \"" + command_splitted[1] + "\" added... Task complete!");
 
                         //Setze "changed" auf "true", weil etwas verändert wurde
                         changed = true;
                     }
-                    else
+                    catch (GraphDarstellung.GraphExceptions.NameAlreadyExistsException)
                     {
-                        //Falls es keine solche Knoten gibt, gebe eine Error-Nachricht
-                        this.WriteLine("Error: Node \"" + command_splitted[3] + "\" or node \"" + command_splitted[5] + "\" not found!");
+                        //Gebe eine Error-Nachricht
+                        this.WriteLine("Error: Name already exists!");
+                    }
+                }
+                else if (command_splitted.Length == 6 && command_splitted[2] == "BETWEEN" && command_splitted[4] == "AND")
+                {
+                    try
+                    {
+                        //Ausgabe
+                        this.WriteLine("Adding edge \"" + command_splitted[1] + "\"...");
+
+                        //Erstelle eine Kante und suche nach den angegebenen Knoten
+                        GraphDarstellung.Knoten start = this.usingGraph.SucheKnoten(command_splitted[3]);
+                        GraphDarstellung.Knoten ende = this.usingGraph.SucheKnoten(command_splitted[5]);
+
+                        if (this.usingGraph.GraphKnoten.Contains(start) && this.usingGraph.GraphKnoten.Contains(ende))
+                        {
+                            //Falls die Knoten tatsächlich existieren, füge die erstellte Kante hinzu
+                            this.usingGraph.AddKante(command_splitted[1], start, ende);
+
+                            //Ausgabe
+                            this.WriteLine("Edge \"" + command_splitted[1] + "\" added... Task complete!");
+
+                            //Setze "changed" auf "true", weil etwas verändert wurde
+                            changed = true;
+                        }
+                        else
+                        {
+                            //Falls es keine solche Knoten gibt, gebe eine Error-Nachricht
+                            this.WriteLine("Error: Node \"" + command_splitted[3] + "\" or node \"" + command_splitted[5] + "\" not found!");
+                        }
+                    }
+                    catch (GraphDarstellung.GraphExceptions.NameAlreadyExistsException)
+                    {
+                        //Gebe eine Error-Nachricht
+                        this.WriteLine("Error: Name already exists!");
+                    }
+                }
+                else if (command_splitted.Length == 6 && command_splitted[2] == "AT" && command_splitted[4] == "AND")
+                {
+                    try
+                    {
+                        //Versuche die angegebenen Koordinaten in Zahlen umzuwandeln
+                        double x = double.Parse(command_splitted[3]);
+                        double y = double.Parse(command_splitted[5]);
+
+                        //Ausgabe
+                        this.WriteLine("Adding node \"" + command_splitted[1] + "\" at x: " + x + " and y: " + y + " ...");
+
+                        //Füge den Knoten hinzu an der angegebenen Position hinzu
+                        this.usingGraph.AddKnoten(command_splitted[1], x, y);
+
+                        //Ausgabe
+                        this.WriteLine("Node \"" + command_splitted[1] + "\" at x: " + x + " and y: " + y + "  added... Task complete!");
+
+                        //Setze "changed" auf "true", weil etwas verändert wurde
+                        changed = true;
+                    }
+                    catch (GraphDarstellung.GraphExceptions.NameAlreadyExistsException)
+                    {
+                        //Gebe eine Error-Nachricht
+                        this.WriteLine("Error: Name already exists!");
+                    }
+                    catch (FormatException)
+                    {
+                        this.WriteLine("Error: Could not parse the given arguments to numbers!");
                     }
                 }
                 else

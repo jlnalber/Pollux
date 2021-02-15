@@ -1,5 +1,4 @@
-﻿using Pollux.Graph;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Pollux

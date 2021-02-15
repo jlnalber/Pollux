@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Pollux.Graph
+namespace Pollux
 {
     public partial class GraphDarstellung
     {
@@ -17,8 +16,8 @@ namespace Pollux.Graph
             public Ellipse Ellipse;
             public Canvas Canvas;
             public Label Label;
-            public const int LabelToRight = 40;
-            public const int LabelToTop = 20;
+            internal const int LabelToRight = 40;
+            internal const int LabelToTop = 20;
             private delegate void Del();
             private bool IsFocus = false;//Gibt an, ob der Knoten gerade vom Benutzer bewegt wird
 
@@ -43,8 +42,32 @@ namespace Pollux.Graph
                 this.Kanten = kanten;
                 this.Name = name;
 
-                this.Ellipse = CreateVisualNode();
                 this.Canvas = canvas;
+                this.Ellipse = CreateVisualNode();
+                this.Ellipse.MouseMove += this.MouseMove;
+                this.Canvas.MouseMove += this.MouseMove;
+                this.Ellipse.MouseDown += Ellipse_MouseDown;
+                this.Label = CreateLabel();
+
+                canvas.Children.Add(this.Ellipse);
+                canvas.Children.Add(this.Label);
+            }
+
+            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Canvas canvas, double x, double y)
+            {
+                //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
+                if (graph.ContainsKnoten(name))
+                {
+                    throw new GraphExceptions.NameAlreadyExistsException();
+                }
+
+                //lege die Eigenschaften fest
+                this.Parent = graph;
+                this.Kanten = kanten;
+                this.Name = name;
+
+                this.Canvas = canvas;
+                this.Ellipse = CreateVisualNode(x, y);
                 this.Ellipse.MouseMove += this.MouseMove;
                 this.Canvas.MouseMove += this.MouseMove;
                 this.Ellipse.MouseDown += Ellipse_MouseDown;
@@ -67,8 +90,8 @@ namespace Pollux.Graph
                 this.Kanten = kanten;
                 this.Name = name;
 
-                this.Ellipse = ellipse;
                 this.Canvas = canvas;
+                this.Ellipse = ellipse;
                 this.Ellipse.MouseMove += this.MouseMove;
                 this.Canvas.MouseMove += this.MouseMove;
                 this.Ellipse.MouseDown += Ellipse_MouseDown;
@@ -187,6 +210,15 @@ namespace Pollux.Graph
             //Methode um einen Visuellen Knoten zu erstellen
             private Ellipse CreateVisualNode()
             {
+                //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
+                int index = this.Parent.GraphKnoten.Contains(this) ? this.Parent.GraphKnoten.IndexOf(this) : this.Parent.GraphKnoten.Count;
+
+                //Rückgabe
+                return CreateVisualNode((index % 10) * 100 + 20, index / 10 * 100 + 25);
+            }
+
+            private Ellipse CreateVisualNode(double x, double y)
+            {
                 //Lese die Farben in den Einstellungen nach
                 LinearGradientBrush knoten_FarbeFilling = new();
                 if (Properties.Settings.Default.Transition)
@@ -216,13 +248,21 @@ namespace Pollux.Graph
                 ellipse.StrokeThickness = knoten_Border_Thickness;
                 ellipse.Height = knoten_Height;
                 ellipse.Width = knoten_Width;
-                ellipse.Margin = new((index % 10) * 100 + 20, Convert.ToInt32(index / 10) * 100 + 25, 10, 10);
+                ellipse.Margin = new(x, y, 10, 10);
                 ellipse.Cursor = Cursors.Hand;
                 ellipse.HorizontalAlignment = HorizontalAlignment.Left;
                 ellipse.VerticalAlignment = VerticalAlignment.Top;
                 Canvas.SetZIndex(ellipse, 100);
-                Canvas.SetTop(ellipse, 0);
-                Canvas.SetLeft(ellipse, 0);
+                if (this.Canvas.Children.Count != 0)
+                {
+                    Canvas.SetTop(ellipse, Canvas.GetTop(this.Canvas.Children[0]));
+                    Canvas.SetLeft(ellipse, Canvas.GetLeft(this.Canvas.Children[0]));
+                }
+                else
+                {
+                    Canvas.SetTop(ellipse, 0);
+                    Canvas.SetLeft(ellipse, 0);
+                }
 
                 //Füge ein ContextMenu hinzu
                 #region
@@ -278,6 +318,7 @@ namespace Pollux.Graph
                 return ellipse;
             }
 
+            //Methode, die ausgelöst wird, wenn das MenuItem "eigenschaften" gedrückt wird
             private void Eigenschaften_Click(object sender, RoutedEventArgs e)
             {
                 //Falls das MenuItem "eigenschaften" geklickt wurde
@@ -296,8 +337,16 @@ namespace Pollux.Graph
                 label.VerticalAlignment = VerticalAlignment.Top;
                 label.Margin = new(this.Ellipse.Margin.Left + LabelToRight, this.Ellipse.Margin.Top - LabelToTop, 10, 10);
                 Canvas.SetZIndex(label, 100);
-                Canvas.SetTop(label, 0);
-                Canvas.SetLeft(label, 0);
+                if (this.Canvas.Children.Count != 0)
+                {
+                    Canvas.SetTop(label, Canvas.GetTop(this.Canvas.Children[0]));
+                    Canvas.SetLeft(label, Canvas.GetLeft(this.Canvas.Children[0]));
+                }
+                else
+                {
+                    Canvas.SetTop(label, 0);
+                    Canvas.SetLeft(label, 0);
+                }
 
                 return label;
             }

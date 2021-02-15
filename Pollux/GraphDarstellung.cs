@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
 
-namespace Pollux.Graph
+namespace Pollux
 {
-    public partial class GraphDarstellung : Graph
+    public partial class GraphDarstellung : Graph.Graph
     {
         //Members
         public Canvas Canvas;
@@ -19,6 +19,7 @@ namespace Pollux.Graph
             this.Liste = liste;
             this.Name = name;
             this.Canvas = new Canvas();
+            this.Canvas.MouseDown += Canvas_MouseDown;
         }
 
         public GraphDarstellung(List<GraphDarstellung.Knoten> graphKnoten, List<GraphDarstellung.Kanten> graphKanten, int[,] liste, string name, Canvas canvas) : base()
@@ -28,6 +29,7 @@ namespace Pollux.Graph
             this.Liste = liste;
             this.Name = name;
             this.Canvas = canvas;
+            this.Canvas.MouseDown += Canvas_MouseDown;
         }
 
         public GraphDarstellung() : base()
@@ -37,6 +39,7 @@ namespace Pollux.Graph
             this.Liste = new int[0, 0];
             this.Name = "GRAPH";
             this.Canvas = new Canvas();
+            this.Canvas.MouseDown += Canvas_MouseDown;
         }
         #endregion
     }

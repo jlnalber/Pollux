@@ -1,4 +1,4 @@
-﻿namespace Pollux.Graph
+﻿namespace Pollux
 {
     public partial class GraphDarstellung
     {
