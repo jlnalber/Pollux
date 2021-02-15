@@ -145,7 +145,7 @@ namespace Pollux
                 //Füge den WebBrowser "webBrowser"
                 AddNewTab<WebBrowser>("Pollux", webBrowser);*/
                 #endregion
-                
+
                 //Füge neuen Tab hinzu mit WillkommensContent, falls keine Datei in der Setting "OpenedFiles" liegt
                 Grid grid = new();
 
