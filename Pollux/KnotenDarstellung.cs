@@ -121,9 +121,17 @@ namespace Pollux
             #region
             private void Ellipse_MouseDown(object sender, MouseButtonEventArgs e)
             {
-                //Wenn der Knoten gedrückt wird, dann speichere ab, dass das jetzt passiert und bewege die Ellipse, und deren angrenzende Kanten
-                this.IsFocus = true;
-                this.Redraw();
+                if (e.ClickCount == 1)
+                {
+                    //Wenn der Knoten gedrückt wird, dann speichere ab, dass das jetzt passiert und bewege die Ellipse, und deren angrenzende Kanten
+                    this.IsFocus = true;
+                    this.Redraw();
+                }
+                else if (e.ClickCount == 2)
+                {
+                    //Wenn der Knoten doppelt gedrückt wird, dann öffne seine Eigenschaften
+                    MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenNode(this);
+                }
             }
 
             private void MouseMove(object sender, MouseEventArgs e)

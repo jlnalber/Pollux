@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Media;
+using System.Windows.Media;
 
 namespace Pollux
 {
@@ -41,6 +44,30 @@ namespace Pollux
             this.GraphTab.Header = MainWindow.resman.GetString("GraphTab_Header", MainWindow.cul);
             this.UmbennenKnoten.Content = MainWindow.resman.GetString("UmbennenKnoten", MainWindow.cul);
             this.UmbennenKanten.Content = MainWindow.resman.GetString("UmbennenKanten", MainWindow.cul);
+
+            this.Knoten_Design_Text.Header = MainWindow.resman.GetString("Node_Design_Text", MainWindow.cul);
+
+            this.Knoten_DesignFilling_Text.Text = MainWindow.resman.GetString("Node_DesignFilling_Text", MainWindow.cul);
+            this.Slider_RKnoten_Filling_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
+            this.Slider_GKnoten_Filling_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
+            this.Slider_BKnoten_Filling_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
+            this.Slider_AKnoten_Filling_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+            this.Knoten_DesignFilling2_CheckBox.Content = MainWindow.resman.GetString("Node_DesignFilling2_CheckBox", MainWindow.cul);
+            this.Slider_RKnoten_Filling2_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
+            this.Slider_GKnoten_Filling2_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
+            this.Slider_BKnoten_Filling2_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
+            this.Slider_AKnoten_Filling2_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+            this.Knoten_DesignBorder_Text.Text = MainWindow.resman.GetString("Node_DesignBorder_Text", MainWindow.cul);
+            this.Slider_RKnoten_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
+            this.Slider_GKnoten_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
+            this.Slider_BKnoten_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
+            this.Slider_AKnoten_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+            this.Knoten_DesignSizes_Text.Text = MainWindow.resman.GetString("Node_DesignSizes_Text", MainWindow.cul);
+            this.Slider_Knoten_Size_Text.Text = MainWindow.resman.GetString("Slider_Node_Size_Text", MainWindow.cul);
+            this.Slider_Knoten_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Node_SizeStroke_Text", MainWindow.cul);
             #endregion
 
             //Darstellung
@@ -165,6 +192,39 @@ namespace Pollux
                         this.KnotenKanten.Items.Add(listBoxItem);
                     }
                 }
+
+                //Design des Knoten
+                #region
+                //Rufe die Daten ab
+                LinearGradientBrush brushNode = (LinearGradientBrush)knoten.Ellipse.Fill;
+                Color color1 = brushNode.GradientStops[0].Color;
+                Color color2 = brushNode.GradientStops[1].Color;
+                SolidColorBrush brushStrokeNode = (SolidColorBrush)knoten.Ellipse.Stroke;
+                double height = knoten.Ellipse.Height;
+                double strokeThickness = knoten.Ellipse.StrokeThickness;
+
+                //Synchronisiere die Slider mit den Farben
+                this.Slider_AKnoten_Filling.Value = color1.A;
+                this.Slider_RKnoten_Filling.Value = color1.R;
+                this.Slider_GKnoten_Filling.Value = color1.G;
+                this.Slider_BKnoten_Filling.Value = color1.B;
+
+                this.Slider_AKnoten_Filling2.Value = color2.A;
+                this.Slider_RKnoten_Filling2.Value = color2.R;
+                this.Slider_GKnoten_Filling2.Value = color2.G;
+                this.Slider_BKnoten_Filling2.Value = color2.B;
+
+                this.Knoten_DesignFilling2_CheckBox.IsChecked = !(color1.A == color2.A && color1.R == color2.R && color1.G == color2.G && color1.B == color2.B);
+
+                this.Slider_AKnoten_Border.Value = brushStrokeNode.Color.A;
+                this.Slider_RKnoten_Border.Value = brushStrokeNode.Color.R;
+                this.Slider_GKnoten_Border.Value = brushStrokeNode.Color.G;
+                this.Slider_BKnoten_Border.Value = brushStrokeNode.Color.B;
+
+                //Synchronisiere die Slider mit der Dicke und der Größe
+                this.Slider_Knoten_Size.Value = height;
+                this.Slider_Knoten_SizeStroke.Value = strokeThickness;
+                #endregion
 
                 //Tabelle
                 #region
@@ -348,6 +408,8 @@ namespace Pollux
                 this.KnotenContent.Children.Add(this.KnotenKantenText);
                 this.KnotenContent.Children.Add(this.KnotenKanten);
 
+                this.KnotenContent.Children.Add(this.Knoten_Design_Text);
+;
                 this.KnotenContent.Children.Add(this.DataGridKnoten);
             }
             #endregion
@@ -401,7 +463,315 @@ namespace Pollux
             #endregion
         }
 
-        //Methoden, um die Eigenschaften von Kanten und Knoten herauszufinden
+        //Methoden, die für die Darstellung der Knoten verantwortlich sind
+        #region
+        private void Knoten_DesignFilling2_CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Slider_AKnoten_Filling2.IsEnabled = true;
+                this.Slider_RKnoten_Filling2.IsEnabled = true;
+                this.Slider_GKnoten_Filling2.IsEnabled = true;
+                this.Slider_BKnoten_Filling2.IsEnabled = true;
+                this.Slider_AKnoten_Filling2_Text.IsEnabled = true;
+                this.Slider_RKnoten_Filling2_Text.IsEnabled = true;
+                this.Slider_GKnoten_Filling2_Text.IsEnabled = true;
+                this.Slider_BKnoten_Filling2_Text.IsEnabled = true;
+                this.TextBox_AKnoten_Filling2.IsEnabled = true;
+                this.TextBox_RKnoten_Filling2.IsEnabled = true;
+                this.TextBox_GKnoten_Filling2.IsEnabled = true;
+                this.TextBox_BKnoten_Filling2.IsEnabled = true;
+                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+            }
+            catch { }
+        }
+
+        private void Knoten_DesignFilling2_CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Slider_AKnoten_Filling2.IsEnabled = false;
+                this.Slider_RKnoten_Filling2.IsEnabled = false;
+                this.Slider_GKnoten_Filling2.IsEnabled = false;
+                this.Slider_BKnoten_Filling2.IsEnabled = false;
+                this.Slider_AKnoten_Filling2_Text.IsEnabled = false;
+                this.Slider_RKnoten_Filling2_Text.IsEnabled = false;
+                this.Slider_GKnoten_Filling2_Text.IsEnabled = false;
+                this.Slider_BKnoten_Filling2_Text.IsEnabled = false;
+                this.TextBox_AKnoten_Filling2.IsEnabled = false;
+                this.TextBox_RKnoten_Filling2.IsEnabled = false;
+                this.TextBox_GKnoten_Filling2.IsEnabled = false;
+                this.TextBox_BKnoten_Filling2.IsEnabled = false;
+                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+            }
+            catch { }
+        }
+
+        private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                //Finde die Werte heraus
+                #region
+                //Finde die Werte für die Farbe der Füllung der Knoten heraus und runde sie
+                byte knoten_AFill = byte.Parse(Math.Round(this.Slider_AKnoten_Filling.Value).ToString());
+                byte knoten_RFill = byte.Parse(Math.Round(this.Slider_RKnoten_Filling.Value).ToString());
+                byte knoten_GFill = byte.Parse(Math.Round(this.Slider_GKnoten_Filling.Value).ToString());
+                byte knoten_BFill = byte.Parse(Math.Round(this.Slider_BKnoten_Filling.Value).ToString());
+
+                //Finde die Werte für die Farbe der 2. Füllung der Knoten heraus und runde sie
+                byte knoten_AFill2 = byte.Parse(Math.Round(this.Slider_AKnoten_Filling2.Value).ToString());
+                byte knoten_RFill2 = byte.Parse(Math.Round(this.Slider_RKnoten_Filling2.Value).ToString());
+                byte knoten_GFill2 = byte.Parse(Math.Round(this.Slider_GKnoten_Filling2.Value).ToString());
+                byte knoten_BFill2 = byte.Parse(Math.Round(this.Slider_BKnoten_Filling2.Value).ToString());
+
+                //Finde den Wert für die Größe der Knoten heraus
+                double knoten_Size = Math.Round(this.Slider_Knoten_Size.Value, 2);
+                double knoten_SizeStroke = Math.Round(this.Slider_Knoten_SizeStroke.Value, 2);
+
+                //Finde die Werte für die Farbe der Border der Knoten heraus und runde sie
+                byte knoten_AStroke = byte.Parse(Math.Round(this.Slider_AKnoten_Border.Value).ToString());
+                byte knoten_RStroke = byte.Parse(Math.Round(this.Slider_RKnoten_Border.Value).ToString());
+                byte knoten_GStroke = byte.Parse(Math.Round(this.Slider_GKnoten_Border.Value).ToString());
+                byte knoten_BStroke = byte.Parse(Math.Round(this.Slider_BKnoten_Border.Value).ToString());
+                #endregion
+
+                //Lege die gerundeten Werte für die Slider fest, sodass sie keine Gleitkommazahlen enthalten können
+                #region
+                this.Slider_AKnoten_Filling.Value = knoten_AFill;
+                this.Slider_RKnoten_Filling.Value = knoten_RFill;
+                this.Slider_GKnoten_Filling.Value = knoten_GFill;
+                this.Slider_BKnoten_Filling.Value = knoten_BFill;
+                this.Slider_AKnoten_Filling2.Value = knoten_AFill2;
+                this.Slider_RKnoten_Filling2.Value = knoten_RFill2;
+                this.Slider_GKnoten_Filling2.Value = knoten_GFill2;
+                this.Slider_BKnoten_Filling2.Value = knoten_BFill2;
+                this.Slider_AKnoten_Border.Value = knoten_AStroke;
+                this.Slider_RKnoten_Border.Value = knoten_RStroke;
+                this.Slider_GKnoten_Border.Value = knoten_GStroke;
+                this.Slider_BKnoten_Border.Value = knoten_BStroke;
+                #endregion
+
+                //Wende die Änderungen für den Knoten an
+                #region
+                //Suche den Knoten heraus
+                GraphDarstellung.Knoten knoten = this.GetSelectedKnoten();
+
+                //Lege die Höhen/Breiten/Dicken für die Knoten fest
+                knoten.Ellipse.StrokeThickness = knoten_SizeStroke;
+                knoten.Ellipse.Height = knoten_Size;
+                knoten.Ellipse.Width = knoten_Size;
+
+                //Finde die eben berechneten Farben für die Knoten heraus und lege sie fest
+                knoten.Ellipse.Stroke = new SolidColorBrush(Color.FromArgb(knoten_AStroke, knoten_RStroke, knoten_GStroke, knoten_BStroke));
+                if (Knoten_DesignFilling2_CheckBox.IsChecked == true)
+                {
+                    knoten.Ellipse.Fill = new LinearGradientBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), Color.FromArgb(knoten_AFill2, knoten_RFill2, knoten_GFill2, knoten_BFill2), 45);
+                }
+                else
+                {
+
+                    knoten.Ellipse.Fill = new LinearGradientBrush(Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), Color.FromArgb(knoten_AFill, knoten_RFill, knoten_GFill, knoten_BFill), 45);
+                }
+                #endregion
+
+                //Synchronisiere die TextBoxen mit den Slidern
+                #region
+                this.TextBox_AKnoten_Filling.Text = knoten_AFill.ToString();
+                this.TextBox_RKnoten_Filling.Text = knoten_RFill.ToString();
+                this.TextBox_GKnoten_Filling.Text = knoten_GFill.ToString();
+                this.TextBox_BKnoten_Filling.Text = knoten_BFill.ToString();
+                this.TextBox_AKnoten_Filling2.Text = knoten_AFill2.ToString();
+                this.TextBox_RKnoten_Filling2.Text = knoten_RFill2.ToString();
+                this.TextBox_GKnoten_Filling2.Text = knoten_GFill2.ToString();
+                this.TextBox_BKnoten_Filling2.Text = knoten_BFill2.ToString();
+                this.TextBox_AKnoten_Border.Text = knoten_AStroke.ToString();
+                this.TextBox_RKnoten_Border.Text = knoten_RStroke.ToString();
+                this.TextBox_GKnoten_Border.Text = knoten_GStroke.ToString();
+                this.TextBox_BKnoten_Border.Text = knoten_BStroke.ToString();
+                this.TextBox_Knoten_Size.Text = knoten_Size.ToString();
+                this.TextBox_Knoten_SizeStroke.Text = knoten_SizeStroke.ToString();
+                #endregion
+            }
+            catch { }
+        }
+
+        private void TextBoxes_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Falls in einer der TextBoxen "Enter" gedrückt wird, synchronisiere die TextBoxen mit den Slidern
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.SyncSlidersAndTextBoxes(true);
+            }
+        }
+
+        private void TextBoxes_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //Wenn eine TextBox den Fokus verliert, synchronisiere die TextBoxen mit den Slidern
+            this.SyncSlidersAndTextBoxes(true);
+        }
+
+        private void SyncSlidersAndTextBoxes(bool playErrorSound)
+        {
+            bool errorSound = false;//Variable, die angibt, ob nachher wirklich ein Error-Sound gespielt werden muss
+
+            //Knoten-Füllung
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_AKnoten_Filling.Value = byte.Parse(this.TextBox_AKnoten_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_AKnoten_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_AKnoten_Filling.Text = this.Slider_AKnoten_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RKnoten_Filling.Value = byte.Parse(this.TextBox_RKnoten_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RKnoten_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RKnoten_Filling.Text = this.Slider_RKnoten_Filling.Value.ToString();
+            }
+
+            //Knoten-Füllung2
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_AKnoten_Filling2.Value = byte.Parse(this.TextBox_AKnoten_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_AKnoten_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_AKnoten_Filling2.Text = this.Slider_AKnoten_Filling2.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RKnoten_Filling2.Value = byte.Parse(this.TextBox_RKnoten_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RKnoten_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RKnoten_Filling2.Text = this.Slider_RKnoten_Filling2.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GKnoten_Filling2.Value = byte.Parse(this.TextBox_GKnoten_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GKnoten_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GKnoten_Filling2.Text = this.Slider_GKnoten_Filling2.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BKnoten_Filling2.Value = byte.Parse(this.TextBox_BKnoten_Filling2.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BKnoten_Filling2" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BKnoten_Filling2.Text = this.Slider_BKnoten_Filling2.Value.ToString();
+            }
+
+            //Knoten-Stroke
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_AKnoten_Border.Value = byte.Parse(this.TextBox_AKnoten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_AKnoten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_AKnoten_Border.Text = this.Slider_AKnoten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RKnoten_Border.Value = byte.Parse(this.TextBox_RKnoten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RKnoten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RKnoten_Border.Text = this.Slider_RKnoten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GKnoten_Border.Value = byte.Parse(this.TextBox_GKnoten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GKnoten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GKnoten_Border.Text = this.Slider_GKnoten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BKnoten_Border.Value = byte.Parse(this.TextBox_BKnoten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BKnoten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BKnoten_Border.Text = this.Slider_BKnoten_Border.Value.ToString();
+            }
+
+            //Größe der Knoten
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_Knoten_Size.Value = double.Parse(this.TextBox_Knoten_Size.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_Knoten_Size" zurück
+                errorSound = playErrorSound;
+                this.TextBox_Knoten_Size.Text = this.Slider_Knoten_Size.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_Knoten_SizeStroke.Value = double.Parse(this.TextBox_Knoten_SizeStroke.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_Knoten_SizeStroke" zurück
+                errorSound = playErrorSound;
+                this.TextBox_Knoten_SizeStroke.Text = this.Slider_Knoten_SizeStroke.Value.ToString();
+            }
+
+            //Spiele einen Error-Sound, falls etwas schiefging
+            if (errorSound)
+            {
+                SystemSounds.Asterisk.Play();
+            }
+        }
+        #endregion
+
+        //Methoden, um die Eigenschaften von Kanten und Knoten zu öffnen
         #region
         public void OpenNode(string name)
         {

@@ -185,7 +185,7 @@ namespace Pollux
                 Show show = new Show(graph, commandConsole);
                 grid = show.ContentGrid;
                 show.Content = new Grid();
-                grid.Width = 400;
+                grid.Width = 520;
                 DockPanel.SetDock(grid, Dock.Right);
                 dockPanel.Children.Add(grid);
                 show.Close();

@@ -45,12 +45,67 @@
                         <TextBlock x:Name="KnotenKantenText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
                         <ListBox x:Name="KnotenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" MaxHeight="300" MaxWidth="300"/>
 
+                        <TreeViewItem x:Name="Knoten_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="14">
+                            <StackPanel>
+                                <TextBlock x:Name="Knoten_DesignFilling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" FontSize="13"/>
+                                <TextBlock x:Name="Slider_AKnoten_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_AKnoten_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_AKnoten_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_RKnoten_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_RKnoten_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_RKnoten_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_GKnoten_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_GKnoten_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_GKnoten_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_BKnoten_Filling_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_BKnoten_Filling" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_BKnoten_Filling" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+
+                                <CheckBox x:Name="Knoten_DesignFilling2_CheckBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="12" IsChecked="True" Checked="Knoten_DesignFilling2_CheckBox_Checked" Unchecked="Knoten_DesignFilling2_CheckBox_Unchecked"/>
+                                <TextBlock x:Name="Slider_AKnoten_Filling2_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_AKnoten_Filling2" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_AKnoten_Filling2" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_RKnoten_Filling2_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_RKnoten_Filling2" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_RKnoten_Filling2" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_GKnoten_Filling2_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_GKnoten_Filling2" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_GKnoten_Filling2" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_BKnoten_Filling2_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_BKnoten_Filling2" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_BKnoten_Filling2" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+
+                                <TextBlock x:Name="Knoten_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="13"/>
+                                <TextBlock x:Name="Slider_AKnoten_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_AKnoten_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_AKnoten_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_RKnoten_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_RKnoten_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_RKnoten_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_GKnoten_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_GKnoten_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_GKnoten_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_BKnoten_Border_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_BKnoten_Border" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_BKnoten_Border" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+
+                                <TextBlock x:Name="Knoten_DesignSizes_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="13"/>
+                                <TextBlock x:Name="Slider_Knoten_Size_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_Knoten_Size" Maximum="120" Minimum="20" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_Knoten_Size" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                                <TextBlock x:Name="Slider_Knoten_SizeStroke_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+                                <Slider x:Name="Slider_Knoten_SizeStroke" Maximum="12" Minimum="1" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+                                <TextBox x:Name="TextBox_Knoten_SizeStroke" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+                            </StackPanel>
+                        </TreeViewItem>
+
                         <DataGrid x:Name="DataGridKnoten" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,40,0,10" Width="Auto" Height="Auto" MaxWidth="300" MaxColumnWidth="200">
                             <DataGrid.Columns>
-                                <DataGridTextColumn x:Name="Knoten" IsReadOnly="True" Binding="{Binding Node}"/>
+                                <DataGridTextColumn x:Name="Knoten" IsReadOnly="True" Binding="{Binding Knoten}"/>
                                 <DataGridTextColumn IsReadOnly="True" x:Name="Werte" Binding="{Binding Edge}"/>
                             </DataGrid.Columns>
                         </DataGrid>
+
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
