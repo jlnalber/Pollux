@@ -683,6 +683,51 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Design des Knotens ähnelt.
+        /// </summary>
+        public static string Knoten_Design_Text {
+            get {
+                return ResourceManager.GetString("Knoten_Design_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe des Randes des Knotens: ähnelt.
+        /// </summary>
+        public static string Knoten_DesignBorder_Text {
+            get {
+                return ResourceManager.GetString("Knoten_DesignBorder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Füllung des Knotens: ähnelt.
+        /// </summary>
+        public static string Knoten_DesignFilling_Text {
+            get {
+                return ResourceManager.GetString("Knoten_DesignFilling_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Übergang ähnelt.
+        /// </summary>
+        public static string Knoten_DesignFilling2_CheckBox {
+            get {
+                return ResourceManager.GetString("Knoten_DesignFilling2_CheckBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten: ähnelt.
+        /// </summary>
+        public static string Knoten_DesignSizes_Text {
+            get {
+                return ResourceManager.GetString("Knoten_DesignSizes_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Knoten: ähnelt.
         /// </summary>
         public static string Knoten_Preview_Text {
@@ -967,6 +1012,24 @@ namespace Pollux.Properties {
         public static string Slider_Edge_SizeStroke_Text {
             get {
                 return ResourceManager.GetString("Slider_Edge_SizeStroke_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Größe: ähnelt.
+        /// </summary>
+        public static string Slider_Knoten_Size_Text {
+            get {
+                return ResourceManager.GetString("Slider_Knoten_Size_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rand: ähnelt.
+        /// </summary>
+        public static string Slider_Knoten_SizeStroke_Text {
+            get {
+                return ResourceManager.GetString("Slider_Knoten_SizeStroke_Text", resourceCulture);
             }
         }
         

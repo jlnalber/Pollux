@@ -45,29 +45,29 @@ namespace Pollux
             this.UmbennenKnoten.Content = MainWindow.resman.GetString("UmbennenKnoten", MainWindow.cul);
             this.UmbennenKanten.Content = MainWindow.resman.GetString("UmbennenKanten", MainWindow.cul);
 
-            this.Knoten_Design_Text.Header = MainWindow.resman.GetString("Node_Design_Text", MainWindow.cul);
+            this.Knoten_Design_Text.Header = MainWindow.resman.GetString("Knoten_Design_Text", MainWindow.cul);
 
-            this.Knoten_DesignFilling_Text.Text = MainWindow.resman.GetString("Node_DesignFilling_Text", MainWindow.cul);
+            this.Knoten_DesignFilling_Text.Text = MainWindow.resman.GetString("Knoten_DesignFilling_Text", MainWindow.cul);
             this.Slider_RKnoten_Filling_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
             this.Slider_GKnoten_Filling_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
             this.Slider_BKnoten_Filling_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
             this.Slider_AKnoten_Filling_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
 
-            this.Knoten_DesignFilling2_CheckBox.Content = MainWindow.resman.GetString("Node_DesignFilling2_CheckBox", MainWindow.cul);
+            this.Knoten_DesignFilling2_CheckBox.Content = MainWindow.resman.GetString("Knoten_DesignFilling2_CheckBox", MainWindow.cul);
             this.Slider_RKnoten_Filling2_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
             this.Slider_GKnoten_Filling2_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
             this.Slider_BKnoten_Filling2_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
             this.Slider_AKnoten_Filling2_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
 
-            this.Knoten_DesignBorder_Text.Text = MainWindow.resman.GetString("Node_DesignBorder_Text", MainWindow.cul);
+            this.Knoten_DesignBorder_Text.Text = MainWindow.resman.GetString("Knoten_DesignBorder_Text", MainWindow.cul);
             this.Slider_RKnoten_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
             this.Slider_GKnoten_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
             this.Slider_BKnoten_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
             this.Slider_AKnoten_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
 
-            this.Knoten_DesignSizes_Text.Text = MainWindow.resman.GetString("Node_DesignSizes_Text", MainWindow.cul);
-            this.Slider_Knoten_Size_Text.Text = MainWindow.resman.GetString("Slider_Node_Size_Text", MainWindow.cul);
-            this.Slider_Knoten_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Node_SizeStroke_Text", MainWindow.cul);
+            this.Knoten_DesignSizes_Text.Text = MainWindow.resman.GetString("Knoten_DesignSizes_Text", MainWindow.cul);
+            this.Slider_Knoten_Size_Text.Text = MainWindow.resman.GetString("Slider_Knoten_Size_Text", MainWindow.cul);
+            this.Slider_Knoten_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Knoten_SizeStroke_Text", MainWindow.cul);
             #endregion
 
             //Darstellung
@@ -228,19 +228,26 @@ namespace Pollux
 
                 //Tabelle
                 #region
-                int position = this.Graph.GraphKnoten.IndexOf(knoten);
-                List<ElementsKnoten> list = new();
-                for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
+                this.KnotenContent.Children.Remove(this.DataGridKnoten);//Entferne das DataGrid "DataGridKnoten", um sicherzustellen, dass es auch wirklich nicht mehr drin ist.
+
+                //Aktualisiere das DataGrid "DataGridKnoten" auch nur, wenn es auch Verbindungen mit anderen Knoten hat.
+                if (this.GetSelectedKnoten().Grad != 0)
                 {
-                    int contentListe = this.Graph[position, i];
-                    if (contentListe != 0)
+                    int position = this.Graph.GraphKnoten.IndexOf(knoten);
+                    List<ElementsKnoten> list = new();
+                    for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
                     {
-                        list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, contentListe));
+                        int contentListe = this.Graph[position, i];
+                        if (contentListe != 0)
+                        {
+                            list.Add(new ElementsKnoten(this.Graph.GraphKnoten[i].Name, contentListe));
+                        }
                     }
+                    this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
+                    this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
+                    this.DataGridKnoten.ItemsSource = list;
+                    this.KnotenContent.Children.Add(this.DataGridKnoten);//Füge das DataGrid "DataGridKnoten" wieder hinzu
                 }
-                this.Knoten.Header = MainWindow.resman.GetString("Knoten", MainWindow.cul);
-                this.Werte.Header = MainWindow.resman.GetString("Kanten", MainWindow.cul);
-                this.DataGridKnoten.ItemsSource = list;
                 #endregion
             }
             catch { }
@@ -302,7 +309,10 @@ namespace Pollux
         private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
         {
             //Falls der Knoten umbenannt wird
+            int index = this.KnotenPicker.SelectedIndex;//Index des aktuell geöffneten Knotens
             this.CommandConsole.Command("RENAME " + this.GetSelectedKnoten().Name + " TO " + this.KnotenName.Text);
+            this.KnotenName.Text = this.GetSelectedKnoten().Name;
+            this.KnotenPicker.SelectedIndex = index;//Öffne den vorher ausgewählten Knoten
             this.UmbennenKnoten.Visibility = Visibility.Hidden;
         }
 
@@ -322,7 +332,10 @@ namespace Pollux
         private void UmbennenKanten_Click(object sender, RoutedEventArgs e)
         {
             //Falls die Kante umbenannt wird
+            int index = this.KantenPicker.SelectedIndex;//Index der aktuell geöffneten Kante
             this.CommandConsole.Command("RENAME " + this.GetSelectedKante().Name + " TO " + this.KantenName.Text);
+            this.KantenName.Text = this.GetSelectedKante().Name;
+            this.KantenPicker.SelectedIndex = index;//Öffne die vorher ausgewählte Kante
             this.UmbennenKanten.Visibility = Visibility.Hidden;
         }
 
@@ -409,8 +422,15 @@ namespace Pollux
                 this.KnotenContent.Children.Add(this.KnotenKanten);
 
                 this.KnotenContent.Children.Add(this.Knoten_Design_Text);
-                ;
-                this.KnotenContent.Children.Add(this.DataGridKnoten);
+
+                if (this.KnotenContent.Children.Contains(this.DataGridKnoten))
+                {
+                    this.KnotenContent.Children.Remove(this.DataGridKnoten);
+                }
+                if (this.GetSelectedKnoten().Grad != 0)
+                {
+                    this.KnotenContent.Children.Add(this.DataGridKnoten);
+                }
             }
             #endregion
 

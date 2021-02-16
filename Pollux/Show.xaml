@@ -101,7 +101,7 @@
 
                         <DataGrid x:Name="DataGridKnoten" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,40,0,10" Width="Auto" Height="Auto" MaxWidth="300" MaxColumnWidth="200">
                             <DataGrid.Columns>
-                                <DataGridTextColumn x:Name="Knoten" IsReadOnly="True" Binding="{Binding Knoten}"/>
+                                <DataGridTextColumn x:Name="Knoten" IsReadOnly="True" Binding="{Binding Node}"/>
                                 <DataGridTextColumn IsReadOnly="True" x:Name="Werte" Binding="{Binding Edge}"/>
                             </DataGrid.Columns>
                         </DataGrid>

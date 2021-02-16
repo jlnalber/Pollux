@@ -348,6 +348,21 @@
   <data name="KnotenTab_Header" xml:space="preserve">
     <value>Nodes</value>
   </data>
+  <data name="Knoten_DesignBorder_Text" xml:space="preserve">
+    <value>Color of the node's border:</value>
+  </data>
+  <data name="Knoten_DesignFilling2_CheckBox" xml:space="preserve">
+    <value>Transition</value>
+  </data>
+  <data name="Knoten_DesignFilling_Text" xml:space="preserve">
+    <value>Color of the node's filling:</value>
+  </data>
+  <data name="Knoten_DesignSizes_Text" xml:space="preserve">
+    <value>Node:</value>
+  </data>
+  <data name="Knoten_Design_Text" xml:space="preserve">
+    <value>Design of the node</value>
+  </data>
   <data name="Knoten_Preview_Text" xml:space="preserve">
     <value>Preview of the nodes:</value>
   </data>
@@ -413,6 +428,12 @@
   </data>
   <data name="Slider_Edge_SizeStroke_Text" xml:space="preserve">
     <value>Thickness:</value>
+  </data>
+  <data name="Slider_Knoten_SizeStroke_Text" xml:space="preserve">
+    <value>Border:</value>
+  </data>
+  <data name="Slider_Knoten_Size_Text" xml:space="preserve">
+    <value>Size:</value>
   </data>
   <data name="Slider_Node_SizeStroke_Text" xml:space="preserve">
     <value>Border:</value>
