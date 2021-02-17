@@ -4,6 +4,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -68,6 +69,16 @@ namespace Pollux
             this.Knoten_DesignSizes_Text.Text = MainWindow.resman.GetString("Knoten_DesignSizes_Text", MainWindow.cul);
             this.Slider_Knoten_Size_Text.Text = MainWindow.resman.GetString("Slider_Knoten_Size_Text", MainWindow.cul);
             this.Slider_Knoten_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Knoten_SizeStroke_Text", MainWindow.cul);
+
+            this.Kanten_Design_Text.Header = MainWindow.resman.GetString("Kanten_Design_Text", MainWindow.cul);
+            this.Kanten_DesignBorder_Text.Text = MainWindow.resman.GetString("Kanten_DesignBorder_Text", MainWindow.cul);
+            this.Slider_RKanten_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
+            this.Slider_GKanten_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
+            this.Slider_BKanten_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
+            this.Slider_AKanten_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+
+            this.Kanten_DesignSizes_Text.Text = MainWindow.resman.GetString("Kanten_DesignSizes_Text", MainWindow.cul);
+            this.Slider_Kanten_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Kanten_SizeStroke_Text", MainWindow.cul);
             #endregion
 
             //Darstellung
@@ -259,18 +270,45 @@ namespace Pollux
             try
             {
                 //erstelle Kante, welcher die ausgewählte Kante ist
-                GraphDarstellung.Kanten kante = this.Graph.GraphKanten[this.KantenPicker.SelectedIndex];
+                GraphDarstellung.Kanten kante = this.GetSelectedKante();
 
                 //lege die Eigenschaften fest
                 this.KantenName.Text = kante.Name;
                 this.KantenParent.Text = kante.Parent.Name;
                 this.KantenStart.Text = kante[0].Name;
                 this.KantenEnde.Text = kante[1].Name;
+
+                //Design der Kante
+                #region
+                if (kante.Line is Line line)
+                {
+                    Color stroke = ((SolidColorBrush)line.Stroke).Color;
+                    double strokeWidth = Math.Round(line.StrokeThickness, 0);
+                    this.Slider_AKanten_Border.Value = stroke.A;
+                    this.Slider_RKanten_Border.Value = stroke.R;
+                    this.Slider_GKanten_Border.Value = stroke.G;
+                    this.Slider_BKanten_Border.Value = stroke.B;
+                    this.Slider_Kanten_SizeStroke.Value = strokeWidth;
+                }
+                else if (kante.Line is Ellipse ellipse)
+                {
+                    Color stroke = ((SolidColorBrush)ellipse.Stroke).Color;
+                    double strokeWidth = Math.Round(ellipse.StrokeThickness, 0);
+                    this.Slider_AKanten_Border.Value = stroke.A;
+                    this.Slider_RKanten_Border.Value = stroke.R;
+                    this.Slider_GKanten_Border.Value = stroke.G;
+                    this.Slider_BKanten_Border.Value = stroke.B;
+                    this.Slider_Kanten_SizeStroke.Value = strokeWidth;
+                }
+                #endregion
             }
             catch { }
         }
 
-        //private Klasse um die Eigenschaften des Graphens im "DataGrid" darzustellen
+
+        //Records, die die Daten für die DataGrids "KnotenDataGrid" und "DataGrid" übergeben
+        #region
+        //Record, der dem DataGrid "DataGrid" die Daten übergibt
         private record Elements
         {
             public string Eigenschaft { get; set; }
@@ -282,6 +320,7 @@ namespace Pollux
             }
         }
 
+        //Record, der dem DataGrid "KnotenDataGrid" die Daten übergibt
         private record ElementsKnoten
         {
             public string Node { get; set; }
@@ -292,6 +331,8 @@ namespace Pollux
                 this.Edge = edge;
             }
         }
+        #endregion
+
 
         private void KnotenName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -479,9 +520,12 @@ namespace Pollux
 
                 this.GridKanten.Children.Add(this.KantenEndeText);
                 this.GridKanten.Children.Add(this.KantenEnde);
+
+                this.GridKanten.Children.Add(this.Kanten_Design_Text);
             }
             #endregion
         }
+
 
         //Methoden, die für die Darstellung der Knoten verantwortlich sind
         #region
@@ -501,7 +545,7 @@ namespace Pollux
                 this.TextBox_RKnoten_Filling2.IsEnabled = true;
                 this.TextBox_GKnoten_Filling2.IsEnabled = true;
                 this.TextBox_BKnoten_Filling2.IsEnabled = true;
-                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+                this.Sliders_KnotenDarstellung_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
             }
             catch { }
         }
@@ -522,12 +566,12 @@ namespace Pollux
                 this.TextBox_RKnoten_Filling2.IsEnabled = false;
                 this.TextBox_GKnoten_Filling2.IsEnabled = false;
                 this.TextBox_BKnoten_Filling2.IsEnabled = false;
-                this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+                this.Sliders_KnotenDarstellung_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
             }
             catch { }
         }
 
-        private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Sliders_KnotenDarstellung_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             try
             {
@@ -616,22 +660,22 @@ namespace Pollux
             catch { }
         }
 
-        private void TextBoxes_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TextBoxes_KnotenDarstellung_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             //Falls in einer der TextBoxen "Enter" gedrückt wird, synchronisiere die TextBoxen mit den Slidern
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                this.SyncSlidersAndTextBoxes(true);
+                this.SyncSlidersAndTextBoxes_KnotenDarstellung(true);
             }
         }
 
-        private void TextBoxes_LostFocus(object sender, RoutedEventArgs e)
+        private void TextBoxes_KnotenDarstellung_LostFocus(object sender, RoutedEventArgs e)
         {
             //Wenn eine TextBox den Fokus verliert, synchronisiere die TextBoxen mit den Slidern
-            this.SyncSlidersAndTextBoxes(true);
+            this.SyncSlidersAndTextBoxes_KnotenDarstellung(true);
         }
 
-        private void SyncSlidersAndTextBoxes(bool playErrorSound)
+        private void SyncSlidersAndTextBoxes_KnotenDarstellung(bool playErrorSound)
         {
             bool errorSound = false;//Variable, die angibt, ob nachher wirklich ein Error-Sound gespielt werden muss
 
@@ -658,6 +702,30 @@ namespace Pollux
                 //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RKnoten_Filling" zurück
                 errorSound = playErrorSound;
                 this.TextBox_RKnoten_Filling.Text = this.Slider_RKnoten_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GKnoten_Filling.Value = byte.Parse(this.TextBox_GKnoten_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GKnoten_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GKnoten_Filling.Text = this.Slider_GKnoten_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BKnoten_Filling.Value = byte.Parse(this.TextBox_BKnoten_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BKnoten_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BKnoten_Filling.Text = this.Slider_BKnoten_Filling.Value.ToString();
             }
 
             //Knoten-Füllung2
@@ -790,6 +858,154 @@ namespace Pollux
             }
         }
         #endregion
+
+
+        //Methoden, die für die Darstellung der Kanten verantwortlich sind
+        #region
+        private void Sliders_KantenDarstellung_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                //Finde die Werte heraus
+                #region
+                //Finde die Werte für die Farbe der Füllung der Kante heraus und runde sie
+                byte kante_AFill = byte.Parse(Math.Round(this.Slider_AKanten_Border.Value).ToString());
+                byte kante_RFill = byte.Parse(Math.Round(this.Slider_RKanten_Border.Value).ToString());
+                byte kante_GFill = byte.Parse(Math.Round(this.Slider_GKanten_Border.Value).ToString());
+                byte kante_BFill = byte.Parse(Math.Round(this.Slider_BKanten_Border.Value).ToString());
+
+                //Finde den Wert für die Größen der Kante aus
+                double kante_SizeStroke = Math.Round(this.Slider_Kanten_SizeStroke.Value, 2);
+                #endregion
+
+                //Lege die gerundeten Werte für die Slider fest, sodass sie keine Gleitkommazahlen enthalten können
+                #region
+                this.Slider_AKanten_Border.Value = kante_AFill;
+                this.Slider_RKanten_Border.Value = kante_RFill;
+                this.Slider_GKanten_Border.Value = kante_GFill;
+                this.Slider_BKanten_Border.Value = kante_BFill;
+                this.Slider_Kanten_SizeStroke.Value = kante_SizeStroke;
+                #endregion
+
+                //Wende die Änderungen für den Knoten an
+                #region
+                //Suche die ausgewählte Kante
+                GraphDarstellung.Kanten kante = this.GetSelectedKante();
+
+                //Fahre die Farbe der Kante nach
+                if (kante.Line is Line line)
+                {
+                    line.Stroke = new SolidColorBrush(Color.FromArgb(kante_AFill, kante_RFill, kante_GFill, kante_BFill));
+                    line.StrokeThickness = kante_SizeStroke;
+                }
+                else if (kante.Line is Ellipse ellipse)
+                {
+                    ellipse.Stroke = new SolidColorBrush(Color.FromArgb(kante_AFill, kante_RFill, kante_GFill, kante_BFill));
+                    ellipse.StrokeThickness = kante_SizeStroke;
+                }
+                #endregion
+
+                //Synchronisiere die TextBoxen mit den Slidern
+                #region
+                this.TextBox_AKanten_Border.Text = kante_AFill.ToString();
+                this.TextBox_RKanten_Border.Text = kante_RFill.ToString();
+                this.TextBox_GKanten_Border.Text = kante_GFill.ToString();
+                this.TextBox_BKanten_Border.Text = kante_BFill.ToString();
+                this.TextBox_Kanten_SizeStroke.Text = kante_SizeStroke.ToString();
+                #endregion
+            }
+            catch { }
+        }
+
+        private void TextBoxes_KantenDarstellung_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //Falls in einer der TextBoxen "Enter" gedrückt wird, synchronisiere die TextBoxen mit den Slidern
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.SyncSlidersAndTextBoxes_KantenDarstellung(true);
+            }
+        }
+
+        private void TextBoxes_KantenDarstellung_LostFocus(object sender, RoutedEventArgs e)
+        {
+            //Wenn eine TextBox den Fokus verliert, synchronisiere die TextBoxen mit den Slidern
+            this.SyncSlidersAndTextBoxes_KantenDarstellung(true);
+        }
+
+        private void SyncSlidersAndTextBoxes_KantenDarstellung(bool playErrorSound)
+        {
+            bool errorSound = false;//Variable, die angibt, ob nachher wirklich ein Error-Sound gespielt werden muss
+
+            //Kanten-Stroke
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_AKanten_Border.Value = byte.Parse(this.TextBox_AKanten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_AEdge_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_AKanten_Border.Text = this.Slider_AKanten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_RKanten_Border.Value = byte.Parse(this.TextBox_RKanten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_RKanten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_RKanten_Border.Text = this.Slider_RKanten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GKanten_Border.Value = byte.Parse(this.TextBox_GKanten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GKanten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GKanten_Border.Text = this.Slider_GKanten_Border.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BKanten_Border.Value = byte.Parse(this.TextBox_BKanten_Border.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BKanten_Border" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BKanten_Border.Text = this.Slider_BKanten_Border.Value.ToString();
+            }
+
+            //Dicke der Kanten
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_Kanten_SizeStroke.Value = double.Parse(this.TextBox_Kanten_SizeStroke.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den Wert in der TextBox "TextBox_Kanten_SizeStroke" zurück
+                errorSound = playErrorSound;
+                this.TextBox_Kanten_SizeStroke.Text = this.Slider_Kanten_SizeStroke.Value.ToString();
+            }
+
+            //Spiele einen Error-Sound, falls etwas schiefging
+            if (errorSound)
+            {
+                SystemSounds.Asterisk.Play();
+            }
+        }
+        #endregion
+
 
         //Methoden, um die Eigenschaften von Kanten und Knoten zu öffnen
         #region

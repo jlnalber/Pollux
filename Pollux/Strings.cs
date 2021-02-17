@@ -234,5 +234,18 @@ namespace Pollux
         {
             return number.ToString().Replace(',', '.');
         }
+
+        public static double Bigger(double number1, double number2)
+        {
+            if (number1 > number2)
+            {
+                return number1;
+            }
+            else if (number2 > number1)
+            {
+                return number2;
+            }
+            return number1;
+        }
     }
 }

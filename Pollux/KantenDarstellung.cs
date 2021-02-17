@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -148,22 +149,40 @@ namespace Pollux
                     //Erstelle die visuelle Kante "kanten"
 
                     //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = ((Knoten)this.Knoten[0]).Ellipse.Margin;
-                    Thickness marginKnoten1 = ((Knoten)this.Knoten[1]).Ellipse.Margin;
-                    double height = knoten_Height;
+                    Thickness marginKnoten0 = this.Knoten[0].Ellipse.Margin;
+                    Thickness marginKnoten1 = this.Knoten[1].Ellipse.Margin;
+                    double height = this.Knoten[0].Ellipse.Height;
 
                     //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                    const int maxDistance = 20;
-                    double x = (marginKnoten1.Left - marginKnoten0.Left) * 0.08;
-                    x = (x > maxDistance) ? maxDistance : (x < -maxDistance) ? -maxDistance : x;
-                    double y = (marginKnoten1.Top - marginKnoten0.Top) * 0.1;
-                    y = (y > maxDistance) ? maxDistance : (y < -maxDistance) ? -maxDistance : y;
+                    const double maxDistance = 20;
+                    double distance = Strings.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
+                    distance = (distance > maxDistance) ? maxDistance : distance;
+                    double y = Math.Sqrt(distance * distance / (Math.Pow(Math.Abs((marginKnoten0.Left - marginKnoten1.Left) / (marginKnoten0.Top - marginKnoten1.Top)), 2) + 1));
+                    double x = Math.Sqrt(distance * distance - y * y);
+                    y = !(y > 0) ? 0 : y;
+                    x = !(x > 0) ? 0 : x;
 
                     //schreibe diese Eigenschaften in die Linie
-                    line.X1 = marginKnoten0.Left + height / 2 + x;
-                    line.Y1 = marginKnoten0.Top + height / 2 + y;
-                    line.X2 = marginKnoten1.Left + height / 2 - x;
-                    line.Y2 = marginKnoten1.Top + height / 2 - y;
+                    if (marginKnoten0.Top > marginKnoten1.Top)
+                    {
+                        line.Y1 = marginKnoten0.Top + height / 2 - y;
+                        line.Y2 = marginKnoten1.Top + height / 2 + y;
+                    }
+                    else
+                    {
+                        line.Y1 = marginKnoten0.Top + height / 2 + y;
+                        line.Y2 = marginKnoten1.Top + height / 2 - y;
+                    }
+                    if (marginKnoten0.Left > marginKnoten1.Left)
+                    {
+                        line.X1 = marginKnoten0.Left + height / 2 - x;
+                        line.X2 = marginKnoten1.Left + height / 2 + x;
+                    }
+                    else
+                    {
+                        line.X1 = marginKnoten0.Left + height / 2 + x;
+                        line.X2 = marginKnoten1.Left + height / 2 - x;
+                    }
                     Canvas.SetTop(line, 0);
                     Canvas.SetLeft(line, 0);
 

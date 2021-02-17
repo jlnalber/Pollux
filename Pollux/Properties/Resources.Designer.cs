@@ -575,6 +575,33 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Design der Kante ähnelt.
+        /// </summary>
+        public static string Kanten_Design_Text {
+            get {
+                return ResourceManager.GetString("Kanten_Design_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Farbe der Kante ähnelt.
+        /// </summary>
+        public static string Kanten_DesignBorder_Text {
+            get {
+                return ResourceManager.GetString("Kanten_DesignBorder_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kante: ähnelt.
+        /// </summary>
+        public static string Kanten_DesignSizes_Text {
+            get {
+                return ResourceManager.GetString("Kanten_DesignSizes_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Kanten: ähnelt.
         /// </summary>
         public static string Kanten_Preview_Text {
@@ -1012,6 +1039,15 @@ namespace Pollux.Properties {
         public static string Slider_Edge_SizeStroke_Text {
             get {
                 return ResourceManager.GetString("Slider_Edge_SizeStroke_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Dicke: ähnelt.
+        /// </summary>
+        public static string Slider_Kanten_SizeStroke_Text {
+            get {
+                return ResourceManager.GetString("Slider_Kanten_SizeStroke_Text", resourceCulture);
             }
         }
         

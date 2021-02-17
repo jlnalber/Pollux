@@ -313,6 +313,15 @@
   <data name="KantenTab_Header" xml:space="preserve">
     <value>Kanten</value>
   </data>
+  <data name="Kanten_DesignBorder_Text" xml:space="preserve">
+    <value>Farbe der Kante</value>
+  </data>
+  <data name="Kanten_DesignSizes_Text" xml:space="preserve">
+    <value>Kante:</value>
+  </data>
+  <data name="Kanten_Design_Text" xml:space="preserve">
+    <value>Design der Kante</value>
+  </data>
   <data name="Kanten_Preview_Text" xml:space="preserve">
     <value>Vorschau der Kanten:</value>
   </data>
@@ -431,6 +440,9 @@
     <value>Schließen</value>
   </data>
   <data name="Slider_Edge_SizeStroke_Text" xml:space="preserve">
+    <value>Dicke:</value>
+  </data>
+  <data name="Slider_Kanten_SizeStroke_Text" xml:space="preserve">
     <value>Dicke:</value>
   </data>
   <data name="Slider_Knoten_SizeStroke_Text" xml:space="preserve">

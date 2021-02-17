@@ -196,7 +196,7 @@
     <value>Open a file</value>
   </data>
   <data name="Edge_DesignBorder_Text" xml:space="preserve">
-    <value>Color of the edge:</value>
+    <value>Color of the edges:</value>
   </data>
   <data name="Edge_DesignSizes_Text" xml:space="preserve">
     <value>Edges:</value>
@@ -308,6 +308,15 @@
   </data>
   <data name="KantenTab_Header" xml:space="preserve">
     <value>Edges</value>
+  </data>
+  <data name="Kanten_DesignBorder_Text" xml:space="preserve">
+    <value>Color of the edge:</value>
+  </data>
+  <data name="Kanten_DesignSizes_Text" xml:space="preserve">
+    <value>Edge:</value>
+  </data>
+  <data name="Kanten_Design_Text" xml:space="preserve">
+    <value>Design of the edge</value>
   </data>
   <data name="Kanten_Preview_Text" xml:space="preserve">
     <value>Preview of edges:</value>
@@ -427,6 +436,9 @@
     <value>Close</value>
   </data>
   <data name="Slider_Edge_SizeStroke_Text" xml:space="preserve">
+    <value>Thickness:</value>
+  </data>
+  <data name="Slider_Kanten_SizeStroke_Text" xml:space="preserve">
     <value>Thickness:</value>
   </data>
   <data name="Slider_Knoten_SizeStroke_Text" xml:space="preserve">

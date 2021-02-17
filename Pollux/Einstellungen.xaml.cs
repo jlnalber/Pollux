@@ -277,6 +277,30 @@ namespace Pollux
                 this.TextBox_RNode_Filling.Text = this.Slider_RNode_Filling.Value.ToString();
             }
 
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_GNode_Filling.Value = byte.Parse(this.TextBox_GNode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_GNode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_GNode_Filling.Text = this.Slider_GNode_Filling.Value.ToString();
+            }
+
+            try
+            {
+                //Versuche den Wert des Sliders auf den Wert der TextBox zu setzten
+                this.Slider_BNode_Filling.Value = byte.Parse(this.TextBox_BNode_Filling.Text);
+            }
+            catch
+            {
+                //Spiele einen Error-Sound (erst später, damit nicht mehrere auf einmal), falls der Wert nicht umgewandelt werden konnte und es gewollt ist, und setze dann den wert in der TextBox "TextBox_BNode_Filling" zurück
+                errorSound = playErrorSound;
+                this.TextBox_BNode_Filling.Text = this.Slider_BNode_Filling.Value.ToString();
+            }
+
             //Knoten-Füllung2
             try
             {
