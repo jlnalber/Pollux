@@ -169,7 +169,7 @@ namespace Pollux
             try
             {
                 //erstelle Knoten, welcher der ausgewählte Knoten ist
-                GraphDarstellung.Knoten knoten = this.Graph.GraphKnoten[this.KnotenPicker.SelectedIndex];
+                GraphDarstellung.Knoten knoten = this.GetSelectedKnoten();
 
                 //lege die Eigenschaften fest
                 this.KnotenName.Text = knoten.Name;

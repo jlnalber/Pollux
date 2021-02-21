@@ -247,5 +247,85 @@ namespace Pollux
             }
             return number1;
         }
+
+        public static int ToNumber(string text)
+        {
+            return int.Parse(ToNumberAsString(text));
+        }
+
+        public static double ToDoubleEN(string text)
+        {
+            return double.Parse(ToDoubleAsStringEN(text));
+        }
+
+        public static double ToDoubleDE(string text)
+        {
+            return double.Parse(ToDoubleAsStringDE(text));
+        }
+
+        public static double ToDouble(string text)
+        {
+            return double.Parse(ToDoubleAsString(text));
+        }
+
+        public static string ToNumberAsString(string text)
+        {
+            string numbers = "0123456789";
+            string newText = "";
+            foreach (char i in text)
+            {
+                if (numbers.Contains(i)) newText += i;
+            }
+
+            return newText;
+        }
+
+        public static string ToDoubleAsStringEN(string text)
+        {
+            string numbers = "0123456789";
+            string newText = "";
+            foreach (char i in text)
+            {
+                if (i == '.' && !newText.Contains('.'))
+                {
+                    newText += '.';
+                }
+                else if (numbers.Contains(i)) newText += i;
+            }
+
+            return newText;
+        }
+
+        public static string ToDoubleAsStringDE(string text)
+        {
+            string numbers = "0123456789";
+            string newText = "";
+            foreach (char i in text)
+            {
+                if (i == ',' && !newText.Contains('.'))
+                {
+                    newText += '.';
+                }
+                else if (numbers.Contains(i)) newText += i;
+            }
+
+            return newText;
+        }
+
+        public static string ToDoubleAsString(string text)
+        {
+            string numbers = "0123456789";
+            string newText = "";
+            foreach (char i in text)
+            {
+                if ((i == '.' || i == ',') && !newText.Contains('.'))
+                {
+                    newText += '.';
+                }
+                else if (numbers.Contains(i)) newText += i;
+            }
+
+            return newText;
+        }
     }
 }

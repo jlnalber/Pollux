@@ -250,6 +250,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Konsole ähnelt.
+        /// </summary>
+        public static string ConsoleHeaderText {
+            get {
+                return ResourceManager.GetString("ConsoleHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Datei ähnelt.
         /// </summary>
         public static string Datei {
@@ -466,6 +475,24 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Schriftart: ähnelt.
+        /// </summary>
+        public static string FontFamilyPickerText {
+            get {
+                return ResourceManager.GetString("FontFamilyPickerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Schriftgröße: ähnelt.
+        /// </summary>
+        public static string FontSizeBoxText {
+            get {
+                return ResourceManager.GetString("FontSizeBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die G (Grün): ähnelt.
         /// </summary>
         public static string G {
@@ -525,6 +552,15 @@ namespace Pollux.Properties {
         public static string GraphTab_Header {
             get {
                 return ResourceManager.GetString("GraphTab_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Darstellung der Konsole ähnelt.
+        /// </summary>
+        public static string HeaderConsoleText {
+            get {
+                return ResourceManager.GetString("HeaderConsoleText", resourceCulture);
             }
         }
         
@@ -1007,6 +1043,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau: ähnelt.
+        /// </summary>
+        public static string PreviewConsoleText {
+            get {
+                return ResourceManager.GetString("PreviewConsoleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die R (Rot): ähnelt.
         /// </summary>
         public static string R {
@@ -1147,6 +1192,15 @@ namespace Pollux.Properties {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Um Änderungen anzuwenden muss die Anwendung neugestartet werden. ähnelt.
+        /// </summary>
+        public static string ToolTipApply {
+            get {
+                return ResourceManager.GetString("ToolTipApply", resourceCulture);
             }
         }
         

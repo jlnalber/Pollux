@@ -139,7 +139,25 @@
                     </Grid>
                 </TabItem.Header>
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    
+                    <Grid Margin="10,10,10,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock x:Name="HeaderConsoleText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="17"/>
+                            <TextBlock x:Name="FontFamilyPickerText" Margin="10,35,0,0" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <ComboBox x:Name="FontFamilyPicker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Padding="5" Margin="100,-20,0,0">
+                                <ComboBoxItem x:Name="FontFamilyConsolas" Content="Consolas" FontFamily="Consolas"></ComboBoxItem>
+                                <ComboBoxItem x:Name="FontFamilyCourierNew" Content="Courier New" FontFamily="Courier New"></ComboBoxItem>
+                                <ComboBoxItem x:Name="FontFamilyLucidaConsole" Content="Lucida Console" FontFamily="Lucida Console"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock x:Name="FontSizeBoxText" Margin="10,30,0,0" Height="17" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBox x:Name="FontSizeBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Padding="5" SelectionChanged="Font_SelectionChanged" Margin="100,-22,0,0"></TextBox>
+                        </StackPanel>
+                        <TextBlock x:Name="PreviewConsoleText" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" FontSize="16"/>
+                        <TextBox x:Name="PreviewConsole" Grid.Column="1" Padding="5" Margin="5,45,5,5" HorizontalAlignment="Left" VerticalAlignment="Top" Text="ADD NODE" AcceptsReturn="False" MaxWidth="300" MinWidth="100"/>
+                    </Grid>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

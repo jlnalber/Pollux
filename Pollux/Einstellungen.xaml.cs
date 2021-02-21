@@ -56,13 +56,20 @@ namespace Pollux
                 this.Slider_Edge_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Edge_SizeStroke_Text", MainWindow.cul);
 
                 this.Apply.Content = MainWindow.resman.GetString("Apply", MainWindow.cul);
+                this.Apply.ToolTip = MainWindow.resman.GetString("ToolTipApply", MainWindow.cul);
                 this.Preview_Text.Text = MainWindow.resman.GetString("Preview_Text", MainWindow.cul);
                 this.Knoten_Preview_Text.Text = MainWindow.resman.GetString("Knoten_Preview_Text", MainWindow.cul);
                 this.Kanten_Preview_Text.Text = MainWindow.resman.GetString("Kanten_Preview_Text", MainWindow.cul);
                 this.KantenSchlinge_Preview_Text.Text = MainWindow.resman.GetString("KantenSchlinge_Preview_Text", MainWindow.cul);
+
+                this.ConsoleHeader.Text = MainWindow.resman.GetString("ConsoleHeaderText", MainWindow.cul);
+                this.HeaderConsoleText.Text = MainWindow.resman.GetString("HeaderConsoleText", MainWindow.cul);
+                this.FontFamilyPickerText.Text = MainWindow.resman.GetString("FontFamilyPickerText", MainWindow.cul);
+                this.FontSizeBoxText.Text = MainWindow.resman.GetString("FontSizeBoxText", MainWindow.cul);
+                this.PreviewConsoleText.Text = MainWindow.resman.GetString("PreviewConsoleText", MainWindow.cul);
                 #endregion
 
-                //Stelle die Slider (je nach Einstellung) ein
+                //Stelle die Slider je nach Einstellung ein
                 #region
                 this.Slider_RNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.R;
                 this.Slider_GNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.G;
@@ -91,6 +98,25 @@ namespace Pollux
                 this.Slider_Edge_SizeStroke.Value = Properties.Settings.Default.Kanten_Thickness;
                 #endregion
 
+                //Einstellungen für die Konsole
+                #region
+                switch (Properties.Settings.Default.FontConsole)
+                {
+                    case "Consolas": this.FontFamilyPicker.SelectedItem = this.FontFamilyConsolas; break;
+                    case "Courier New": this.FontFamilyPicker.SelectedItem = this.FontFamilyCourierNew; break;
+                    case "Lucida Console": this.FontFamilyPicker.SelectedItem = this.FontFamilyLucidaConsole; break;
+                }
+
+                FontFamily fontFamily = new(this.FontFamilyPicker.Text);
+                double fontSize = Properties.Settings.Default.FontSizeConsole;
+                this.FontFamilyPicker.FontFamily = fontFamily;
+                this.PreviewConsole.FontFamily = fontFamily;
+                this.FontSizeBox.Text = fontSize.ToString();
+                this.PreviewConsole.FontSize = fontSize;
+                #endregion
+
+                this.FontFamilyPicker.SelectionChanged += this.Font_SelectionChanged;
+
                 //Stelle die TextBoxes nach den Slidern ein
                 this.SyncSlidersAndTextBoxes(false);
             }
@@ -112,6 +138,12 @@ namespace Pollux
             Properties.Settings.Default.Knoten_Border_Thickness = this.Slider_Node_SizeStroke.Value;
             Properties.Settings.Default.Kanten_Thickness = this.Slider_Edge_SizeStroke.Value;
             Properties.Settings.Default.Transition = this.Node_DesignFilling2_CheckBox.IsChecked == true;
+            Properties.Settings.Default.FontConsole = this.FontFamilyPicker.Text;
+            try
+            {
+                Properties.Settings.Default.FontSizeConsole = double.Parse(this.FontSizeBox.Text);
+            }
+            catch { }
 
             //Speichere ab
             Properties.Settings.Default.Save();
@@ -533,6 +565,44 @@ namespace Pollux
                 this.Sliders_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
             }
             catch { }
+        }
+
+        private void Font_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //FontFamily "fontFamily"
+                FontFamily fontFamily = new("");
+                if (this.FontFamilyPicker.SelectedItem == this.FontFamilyConsolas)
+                {
+                    fontFamily = new("Consolas");
+                }
+                else if (this.FontFamilyPicker.SelectedItem == this.FontFamilyCourierNew)
+                {
+                    fontFamily = new("Courier New");
+                }
+                else if (this.FontFamilyPicker.SelectedItem == this.FontFamilyLucidaConsole)
+                {
+                    fontFamily = new("Lucida Console");
+                }
+                this.FontFamilyPicker.FontFamily = fontFamily;
+                this.PreviewConsole.FontFamily = fontFamily;
+
+                //FontSize
+                if (double.Parse(this.FontSizeBox.Text) > 512)
+                {
+                    this.FontSizeBox.Text = "512";
+                    this.FontSizeBox.SelectAll();
+                }
+                this.FontSizeBox.Text = Strings.ToNumberAsString(this.FontSizeBox.Text);
+                this.PreviewConsole.FontSize = double.Parse(this.FontSizeBox.Text);
+            }
+            catch
+            {
+                //Bei einem Fehler einfach zurücksetzen
+                this.FontSizeBox.Text = "15";
+                this.FontSizeBox.SelectAll();
+            }
         }
     }
 }

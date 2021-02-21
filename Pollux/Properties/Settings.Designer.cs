@@ -154,5 +154,29 @@ namespace Pollux.Properties {
                 this["Transition"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Consolas")]
+        public string FontConsole {
+            get {
+                return ((string)(this["FontConsole"]));
+            }
+            set {
+                this["FontConsole"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public double FontSizeConsole {
+            get {
+                return ((double)(this["FontSizeConsole"]));
+            }
+            set {
+                this["FontSizeConsole"] = value;
+            }
+        }
     }
 }

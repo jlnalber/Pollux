@@ -180,6 +180,9 @@
   <data name="CircleTemplate_Text" xml:space="preserve">
     <value>Ein Kreis mit n-Knoten.</value>
   </data>
+  <data name="ConsoleHeaderText" xml:space="preserve">
+    <value>Konsole</value>
+  </data>
   <data name="Datei" xml:space="preserve">
     <value>Datei</value>
   </data>
@@ -252,6 +255,12 @@
   <data name="Fenster" xml:space="preserve">
     <value>Fenster</value>
   </data>
+  <data name="FontFamilyPickerText" xml:space="preserve">
+    <value>Schriftart:</value>
+  </data>
+  <data name="FontSizeBoxText" xml:space="preserve">
+    <value>Schriftgröße:</value>
+  </data>
   <data name="G" xml:space="preserve">
     <value>G (Grün):</value>
   </data>
@@ -272,6 +281,9 @@
   </data>
   <data name="GraphÖffnen" xml:space="preserve">
     <value>Öffne einen Graphen (.poll-Datei)</value>
+  </data>
+  <data name="HeaderConsoleText" xml:space="preserve">
+    <value>Darstellung der Konsole</value>
   </data>
   <data name="Hilfe" xml:space="preserve">
     <value>Hilfe</value>
@@ -427,6 +439,9 @@
   <data name="NothingTemplate_Text" xml:space="preserve">
     <value>Ein leerer Graph ohne eine Vorlage.</value>
   </data>
+  <data name="PreviewConsoleText" xml:space="preserve">
+    <value>Vorschau:</value>
+  </data>
   <data name="Preview_Text" xml:space="preserve">
     <value>Vorschau:</value>
   </data>
@@ -477,6 +492,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Pollux - neues Fenster</value>
+  </data>
+  <data name="ToolTipApply" xml:space="preserve">
+    <value>Um Änderungen anzuwenden muss die Anwendung neugestartet werden.</value>
   </data>
   <data name="UmbennenKanten" xml:space="preserve">
     <value>Kante umbennen</value>

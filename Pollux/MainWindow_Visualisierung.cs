@@ -50,13 +50,18 @@ namespace Pollux
                 outputThickness.Top = 5;
                 outputThickness.Bottom = 5;
 
+                //FontFamily "font"
+                FontFamily font = new(Properties.Settings.Default.FontConsole);
+
                 //Konsolen-Ausgabe (große TextBox)
                 System.Windows.Controls.TextBox consoleOutput = new System.Windows.Controls.TextBox();
                 consoleOutput.IsReadOnly = true;
                 consoleOutput.Margin = outputThickness;
                 consoleOutput.Padding = outputThickness;
-                consoleOutput.FontFamily = new FontFamily("Consolas");
-                consoleOutput.FontSize = 15;
+                consoleOutput.FontFamily = font;
+                consoleOutput.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                consoleOutput.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                consoleOutput.FontSize = Properties.Settings.Default.FontSizeConsole;
 
                 //Thickness (margin und padding) für Eingabe-Konsole
                 Thickness inputThickness = new Thickness();
@@ -71,8 +76,8 @@ namespace Pollux
                 consoleInput.AcceptsReturn = false;
                 consoleInput.Padding = inputThickness;
                 consoleInput.Margin = inputThickness;
-                consoleInput.FontFamily = new FontFamily("Consolas");
-                consoleInput.FontSize = 15;
+                consoleInput.FontFamily = font;
+                consoleInput.FontSize = Properties.Settings.Default.FontSizeConsole;
 
                 //setze die "Dock"-Eigenschaft für die Elemente
                 DockPanel.SetDock(consoleOutput, Dock.Top);

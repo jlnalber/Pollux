@@ -21,7 +21,9 @@ namespace Pollux
                     point.Y -= Properties.Settings.Default.Knoten_Höhe / 2 + canvasTop;
 
                     //Gebe der CommandConsole den Befehl den Knoten hinzuzufügen
-                    MainWindow.main.GetOpenConsole().Command("ADD NODE" + this.GraphKnoten.Count + " AT " + point.X + " AND " + point.Y);
+                    int number = this.GraphKnoten.Count;
+                    for (; this.SucheKnoten("NODE" + number) != null; number++) ;
+                    MainWindow.main.GetOpenConsole().Command("ADD NODE" + number + " AT " + point.X + " AND " + point.Y);
                 }
                 catch { }
             }
