@@ -1,0 +1,97 @@
+﻿<Window x:Class="Pollux.GraphAuswahl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pollux"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow"
+        Title="GraphAuswahl" Height="600" Width="600" MaxWidth="700" MinWidth="400" MinHeight="300" MaxHeight="1000">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TreeViewItem x:Name="LetzteDateiHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24">
+                <ListBox x:Name="LetzteDatei" HorizontalAlignment="Left" Height="Auto" Margin="0,10,0,0" VerticalAlignment="Top" Width="Auto" Background="Transparent" BorderBrush="Transparent" MaxWidth="600"/>
+            </TreeViewItem>
+            <TreeViewItem x:Name="DateiÖffnen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" Width="389">
+                <TextBlock x:Name="DateiSpeicherortText" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+                <TextBox x:Name="DateiSpeicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
+                <Button x:Name="DateiDurchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" Padding="3" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="DateiDurchsuchen_Click"/>
+                <Button x:Name="Öffnen" MinWidth="10" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Öffnen_Click"/>
+            </TreeViewItem>
+            <TreeViewItem x:Name="NeueDateiErstellenHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" Width="389">
+                <TextBlock x:Name="NeueDateiName" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+                <TextBox x:Name="NameDatei" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="350" Background="LightGray" Padding="3"/>
+                <TextBlock x:Name="NeueDateiSpeicherort" HorizontalAlignment="Left" Margin="0,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+                <TextBox x:Name="Speicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
+                <Button x:Name="Durchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="Durchsuchen_Click"/>
+                <TextBlock x:Name="TemplateText" Margin="0,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
+                <ComboBox x:Name="TemplateListBox" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" MinHeight="30" MinWidth="350" SelectedIndex="0">
+                    <ComboBoxItem x:Name="NothingTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="NothingTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="NothingTemplate_Text" Margin="10,25,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                    <ComboBoxItem x:Name="CircleTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="CircleTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="CircleTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBlock x:Name="CircleTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="CircleTemplate_Knoten" Margin="220,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                    <ComboBoxItem x:Name="VieleckTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="VieleckTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="VieleckTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBlock x:Name="VieleckTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="VieleckTemplate_Knoten" Margin="220,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                    <ComboBoxItem x:Name="VollständigesVieleckTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="VollständigesVieleckTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="VollständigesVieleckTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBlock x:Name="VollständigesVieleckTemplate_KnotenText" Margin="10,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="VollständigesVieleckTemplate_Knoten" Margin="220,44,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                    <ComboBoxItem x:Name="BipartiterGraphTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="BipartiterGraphTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="BipartiterGraphTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBlock x:Name="BipartiterGraphTemplate_Knoten1Text" Margin="10,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="BipartiterGraphTemplate_Knoten1" Margin="220,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                                <TextBlock x:Name="BipartiterGraphTemplate_Knoten2Text" Margin="10,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="BipartiterGraphTemplate_Knoten2" Margin="220,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="5"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                    <ComboBoxItem x:Name="BaumTemplate">
+                        <ComboBoxItem.Content>
+                            <Grid>
+                                <TextBlock x:Name="BaumTemplate_Header" Margin="10,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
+                                <TextBlock x:Name="BaumTemplate_Text" Margin="10,25,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBlock x:Name="BaumTemplate_StufenText" Margin="10,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="BaumTemplate_Stufen" Margin="220,44,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="3"/>
+                                <TextBlock x:Name="BaumTemplate_VerzweigungenText" Margin="10,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                                <TextBox x:Name="BaumTemplate_Verzweigungen" Margin="220,72,0,3" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="NoWrap" FontSize="12" Padding="3" MinWidth="100" Text="2"/>
+                            </Grid>
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
+            </TreeViewItem>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
