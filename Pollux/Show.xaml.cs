@@ -378,7 +378,7 @@ namespace Pollux
             }
 
             //Falls Enter gedrückt wird, benenne die Kante um.
-            if(e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == System.Windows.Input.Key.Enter)
             {
                 UmbennenKanten_Click(sender, new());
             }
