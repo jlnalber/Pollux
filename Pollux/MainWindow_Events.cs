@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Pollux
 {
@@ -150,8 +151,9 @@ namespace Pollux
         private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
             //Erstelle ein neues "MainWindow"
-            MainWindow mainWindow = new();
-            mainWindow.Show();
+            Process p = new Process();
+            p.StartInfo.FileName = "Pollux.exe";
+            p.Start();
         }
 
         private void Einstellungen_Click(object sender, RoutedEventArgs e)
