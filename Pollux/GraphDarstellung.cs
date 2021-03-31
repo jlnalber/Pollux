@@ -6,9 +6,9 @@ namespace Pollux
     public partial class GraphDarstellung : Graph.Graph
     {
         //Members
-        public Canvas Canvas;
-        public new List<GraphDarstellung.Knoten> GraphKnoten { get; set; }
-        public new List<GraphDarstellung.Kanten> GraphKanten { get; set; }
+        public Canvas Canvas = new Canvas();
+        public new List<Knoten> GraphKnoten { get; set; }
+        public new List<Kanten> GraphKanten { get; set; }
 
         //Konstruktoren
         #region
@@ -18,7 +18,6 @@ namespace Pollux
             this.GraphKanten = graphKanten;
             this.Liste = liste;
             this.Name = name;
-            this.Canvas = new Canvas();
             this.Canvas.MouseDown += Canvas_MouseDown;
         }
 
@@ -38,9 +37,15 @@ namespace Pollux
             this.GraphKanten = new List<Kanten>();
             this.Liste = new int[0, 0];
             this.Name = "GRAPH";
-            this.Canvas = new Canvas();
             this.Canvas.MouseDown += Canvas_MouseDown;
         }
         #endregion
+
+        public Graph.Graph CastToGraph()
+        {
+            Graph.Graph graph = new Graph.Graph();
+            graph = new Graph.Graph(this.GraphKnoten.ConvertAll((x) => x.CastToKnoten(graph)), this.GraphKanten.ConvertAll((x) => x.CastToKanten(graph)), this.Liste, this.Name);
+            return graph;
+        }
     }
 }

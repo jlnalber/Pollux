@@ -189,7 +189,7 @@ namespace Pollux
                         this.WriteLine("Trying to empty the Graph!");
                         while (this.usingGraph.GraphKnoten.Count != 0)
                         {
-                            this.usingGraph.RemoveKnoten(this.usingGraph[0]);
+                            this.usingGraph.RemoveKnoten(this.usingGraph.GraphKnoten[0]);
                         }
                         this.WriteLine("Done!");
 
@@ -246,7 +246,7 @@ namespace Pollux
             {
                 this.WriteLine("Trying to save graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Ausgabe
                 this.Save();//speichere es ab
-                this.WriteLine("successfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
+                this.WriteLine("Successfully saved graph \"" + this.usingGraph.Name + "\" in \"" + this.path + "\"...");//Bestätigung, dass alles geklappt hat
             }
 
             //das Schlüsselwort "RENAME" ändert Namen von Elementen
@@ -287,7 +287,7 @@ namespace Pollux
                                 {
                                     //benenne die Kante neu und schreibe es aus
                                     kante.Name = command_splitted[3];
-                                    kante[0].RedrawName();
+                                    ((GraphDarstellung.Knoten)kante[0]).RedrawName();
                                     this.WriteLine("Edge was successfully renamed!");
 
                                     //Setze "changed" auf "true", weil etwas verändert wurde
@@ -344,11 +344,8 @@ namespace Pollux
             //Speichere die Graphen ab, falls etwas verändert wurde
             if (changed)
             {
-                WriteLine("Start!");
                 this.MainWindow.AktualisiereEigenschaftenFenster(this.TabItem);
-                WriteLine("Hello!");
                 await Task.Run(() => this.Save());
-                WriteLine("World!");
             }
         }
 
@@ -397,14 +394,14 @@ namespace Pollux
 
             //Suche nach den Knoten
             int positionKnoten = file.IndexOf("[NODES]");
-            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; i++)
+            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
             {
                 graph.AddKnoten(new Graph.Graph.Knoten(graph, new List<Graph.Graph.Kanten>(), file[i]));
             }
 
             //Suche nach Kanten
             int positionKanten = file.IndexOf("[EDGES]");
-            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; i++)
+            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
             {
                 string[] liste = file[i].Split('\t');
                 Graph.Graph.Kanten kante = new Graph.Graph.Kanten(graph, new Graph.Graph.Knoten[2], liste[0]);
@@ -443,14 +440,14 @@ namespace Pollux
 
             //Suche nach den Knoten
             int positionKnoten = file.IndexOf("[NODES]");
-            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; i++)
+            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
             {
                 graph.AddKnoten(new GraphDarstellung.Knoten(graph, new List<GraphDarstellung.Kanten>(), file[i], canvas));
             }
 
             //Suche nach Kanten
             int positionKanten = file.IndexOf("[EDGES]");
-            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; i++)
+            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
             {
                 string[] liste = file[i].Split('\t');
                 graph.AddKante(liste[0], graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
@@ -494,10 +491,10 @@ namespace Pollux
 
             /*//speichere die Liste des Graphs ab
             file += "[GRAPH]\n";
-            for (int i = 0; i < graph.Liste.GetLength(1); i++)
+            for (int i = 0; i < graph.Liste.GetLength(1); ++i)
             {
                 string str = "";
-                for (int f = 0; f < graph.Liste.GetLength(0); f++)
+                for (int f = 0; f < graph.Liste.GetLength(0); ++f)
                 {
                     str += graph.Liste[f, i] + "\t";
                 }
@@ -543,10 +540,10 @@ namespace Pollux
 
             /*//speichere die Liste des Graphs ab
             file += "[GRAPH]\n";
-            for (int i = 0; i < graph.Liste.GetLength(1); i++)
+            for (int i = 0; i < graph.Liste.GetLength(1); ++i)
             {
                 string str = "";
-                for (int f = 0; f < graph.Liste.GetLength(0); f++)
+                for (int f = 0; f < graph.Liste.GetLength(0); ++f)
                 {
                     str += graph.Liste[f, i] + "\t";
                 }

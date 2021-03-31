@@ -29,6 +29,20 @@ namespace Pollux.Graph
                 this.Name = name;
             }
 
+            public Knoten(Graph graph, string name)
+            {
+                //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
+                if (graph.ContainsKnoten(name))
+                {
+                    throw new GraphExceptions.NameAlreadyExistsException();
+                }
+
+                //lege die Eigenschaften fest
+                this.Parent = graph;
+                this.Kanten = new();
+                this.Name = name;
+            }
+
             public Kanten this[int index]
             {
                 get { return this.Kanten[index]; }

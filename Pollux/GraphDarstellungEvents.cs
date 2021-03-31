@@ -22,7 +22,7 @@ namespace Pollux
 
                     //Gebe der CommandConsole den Befehl den Knoten hinzuzufügen
                     int number = this.GraphKnoten.Count;
-                    for (; this.SucheKnoten("NODE" + number) != null; number++) ;
+                    for (; this.SucheKnoten("NODE" + number) != null; ++number) ;
                     MainWindow.main.GetOpenConsole().Command("ADD NODE" + number + " AT " + point.X + " AND " + point.Y);
                 }
                 catch { }

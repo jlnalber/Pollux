@@ -15,15 +15,15 @@ namespace Pollux.Graph
                 Graph graph = new Graph();
 
                 //erstelle die Ecken
-                for (int i = 0; i < ecken; i++)
+                for (int i = 0; i < ecken; ++i)
                 {
                     graph.AddKnoten();
                 }
 
                 //erstelle die Kanten
-                for (int i = 0; i < ecken - 1; i++)
+                for (int i = 0; i < ecken - 1; ++i)
                 {
-                    for (int f = i + 1; f < ecken; f++)
+                    for (int f = i + 1; f < ecken; ++f)
                     {
                         graph.AddKante(graph.GraphKnoten[i], graph.GraphKnoten[f]);
                     }
@@ -41,14 +41,14 @@ namespace Pollux.Graph
 
                 //erstelle "eckenErsteMenge"-viele Knoten
                 List<Graph.Knoten> knoten1 = new List<Knoten>();
-                for (int i = 0; i < eckenErsteMenge; i++)
+                for (int i = 0; i < eckenErsteMenge; ++i)
                 {
                     knoten1.Add(graph.AddKnoten());
                 }
 
                 //erstelle "eckenZweiteMenge"-viele Knoten
                 List<Graph.Knoten> knoten2 = new List<Knoten>();
-                for (int i = 0; i < eckenZweiteMenge; i++)
+                for (int i = 0; i < eckenZweiteMenge; ++i)
                 {
                     knoten2.Add(graph.AddKnoten());
                 }
@@ -74,7 +74,7 @@ namespace Pollux.Graph
 
                 //erstelle den Kreis, indem immer eine neue Ecke hinzugefügt wird und dann die Kante zur vorherigen Ecke
                 graph.AddKnoten();
-                for (int i = 1; i < länge; i++)
+                for (int i = 1; i < länge; ++i)
                 {
                     graph.AddKnoten();
                     graph.AddKante(graph.GraphKnoten[i - 1], graph.GraphKnoten[i]);
@@ -92,7 +92,7 @@ namespace Pollux.Graph
                 Graph graph = new Graph();
 
                 //Füge dem Graphen "Ecken"-viele Knoten hinzu
-                for (int i = 0; i < ecken; i++)
+                for (int i = 0; i < ecken; ++i)
                 {
                     graph.AddKnoten();
                 }
@@ -106,12 +106,12 @@ namespace Pollux.Graph
             {
                 Graph graph = new();
                 List<Graph.Knoten> lastStep = new() { graph.AddKnoten() };
-                for (int i = 1; i < stufen; i++)
+                for (int i = 1; i < stufen; ++i)
                 {
                     List<Graph.Knoten> newStep = new();
                     foreach (Graph.Knoten knoten in lastStep)
                     {
-                        for (int f = 0; f < verzweigungen; f++)
+                        for (int f = 0; f < verzweigungen; ++f)
                         {
                             Knoten knoten1 = graph.AddKnoten();
                             newStep.Add(knoten1);

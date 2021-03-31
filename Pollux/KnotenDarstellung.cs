@@ -10,7 +10,7 @@ namespace Pollux
 {
     public partial class GraphDarstellung
     {
-        public new class Knoten
+        public new class Knoten : Graph.Graph.Knoten
         {
             //Members von der Klasse
             #region
@@ -22,15 +22,11 @@ namespace Pollux
             private delegate void Del();
             private bool IsFocus = false;//Gibt an, ob der Knoten gerade vom Benutzer bewegt wird
 
-            //Geerbt von der Klasse "Pollux.Graph.Graph.Knoten"
-            public GraphDarstellung Parent { get; set; }
-            public List<Kanten> Kanten { get; set; }
-            public string Name { get; set; }
             #endregion
 
             //Konstruktoren der Klasse
             #region
-            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Canvas canvas)
+            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Canvas canvas) : base(graph, name)
             {
                 //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
                 if (graph.ContainsKnoten(name))
@@ -40,7 +36,7 @@ namespace Pollux
 
                 //lege die Eigenschaften fest
                 this.Parent = graph;
-                this.Kanten = kanten;
+                this.Kanten = kanten.ConvertAll((x) => x.CastToKanten());
                 this.Name = name;
 
                 this.Canvas = canvas;
@@ -54,7 +50,7 @@ namespace Pollux
                 canvas.Children.Add(this.Label);
             }
 
-            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Canvas canvas, double x, double y)
+            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Canvas canvas, double x, double y) : base(graph, name)
             {
                 //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
                 if (graph.ContainsKnoten(name))
@@ -64,7 +60,7 @@ namespace Pollux
 
                 //lege die Eigenschaften fest
                 this.Parent = graph;
-                this.Kanten = kanten;
+                this.Kanten = kanten.ConvertAll((x) => x.CastToKanten());
                 this.Name = name;
 
                 this.Canvas = canvas;
@@ -78,7 +74,7 @@ namespace Pollux
                 canvas.Children.Add(this.Label);
             }
 
-            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Ellipse ellipse, Label label, Canvas canvas)
+            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Ellipse ellipse, Label label, Canvas canvas) : base(graph, name)
             {
                 //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
                 if (graph.ContainsKnoten(name))
@@ -88,7 +84,7 @@ namespace Pollux
 
                 //lege die Eigenschaften fest
                 this.Parent = graph;
-                this.Kanten = kanten;
+                this.Kanten = kanten.ConvertAll((x) => x.CastToKanten());
                 this.Name = name;
 
                 this.Canvas = canvas;
@@ -102,6 +98,17 @@ namespace Pollux
                 canvas.Children.Add(label);
             }
             #endregion
+
+            public Graph.Graph.Knoten CastToKnoten(Graph.Graph graph)
+            {
+                return new Graph.Graph.Knoten(graph, this.Kanten, this.Name);
+            }
+
+            public Graph.Graph.Knoten CastToKnoten()
+            {
+                Graph.Graph graph = new();
+                return new Graph.Graph.Knoten(graph, this.Kanten, this.Name);
+            }
 
             //Lässt den Knoten verschwinden
             public bool Disappear()
@@ -187,8 +194,8 @@ namespace Pollux
                     {
                         //Für den Fall, dass es eine ganz normale Kante ist
                         //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                        Thickness marginKnoten0 = i.Knoten[0].Ellipse.Margin;
-                        Thickness marginKnoten1 = i.Knoten[1].Ellipse.Margin;
+                        Thickness marginKnoten0 = ((Knoten)i.Knoten[0]).Ellipse.Margin;
+                        Thickness marginKnoten1 = ((Knoten)i.Knoten[1]).Ellipse.Margin;
                         double height = this.Ellipse.Height;
 
                         //finde dadurch die Position heraus, wo die Kante starten und enden muss
@@ -238,7 +245,7 @@ namespace Pollux
             private Ellipse CreateVisualNode()
             {
                 //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
-                int index = this.Parent.GraphKnoten.Contains(this) ? this.Parent.GraphKnoten.IndexOf(this) : this.Parent.GraphKnoten.Count;
+                int index = ((GraphDarstellung)this.Parent).GraphKnoten.Contains(this) ? ((GraphDarstellung)this.Parent).GraphKnoten.IndexOf(this) : ((GraphDarstellung)this.Parent).GraphKnoten.Count;
 
                 //Rückgabe
                 return CreateVisualNode((index % 10) * 100 + 20, index / 10 * 100 + 25);
@@ -377,72 +384,6 @@ namespace Pollux
 
                 return label;
             }
-
-
-            //Geerbet von der ursprünglichen Klasse "Pollux.Graph.Graph.Knoten"
-            #region
-            //Indexer
-            public Kanten this[int index]
-            {
-                get { return this.Kanten[index]; }
-                set { this.Kanten[index] = value; }
-            }
-
-            //Eigenschaften der Ecke
-            #region
-            public int Grad
-            {
-                get { return this.Kanten.Count; }
-            }
-
-            public bool IstIsolierteEcke
-            {
-                get
-                {
-                    return this.Grad == 0;
-                }
-            }
-
-            public List<Knoten> BenachbarteKnoten
-            {
-                get
-                {
-                    //Liste, in die alle benachbarten Knoten kommen
-                    List<Knoten> liste = new List<Knoten>();
-
-                    foreach (Kanten i in this.Kanten)
-                    {
-                        //gehe jede Kante durch und gucke, welcher Knoten auf der anderen Seite liegt, füge diesen, falls nicht schon vorhanden, zur Liste "liste" hinzu
-                        Knoten knoten = (i[0] == this) ? i[1] : i[0];
-                        if (!liste.Contains(knoten))
-                        {
-                            liste.Add(knoten);
-                        }
-                    }
-
-                    //Rückgabe
-                    return liste;
-                }
-            }
-            #endregion
-
-            //Methoden zum Vergleichen von Knoten
-            #region
-            public bool IstBenachbart(Knoten knoten)
-            {
-                //Überprüfe, ob der Knoten zu den benachbarten Knoten dieses Knoten gehört
-                foreach (Kanten i in this.Kanten)
-                {
-                    if (i.Knoten[0] == knoten || i.Knoten[1] == knoten)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-            #endregion
-            #endregion
         }
     }
 }

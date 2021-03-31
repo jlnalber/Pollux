@@ -4,7 +4,6 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Threading.Tasks;
 
 namespace Pollux
 {
@@ -215,7 +214,6 @@ namespace Pollux
                 #region
                 this.TabControl.SelectedIndex = this.TabControl.Items.Count - 1;
                 this.SaveOpenedFiles();
-                this.SaveAll();
 
                 //Gebe eine Nachricht aus
                 DisplayMessage(resman.GetString("DateiGeöffnetNachricht", cul) + path);

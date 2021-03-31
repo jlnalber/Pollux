@@ -8,16 +8,13 @@ namespace Pollux
 {
     public partial class GraphDarstellung
     {
-        public new class Kanten
+        public new class Kanten : Graph.Graph.Kanten
         {
             //Members der Klasse
             public UIElement Line;
             public Canvas Canvas;
-            public GraphDarstellung Parent { get; set; }
-            public Knoten[] Knoten { get; set; }
-            public string Name { get; set; }
 
-            public Kanten(GraphDarstellung graph, Knoten[] knoten, string name, Canvas canvas)
+            public Kanten(GraphDarstellung graph, Knoten[] knoten, string name, Canvas canvas) : base(graph, knoten, name)
             {
                 //falls schon eine Kante mit dem gelichen Namen existiert, werfe eine Exception
                 if (graph.ContainsKanten(name))
@@ -34,6 +31,16 @@ namespace Pollux
 
                 //Füge die Kante dem Canvas hinzu
                 this.Canvas.Children.Add(this.Line);
+            }
+
+            public Graph.Graph.Kanten CastToKanten(Graph.Graph graph)
+            {
+                return new Graph.Graph.Kanten(graph, this.Knoten, Name);
+            }
+
+            public Graph.Graph.Kanten CastToKanten()
+            {
+                return new Graph.Graph.Kanten(new(), this.Knoten, Name);
             }
 
             public bool Disappear()
@@ -149,9 +156,9 @@ namespace Pollux
                     //Erstelle die visuelle Kante "kanten"
 
                     //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = this.Knoten[0].Ellipse.Margin;
-                    Thickness marginKnoten1 = this.Knoten[1].Ellipse.Margin;
-                    double height = this.Knoten[0].Ellipse.Height;
+                    Thickness marginKnoten0 = ((Knoten)this.Knoten[0]).Ellipse.Margin;
+                    Thickness marginKnoten1 = ((Knoten)this.Knoten[1]).Ellipse.Margin;
+                    double height = ((Knoten)this.Knoten[0]).Ellipse.Height;
 
                     //finde dadurch die Position heraus, wo die Kante starten und enden muss
                     const double maxDistance = 20;
@@ -251,13 +258,6 @@ namespace Pollux
             {
                 //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
                 MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenEdge(this);
-            }
-
-            //Indexer
-            public Knoten this[int index]
-            {
-                get { return this.Knoten[index]; }
-                set { this.Knoten[index] = value; }
             }
         }
     }

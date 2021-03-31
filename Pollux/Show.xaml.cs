@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Media;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Threading.Tasks;
 
 namespace Pollux
 {
@@ -104,12 +104,12 @@ namespace Pollux
             #region
             //füge genügend "Columns" und "Rows" zum "Table" hinzu
 
-            for (int i = 0; i <= graph.Liste.GetLength(0); i++)
+            for (int i = 0; i <= graph.Liste.GetLength(0); ++i)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition();
                 this.Table.ColumnDefinitions.Add(columnDefinition);
             }
-            for (int i = 0; i <= graph.Liste.GetLength(1); i++)
+            for (int i = 0; i <= graph.Liste.GetLength(1); ++i)
             {
                 RowDefinition rowDefinition = new RowDefinition();
                 this.Table.RowDefinitions.Add(rowDefinition);
@@ -143,9 +143,9 @@ namespace Pollux
             }
 
             //stelle die Liste im "Table" dar, sie gibt an wieviele Kanten die Knoten jeweils verbinden
-            for (int i = 0; i < graph.Liste.GetLength(0); i++)
+            for (int i = 0; i < graph.Liste.GetLength(0); ++i)
             {
-                for (int f = 0; f < graph.Liste.GetLength(1); f++)
+                for (int f = 0; f < graph.Liste.GetLength(1); ++f)
                 {
                     TextBlock textBlock = new TextBlock();
                     textBlock.Text = graph.Liste[i, f].ToString();
@@ -175,10 +175,11 @@ namespace Pollux
                 //lege die Eigenschaften fest
                 this.KnotenName.Text = knoten.Name;
                 this.KnotenParent.Text = knoten.Parent.Name;
-                this.KnotenGrad.Text = knoten.Grad.ToString();
+                int grad = knoten.CastToKnoten().Grad;
+                this.KnotenGrad.Text = grad.ToString();
 
                 //mache die Listbox "KnotenKanten"
-                if (knoten.Grad == 0)
+                if (grad == 0)
                 {
                     //verstecke die Liste
                     this.KnotenKanten.Visibility = Visibility.Hidden;
@@ -197,7 +198,7 @@ namespace Pollux
                     this.KnotenKanten.Items.Clear();
 
                     //füge die Namen der Kanten zur Liste hinzu
-                    foreach (GraphDarstellung.Kanten i in knoten.Kanten)
+                    foreach (Graph.Graph.Kanten i in knoten.CastToKnoten().Kanten)
                     {
                         ListBoxItem listBoxItem = new ListBoxItem();
                         listBoxItem.Content = i.Name;
@@ -247,7 +248,7 @@ namespace Pollux
                 {
                     int position = this.Graph.GraphKnoten.IndexOf(knoten);
                     List<ElementsKnoten> list = new();
-                    for (int i = 0; i < this.Graph.GraphKnoten.Count; i++)
+                    for (int i = 0; i < this.Graph.GraphKnoten.Count; ++i)
                     {
                         int contentListe = this.Graph[position, i];
                         if (contentListe != 0)
@@ -346,6 +347,12 @@ namespace Pollux
             {
                 this.UmbennenKnoten.Visibility = Visibility.Hidden;
             }
+
+            //Falls Enter gedrückt wird, benenne den Knoten um.
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                UmbennenKnoten_Click(sender, new());
+            }
         }
 
         private void UmbennenKnoten_Click(object sender, RoutedEventArgs e)
@@ -368,6 +375,12 @@ namespace Pollux
             else
             {
                 this.UmbennenKanten.Visibility = Visibility.Hidden;
+            }
+
+            //Falls Enter gedrückt wird, benenne die Kante um.
+            if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                UmbennenKanten_Click(sender, new());
             }
         }
 
@@ -393,7 +406,7 @@ namespace Pollux
             return this.Graph.SucheKanten(vs[vs.Length - 1]);
         }
 
-        public void AktualisiereGridAsync()
+        public async Task AktualisiereGridAsync()
         {
             //Aktualisiere das Fenster
 
@@ -401,19 +414,20 @@ namespace Pollux
             #region
             //erstelle Elemente für das DataGrid und rechne sie aus, stelle dann das DataGrid dar
             List<Elements> list = new List<Elements>();
-            list.Add(new Elements("Ist Eulersch", this.Graph.IstEulersch.ToString()));
-            list.Add(new Elements("Ist ein Baum", this.Graph.IstBaum.ToString()));
-            list.Add(new Elements("Ist Bipartit", this.Graph.IstBipartit.ToString()));
+            Graph.Graph castedGraph = this.Graph.CastToGraph();
+            list.Add(new Elements("Ist Eulersch", castedGraph.IstEulersch.ToString()));
+            list.Add(new Elements("Ist ein Baum", castedGraph.IstBaum.ToString()));
+            list.Add(new Elements("Ist Bipartit", castedGraph.IstBipartit.ToString()));
 
             //Eigenschafts-Wert stimmt noch nicht ganz, wird bald überarbeitet
             //list.Add(new Elements("Ist Hamiltonsch", graph.IstHamiltonsch.ToString()));
-            list.Add(new Elements("Ist Zusammenhängend", this.Graph.IstZusammenhängend.ToString()));
-            list.Add(new Elements("Komponenten", this.Graph.AnzahlKomponenten.ToString()));
-            list.Add(new Elements("Ist ein einfacher Graph", this.Graph.EinfacherGraph.ToString()));
-            list.Add(new Elements("Parallele Kanten", this.Graph.ParalleleKanten.ToString()));
-            list.Add(new Elements("Schlingen", this.Graph.Schlingen.ToString()));
-            list.Add(new Elements("Anzahl an Knoten", this.Graph.AnzahlKnoten.ToString()));
-            list.Add(new Elements("Anzahl an Kanten", this.Graph.AnzahlKanten.ToString()));
+            list.Add(new Elements("Ist Zusammenhängend", castedGraph.IstZusammenhängend.ToString()));
+            list.Add(new Elements("Komponenten", castedGraph.AnzahlKomponenten.ToString()));
+            list.Add(new Elements("Ist ein einfacher Graph", castedGraph.EinfacherGraph.ToString()));
+            list.Add(new Elements("Parallele Kanten", castedGraph.ParalleleKanten.ToString()));
+            list.Add(new Elements("Schlingen", castedGraph.Schlingen.ToString()));
+            list.Add(new Elements("Anzahl an Knoten", castedGraph.AnzahlKnoten.ToString()));
+            list.Add(new Elements("Anzahl an Kanten", castedGraph.AnzahlKanten.ToString()));
             this.DataGrid.ItemsSource = list;
             #endregion
 

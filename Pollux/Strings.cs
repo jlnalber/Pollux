@@ -20,7 +20,7 @@ namespace Pollux
             {
                 if (i == item)
                 {
-                    counter++;
+                    ++counter;
                 }
             }
 
@@ -92,7 +92,7 @@ namespace Pollux
             int biggestNumber = 0;
 
             //gehe die Liste durch und gucke, ob die aktuelle Zahl größer ist als die ursprünglich größte. Wenn ja, speichere ihren Index ab
-            for (int i = 0; i < list.Count(); i++)
+            for (int i = 0; i < list.Count(); ++i)
             {
                 if (list[i] > biggestNumber)
                 {
@@ -133,7 +133,7 @@ namespace Pollux
             //solange das item noch in der Substring drin ist, erhöhe den Zähler; danach wird immer die Substring so abgeändert, dass alles bis zum nach dem Vorkommen des Items gelöscht wird
             while (text.Contains(item))
             {
-                howOften++;
+                ++howOften;
 
                 text = text.Substring(text.IndexOf(item) + item.Length);
             }
@@ -151,7 +151,7 @@ namespace Pollux
             string substr = text;//hier wird einfach eine Substring von "text" abgespeichert
 
             //rechne von jedem Vorkommen des "item"'s die Postion aus und speichere sie in der Liste "positionen"
-            for (int i = 0; i < howOften; i++)
+            for (int i = 0; i < howOften; ++i)
             {
                 positionen.Add(substr.IndexOf(item) + text.Length - substr.Length);//rechne die Position auf den ganzen text bezogen aus
                 substr = substr.Substring(substr.IndexOf(item) + item.Length);//Mache die substr bis nach dem Vorkommen des "item"'s
@@ -184,7 +184,7 @@ namespace Pollux
                 {
                     newList.Add(i);
                 }
-                counter++;
+                ++counter;
             }
 
             //Rückgabe

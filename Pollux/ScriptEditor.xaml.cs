@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Controls.Primitives;
 
 namespace Pollux
 {
@@ -59,7 +52,7 @@ namespace Pollux
         {
             List<string> vs1 = new List<string>();
             vs1.Add("");
-            foreach(char i in str)
+            foreach (char i in str)
             {
                 vs1[vs1.Count() - 1] += i;
                 if (vs.Contains(i))

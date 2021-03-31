@@ -19,9 +19,9 @@ namespace Pollux
 
             //Füge den Knoten der Liste "Liste" des Graphen hinzu
             int[,] copy = new int[this.Liste.GetLength(0) + 1, this.Liste.GetLength(1) + 1];
-            for (int i = 0; i < this.Liste.GetLength(0); i++)
+            for (int i = 0; i < this.Liste.GetLength(0); ++i)
             {
-                for (int f = 0; f < this.Liste.GetLength(1); f++)
+                for (int f = 0; f < this.Liste.GetLength(1); ++f)
                 {
                     copy[i, f] = this.Liste[i, f];
                 }
@@ -74,8 +74,8 @@ namespace Pollux
             ende.Kanten.Add(kante);
 
             //Erhöhe die Zahl an der Matrix
-            this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)]++;
-            this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)]++;
+            ++this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)];
+            ++this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)];
 
             //Rückgabe
             return kante;
@@ -99,7 +99,7 @@ namespace Pollux
             //Entferne alle zugehörigen Kanten aus dem Graphen
             while (knoten.Kanten.Count != 0)
             {
-                this.RemoveKante(knoten.Kanten[0]);
+                this.RemoveKante((Kanten)knoten.Kanten[0]);
             }
             knoten.Parent = null;
             knoten.Kanten.Clear();
@@ -107,9 +107,9 @@ namespace Pollux
             //Bearbeite die Liste "List"
             int position = this.GraphKnoten.IndexOf(knoten);
             int[,] copy = new int[this.Liste.GetLength(0) - 1, this.Liste.GetLength(1) - 1];
-            for (int i = 0; i < this.Liste.GetLength(0); i++)
+            for (int i = 0; i < this.Liste.GetLength(0); ++i)
             {
-                for (int f = 0; f < this.Liste.GetLength(1); f++)
+                for (int f = 0; f < this.Liste.GetLength(1); ++f)
                 {
                     if (i != position && f != position)
                     {
@@ -135,21 +135,25 @@ namespace Pollux
             kante.Parent = null;
 
             //Bearbeite die Liste "Liste"
-            this.Liste[this.GraphKnoten.IndexOf((Knoten)kante.Knoten[0]), this.GraphKnoten.IndexOf((Knoten)kante.Knoten[1])]--;
-            this.Liste[this.GraphKnoten.IndexOf((Knoten)kante.Knoten[1]), this.GraphKnoten.IndexOf((Knoten)kante.Knoten[0])]--;
+            --this.Liste[this.GraphKnoten.IndexOf((Knoten)kante.Knoten[0]), this.GraphKnoten.IndexOf((Knoten)kante.Knoten[1])];
+            --this.Liste[this.GraphKnoten.IndexOf((Knoten)kante.Knoten[1]), this.GraphKnoten.IndexOf((Knoten)kante.Knoten[0])];
 
             //Entferne die Kante aus ihren Knoten
-            kante.Knoten[0].Kanten.Remove(kante);
-            kante.Knoten[1].Kanten.Remove(kante);
+            ((Graph.Graph.Knoten)kante.Knoten[0]).Kanten.Remove(kante);
+            ((Graph.Graph.Knoten)kante.Knoten[1]).Kanten.Remove(kante);
+
+            //Lösche die Knoten aus der Kante
+            kante[0] = null;
+            kante[1] = null;
 
             //Entferne die Kante aus der Liste "GraphKanten" im Graphen
-            this.GraphKanten.Remove((Kanten)kante);
+            this.GraphKanten.Remove(kante);
 
             //Entferne die Kante "kante" aus dem Canvas "this.Canvas"
             kante.Disappear();
 
             //Rückgabe
-            return (Kanten)kante;
+            return kante;
         }
         #endregion
     }

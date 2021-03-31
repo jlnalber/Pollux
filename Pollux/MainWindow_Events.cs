@@ -1,12 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Diagnostics;
 
 namespace Pollux
 {
@@ -259,12 +259,12 @@ namespace Pollux
             GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
 
             //Lösche den Knoten, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.GraphKnoten.Count; i++)
+            for (int i = 0; i < openGraphDarstellung.GraphKnoten.Count; ++i)
             {
                 if (((GraphDarstellung.Knoten)openGraphDarstellung.GraphKnoten[i]).Ellipse.ContextMenu.Items.Contains(sender))
                 {
                     this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKnoten[i].Name);
-                    i--;
+                    --i;
                 }
             }
         }
@@ -275,7 +275,7 @@ namespace Pollux
             GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
 
             //Lösche die Kante, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.GraphKanten.Count; i++)
+            for (int i = 0; i < openGraphDarstellung.GraphKanten.Count; ++i)
             {
                 if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Line line)
                 {

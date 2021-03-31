@@ -15,7 +15,7 @@ namespace Pollux.Graph
 
                 //erstelle eine Kopie von diesem Graphen
                 Graph copy = this.Kopie();
-                for (int i = 0; i < copy.GraphKnoten.Count; i++)
+                for (int i = 0; i < copy.GraphKnoten.Count; ++i)
                 {
                     if (copy.GraphKnoten[i].IstIsolierteEcke)
                     {
@@ -249,7 +249,7 @@ namespace Pollux.Graph
 
                 int schlingen = 0;
 
-                for (int i = 0; i < this.GraphKnoten.Count; i++)
+                for (int i = 0; i < this.GraphKnoten.Count; ++i)
                 {
                     schlingen += this.Liste[i, i] / 2;
                 }
@@ -267,9 +267,9 @@ namespace Pollux.Graph
                 int paralleleKanten = 0;
 
                 //gehe die Liste durch, dabei aber nur die Hälfte, da sich der Rest ja doppelt
-                for (int i = 0; i < this.Liste.GetLength(0); i++)
+                for (int i = 0; i < this.Liste.GetLength(0); ++i)
                 {
-                    for (int f = 0; f <= i; f++)
+                    for (int f = 0; f <= i; ++f)
                     {
                         if (i == f)
                         {
