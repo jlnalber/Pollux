@@ -4,6 +4,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace Pollux
 {
@@ -296,7 +297,7 @@ namespace Pollux
         public void AktualisiereEigenschaftenFenster(TabItem tabItem)
         {
             //Aktualisiere das Eigenschaften-Fenster
-            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGrid();
+            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGridAsync();
         }
 
         public void AktualisiereEigenschaftenFenster()

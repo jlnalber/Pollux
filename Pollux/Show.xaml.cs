@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
 
 namespace Pollux
 {
@@ -96,7 +97,7 @@ namespace Pollux
             this.KantenPicker.SelectedIndex = 0;
 
             //Lasse das Grid aktualisieren
-            this.AktualisiereGrid();
+            this.AktualisiereGridAsync();
 
             /*
             //Grid-Table
@@ -392,7 +393,7 @@ namespace Pollux
             return this.Graph.SucheKanten(vs[vs.Length - 1]);
         }
 
-        public void AktualisiereGrid()
+        public void AktualisiereGridAsync()
         {
             //Aktualisiere das Fenster
 

@@ -21,30 +21,27 @@ namespace Pollux
             //Initialisiere dieses Fenster
             this.InitializeComponent();
 
-            if (main == null)
-            {
-                //Initialisiere die statischen Member
-                #region
-                //setze das MainWindow auf dieses Fenster
-                main = this;
+            //Initialisiere die statischen Member
+            #region
+            //setze das MainWindow auf dieses Fenster
+            main = this;
 
-                //füge das aktuelle Directory hinzu
-                AppDirectory = Environment.GetCommandLineArgs()[0].Replace("Pollux.dll", "");
-                AppDirectory = AppDirectory.Replace("Pollux.exe", "");
-                Files = Environment.GetCommandLineArgs()[0].Replace("bin\\Debug\\net5.0-windows\\Pollux.dll", "");
-                Files = Files.Replace("bin\\Debug\\net5.0-windows\\Pollux.exe", "");
-                Files = Files.Replace("bin\\Release\\net5.0-windows\\Pollux.dll", "");
-                Files = Files.Replace("bin\\Release\\net5.0-windows\\Pollux.exe", "");
-                Files = Files.Replace("Pollux.exe", "");
-                Files = Files.Replace("Pollux.dll", "");
+            //füge das aktuelle Directory hinzu
+            AppDirectory = Environment.GetCommandLineArgs()[0].Replace("Pollux.dll", "");
+            AppDirectory = AppDirectory.Replace("Pollux.exe", "");
+            Files = Environment.GetCommandLineArgs()[0].Replace("bin\\Debug\\net5.0-windows\\Pollux.dll", "");
+            Files = Files.Replace("bin\\Debug\\net5.0-windows\\Pollux.exe", "");
+            Files = Files.Replace("bin\\Release\\net5.0-windows\\Pollux.dll", "");
+            Files = Files.Replace("bin\\Release\\net5.0-windows\\Pollux.exe", "");
+            Files = Files.Replace("Pollux.exe", "");
+            Files = Files.Replace("Pollux.dll", "");
 
-                //initialisiere Resource und rufe die Kultur ab
-                resman = new ResourceManager(typeof(Resources));
-                cul = CultureInfo.CurrentUICulture;
-                //cul = new CultureInfo("en");
-                //cul = new CultureInfo("fr");
-                #endregion
-            }
+            //initialisiere Resource und rufe die Kultur ab
+            resman = new ResourceManager(typeof(Resources));
+            cul = CultureInfo.CurrentUICulture;
+            //cul = new CultureInfo("en");
+            //cul = new CultureInfo("fr");
+            #endregion
 
             //Initialisiere die Members
             #region
@@ -105,13 +102,10 @@ namespace Pollux
             string[] pathsAsString = Settings.Default.OpenedFiles.Split("\n");
             foreach (string i in pathsAsString)
             {
-                try
+                if (File.Exists(i))
                 {
-                    StreamReader streamReader = new StreamReader(i);
-                    streamReader.Close();
                     paths.Add(i);
                 }
-                catch { }
             }
 
             //gucke nach, ob das Programm ausgeführt wurde, weil eine Datei angeklickt wurde, füge zu paths hinzu

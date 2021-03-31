@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Pollux
@@ -28,7 +29,7 @@ namespace Pollux
             this.TabItem = tabItem;
         }
 
-        public void Command(string command, string name)
+        public async Task CommandAsync(string command, string name)
         {
             bool changed = false;
 
@@ -343,14 +344,17 @@ namespace Pollux
             //Speichere die Graphen ab, falls etwas verändert wurde
             if (changed)
             {
-                this.Save();
+                WriteLine("Start!");
                 this.MainWindow.AktualisiereEigenschaftenFenster(this.TabItem);
+                WriteLine("Hello!");
+                await Task.Run(() => this.Save());
+                WriteLine("World!");
             }
         }
 
         public void Command(string command)
         {
-            this.Command(command, this.user);
+            this.CommandAsync(command, this.user);
         }
 
         public void WriteLine(string line)
