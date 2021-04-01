@@ -73,7 +73,7 @@ namespace Pollux
             string[] pathsAsString = Properties.Settings.Default.OpenedFiles.Split("\n");
             foreach (string i in pathsAsString)
             {
-                if(File.Exists(i))
+                if (File.Exists(i))
                 {
                     Paths.Add(i);
                 }
