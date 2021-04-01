@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -51,6 +53,11 @@ namespace Pollux
         {
             return this.AddKnoten("KNOTEN" + (this.GraphKnoten.Count + 1).ToString(), x, y);
         }
+
+        public Knoten AddKnoten(string name, Ellipse ellipse)
+        {
+            return AddKnoten(new Knoten(this, new List<Kanten>(), name, ellipse, this.Canvas));
+        }
         #endregion
 
         //Methode zum Hinzufügen von Kanten
@@ -89,6 +96,11 @@ namespace Pollux
         public Kanten AddKante(Knoten start, Knoten ende)
         {
             return this.AddKante("EDGE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
+        }
+
+        public Kanten AddKante(string name, UIElement line, Knoten start, Knoten ende)
+        {
+            return AddKante(new Kanten(this, new Knoten[2] { start, ende }, name, line, this.Canvas), start, ende);
         }
         #endregion
 

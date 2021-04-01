@@ -9,7 +9,7 @@ namespace Pollux
     /// </summary>
     public partial class KantenEllipse : UserControl
     {
-        public KantenEllipse(RoutedEventHandler eigenschaften_Click)
+        public KantenEllipse()
         {
             InitializeComponent();
 
@@ -36,11 +36,11 @@ namespace Pollux
             this.Ellipse.Height = height;
             this.Ellipse.Width = height;
 
-            //Bearbeite das ContextMenu
+            /*//Bearbeite das ContextMenu
             #region
             //MenuItem zum Öffnen der Eigenschaften
             this.Eigenschaften.Header = MainWindow.resman.GetString("EigenschaftenKante", MainWindow.cul);
-            this.Eigenschaften.Click += eigenschaften_Click;
+            this.Eigenschaften.Click += MainWindow.main.EigenschaftenKanten_Click;
 
             //MenuItem zum Löschen des Knoten
             this.Löschen.Header = MainWindow.resman.GetString("LöschenKante", MainWindow.cul);
@@ -63,7 +63,7 @@ namespace Pollux
             //MenuItem zum Öffnen des Eiganschaften-Fensters
             this.MenuItem4.Click += MainWindow.main.EigenschaftenFenster_Click;
             this.MenuItem4.Header = MainWindow.resman.GetString("EigenschaftenFenster", MainWindow.cul);
-            #endregion
+            #endregion*/
         }
     }
 }

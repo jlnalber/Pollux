@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
@@ -282,7 +283,7 @@ namespace Pollux
                     if (line.ContextMenu.Items.Contains(sender))
                     {
                         this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
-                        i--;
+                        --i;
                     }
                 }
                 else if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Ellipse ellipse)
@@ -290,7 +291,7 @@ namespace Pollux
                     if (ellipse.ContextMenu.Items.Contains(sender))
                     {
                         this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
-                        i--;
+                        --i;
                     }
                 }
             }
@@ -330,6 +331,24 @@ namespace Pollux
                     this.SetScrollY(Canvas.GetTop(graphCanvas.Children[0]) + e.Delta * scrollSpeed, graphCanvas);
                 }
             }
+        }
+
+        public void EigenschaftenKanten_Click(object sender, RoutedEventArgs e)
+        {
+            //Finde den Sender heraus
+            GraphDarstellung.Kanten kante = (from edge in this.GetOpenGraph().GraphKanten where (edge.Line is Line line) ? line.ContextMenu.Items.Contains(sender) : (edge.Line is Ellipse ellipse) ? ellipse.ContextMenu.Items.Contains(sender) : false select edge).First();
+
+            //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
+            this.OpenedEigenschaftenFenster[this.GetOpenTab()].OpenEdge(kante);
+        }
+
+        public void EigenschaftenKnoten_Click(object sender, RoutedEventArgs e)
+        {
+            //Finde den Sender heraus
+            GraphDarstellung.Knoten knoten = (from node in this.GetOpenGraph().GraphKnoten where node.Ellipse.ContextMenu.Items.Contains(sender) select node).First();
+
+            //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
+            this.OpenedEigenschaftenFenster[this.GetOpenTab()].OpenNode(knoten);
         }
     }
 }

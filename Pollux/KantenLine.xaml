@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="0" d:DesignWidth="0">
     <Line x:Name="Line" Fill="Black" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-        <Line.ContextMenu>
+        <!--<Line.ContextMenu>
             <ContextMenu>
                 <MenuItem x:Name="Eigenschaften"/>
                 <MenuItem x:Name="Löschen"/>
@@ -18,6 +18,6 @@
                 </MenuItem>
                 <MenuItem x:Name="MenuItem4"/>
             </ContextMenu>
-        </Line.ContextMenu>
+        </Line.ContextMenu>-->
     </Line>
 </UserControl>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -447,12 +448,27 @@ namespace Pollux
 
             GraphDarstellung graph = new(knotenNamen, name, canvas);//Erstelle den Graphen
 
+            Ellipse kantenEllipse = (new KantenEllipse()).Ellipse;
+            Line kantenLine = (new KantenLine()).Line;
+
             //Suche nach Kanten
             int positionKanten = file.IndexOf("[EDGES]");
             for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
             {
                 string[] liste = file[i].Split('\t');
-                graph.AddKante(liste[0], graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                if (liste[1] == liste[2])
+                {
+                    GraphDarstellung.Knoten knoten = graph.SucheKnoten(liste[1]);
+                    Ellipse ellipse = Strings.CopyEllipse(kantenEllipse);
+                    //ellipse.ContextMenu = KantenLine.GetContextMenu();
+                    graph.AddKante(liste[0], ellipse, knoten, knoten);
+                }
+                else
+                {
+                    Line line = Strings.CopyLine(kantenLine);
+                    //line.ContextMenu = KantenLine.GetContextMenu();
+                    graph.AddKante(liste[0], line, graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                }
             }
             #endregion
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -86,9 +87,14 @@ namespace Pollux
             this.GraphKanten = new();
             this.GraphKnoten = new();
             this.Liste = new int[knotenNamen.Count, knotenNamen.Count];
+
+            Ellipse ellipse = (new KnotenEllipse()).Ellipse;
+
             foreach (string i in knotenNamen)
             {
-                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), this.Canvas));
+                Ellipse ellipse2 = Strings.CopyEllipse(ellipse);
+                ellipse2.ContextMenu = KnotenEllipse.GetContextMenu();
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), ellipse2, this.Canvas));
             }
         }
         #endregion

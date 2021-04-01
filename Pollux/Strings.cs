@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -326,6 +329,111 @@ namespace Pollux
             }
 
             return newText;
+        }
+
+        public static Line CopyLine(Line line)
+        {
+            Line line1 = new();
+            line1.X1 = line.X1;
+            line1.X2 = line.X2;
+            line1.Y1 = line.Y1;
+            line1.Y2 = line.Y2;
+            line1.Cursor = line.Cursor;
+            line1.StrokeThickness = line.StrokeThickness;
+            line1.Stroke = CopySolidColorBrush((SolidColorBrush)line.Stroke);
+            if (line.Fill is LinearGradientBrush)
+            {
+                line1.Fill = CopyLinearGradientBrush((LinearGradientBrush)line.Fill);
+            }
+            else
+            {
+                line1.Fill = CopySolidColorBrush((SolidColorBrush)line.Fill);
+            }
+            line1.VerticalAlignment = line.VerticalAlignment;
+            line1.HorizontalAlignment = line.HorizontalAlignment;
+            line1.Margin = new(line.Margin.Left, line.Margin.Top, line.Margin.Right, line.Margin.Bottom);
+            //line1.ContextMenu = CopyContextMenu(line.ContextMenu);
+            return line1;
+        }
+
+        public static Ellipse CopyEllipse(Ellipse ellipse)
+        {
+            Ellipse ellipse1 = new();
+            ellipse1.Width = ellipse.Width;
+            ellipse1.Height = ellipse.Height;
+            ellipse1.Margin = new(ellipse.Margin.Left, ellipse.Margin.Top, ellipse.Margin.Right, ellipse.Margin.Bottom);
+            ellipse1.HorizontalAlignment = ellipse.HorizontalAlignment;
+            ellipse1.VerticalAlignment = ellipse.VerticalAlignment;
+            ellipse1.Cursor = ellipse.Cursor;
+            Canvas.SetTop(ellipse1, Canvas.GetTop(ellipse));
+            Canvas.SetLeft(ellipse1, Canvas.GetLeft(ellipse));
+            Canvas.SetZIndex(ellipse1, Canvas.GetZIndex(ellipse));
+            ellipse1.StrokeThickness = ellipse.StrokeThickness;
+            //ellipse1.ContextMenu = CopyContextMenu(ellipse.ContextMenu);
+            ellipse1.Stroke = CopySolidColorBrush((SolidColorBrush)ellipse.Stroke);
+            if (ellipse.Fill is LinearGradientBrush)
+            {
+                ellipse1.Fill = CopyLinearGradientBrush((LinearGradientBrush)ellipse.Fill);
+            }
+            else
+            {
+                ellipse1.Fill = CopySolidColorBrush((SolidColorBrush)ellipse.Fill);
+            }
+            return ellipse1;
+        }
+
+        public static SolidColorBrush CopySolidColorBrush(SolidColorBrush solidColorBrush)
+        {
+            return new(solidColorBrush.Color);
+        }
+
+        public static LinearGradientBrush CopyLinearGradientBrush(LinearGradientBrush linearGradientBrush)
+        {
+            LinearGradientBrush linearGradientBrush1 = new();
+            linearGradientBrush1.StartPoint = linearGradientBrush.StartPoint;
+            linearGradientBrush1.EndPoint = linearGradientBrush.EndPoint;
+            foreach (var i in linearGradientBrush.GradientStops)
+            {
+                linearGradientBrush1.GradientStops.Add(new(i.Color, i.Offset));
+            }
+            return linearGradientBrush1;
+        }
+
+        public static ContextMenu CopyContextMenu(ContextMenu contextMenu)
+        {
+            ContextMenu contextMenu1 = new();
+            foreach (var i in contextMenu.Items)
+            {
+                if (i is MenuItem mi)
+                {
+                    contextMenu1.Items.Add(CopyMenuItem(mi));
+                }
+                else if (i is Separator)
+                {
+                    contextMenu1.Items.Add(new Separator());
+                }
+            }
+            return contextMenu1;
+        }
+
+        public static MenuItem CopyMenuItem(MenuItem menuItem)
+        {
+            MenuItem menuItem1 = new();
+            menuItem1.Icon = menuItem.Icon;
+            menuItem1.Header = menuItem.Header;
+            foreach (var i in menuItem.Items)
+            {
+                if (i is MenuItem mi)
+                {
+                    menuItem1.Items.Add(CopyMenuItem(mi));
+                }
+                else if (i is Separator)
+                {
+                    menuItem1.Items.Add(new Separator());
+                }
+            }
+            //menuItem1.Click += menuItem.Click[0];
+            return menuItem1;
         }
     }
 }

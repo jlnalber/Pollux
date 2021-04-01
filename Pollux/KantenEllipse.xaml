@@ -10,7 +10,7 @@
              Background="Transparent"
              d:DesignHeight="40" d:DesignWidth="40">
     <Ellipse x:Name="Ellipse" Fill="Transparent" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="40" Width="40">
-        <Ellipse.ContextMenu>
+        <!--<Ellipse.ContextMenu>
             <ContextMenu>
                 <MenuItem x:Name="Eigenschaften"/>
                 <MenuItem x:Name="Löschen"/>
@@ -21,6 +21,6 @@
                 </MenuItem>
                 <MenuItem x:Name="MenuItem4"/>
             </ContextMenu>
-        </Ellipse.ContextMenu>
+        </Ellipse.ContextMenu>-->
     </Ellipse>
 </UserControl>

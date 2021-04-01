@@ -73,6 +73,48 @@ namespace Pollux
                 canvas.Children.Add(this.Label);
             }
 
+            public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Ellipse ellipse, Canvas canvas) : base(graph, name)
+            {
+                //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
+                if (graph.ContainsKnoten(name))
+                {
+                    throw new GraphExceptions.NameAlreadyExistsException();
+                }
+
+                //lege die Eigenschaften fest
+                this.Parent = graph;
+                this.Kanten = kanten.ConvertAll((x) => x.CastToKanten());
+                this.Name = name;
+
+                this.Canvas = canvas;
+                this.Ellipse = ellipse;
+                this.Ellipse.MouseMove += this.MouseMove;
+                this.Canvas.MouseMove += this.MouseMove;
+                this.Ellipse.MouseDown += Ellipse_MouseDown;
+
+                //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
+                int index = ((GraphDarstellung)this.Parent).GraphKnoten.Contains(this) ? ((GraphDarstellung)this.Parent).GraphKnoten.IndexOf(this) : ((GraphDarstellung)this.Parent).GraphKnoten.Count;
+                double x = (index % 10) * 100 + 20;
+                double y = index / 10 * 100 + 25;
+                this.Ellipse.Margin = new(x, y, 10, 10);
+                Canvas.SetZIndex(this.Ellipse, 100);
+                if (this.Canvas.Children.Count != 0)
+                {
+                    Canvas.SetTop(this.Ellipse, Canvas.GetTop(this.Canvas.Children[0]));
+                    Canvas.SetLeft(this.Ellipse, Canvas.GetLeft(this.Canvas.Children[0]));
+                }
+                else
+                {
+                    Canvas.SetTop(this.Ellipse, 0);
+                    Canvas.SetLeft(this.Ellipse, 0);
+                }
+
+                this.Label = CreateLabel();
+
+                canvas.Children.Add(this.Ellipse);
+                canvas.Children.Add(this.Label);
+            }
+
             public Knoten(GraphDarstellung graph, List<Kanten> kanten, string name, Ellipse ellipse, Label label, Canvas canvas) : base(graph, name)
             {
                 //falls schon ein Knoten mit so einem Namen existiert, werfe eine Exception
@@ -93,8 +135,40 @@ namespace Pollux
                 this.Ellipse.MouseDown += Ellipse_MouseDown;
                 this.Label = label;
 
-                canvas.Children.Add(ellipse);
-                canvas.Children.Add(label);
+                //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
+                int index = ((GraphDarstellung)this.Parent).GraphKnoten.Contains(this) ? ((GraphDarstellung)this.Parent).GraphKnoten.IndexOf(this) : ((GraphDarstellung)this.Parent).GraphKnoten.Count;
+                double x = (index % 10) * 100 + 20;
+                double y = index / 10 * 100 + 25;
+                this.Ellipse.Margin = new(x, y, 10, 10);
+                Canvas.SetZIndex(this.Ellipse, 100);
+                if (this.Canvas.Children.Count != 0)
+                {
+                    Canvas.SetTop(this.Ellipse, Canvas.GetTop(this.Canvas.Children[0]));
+                    Canvas.SetLeft(this.Ellipse, Canvas.GetLeft(this.Canvas.Children[0]));
+                }
+                else
+                {
+                    Canvas.SetTop(this.Ellipse, 0);
+                    Canvas.SetLeft(this.Ellipse, 0);
+                }
+
+                this.Label.HorizontalAlignment = HorizontalAlignment.Left;
+                this.Label.VerticalAlignment = VerticalAlignment.Top;
+                this.Label.Margin = new(this.Ellipse.Margin.Left + LabelToRight, this.Ellipse.Margin.Top - LabelToTop, 10, 10);
+                Canvas.SetZIndex(this.Label, 100);
+                if (this.Canvas.Children.Count != 0)
+                {
+                    Canvas.SetTop(this.Label, Canvas.GetTop(this.Canvas.Children[0]));
+                    Canvas.SetLeft(this.Label, Canvas.GetLeft(this.Canvas.Children[0]));
+                }
+                else
+                {
+                    Canvas.SetTop(this.Label, 0);
+                    Canvas.SetLeft(this.Label, 0);
+                }
+
+                canvas.Children.Add(this.Ellipse);
+                canvas.Children.Add(this.Label);
             }
             #endregion
 
@@ -253,10 +327,9 @@ namespace Pollux
             private Ellipse CreateVisualNode(double x, double y)
             {
                 //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
-                int index = this.Parent.GraphKnoten.Contains(this) ? this.Parent.GraphKnoten.IndexOf(this) : this.Parent.GraphKnoten.Count;
 
                 //Erstelle einen Knoten
-                KnotenEllipse knotenEllipse = new(this.Eigenschaften_Click);
+                KnotenEllipse knotenEllipse = new();
                 Ellipse ellipse = knotenEllipse.Ellipse;
                 knotenEllipse.Content = null;
 
@@ -279,7 +352,7 @@ namespace Pollux
             }
 
             //Methode, die ausgelöst wird, wenn das MenuItem "eigenschaften" gedrückt wird
-            private void Eigenschaften_Click(object sender, RoutedEventArgs e)
+            public void Eigenschaften_Click(object sender, RoutedEventArgs e)
             {
                 //Falls das MenuItem "eigenschaften" geklickt wurde
                 MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenNode(this);
@@ -308,6 +381,7 @@ namespace Pollux
                     Canvas.SetLeft(label, 0);
                 }
 
+                //Rückgabe
                 return label;
             }
         }
