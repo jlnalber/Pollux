@@ -122,9 +122,6 @@ namespace Pollux
                 gridAroundCanvas.Children.Add(graphCanvas);
                 Grid.SetColumn(gridAroundCanvas, 0);
                 Grid.SetRow(gridAroundCanvas, 0);
-                /*DockPanel.SetDock(gridAroundCanvas, Dock.Left);
-                DockPanel.SetZIndex(gridAroundCanvas, 0);
-                DockPanel.SetZIndex(grid, 200);*/
 
                 //lege Eigenschaften für ihn fest
                 //MenuItems
@@ -208,7 +205,6 @@ namespace Pollux
                 grid = show.ContentGrid;
                 grid.Margin = new Thickness(gridSplitter.Width, grid.Margin.Top, grid.Margin.Right, grid.Margin.Bottom);
                 show.Content = new Grid();
-                //DockPanel.SetDock(grid, Dock.Right);
                 Grid.SetRow(grid, 0);
                 Grid.SetColumn(grid, 1);
                 dockPanel.Children.Add(grid);
