@@ -100,6 +100,7 @@ namespace Pollux
                 columnDefinition0.Width = new GridLength(2, GridUnitType.Star);
                 ColumnDefinition columnDefinition1 = new ColumnDefinition();
                 columnDefinition1.Width = new GridLength(525);
+                columnDefinition1.MaxWidth = 1000;
                 dockPanel.ColumnDefinitions.Add(columnDefinition0);
                 dockPanel.ColumnDefinitions.Add(columnDefinition1);
                 dockPanel.Background = Brushes.White;
@@ -110,7 +111,7 @@ namespace Pollux
                 gridSplitter.ShowsPreview = false;
                 gridSplitter.Width = 5;
                 gridSplitter.ResizeDirection = GridResizeDirection.Columns;
-                gridSplitter.Background = Brushes.White;
+                gridSplitter.Background = Brushes.Transparent;
                 Grid.SetColumn(gridSplitter, 1);
 
                 //Grid "grid" für die Eigenschaften (wird später zugewiesen)
@@ -203,7 +204,8 @@ namespace Pollux
                 #region
                 Show show = new Show(graph, commandConsole);
                 grid = show.ContentGrid;
-                grid.Margin = new Thickness(gridSplitter.Width, grid.Margin.Top, grid.Margin.Right, grid.Margin.Bottom);
+                grid.Margin = new Thickness(gridSplitter.Width / 2, grid.Margin.Top, grid.Margin.Right, grid.Margin.Bottom);
+                grid.MaxWidth = 1000;
                 show.Content = new Grid();
                 Grid.SetRow(grid, 0);
                 Grid.SetColumn(grid, 1);
