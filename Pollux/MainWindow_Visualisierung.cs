@@ -99,7 +99,7 @@ namespace Pollux
                 ColumnDefinition columnDefinition0 = new ColumnDefinition();
                 columnDefinition0.Width = new GridLength(2, GridUnitType.Star);
                 ColumnDefinition columnDefinition1 = new ColumnDefinition();
-                columnDefinition1.Width = new GridLength(520);
+                columnDefinition1.Width = new GridLength(525);
                 dockPanel.ColumnDefinitions.Add(columnDefinition0);
                 dockPanel.ColumnDefinitions.Add(columnDefinition1);
                 dockPanel.Background = Brushes.White;
