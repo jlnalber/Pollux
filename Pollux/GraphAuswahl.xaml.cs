@@ -73,13 +73,10 @@ namespace Pollux
             string[] pathsAsString = Properties.Settings.Default.OpenedFiles.Split("\n");
             foreach (string i in pathsAsString)
             {
-                try
+                if(File.Exists(i))
                 {
-                    StreamReader streamReader = new StreamReader(i);
-                    streamReader.Close();
                     Paths.Add(i);
                 }
-                catch { }
             }
 
             //Lösche alle Duplicates aus paths

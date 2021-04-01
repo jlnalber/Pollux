@@ -417,7 +417,6 @@ namespace Pollux
         {
             //Initialisiere Variablen
             #region
-            GraphDarstellung graph = new(new List<GraphDarstellung.Knoten>(), new List<GraphDarstellung.Kanten>(), new int[0, 0], "", canvas);//Erstelle den Graphen
             List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
             #endregion
 
@@ -436,14 +435,17 @@ namespace Pollux
             #region
             //Suche nach dem Namen
             int positionName = file.IndexOf("[NAME]");
-            graph.Name = file[positionName + 1];
+            string name = file[positionName + 1];
 
             //Suche nach den Knoten
             int positionKnoten = file.IndexOf("[NODES]");
+            List<string> knotenNamen = new();
             for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
             {
-                graph.AddKnoten(new GraphDarstellung.Knoten(graph, new List<GraphDarstellung.Kanten>(), file[i], canvas));
+                knotenNamen.Add(file[i]);
             }
+
+            GraphDarstellung graph = new(knotenNamen, name, canvas);//Erstelle den Graphen
 
             //Suche nach Kanten
             int positionKanten = file.IndexOf("[EDGES]");

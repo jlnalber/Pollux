@@ -9,6 +9,20 @@
         ShowInTaskbar="True"
         WindowStartupLocation="CenterScreen" 
         Height="800" Width="520" MinHeight="500" MinWidth="300">
+
+    <!-- Shortcuts -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <RoutedUICommand x:Key="Close"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{StaticResource Close}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Close}" Executed="Escape"/>
+    </Window.CommandBindings>
+
     <Grid x:Name="ContentGrid">
         <TabControl x:Name="TabControl" TabStripPlacement="Top" Margin="0,0,0,0" Padding="10">
             <TabItem x:Name="GraphTab">

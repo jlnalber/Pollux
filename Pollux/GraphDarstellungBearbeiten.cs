@@ -73,7 +73,7 @@ namespace Pollux
             start.Kanten.Add(kante);
             ende.Kanten.Add(kante);
 
-            //Erhöhe die Zahl an der Matrix
+            //Erhöhe die Zahl in der Matrix
             ++this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)];
             ++this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)];
 

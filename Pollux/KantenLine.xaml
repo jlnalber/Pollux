@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Pollux.KantenLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pollux"
+             mc:Ignorable="d" 
+             d:DesignHeight="0" d:DesignWidth="0">
+    <Line x:Name="Line" Fill="Black" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+        <Line.ContextMenu>
+            <ContextMenu>
+                <MenuItem x:Name="Eigenschaften"/>
+                <MenuItem x:Name="Löschen"/>
+                <Separator/>
+                <MenuItem x:Name="MenuItem1">
+                    <MenuItem x:Name="MenuItem2"/>
+                    <MenuItem x:Name="MenuItem3"/>
+                </MenuItem>
+                <MenuItem x:Name="MenuItem4"/>
+            </ContextMenu>
+        </Line.ContextMenu>
+    </Line>
+</UserControl>

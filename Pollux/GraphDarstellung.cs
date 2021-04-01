@@ -39,6 +39,58 @@ namespace Pollux
             this.Name = "GRAPH";
             this.Canvas.MouseDown += Canvas_MouseDown;
         }
+
+        public GraphDarstellung(string[] knotenNamen, Canvas canvas) : base()
+        {
+            this.Name = "GRAPH";
+            this.Canvas = canvas;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Length, knotenNamen.Length];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), this.Canvas));
+            }
+        }
+
+        public GraphDarstellung(List<string> knotenNamen, Canvas canvas) : base()
+        {
+            this.Name = "GRAPH";
+            this.Canvas = canvas;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Count, knotenNamen.Count];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), this.Canvas));
+            }
+        }
+
+        public GraphDarstellung(string[] knotenNamen, string name, Canvas canvas) : base()
+        {
+            this.Name = name;
+            this.Canvas = canvas;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Length, knotenNamen.Length];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), this.Canvas));
+            }
+        }
+
+        public GraphDarstellung(List<string> knotenNamen, string name, Canvas canvas) : base()
+        {
+            this.Name = name;
+            this.Canvas = canvas;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Count, knotenNamen.Count];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), this.Canvas));
+            }
+        }
         #endregion
 
         public Graph.Graph CastToGraph()

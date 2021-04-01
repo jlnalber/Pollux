@@ -1052,5 +1052,11 @@ namespace Pollux
             this.KantenPicker.SelectedIndex = this.Graph.GraphKanten.IndexOf(kante);
         }
         #endregion
+
+        private void Escape(object sender, RoutedEventArgs e)
+        {
+            //Schließe das Fenster.
+            this.Close();
+        }
     }
 }

@@ -253,39 +253,16 @@ namespace Pollux
 
             private Ellipse CreateVisualNode(double x, double y)
             {
-                //Lese die Farben in den Einstellungen nach
-                LinearGradientBrush knoten_FarbeFilling = new();
-                if (Properties.Settings.Default.Transition)
-                {
-                    knoten_FarbeFilling = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeFilling.A, Properties.Settings.Default.Knoten_FarbeFilling.R, Properties.Settings.Default.Knoten_FarbeFilling.G, Properties.Settings.Default.Knoten_FarbeFilling.B), Color.FromArgb(Properties.Settings.Default.Knoten_FarbeFilling2.A, Properties.Settings.Default.Knoten_FarbeFilling2.R, Properties.Settings.Default.Knoten_FarbeFilling2.G, Properties.Settings.Default.Knoten_FarbeFilling2.B), 45);
-                }
-                else
-                {
-                    knoten_FarbeFilling = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeFilling.A, Properties.Settings.Default.Knoten_FarbeFilling.R, Properties.Settings.Default.Knoten_FarbeFilling.G, Properties.Settings.Default.Knoten_FarbeFilling.B), Color.FromArgb(Properties.Settings.Default.Knoten_FarbeFilling.A, Properties.Settings.Default.Knoten_FarbeFilling.R, Properties.Settings.Default.Knoten_FarbeFilling.G, Properties.Settings.Default.Knoten_FarbeFilling.B), 45);
-                }
-                SolidColorBrush knoten_FarbeBorder = new(Color.FromArgb(Properties.Settings.Default.Knoten_FarbeBorder.A, Properties.Settings.Default.Knoten_FarbeBorder.R, Properties.Settings.Default.Knoten_FarbeBorder.G, Properties.Settings.Default.Knoten_FarbeBorder.B));
-
-                //Lese die Höhen und die Thickness in den Einstellungen nach
-                double knoten_Height = Properties.Settings.Default.Knoten_Höhe;
-                double knoten_Width = Properties.Settings.Default.Knoten_Breite;
-                double knoten_Border_Thickness = Properties.Settings.Default.Knoten_Border_Thickness;
-
                 //Finde den Index (für die Position) von dem Knoten in "graph.GraphKnoten" heraus
                 int index = this.Parent.GraphKnoten.Contains(this) ? this.Parent.GraphKnoten.IndexOf(this) : this.Parent.GraphKnoten.Count;
 
                 //Erstelle einen Knoten
-                Ellipse ellipse = new();
+                KnotenEllipse knotenEllipse = new(this.Eigenschaften_Click);
+                Ellipse ellipse = knotenEllipse.Ellipse;
+                knotenEllipse.Content = null;
 
                 //Mache Feinheiten an der Ellipse
-                ellipse.Fill = knoten_FarbeFilling;
-                ellipse.Stroke = knoten_FarbeBorder;
-                ellipse.StrokeThickness = knoten_Border_Thickness;
-                ellipse.Height = knoten_Height;
-                ellipse.Width = knoten_Width;
                 ellipse.Margin = new(x, y, 10, 10);
-                ellipse.Cursor = Cursors.Hand;
-                ellipse.HorizontalAlignment = HorizontalAlignment.Left;
-                ellipse.VerticalAlignment = VerticalAlignment.Top;
                 Canvas.SetZIndex(ellipse, 100);
                 if (this.Canvas.Children.Count != 0)
                 {
@@ -297,56 +274,6 @@ namespace Pollux
                     Canvas.SetTop(ellipse, 0);
                     Canvas.SetLeft(ellipse, 0);
                 }
-
-                //Füge ein ContextMenu hinzu
-                #region
-                //ContextMenu "contextMenu"
-                ContextMenu contextMenu = new ContextMenu();
-                ellipse.ContextMenu = contextMenu;
-
-                //MenuItem zum Anzeigen seiner Eigenschaften
-                MenuItem eigenschaften = new();
-                eigenschaften.Header = MainWindow.resman.GetString("EigenschaftenKnoten", MainWindow.cul);
-                eigenschaften.Click += Eigenschaften_Click;
-
-                //MenuItem zum Löschen des Knoten
-                MenuItem löschen = new MenuItem();
-                löschen.Header = MainWindow.resman.GetString("LöschenKnoten", MainWindow.cul);
-                löschen.Icon = " - ";
-                löschen.Click += MainWindow.main.LöschenKnoten_Click;
-
-                //MenuItem zur Bearbeitung von Graph
-                MenuItem menuItem1 = new();
-                menuItem1.Header = MainWindow.resman.GetString("GraphBearbeiten", MainWindow.cul);
-
-                //MenuItem zum Hinzufügen von Kanten
-                MenuItem menuItem2 = new();
-                menuItem2.Header = MainWindow.resman.GetString("KanteHinzufügen", MainWindow.cul);
-                menuItem2.Icon = " + ";
-                menuItem2.Click += MainWindow.main.KanteHinzufügen_Click;
-
-                //MenuItem zum Hinzufügen von Knoten
-                MenuItem menuItem3 = new();
-                menuItem3.Header = MainWindow.resman.GetString("KnotenHinzufügen", MainWindow.cul);
-                menuItem3.Icon = " + ";
-                menuItem3.Click += MainWindow.main.KnotenHinzufügen_Click;
-
-                //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
-                menuItem1.Items.Add(menuItem2);
-                menuItem1.Items.Add(menuItem3);
-
-                //MenuItem zum Öffnen des Eiganschaften-Fensters
-                MenuItem menuItem4 = new();
-                menuItem4.Click += MainWindow.main.EigenschaftenFenster_Click;
-                menuItem4.Header = MainWindow.resman.GetString("EigenschaftenFenster", MainWindow.cul);
-
-                //Füge alle MenuItems zum ContextMenu "contextMenu" hinzu
-                contextMenu.Items.Add(eigenschaften);
-                contextMenu.Items.Add(löschen);
-                contextMenu.Items.Add(new Separator());
-                contextMenu.Items.Add(menuItem1);
-                contextMenu.Items.Add(menuItem4);
-                #endregion
 
                 //Rückgabe
                 return ellipse;

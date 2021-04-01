@@ -28,7 +28,6 @@ namespace Pollux
                 tabGraph.Header = "Graph";
                 tabGraph.Background = Brushes.White;
                 tabControl.Items.Add(tabGraph);
-                //tabControl.SelectionChanged += this.Graph_HasToBeRedrawn;
 
                 //der Tab für die Console
                 TabItem tabConsole = new TabItem();
@@ -188,7 +187,7 @@ namespace Pollux
                     //Öffne die Datei
                     graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas);
                 }
-                catch
+                catch (Exception e)
                 {
                     //Gebe eine Fehlermeldung aus
                     MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));

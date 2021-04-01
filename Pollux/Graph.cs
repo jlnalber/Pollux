@@ -28,5 +28,53 @@ namespace Pollux.Graph
             this.Liste = liste;
             this.Name = name;
         }
+
+        public Graph(string[] knotenNamen)
+        {
+            this.Name = "GRAPH";
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Length, knotenNamen.Length];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper()));
+            }
+        }
+
+        public Graph(List<string> knotenNamen)
+        {
+            this.Name = "GRAPH";
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Count, knotenNamen.Count];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper()));
+            }
+        }
+
+        public Graph(string[] knotenNamen, string name)
+        {
+            this.Name = name;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Length, knotenNamen.Length];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper()));
+            }
+        }
+
+        public Graph(List<string> knotenNamen, string name)
+        {
+            this.Name = name;
+            this.GraphKanten = new();
+            this.GraphKnoten = new();
+            this.Liste = new int[knotenNamen.Count, knotenNamen.Count];
+            foreach (string i in knotenNamen)
+            {
+                this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper()));
+            }
+        }
     }
 }
