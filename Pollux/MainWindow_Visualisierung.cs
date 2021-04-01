@@ -101,6 +101,7 @@ namespace Pollux
                 ColumnDefinition columnDefinition1 = new ColumnDefinition();
                 columnDefinition1.Width = new GridLength(525);
                 columnDefinition1.MaxWidth = 1000;
+                columnDefinition1.MinWidth = 200;
                 dockPanel.ColumnDefinitions.Add(columnDefinition0);
                 dockPanel.ColumnDefinitions.Add(columnDefinition1);
                 dockPanel.Background = Brushes.White;
@@ -109,7 +110,7 @@ namespace Pollux
                 gridSplitter.HorizontalAlignment = HorizontalAlignment.Left;
                 gridSplitter.VerticalAlignment = VerticalAlignment.Stretch;
                 gridSplitter.ShowsPreview = false;
-                gridSplitter.Width = 5;
+                gridSplitter.Width = 6;
                 gridSplitter.ResizeDirection = GridResizeDirection.Columns;
                 gridSplitter.Background = Brushes.Transparent;
                 Grid.SetColumn(gridSplitter, 1);
