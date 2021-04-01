@@ -95,8 +95,23 @@ namespace Pollux
                 //erstelle die Elemente für die Graph-Visualisierung
                 #region
                 //DockPanel "dockPanel", in dem sich alle Elemente befinden werden
-                DockPanel dockPanel = new DockPanel();
+                Grid dockPanel = new Grid();
+                ColumnDefinition columnDefinition0 = new ColumnDefinition();
+                columnDefinition0.Width = new GridLength(2, GridUnitType.Star);
+                ColumnDefinition columnDefinition1 = new ColumnDefinition();
+                columnDefinition1.Width = new GridLength(520);
+                dockPanel.ColumnDefinitions.Add(columnDefinition0);
+                dockPanel.ColumnDefinitions.Add(columnDefinition1);
                 dockPanel.Background = Brushes.White;
+
+                GridSplitter gridSplitter = new();
+                gridSplitter.HorizontalAlignment = HorizontalAlignment.Left;
+                gridSplitter.VerticalAlignment = VerticalAlignment.Stretch;
+                gridSplitter.ShowsPreview = false;
+                gridSplitter.Width = 5;
+                gridSplitter.ResizeDirection = GridResizeDirection.Columns;
+                gridSplitter.Background = Brushes.White;
+                Grid.SetColumn(gridSplitter, 1);
 
                 //Grid "grid" für die Eigenschaften (wird später zugewiesen)
                 Grid grid = new();
@@ -105,9 +120,11 @@ namespace Pollux
                 Grid gridAroundCanvas = new Grid();
                 Canvas graphCanvas = new Canvas();
                 gridAroundCanvas.Children.Add(graphCanvas);
-                DockPanel.SetDock(gridAroundCanvas, Dock.Left);
+                Grid.SetColumn(gridAroundCanvas, 0);
+                Grid.SetRow(gridAroundCanvas, 0);
+                /*DockPanel.SetDock(gridAroundCanvas, Dock.Left);
                 DockPanel.SetZIndex(gridAroundCanvas, 0);
-                DockPanel.SetZIndex(grid, 200);
+                DockPanel.SetZIndex(grid, 200);*/
 
                 //lege Eigenschaften für ihn fest
                 //MenuItems
@@ -189,13 +206,16 @@ namespace Pollux
                 #region
                 Show show = new Show(graph, commandConsole);
                 grid = show.ContentGrid;
+                grid.Margin = new Thickness(gridSplitter.Width, grid.Margin.Top, grid.Margin.Right, grid.Margin.Bottom);
                 show.Content = new Grid();
-                grid.Width = 520;
-                DockPanel.SetDock(grid, Dock.Right);
+                //DockPanel.SetDock(grid, Dock.Right);
+                Grid.SetRow(grid, 0);
+                Grid.SetColumn(grid, 1);
                 dockPanel.Children.Add(grid);
                 show.Close();
 
                 dockPanel.Children.Add(gridAroundCanvas);
+                dockPanel.Children.Add(gridSplitter);
                 #endregion
 
                 //speichere in der Liste ab, dass diese Datei gerade geöffnet ist und speichere auch ab, welche TextBox hier der Output ist, und welche Input, sowie die Commands

@@ -7,7 +7,22 @@
         mc:Ignorable="d"
         WindowStyle="ToolWindow"
         ShowInTaskbar="True"
+        WindowStartupLocation="CenterScreen"
         Height="325" Width="200" MinWidth="150" MinHeight="250" MaxWidth="250" MaxHeight="400" KeyUp="AusgewählterName_KeyUp">
+
+    <!-- Shortcuts -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <RoutedUICommand x:Key="Close"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{StaticResource Close}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Close}" Executed="Escape"/>
+    </Window.CommandBindings>
+
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <TextBlock x:Name="NameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>

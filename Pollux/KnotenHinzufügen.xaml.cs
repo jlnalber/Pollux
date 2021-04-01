@@ -64,5 +64,11 @@ namespace Pollux
                 this.Bestätigen_Click(sender, e);
             }
         }
+
+        private void Escape(object sender, RoutedEventArgs e)
+        {
+            //Schließe das Fenster
+            this.Close();
+        }
     }
 }
