@@ -200,10 +200,10 @@ namespace Pollux.Graph
                     //gehe die Nachbarn des Knotens durch und füge diese, falls noch nicht getan, zum Komponent hinzu, gehe dann auch dessen Nachbarn durch (recursive method)
                     foreach (Graph.Knoten i in knoten.BenachbarteKnoten)
                     {
-                        if (!knotenListe.Contains(i))
+                        if (0 == (from n in knotenListe where (n.Name == i.Name) select n).Count())
                         {
-                            knotenListe.Add(i);
-                            AddNachbarnZumKomponent(i, knotenListe);
+                            knotenListe.Add((Graph.Knoten)i);
+                            AddNachbarnZumKomponent((Graph.Knoten)i, knotenListe);
                         }
                     }
                 }//Methode (recursive method), die alle Nachbarn eines Knoten in seinen Komponenten schreiben, dessen Nachbarn wieder usw.
@@ -213,7 +213,7 @@ namespace Pollux.Graph
                     //gucke, ob dieser Knoten "knoten" schon in einem Komponent drin ist
                     foreach (HashSet<Graph.Knoten> n in liste)
                     {
-                        if (n.Contains(knoten))
+                        if (0 != (from f in n where (f.Name == knoten.Name) select f).Count())
                         {
                             return true;
                         }
@@ -228,14 +228,14 @@ namespace Pollux.Graph
                 foreach (Graph.Knoten i in this.GraphKnoten)
                 {
                     //falls der Knoten schon in einem Komponenten auftaucht, erstelle einen neuen Komponenten und füge dort alle zusammengehörenden Knoten hinzu
-                    if (!SchonVorhanden(liste, i))
+                    if (!SchonVorhanden(liste, (Graph.Knoten)i))
                     {
                         //erstelle neuen Komponent, füge ihn hinzu
-                        HashSet<Graph.Knoten> komponent = new HashSet<Knoten>() { i };
+                        HashSet<Graph.Knoten> komponent = new HashSet<Knoten>() { (Graph.Knoten)i };
                         liste.Add(komponent);
 
                         //schreibe seine benachbarten Ecken in den gleichen Komponenten, und dessen benachbarten Ecken auch, usw.... (recursive method)
-                        AddNachbarnZumKomponent(i, komponent);
+                        AddNachbarnZumKomponent((Graph.Knoten)i, komponent);
                     }
                 }
 

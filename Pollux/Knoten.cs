@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Pollux.Graph
 {
@@ -69,8 +70,8 @@ namespace Pollux.Graph
                     foreach (Graph.Kanten i in this.Kanten)
                     {
                         //gehe jede Kante durch und gucke, welcher Knoten auf der anderen Seite liegt, füge diesen, falls nicht schon vorhanden, zur Liste "liste" hinzu
-                        Knoten knoten = (i[0] == this) ? i[1] : i[0];
-                        if (!liste.Contains(knoten))
+                        Knoten knoten = (i[0].Name == this.Name) ? (Graph.Knoten)i[1] : (Graph.Knoten)i[0];
+                        if ((from n in liste where n.Name == i.Name select n).Count() == 0)
                         {
                             liste.Add(knoten);
                         }

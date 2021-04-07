@@ -6,9 +6,8 @@ namespace Pollux
     {
         public new class GraphExceptions
         {
-            public class NameAlreadyExistsException : Exception
+            public class NameAlreadyExistsException : Graph.Graph.GraphExceptions.NameAlreadyExistsException
             {
-                public new string Message = "This name already exists!";
             }
 
             public class UnsupportedUIElementException : Exception
