@@ -440,7 +440,7 @@ namespace Pollux
 
             //Suche nach den Knoten
             int positionKnoten = file.IndexOf("[NODES]");
-            List<string> knotenNamen = new();
+            HashSet<string> knotenNamen = new();
             for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
             {
                 knotenNamen.Add(file[i]);

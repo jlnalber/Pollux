@@ -247,7 +247,7 @@ namespace Pollux
                 if (this.GetSelectedKnoten().Grad != 0)
                 {
                     int position = this.Graph.GraphKnoten.IndexOf(knoten);
-                    List<ElementsKnoten> list = new();
+                    HashSet<ElementsKnoten> list = new();
                     for (int i = 0; i < this.Graph.GraphKnoten.Count; ++i)
                     {
                         int contentListe = this.Graph[position, i];
@@ -413,7 +413,7 @@ namespace Pollux
             //DataGrid
             #region
             //erstelle Elemente für das DataGrid und rechne sie aus, stelle dann das DataGrid dar
-            List<Elements> list = new List<Elements>();
+            HashSet<Elements> list = new HashSet<Elements>();
             Graph.Graph castedGraph = this.Graph.CastToGraph();
             list.Add(new Elements("Ist Eulersch", castedGraph.IstEulersch.ToString()));
             list.Add(new Elements("Ist ein Baum", castedGraph.IstBaum.ToString()));

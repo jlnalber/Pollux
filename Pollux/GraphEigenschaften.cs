@@ -111,7 +111,7 @@ namespace Pollux.Graph
 
 
                 //nur hier gebraucht
-                bool AddNachbarnZuAndererFarbe(Graph.Knoten knoten, List<Graph.Knoten> meineFarbe, List<Graph.Knoten> andereFarbe)
+                bool AddNachbarnZuAndererFarbe(Graph.Knoten knoten, HashSet<Graph.Knoten> meineFarbe, HashSet<Graph.Knoten> andereFarbe)
                 {
                     if (!meineFarbe.Contains(knoten))
                     {
@@ -142,10 +142,8 @@ namespace Pollux.Graph
                     return true;
                 }//Methode (recursive method), die alle Nachbarn eines Knoten in die andere Farbe (Liste) schreibet, dessen Nachbarn wieder usw.
 
-
-
-                List<Graph.Knoten> rot = new List<Knoten>();
-                List<Graph.Knoten> blau = new List<Knoten>();
+                HashSet<Graph.Knoten> rot = new HashSet<Knoten>();
+                HashSet<Graph.Knoten> blau = new HashSet<Knoten>();
                 foreach (Graph.Knoten knoten in this.GraphKnoten)
                 {
                     if (!rot.Contains(knoten) && !blau.Contains(knoten))
@@ -190,14 +188,14 @@ namespace Pollux.Graph
             }
         }
 
-        public virtual List<List<Graph.Knoten>> Komponenten
+        public virtual HashSet<HashSet<Graph.Knoten>> Komponenten
         {
             get
             {
                 //Prüfen, aus welchen Komponenten der Graph besteht
 
                 //nur hier gebraucht
-                void AddNachbarnZumKomponent(Graph.Knoten knoten, List<Graph.Knoten> knotenListe)
+                void AddNachbarnZumKomponent(Graph.Knoten knoten, HashSet<Graph.Knoten> knotenListe)
                 {
                     //gehe die Nachbarn des Knotens durch und füge diese, falls noch nicht getan, zum Komponent hinzu, gehe dann auch dessen Nachbarn durch (recursive method)
                     foreach (Graph.Knoten i in knoten.BenachbarteKnoten)
@@ -210,26 +208,30 @@ namespace Pollux.Graph
                     }
                 }//Methode (recursive method), die alle Nachbarn eines Knoten in seinen Komponenten schreiben, dessen Nachbarn wieder usw.
 
-
-                List<List<Graph.Knoten>> liste = new List<List<Knoten>>();//Liste mit den Komponenten
-
-                foreach (Graph.Knoten i in this.GraphKnoten)
+                bool SchonVorhanden(HashSet<HashSet<Graph.Knoten>> liste, Graph.Knoten knoten)
                 {
-                    //gucke, ob dieser Knoten "i" schon in einem Komponent drin ist, wenn nicht erstelle einen neuen Komponenten
-                    bool schonVorhanden = false;
-                    foreach (List<Graph.Knoten> n in liste)
+                    //gucke, ob dieser Knoten "knoten" schon in einem Komponent drin ist
+                    foreach (HashSet<Graph.Knoten> n in liste)
                     {
-                        if (n.Contains(i))
+                        if (n.Contains(knoten))
                         {
-                            schonVorhanden = true;
+                            return true;
                         }
                     }
 
+                    return false;
+                }
+
+
+                HashSet<HashSet<Graph.Knoten>> liste = new HashSet<HashSet<Knoten>>();//Liste mit den Komponenten
+
+                foreach (Graph.Knoten i in this.GraphKnoten)
+                {
                     //falls der Knoten schon in einem Komponenten auftaucht, erstelle einen neuen Komponenten und füge dort alle zusammengehörenden Knoten hinzu
-                    if (!schonVorhanden)
+                    if (!SchonVorhanden(liste, i))
                     {
                         //erstelle neuen Komponent, füge ihn hinzu
-                        List<Graph.Knoten> komponent = new List<Knoten>() { i };
+                        HashSet<Graph.Knoten> komponent = new HashSet<Knoten>() { i };
                         liste.Add(komponent);
 
                         //schreibe seine benachbarten Ecken in den gleichen Komponenten, und dessen benachbarten Ecken auch, usw.... (recursive method)
@@ -237,6 +239,7 @@ namespace Pollux.Graph
                     }
                 }
 
+                //Rückgabe
                 return liste;
             }
         }

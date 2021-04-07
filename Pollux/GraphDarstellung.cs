@@ -34,8 +34,8 @@ namespace Pollux
 
         public GraphDarstellung() : base()
         {
-            this.GraphKnoten = new List<Knoten>();
-            this.GraphKanten = new List<Kanten>();
+            this.GraphKnoten = new();
+            this.GraphKanten = new();
             this.Liste = new int[0, 0];
             this.Name = "GRAPH";
             this.Canvas.MouseDown += Canvas_MouseDown;
@@ -54,7 +54,7 @@ namespace Pollux
             }
         }
 
-        public GraphDarstellung(List<string> knotenNamen, Canvas canvas) : base()
+        public GraphDarstellung(HashSet<string> knotenNamen, Canvas canvas) : base()
         {
             this.Name = "GRAPH";
             this.Canvas = canvas;
@@ -80,7 +80,7 @@ namespace Pollux
             }
         }
 
-        public GraphDarstellung(List<string> knotenNamen, string name, Canvas canvas) : base()
+        public GraphDarstellung(HashSet<string> knotenNamen, string name, Canvas canvas) : base()
         {
             this.Name = name;
             this.Canvas = canvas;

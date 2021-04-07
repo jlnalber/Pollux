@@ -41,7 +41,7 @@ namespace Pollux.Graph
             }
         }
 
-        public Graph(List<string> knotenNamen)
+        public Graph(HashSet<string> knotenNamen)
         {
             this.Name = "GRAPH";
             this.GraphKanten = new();
@@ -65,7 +65,7 @@ namespace Pollux.Graph
             }
         }
 
-        public Graph(List<string> knotenNamen, string name)
+        public Graph(HashSet<string> knotenNamen, string name)
         {
             this.Name = name;
             this.GraphKanten = new();
