@@ -185,7 +185,8 @@ namespace Pollux
                 try
                 {
                     //Öffne die Datei
-                    graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas);
+                    CommandConsole.FileMode fileMode = path.EndsWith(".poll") ? CommandConsole.FileMode.POLL : CommandConsole.FileMode.GRAPHML;
+                    graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas, fileMode);
                 }
                 catch (Exception e)
                 {

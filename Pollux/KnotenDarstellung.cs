@@ -245,11 +245,7 @@ namespace Pollux
                 this.Ellipse.Margin = thickness;
 
                 //Gebe den Namen auch noch einmal an
-                if (this.Label.Content.ToString() != this.Name)
-                {
-                    this.Label.Content = this.Name;
-                }
-                this.Label.Margin = new(this.Ellipse.Margin.Left + LabelToRight, this.Ellipse.Margin.Top - LabelToTop, 10, 10);
+                this.RedrawName();
 
                 foreach (Kanten i in this.Kanten)
                 {
@@ -312,6 +308,7 @@ namespace Pollux
                 {
                     this.Label.Content = this.Name;
                 }
+                this.Label.Margin = new(this.Ellipse.Margin.Left + LabelToRight, this.Ellipse.Margin.Top - LabelToTop, 10, 10);
             }
 
             //Methode um einen Visuellen Knoten zu erstellen
@@ -349,13 +346,6 @@ namespace Pollux
 
                 //Rückgabe
                 return ellipse;
-            }
-
-            //Methode, die ausgelöst wird, wenn das MenuItem "eigenschaften" gedrückt wird
-            public void Eigenschaften_Click(object sender, RoutedEventArgs e)
-            {
-                //Falls das MenuItem "eigenschaften" geklickt wurde
-                MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenNode(this);
             }
 
             //Methode, um einen Label zum Knoten zu erstellen

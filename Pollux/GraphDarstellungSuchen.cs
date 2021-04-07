@@ -8,6 +8,7 @@ namespace Pollux
 
         public new Knoten SucheKnoten(string name)
         {
+            name = name.ToUpper();
             for (int i = this.GraphKnoten.Count() - 1; i >= 0; --i)
             {
                 if (this.GraphKnoten[i].Name == name)
@@ -22,6 +23,7 @@ namespace Pollux
 
         public new Kanten SucheKanten(string name)
         {
+            name = name.ToUpper();
             for (int i = this.GraphKanten.Count() - 1; i >= 0; --i)
             {
                 if (this.GraphKanten[i].Name == name)
@@ -36,6 +38,7 @@ namespace Pollux
 
         public override bool ContainsKnoten(string name)
         {
+            name = name.ToUpper();
             //durchsuche die Liste "GraphKnoten", ob schon ein Knoten mit diesem Namen existiert
             for (int i = this.GraphKnoten.Count() - 1; i >= 0; --i)
             {
@@ -56,6 +59,7 @@ namespace Pollux
 
         public override bool ContainsKanten(string name)
         {
+            name = name.ToUpper();
             //durchsuche die Liste "GraphKanten", ob schon eine Kante mit diesem Namen existiert
             for (int i = this.GraphKanten.Count() - 1; i >= 0; --i)
             {

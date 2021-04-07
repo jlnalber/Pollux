@@ -95,7 +95,9 @@ namespace Pollux
 
         public Kanten AddKante(Knoten start, Knoten ende)
         {
-            return this.AddKante("EDGE" + (this.GraphKanten.Count + 1).ToString(), start, ende);
+            int suffix = 0;
+            for (; this.SucheKanten("EDGE" + suffix) != null; ++suffix) ;
+            return this.AddKante("EDGE" + suffix, start, ende);
         }
 
         public Kanten AddKante(string name, UIElement line, Knoten start, Knoten ende)

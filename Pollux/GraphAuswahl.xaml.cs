@@ -174,7 +174,7 @@ namespace Pollux
             try
             {
                 SaveFileDialog saveFileDialog = new();
-                saveFileDialog.Filter = "poll files(*.poll) | *.poll";
+                saveFileDialog.Filter = "Pollux Graph (*.poll) | *.poll|Graph Markup Language (*.graphml) | *.graphml";
                 saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.poll" : this.NameDatei.Text + ".poll";
                 saveFileDialog.RestoreDirectory = true;
                 if (saveFileDialog.ShowDialog() == true)
@@ -197,13 +197,16 @@ namespace Pollux
                 //Lege den Namen fest
                 string name = this.NameDatei.Text == "" ? "GRAPH" : this.NameDatei.Text.ToUpper();
 
+                //Finde den FileMode heraus
+                CommandConsole.FileMode fileMode = path.EndsWith(".poll") ? CommandConsole.FileMode.POLL : CommandConsole.FileMode.GRAPHML;
+
                 //Erstelle den Graphen bzw. seine Datei
                 #region
                 if (this.TemplateListBox.SelectedItem == this.NothingTemplate)
                 {
                     //schreibe eine "leere" Datei
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new GraphDarstellung(new(), new(), new int[0, 0], name)));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new Graph.Graph(new(), new(), new int[0, 0], name), fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.CircleTemplate)
@@ -214,7 +217,7 @@ namespace Pollux
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.VieleckTemplate)
@@ -225,7 +228,7 @@ namespace Pollux
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.VollständigesVieleckTemplate)
@@ -236,7 +239,7 @@ namespace Pollux
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.BipartiterGraphTemplate)
@@ -247,7 +250,7 @@ namespace Pollux
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.BaumTemplate)
@@ -258,7 +261,7 @@ namespace Pollux
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph));
+                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 #endregion
@@ -294,7 +297,7 @@ namespace Pollux
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "poll files (*.poll)|*.poll";
+                openFileDialog.Filter = "Pollux Graph (*.poll) | *.poll|Graph Markup Language (*.graphml) | *.graphml";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
 

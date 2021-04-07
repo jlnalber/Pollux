@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using System.Xml;
+using System.Windows.Media;
 
 namespace Pollux
 {
@@ -365,229 +370,600 @@ namespace Pollux
         public void Save()
         {
             //Speicher den Graphen ab
-            TransformGraphToFile(this.usingGraph, this.path);
+            TransformGraphToFile(this.usingGraph, this.path, this.path.EndsWith(".poll") ? FileMode.POLL : FileMode.GRAPHML);
         }
 
-        public static Graph.Graph TransformFileToGraph(string path)
+        public static Graph.Graph TransformFileToGraph(string path, FileMode fileMode = FileMode.GRAPHML)
         {
-            //Initialisiere Variablen
-            #region
-            Pollux.Graph.Graph graph = new();//Erstelle den Graphen
-            List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
-            #endregion
-
-            //auslesen der Datei
-            #region
-            //lese die Datei aus
-            StreamReader reader = new StreamReader(path);
-            while (!reader.EndOfStream)
+            try
             {
-                file.Add(reader.ReadLine());
-            }
-            reader.Close();
-            #endregion
-
-            //nutze die Informationen aus der Datei, um den Graphen zu vervollständigen
-            #region
-            //Suche nach dem Namen
-            int positionName = file.IndexOf("[NAME]");
-            graph.Name = file[positionName + 1];
-
-            //Suche nach den Knoten
-            int positionKnoten = file.IndexOf("[NODES]");
-            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
-            {
-                graph.AddKnoten(new Graph.Graph.Knoten(graph, new List<Graph.Graph.Kanten>(), file[i]));
-            }
-
-            //Suche nach Kanten
-            int positionKanten = file.IndexOf("[EDGES]");
-            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
-            {
-                string[] liste = file[i].Split('\t');
-                Graph.Graph.Kanten kante = new Graph.Graph.Kanten(graph, new Graph.Graph.Knoten[2], liste[0]);
-                graph.AddKante(kante, graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
-            }
-            #endregion
-
-            //Rückgabe
-            return graph;
-        }
-
-        public static GraphDarstellung TransformFileToGraphDarstellung(string path, Canvas canvas)
-        {
-            //Initialisiere Variablen
-            #region
-            List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
-            #endregion
-
-            //auslesen der Datei
-            #region
-            //lese die Datei aus
-            StreamReader reader = new StreamReader(path);
-            while (!reader.EndOfStream)
-            {
-                file.Add(reader.ReadLine());
-            }
-            reader.Close();
-            #endregion
-
-            //nutze die Informationen aus der Datei, um den Graphen zu vervollständigen
-            #region
-            //Suche nach dem Namen
-            int positionName = file.IndexOf("[NAME]");
-            string name = file[positionName + 1];
-
-            //Suche nach den Knoten
-            int positionKnoten = file.IndexOf("[NODES]");
-            HashSet<string> knotenNamen = new();
-            for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
-            {
-                knotenNamen.Add(file[i]);
-            }
-
-            GraphDarstellung graph = new(knotenNamen, name, canvas);//Erstelle den Graphen
-
-            Ellipse kantenEllipse = (new KantenEllipse()).Ellipse;
-            Line kantenLine = (new KantenLine()).Line;
-
-            //Suche nach Kanten
-            int positionKanten = file.IndexOf("[EDGES]");
-            for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
-            {
-                string[] liste = file[i].Split('\t');
-                if (liste[1] == liste[2])
+                if (fileMode == FileMode.POLL)
                 {
-                    GraphDarstellung.Knoten knoten = graph.SucheKnoten(liste[1]);
-                    Ellipse ellipse = Strings.CopyEllipse(kantenEllipse);
-                    //ellipse.ContextMenu = KantenLine.GetContextMenu();
-                    graph.AddKante(liste[0], ellipse, knoten, knoten);
+                    //Initialisiere Variablen
+                    List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
+
+                    //auslesen der Datei
+                    #region
+                    //lese die Datei aus
+                    StreamReader reader = new StreamReader(path);
+                    while (!reader.EndOfStream)
+                    {
+                        file.Add(reader.ReadLine());
+                    }
+                    reader.Close();
+                    #endregion
+
+                    //nutze die Informationen aus der Datei, um den Graphen zu vervollständigen
+                    #region
+                    //Suche nach dem Namen
+                    int positionName = file.IndexOf("[NAME]");
+                    string name = file[positionName + 1];
+
+                    //Suche nach den Knoten
+                    int positionKnoten = file.IndexOf("[NODES]");
+                    HashSet<string> knotenNamen = new();
+                    for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
+                    {
+                        knotenNamen.Add(file[i]);
+                    }
+
+                    Graph.Graph graph = new(knotenNamen, name);
+
+                    //Suche nach Kanten
+                    int positionKanten = file.IndexOf("[EDGES]");
+                    for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
+                    {
+                        string[] liste = file[i].Split('\t');
+                        graph.AddKante(new Graph.Graph.Kanten(graph, new Graph.Graph.Knoten[2], liste[0]), graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                    }
+                    #endregion
+
+                    //Rückgabe
+                    return graph;
                 }
                 else
                 {
-                    Line line = Strings.CopyLine(kantenLine);
-                    //line.ContextMenu = KantenLine.GetContextMenu();
-                    graph.AddKante(liste[0], line, graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                    XmlDocument xmlReader = new();
+                    StreamReader streamReader = new(path);
+                    string xml = streamReader.ReadToEnd();
+                    streamReader.Close();
+                    xmlReader.LoadXml(xml);
+
+                    XmlNodeList keys = xmlReader.GetElementsByTagName("key");
+
+                    XmlNodeList nodes = xmlReader.GetElementsByTagName("node");
+
+                    HashSet<string> nodeNames = new();
+                    foreach (XmlElement i in nodes)
+                    {
+                        if (i.HasAttribute("id"))
+                        {
+                            nodeNames.Add(i.GetAttribute("id"));
+                        }
+                        else
+                        {
+                            int suffix = 0;
+                            for (; nodeNames.Contains("NODE" + suffix); ++suffix) ;
+                            nodeNames.Add("NODE" + suffix);
+                        }
+                    }
+
+                    XmlElement graphXml = (XmlElement)xmlReader.GetElementsByTagName("graph")[0];
+                    string name = graphXml.HasAttribute("id") ? graphXml.GetAttribute("id").ToUpper() : "GRAPH";
+
+                    Graph.Graph graph = new(nodeNames, name);
+
+                    XmlNodeList edges = xmlReader.GetElementsByTagName("edge");
+
+                    foreach (XmlElement i in edges)
+                    {
+                        if (i.HasAttribute("id") && i.HasAttribute("source") && i.HasAttribute("target"))
+                        {
+                            graph.AddKante(i.GetAttribute("id"), graph.SucheKnoten(i.GetAttribute("source")), graph.SucheKnoten(i.GetAttribute("target")));
+                        }
+                        else if (i.HasAttribute("source") && i.HasAttribute("target"))
+                        {
+                            int suffix = 0;
+                            for (; graph.SucheKanten("EDGE" + suffix) != null; ++suffix) ;
+                            graph.AddKante("EDGE" + suffix, graph.SucheKnoten(i.GetAttribute("source")), graph.SucheKnoten(i.GetAttribute("target")));
+                        }
+                    }
+
+                    return graph;
                 }
             }
-            #endregion
-
-            //Rückgabe
-            return graph;
+            catch
+            {
+                return new();
+            }
         }
 
-        public static string TransformGraphToString(GraphDarstellung graph)
+        public static GraphDarstellung TransformFileToGraphDarstellung(string path, Canvas canvas, FileMode fileMode = FileMode.GRAPHML)
         {
-            //Intialisiere die Variable "file"
-            string file = "";
-
-            //speichere den Namen vom Graphen
-            file += "[NAME]\n";
-            file += graph.Name + "\n";
-            file += "[/NAME]\n";
-
-            //speichere die Knoten ab
-            file += "[NODES]\n";
-            foreach (GraphDarstellung.Knoten i in graph.GraphKnoten)
+            try
             {
-                file += i.Name + "\n";
-            }
-            file += "[/NODES]\n";
-
-            //speichere die Kanten ab
-            file += "[EDGES]\n";
-            foreach (GraphDarstellung.Kanten i in graph.GraphKanten)
-            {
-                string str = "";
-                foreach (GraphDarstellung.Knoten f in i.Knoten)
+                if (fileMode == FileMode.POLL)
                 {
-                    str += "\t" + f.Name;
-                }
-                file += i.Name + str + "\n";
-            }
-            file += "[/EDGES]\n";
+                    //Initialisiere Variablen
+                    #region
+                    List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
+                    #endregion
 
-            /*//speichere die Liste des Graphs ab
-            file += "[GRAPH]\n";
-            for (int i = 0; i < graph.Liste.GetLength(1); ++i)
-            {
-                string str = "";
-                for (int f = 0; f < graph.Liste.GetLength(0); ++f)
+                    //auslesen der Datei
+                    #region
+                    //lese die Datei aus
+                    StreamReader reader = new StreamReader(path);
+                    while (!reader.EndOfStream)
+                    {
+                        file.Add(reader.ReadLine());
+                    }
+                    reader.Close();
+                    #endregion
+
+                    //nutze die Informationen aus der Datei, um den Graphen zu vervollständigen
+                    #region
+                    //Suche nach dem Namen
+                    int positionName = file.IndexOf("[NAME]");
+                    string name = file[positionName + 1];
+
+                    //Suche nach den Knoten
+                    int positionKnoten = file.IndexOf("[NODES]");
+                    HashSet<string> knotenNamen = new();
+                    for (int i = positionKnoten + 1; file[i] != "[/NODES]"; ++i)
+                    {
+                        knotenNamen.Add(file[i]);
+                    }
+
+                    GraphDarstellung graph = new(knotenNamen, name, canvas);//Erstelle den Graphen
+
+                    Ellipse kantenEllipse = (new KantenEllipse()).Ellipse;
+                    Line kantenLine = (new KantenLine()).Line;
+
+                    //Suche nach Kanten
+                    int positionKanten = file.IndexOf("[EDGES]");
+                    for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
+                    {
+                        string[] liste = file[i].Split('\t');
+                        if (liste[1] == liste[2])
+                        {
+                            GraphDarstellung.Knoten knoten = graph.SucheKnoten(liste[1]);
+                            Ellipse ellipse = Strings.CopyEllipse(kantenEllipse);
+                            //ellipse.ContextMenu = KantenLine.GetContextMenu();
+                            graph.AddKante(liste[0], ellipse, knoten, knoten);
+                        }
+                        else
+                        {
+                            Line line = Strings.CopyLine(kantenLine);
+                            //line.ContextMenu = KantenLine.GetContextMenu();
+                            graph.AddKante(liste[0], line, graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                        }
+                    }
+                    #endregion
+
+                    //Rückgabe
+                    return graph;
+                }
+                else
                 {
-                    str += graph.Liste[f, i] + "\t";
-                }
-                str = str.Remove(str.Length - 1);
-                file += str + "\n";
-            }
-            file += "[/GRAPH]\n";*/
+                    XmlDocument xmlReader = new();
+                    StreamReader streamReader = new(path);
+                    string xml = streamReader.ReadToEnd();
+                    streamReader.Close();
+                    xmlReader.LoadXml(xml);
 
-            //Rückgabe
-            return file;
+                    XmlNodeList keys = xmlReader.GetElementsByTagName("key");
+
+                    XmlNodeList nodes = xmlReader.GetElementsByTagName("node");
+
+                    HashSet<string> nodeNames = new();
+                    foreach (XmlElement i in nodes)
+                    {
+                        if (i.HasAttribute("id"))
+                        {
+                            nodeNames.Add(i.GetAttribute("id"));
+                        }
+                        else
+                        {
+                            int suffix = 0;
+                            for (; nodeNames.Contains("NODE" + suffix); ++suffix) ;
+                            nodeNames.Add("NODE" + suffix);
+                        }
+                    }
+
+                    XmlElement graphXml = (XmlElement)xmlReader.GetElementsByTagName("graph")[0];
+                    string name = graphXml.HasAttribute("id") ? graphXml.GetAttribute("id").ToUpper() : "GRAPH";
+
+                    GraphDarstellung graph = new(nodeNames, name, canvas);
+
+                    foreach (XmlElement i in nodes)
+                    {
+                        foreach (XmlElement n in i.ChildNodes)
+                        {
+                            if (n.Name == "data" && n.HasAttribute("key") && i.HasAttribute("id"))
+                            {
+                                string keyID = n.GetAttribute("key");
+
+                                XmlElement key = (from XmlElement k in keys where k.GetAttribute("id") == keyID select k).First();
+
+                                if (key.HasAttribute("for") && key.HasAttribute("attr.name") && key.GetAttribute("for") == "node")
+                                {
+                                    switch (key.GetAttribute("attr.name"))
+                                    {
+                                        case "positionx":
+                                            GraphDarstellung.Knoten knoten = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            Thickness margin = knoten.Ellipse.Margin;
+                                            margin.Left = double.Parse(n.InnerText);
+                                            knoten.Ellipse.Margin = margin;
+                                            knoten.RedrawName(); break;
+                                        case "positiony":
+                                            GraphDarstellung.Knoten knoten0 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            Thickness margin0 = knoten0.Ellipse.Margin;
+                                            margin0.Top = double.Parse(n.InnerText);
+                                            knoten0.Ellipse.Margin = margin0;
+                                            knoten0.RedrawName(); break;
+                                        case "strokeThickness":
+                                            GraphDarstellung.Knoten knoten1 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            knoten1.Ellipse.StrokeThickness = double.Parse(n.InnerText);
+                                            knoten1.RedrawName(); break;
+                                        case "height":
+                                            GraphDarstellung.Knoten knoten2 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            knoten2.Ellipse.Height = double.Parse(n.InnerText);
+                                            knoten2.RedrawName(); break;
+                                        case "width":
+                                            GraphDarstellung.Knoten knoten3 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            knoten3.Ellipse.Width = double.Parse(n.InnerText);
+                                            knoten3.RedrawName(); break;
+                                        case "stroke":
+                                            GraphDarstellung.Knoten knoten4 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            knoten4.Ellipse.Stroke = Strings.StringToColor(n.InnerText);
+                                            knoten4.RedrawName(); break;
+                                        case "fill":
+                                            GraphDarstellung.Knoten knoten5 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
+                                            knoten5.Ellipse.Fill = Strings.StringToColor(n.InnerText);
+                                            knoten5.RedrawName(); break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    XmlNodeList edges = xmlReader.GetElementsByTagName("edge");
+
+                    foreach (XmlElement i in edges)
+                    {
+                        if (i.HasAttribute("id") && i.HasAttribute("source") && i.HasAttribute("target"))
+                        {
+                            graph.AddKante(i.GetAttribute("id"), graph.SucheKnoten(i.GetAttribute("source")), graph.SucheKnoten(i.GetAttribute("target")));
+                        }
+                        else if (i.HasAttribute("source") && i.HasAttribute("target"))
+                        {
+                            int suffix = 0;
+                            for (; graph.SucheKanten("EDGE" + suffix) != null; ++suffix) ;
+                            graph.AddKante("EDGE" + suffix, graph.SucheKnoten(i.GetAttribute("source")), graph.SucheKnoten(i.GetAttribute("target")));
+                        }
+
+                        foreach (XmlElement n in i.ChildNodes)
+                        {
+                            if (n.Name == "data" && n.HasAttribute("key") && i.HasAttribute("id"))
+                            {
+                                string keyID = n.GetAttribute("key");
+
+                                XmlElement key = (from XmlElement k in keys where k.GetAttribute("id") == keyID select k).First();
+
+                                if (key.HasAttribute("for") && key.HasAttribute("attr.name") && key.GetAttribute("for") == "edge")
+                                {
+                                    switch (key.GetAttribute("attr.name"))
+                                    {
+                                        case "strokeThickness":
+                                            GraphDarstellung.Kanten kanten = graph.SucheKanten(i.GetAttribute("id").ToUpper());
+                                            if (kanten.Line is Line line0)
+                                            {
+                                                line0.StrokeThickness = double.Parse(n.InnerText);
+                                            }
+                                            else if (kanten.Line is Ellipse ellipse0)
+                                            {
+                                                ellipse0.StrokeThickness = double.Parse(n.InnerText);
+                                            }
+                                            break;
+                                        case "stroke":
+                                            GraphDarstellung.Kanten kanten0 = graph.SucheKanten(i.GetAttribute("id").ToUpper());
+                                            if (kanten0.Line is Line line1)
+                                            {
+                                                line1.Stroke = Strings.StringToColor(n.InnerText);
+                                            }
+                                            else if (kanten0.Line is Ellipse ellipse1)
+                                            {
+                                                ellipse1.Stroke = Strings.StringToColor(n.InnerText);
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return graph;
+                }
+            }
+            catch
+            {
+                return new GraphDarstellung(new(), new(), new int[0, 0], "GRAPH", canvas);
+            }
         }
 
-        public static string TransformGraphToString(Graph.Graph graph)
+        public static string TransformGraphToString(GraphDarstellung graph, FileMode fileMode = FileMode.GRAPHML)
         {
-            //Intialisiere die Variable "file"
-            string file = "";
-
-            //speichere den Namen vom Graphen
-            file += "[NAME]\n";
-            file += graph.Name + "\n";
-            file += "[/NAME]\n";
-
-            //speichere die Knoten ab
-            file += "[NODES]\n";
-            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+            if (fileMode == FileMode.POLL)
             {
-                file += i.Name + "\n";
+                return TransformGraphToString(graph.CastToGraph(), FileMode.POLL);
             }
-            file += "[/NODES]\n";
-
-            //speichere die Kanten ab
-            file += "[EDGES]\n";
-            foreach (Graph.Graph.Kanten i in graph.GraphKanten)
+            else
             {
-                string str = "";
-                foreach (Graph.Graph.Knoten f in i.Knoten)
+                StringWriter stringBuilder = new();
+                XmlWriterSettings xmlWriterSetting = new();
+                xmlWriterSetting.Encoding = Encoding.UTF8;
+                xmlWriterSetting.Indent = true;
+                xmlWriterSetting.NewLineChars = "\n";
+                xmlWriterSetting.OmitXmlDeclaration = false;
+                XmlWriter xmlWriter = XmlWriter.Create(stringBuilder, xmlWriterSetting);
+                xmlWriter.WriteStartDocument();
+                xmlWriter.WriteStartElement("graphml", "http://graphml.graphdrawing.org/xmlns");
+                xmlWriter.WriteAttributeString("xmlns", "xsi", "", "http://www.w3.org/2001/XMLSchema-instance");
+                xmlWriter.WriteAttributeString("xsi", "schemaLocation", null, "http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.1/graphml.xsd");
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d0");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "positionx");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d1");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "positiony");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d2");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "strokeThickness");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d3");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "height");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d4");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "width");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d5");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "stroke");
+                xmlWriter.WriteAttributeString("attr.type", "string");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d6");
+                xmlWriter.WriteAttributeString("for", "node");
+                xmlWriter.WriteAttributeString("attr.name", "fill");
+                xmlWriter.WriteAttributeString("attr.type", "string");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d7");
+                xmlWriter.WriteAttributeString("for", "edge");
+                xmlWriter.WriteAttributeString("attr.name", "stroke");
+                xmlWriter.WriteAttributeString("attr.type", "string");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("key");
+                xmlWriter.WriteAttributeString("id", "d8");
+                xmlWriter.WriteAttributeString("for", "edge");
+                xmlWriter.WriteAttributeString("attr.name", "strokeThickness");
+                xmlWriter.WriteAttributeString("attr.type", "double");
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteStartElement("graph");
+                xmlWriter.WriteAttributeString("id", graph.Name);
+                xmlWriter.WriteAttributeString("edgedefault", "undirected");
+
+                foreach (GraphDarstellung.Knoten i in graph.GraphKnoten)
                 {
-                    str += "\t" + f.Name;
-                }
-                file += i.Name + str + "\n";
-            }
-            file += "[/EDGES]\n";
+                    xmlWriter.WriteStartElement("node");
+                    xmlWriter.WriteAttributeString("id", i.Name);
 
-            /*//speichere die Liste des Graphs ab
-            file += "[GRAPH]\n";
-            for (int i = 0; i < graph.Liste.GetLength(1); ++i)
-            {
-                string str = "";
-                for (int f = 0; f < graph.Liste.GetLength(0); ++f)
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d0");
+                    xmlWriter.WriteString(i.Ellipse.Margin.Left.ToString());
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d1");
+                    xmlWriter.WriteString(i.Ellipse.Margin.Top.ToString());
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d2");
+                    xmlWriter.WriteString(i.Ellipse.StrokeThickness.ToString());
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d3");
+                    xmlWriter.WriteString(i.Ellipse.Height.ToString());
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d4");
+                    xmlWriter.WriteString(i.Ellipse.Width.ToString());
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d5");
+                    xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)i.Ellipse.Stroke));
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d6");
+                    xmlWriter.WriteString(Strings.ColorToString((LinearGradientBrush)i.Ellipse.Fill));
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteEndElement();
+                }
+
+                foreach (GraphDarstellung.Kanten i in graph.GraphKanten)
                 {
-                    str += graph.Liste[f, i] + "\t";
-                }
-                str = str.Remove(str.Length - 1);
-                file += str + "\n";
-            }
-            file += "[/GRAPH]\n";*/
+                    xmlWriter.WriteStartElement("edge");
+                    xmlWriter.WriteAttributeString("id", i.Name);
+                    xmlWriter.WriteAttributeString("source", i.Knoten[0].Name);
+                    xmlWriter.WriteAttributeString("target", i.Knoten[1].Name);
 
-            //Rückgabe
-            return file;
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d7");
+                    if (i.Line is Line line)
+                    {
+                        xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)line.Stroke));
+                    }
+                    else if (i.Line is Ellipse ellipse)
+                    {
+                        xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)ellipse.Stroke));
+                    }
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteStartElement("data");
+                    xmlWriter.WriteAttributeString("key", "d8");
+                    if (i.Line is Line line0)
+                    {
+                        xmlWriter.WriteString(line0.StrokeThickness.ToString());
+                    }
+                    else if (i.Line is Ellipse ellipse0)
+                    {
+                        xmlWriter.WriteString(ellipse0.StrokeThickness.ToString());
+                    }
+                    xmlWriter.WriteEndElement();
+
+                    xmlWriter.WriteEndElement();
+                }
+
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndDocument();
+                xmlWriter.Close();
+                return stringBuilder.ToString();
+            }
         }
 
-        public static void TransformGraphToFile(GraphDarstellung graph, string path)
+        public static string TransformGraphToString(Graph.Graph graph, FileMode fileMode = FileMode.GRAPHML)
+        {
+            if (fileMode == FileMode.POLL)
+            {
+                //Intialisiere die Variable "file"
+                string file = "";
+
+                //speichere den Namen vom Graphen
+                file += "[NAME]\n";
+                file += graph.Name + "\n";
+                file += "[/NAME]\n";
+
+                //speichere die Knoten ab
+                file += "[NODES]\n";
+                foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+                {
+                    file += i.Name + "\n";
+                }
+                file += "[/NODES]\n";
+
+                //speichere die Kanten ab
+                file += "[EDGES]\n";
+                foreach (Graph.Graph.Kanten i in graph.GraphKanten)
+                {
+                    string str = "";
+                    foreach (Graph.Graph.Knoten f in i.Knoten)
+                    {
+                        str += "\t" + f.Name;
+                    }
+                    file += i.Name + str + "\n";
+                }
+                file += "[/EDGES]\n";
+
+                //Rückgabe
+                return file;
+            }
+            else
+            {
+                StringWriter stringBuilder = new();
+                XmlWriterSettings xmlWriterSetting = new();
+                xmlWriterSetting.Encoding = Encoding.UTF8;
+                xmlWriterSetting.Indent = true;
+                xmlWriterSetting.NewLineChars = "\n";
+                xmlWriterSetting.OmitXmlDeclaration = false;
+                XmlWriter xmlWriter = XmlWriter.Create(stringBuilder, xmlWriterSetting);
+                xmlWriter.WriteStartDocument();
+                xmlWriter.WriteStartElement("graphml", "http://graphml.graphdrawing.org/xmlns");
+                xmlWriter.WriteAttributeString("xmlns", "xsi", "", "http://www.w3.org/2001/XMLSchema-instance");
+                xmlWriter.WriteAttributeString("xsi", "schemaLocation", null, "http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.1/graphml.xsd");
+
+                xmlWriter.WriteStartElement("graph");
+                xmlWriter.WriteAttributeString("id", graph.Name);
+                xmlWriter.WriteAttributeString("edgedefault", "undirected");
+
+                foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
+                {
+                    xmlWriter.WriteStartElement("node");
+                    xmlWriter.WriteAttributeString("id", i.Name);
+                    xmlWriter.WriteEndElement();
+                }
+
+                foreach (Graph.Graph.Kanten i in graph.GraphKanten)
+                {
+                    xmlWriter.WriteStartElement("edge");
+                    xmlWriter.WriteAttributeString("id", i.Name);
+                    xmlWriter.WriteAttributeString("source", i.Knoten[0].Name);
+                    xmlWriter.WriteAttributeString("target", i.Knoten[1].Name);
+                    xmlWriter.WriteEndElement();
+                }
+
+                xmlWriter.WriteEndElement();
+
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndDocument();
+                xmlWriter.Close();
+                return stringBuilder.ToString();
+            }
+        }
+
+        public static void TransformGraphToFile(GraphDarstellung graph, string path, FileMode fileMode = FileMode.GRAPHML)
         {
             //Erstelle den StreamWriter "streamWriter", füge dann den Inhalt hinzu und schließe den StreamWriter "streamWriter"
             StreamWriter streamWriter = new(path);
-            streamWriter.WriteLine(TransformGraphToString(graph));
+            //TransformGraphToString(graph, fileMode);
+            streamWriter.WriteLine(TransformGraphToString(graph, fileMode));
             streamWriter.Close();
         }
 
-        public static void TransformGraphToFile(Graph.Graph graph, string path)
+        public static void TransformGraphToFile(Graph.Graph graph, string path, FileMode fileMode = FileMode.GRAPHML)
         {
             //Erstelle den StreamWriter "streamWriter", füge dann den Inhalt hinzu und schließe den StreamWriter "streamWriter"
             StreamWriter streamWriter = new(path);
-            streamWriter.WriteLine(TransformGraphToString(graph));
+            streamWriter.WriteLine(TransformGraphToString(graph, fileMode));
             streamWriter.Close();
+        }
+
+        public enum FileMode
+        {
+            POLL,
+            GRAPHML
         }
     }
 }

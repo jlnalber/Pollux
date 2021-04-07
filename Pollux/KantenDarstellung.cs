@@ -218,12 +218,6 @@ namespace Pollux
                     return line;
                 }
             }
-
-            public void Eigenschaften_Click(object sender, RoutedEventArgs e)
-            {
-                //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
-                MainWindow.main.OpenedEigenschaftenFenster[MainWindow.main.GetOpenTab()].OpenEdge(this);
-            }
         }
     }
 }

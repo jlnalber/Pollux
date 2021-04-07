@@ -35,7 +35,9 @@ namespace Pollux
             this.Bestätigen.Content = MainWindow.resman.GetString("Bestätigen", MainWindow.cul);
 
             //Lege einen ersten Namen fest
-            this.AusgewählterName.Text = "EDGE" + this.Graph.GraphKanten.Count;
+            int suffix = 0;
+            for (; this.Graph.SucheKanten("EDGE" + suffix) != null; ++suffix) ;
+            this.AusgewählterName.Text = "EDGE" + suffix;
 
             //Gebe der TextBox den Fokus
             this.AusgewählterName.Focus();

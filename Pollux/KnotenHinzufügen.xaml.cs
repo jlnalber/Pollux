@@ -31,7 +31,9 @@ namespace Pollux
             this.Bestätigen.Content = MainWindow.resman.GetString("Bestätigen", MainWindow.cul);
 
             //Lege einen ersten Namen fest
-            this.AusgewählterName.Text = "NODE" + this.Graph.GraphKnoten.Count;
+            int suffix = 0;
+            for (; this.Graph.SucheKnoten("NODE" + suffix) != null; ++suffix) ;
+            this.AusgewählterName.Text = "NODE" + suffix;
 
             //Gebe der TextBox den Fokus
             this.AusgewählterName.Focus();

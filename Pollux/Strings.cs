@@ -13,6 +13,8 @@ namespace Pollux
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         public static string Alphabet { get => alphabet; }
 
+        public const string hexabet = "0123456789ABCDEF";
+
         public static int Count(string str, char item)
         {
             //erstelle einen Counter, der die Anzahl der des gesuchten Zeichens in der string zählt
@@ -434,6 +436,116 @@ namespace Pollux
             }
             //menuItem1.Click += menuItem.Click[0];
             return menuItem1;
+        }
+
+        public static string ColorToString(SolidColorBrush solidColorBrush)
+        {
+            string str = "#";
+            str += hexabet[solidColorBrush.Color.R / 16];
+            str += hexabet[solidColorBrush.Color.R % 16];
+            str += hexabet[solidColorBrush.Color.G / 16];
+            str += hexabet[solidColorBrush.Color.G % 16];
+            str += hexabet[solidColorBrush.Color.B / 16];
+            str += hexabet[solidColorBrush.Color.B % 16];
+            str += hexabet[solidColorBrush.Color.A / 16];
+            str += hexabet[solidColorBrush.Color.A % 16];
+            return str;
+        }
+
+        public static string ColorToString(LinearGradientBrush linearGradientBrush)
+        {
+            if (linearGradientBrush.GradientStops.Count == 1)
+            {
+                string str = "#";
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.R / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.R % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.G / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.G % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.B / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.B % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.A / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.A % 16];
+                return str;
+            }
+            else if (linearGradientBrush.GradientStops.Count == 2)
+            {
+                string str = "#";
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.R / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.R % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.G / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.G % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.B / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.B % 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.A / 16];
+                str += hexabet[linearGradientBrush.GradientStops[0].Color.A % 16];
+                str += "-";
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.R / 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.R % 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.G / 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.G % 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.B / 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.B % 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.A / 16];
+                str += hexabet[linearGradientBrush.GradientStops[1].Color.A % 16];
+                return str;
+            }
+            else
+            {
+                return "#000000";
+            }
+        }
+
+        public static Brush StringToColor(string color)
+        {
+            if (color.Length == 9)
+            {
+                byte r = (byte)(hexabet.IndexOf(color[1]) * 16 + hexabet.IndexOf(color[2]));
+                byte g = (byte)(hexabet.IndexOf(color[3]) * 16 + hexabet.IndexOf(color[4]));
+                byte b = (byte)(hexabet.IndexOf(color[5]) * 16 + hexabet.IndexOf(color[6]));
+                byte a = (byte)(hexabet.IndexOf(color[7]) * 16 + hexabet.IndexOf(color[8]));
+
+                return new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            }
+            else if (color.Length == 7)
+            {
+                byte r = (byte)(hexabet.IndexOf(color[1]) * 16 + hexabet.IndexOf(color[2]));
+                byte g = (byte)(hexabet.IndexOf(color[3]) * 16 + hexabet.IndexOf(color[4]));
+                byte b = (byte)(hexabet.IndexOf(color[5]) * 16 + hexabet.IndexOf(color[6]));
+
+                return new SolidColorBrush(Color.FromRgb(r, g, b));
+            }
+            else if (color.Length == 18)
+            {
+                byte r1 = (byte)(hexabet.IndexOf(color[1]) * 16 + hexabet.IndexOf(color[2]));
+                byte g1 = (byte)(hexabet.IndexOf(color[3]) * 16 + hexabet.IndexOf(color[4]));
+                byte b1 = (byte)(hexabet.IndexOf(color[5]) * 16 + hexabet.IndexOf(color[6]));
+                byte a1 = (byte)(hexabet.IndexOf(color[7]) * 16 + hexabet.IndexOf(color[8]));
+
+                byte r2 = (byte)(hexabet.IndexOf(color[10]) * 16 + hexabet.IndexOf(color[11]));
+                byte g2 = (byte)(hexabet.IndexOf(color[12]) * 16 + hexabet.IndexOf(color[13]));
+                byte b2 = (byte)(hexabet.IndexOf(color[14]) * 16 + hexabet.IndexOf(color[15]));
+                byte a2 = (byte)(hexabet.IndexOf(color[16]) * 16 + hexabet.IndexOf(color[17]));
+
+                LinearGradientBrush linearGradientBrush = new(Color.FromArgb(a1, r1, g1, b1), Color.FromArgb(a2, r2, g2, b2), 45.0);
+                return linearGradientBrush;
+            }
+            else if (color.Length == 14)
+            {
+                byte r1 = (byte)(hexabet.IndexOf(color[1]) * 16 + hexabet.IndexOf(color[2]));
+                byte g1 = (byte)(hexabet.IndexOf(color[3]) * 16 + hexabet.IndexOf(color[4]));
+                byte b1 = (byte)(hexabet.IndexOf(color[5]) * 16 + hexabet.IndexOf(color[6]));
+
+                byte r2 = (byte)(hexabet.IndexOf(color[8]) * 16 + hexabet.IndexOf(color[9]));
+                byte g2 = (byte)(hexabet.IndexOf(color[10]) * 16 + hexabet.IndexOf(color[11]));
+                byte b2 = (byte)(hexabet.IndexOf(color[12]) * 16 + hexabet.IndexOf(color[13]));
+
+                LinearGradientBrush linearGradientBrush = new(Color.FromRgb(r1, g1, b1), Color.FromRgb(r2, g2, b2), 45.0);
+                return linearGradientBrush;
+            }
+            else
+            {
+                return new SolidColorBrush();
+            }
         }
     }
 }
