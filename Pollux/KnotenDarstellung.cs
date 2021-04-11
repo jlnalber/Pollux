@@ -231,21 +231,24 @@ namespace Pollux
             #endregion
 
             //Methode, um den Graph neu malen zu lassen
-            public void Redraw()
+            public void Redraw(bool positionMyself = true)
             {
-                //Platziere die Ellipse
-                Thickness thickness = new Thickness();
-                Point point = Mouse.GetPosition(this.Canvas);
-                point.X -= Canvas.GetLeft(this.Ellipse);
-                point.Y -= Canvas.GetTop(this.Ellipse);
-                thickness.Left = point.X - this.Ellipse.Width / 2;
-                thickness.Top = point.Y - this.Ellipse.Height / 2;
-                thickness.Bottom = 10;
-                thickness.Right = 10;
-                this.Ellipse.Margin = thickness;
+                if (positionMyself)
+                {
+                    //Platziere die Ellipse
+                    Thickness thickness = new Thickness();
+                    Point point = Mouse.GetPosition(this.Canvas);
+                    point.X -= Canvas.GetLeft(this.Ellipse);
+                    point.Y -= Canvas.GetTop(this.Ellipse);
+                    thickness.Left = point.X - this.Ellipse.Width / 2;
+                    thickness.Top = point.Y - this.Ellipse.Height / 2;
+                    thickness.Bottom = 10;
+                    thickness.Right = 10;
+                    this.Ellipse.Margin = thickness;
 
-                //Gebe den Namen auch noch einmal an
-                this.RedrawName();
+                    //Gebe den Namen auch noch einmal an
+                    this.RedrawName();
+                }
 
                 foreach (Kanten i in this.Kanten)
                 {
@@ -262,40 +265,73 @@ namespace Pollux
                     else if (i.Line is Line line)
                     {
                         //Für den Fall, dass es eine ganz normale Kante ist
+                        bool isFirst = i.Knoten[0] == this;
+
                         //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
                         Thickness marginKnoten0 = ((Knoten)i.Knoten[0]).Ellipse.Margin;
                         Thickness marginKnoten1 = ((Knoten)i.Knoten[1]).Ellipse.Margin;
                         double height = this.Ellipse.Height;
 
                         //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                        const double maxDistance = 20;
+                        const double maxDistance = 10;
                         double distance = Strings.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
-                        distance = (distance > maxDistance) ? maxDistance : distance;
+                        distance = ((distance > maxDistance) ? maxDistance : distance) + this.Ellipse.Height / 2 - 5;
                         double y = Math.Sqrt(distance * distance / (Math.Pow(Math.Abs((marginKnoten0.Left - marginKnoten1.Left) / (marginKnoten0.Top - marginKnoten1.Top)), 2) + 1));
                         double x = Math.Sqrt(distance * distance - y * y);
                         y = !(y > 0) ? 0 : y;
                         x = !(x > 0) ? 0 : x;
 
-                        //schreibe diese Eigenschaften in die Linie
-                        if (marginKnoten0.Top > marginKnoten1.Top)
+                        if (isFirst)
                         {
-                            line.Y1 = marginKnoten0.Top + height / 2 - y;
-                            line.Y2 = marginKnoten1.Top + height / 2 + y;
+                            //schreibe diese Eigenschaften in die Linie
+                            if (marginKnoten0.Top > marginKnoten1.Top)
+                            {
+                                line.Y1 = marginKnoten0.Top + height / 2 - y;
+                                //line.Y2 = marginKnoten1.Top + height / 2 + y;
+                            }
+                            else
+                            {
+                                line.Y1 = marginKnoten0.Top + height / 2 + y;
+                                //line.Y2 = marginKnoten1.Top + height / 2 - y;
+                            }
+                            if (marginKnoten0.Left > marginKnoten1.Left)
+                            {
+                                line.X1 = marginKnoten0.Left + height / 2 - x;
+                                //line.X2 = marginKnoten1.Left + height / 2 + x;
+                            }
+                            else
+                            {
+                                line.X1 = marginKnoten0.Left + height / 2 + x;
+                                //line.X2 = marginKnoten1.Left + height / 2 - x;
+                            }
+
+                            if (positionMyself) ((GraphDarstellung.Knoten)i.Knoten[1]).Redraw(false);
                         }
                         else
                         {
-                            line.Y1 = marginKnoten0.Top + height / 2 + y;
-                            line.Y2 = marginKnoten1.Top + height / 2 - y;
-                        }
-                        if (marginKnoten0.Left > marginKnoten1.Left)
-                        {
-                            line.X1 = marginKnoten0.Left + height / 2 - x;
-                            line.X2 = marginKnoten1.Left + height / 2 + x;
-                        }
-                        else
-                        {
-                            line.X1 = marginKnoten0.Left + height / 2 + x;
-                            line.X2 = marginKnoten1.Left + height / 2 - x;
+                            //schreibe diese Eigenschaften in die Linie
+                            if (marginKnoten0.Top > marginKnoten1.Top)
+                            {
+                                //line.Y1 = marginKnoten0.Top + height / 2 - y;
+                                line.Y2 = marginKnoten1.Top + height / 2 + y;
+                            }
+                            else
+                            {
+                                //line.Y1 = marginKnoten0.Top + height / 2 + y;
+                                line.Y2 = marginKnoten1.Top + height / 2 - y;
+                            }
+                            if (marginKnoten0.Left > marginKnoten1.Left)
+                            {
+                                //line.X1 = marginKnoten0.Left + height / 2 - x;
+                                line.X2 = marginKnoten1.Left + height / 2 + x;
+                            }
+                            else
+                            {
+                                //line.X1 = marginKnoten0.Left + height / 2 + x;
+                                line.X2 = marginKnoten1.Left + height / 2 - x;
+                            }
+
+                            if (positionMyself) ((GraphDarstellung.Knoten)i.Knoten[0]).Redraw(false);
                         }
                     }
                 }

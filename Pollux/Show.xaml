@@ -47,7 +47,9 @@
 
                         <TextBlock x:Name="KnotenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
                         <TextBox x:Name="KnotenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" Width="100" Padding="5" KeyUp="KnotenName_KeyUp"/>
-                        <Button x:Name="UmbennenKnoten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,10,0,10" Click="UmbennenKnoten_Click" Visibility="Hidden"/>
+                        <Button x:Name="UmbennenKnoten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,20,0,10" Click="UmbennenKnoten_Click" Visibility="Hidden"/>
+
+                        <Button x:Name="KnotenLöschen" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="20,-38,0,10" Click="KnotenLöschen_Click"/>
 
                         <TextBlock x:Name="KnotenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
                         <TextBlock x:Name="KnotenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
@@ -130,7 +132,9 @@
 
                         <TextBlock x:Name="KantenNameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,10"/>
                         <TextBox x:Name="KantenName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-30,0,10" Width="100" Padding="5" KeyUp="KantenName_KeyUp"/>
-                        <Button x:Name="UmbennenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,10,0,10" Click="UmbennenKanten_Click"  Visibility="Hidden"/>
+                        <Button x:Name="UmbennenKanten" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="200,20,0,10" Click="UmbennenKanten_Click"  Visibility="Hidden"/>
+
+                        <Button x:Name="KanteLöschen" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="5" Margin="20,-38,0,10" Click="KanteLöschen_Click"/>
 
                         <TextBlock x:Name="KantenParentText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
                         <TextBlock x:Name="KantenParent" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>

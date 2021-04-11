@@ -17,6 +17,7 @@
             <RoutedUICommand x:Key="SaveAsPicture"/>
             <RoutedUICommand x:Key="New"/>
             <RoutedUICommand x:Key="Open"/>
+            <RoutedUICommand x:Key="Close"/>
             <RoutedUICommand x:Key="Show"/>
             <RoutedUICommand x:Key="NewWindow"/>
             <RoutedUICommand x:Key="NewNode"/>
@@ -30,6 +31,7 @@
         <KeyBinding Modifiers="Ctrl" Key="P" Command="{StaticResource SaveAsPicture}"/>
         <KeyBinding Modifiers="Ctrl" Key="N" Command="{StaticResource New}"/>
         <KeyBinding Modifiers="Ctrl" Key="O" Command="{StaticResource Open}"/>
+        <KeyBinding Modifiers="Ctrl" Key="W" Command="{StaticResource Close}"/>
         <KeyBinding Key="F5" Command="{StaticResource Show}"/>
         <KeyBinding Modifiers="Ctrl+Shift" Key="N" Command="{StaticResource NewWindow}"/>
         <KeyBinding Modifiers="Ctrl" Key="OemPlus" Command="{StaticResource NewNode}"/>
@@ -42,6 +44,7 @@
         <CommandBinding Command="{StaticResource SaveAsPicture}" Executed="AlsBildSpeichern_Click"/>
         <CommandBinding Command="{StaticResource New}" Executed="Neu_Click"/>
         <CommandBinding Command="{StaticResource Open}" Executed="Open_Click"/>
+        <CommandBinding Command="{StaticResource Close}" Executed="Close_Click"/>
         <CommandBinding Command="{StaticResource Show}" Executed="EigenschaftenFenster_Click"/>
         <CommandBinding Command="{StaticResource NewWindow}" Executed="NewWindow_Click"/>
         <CommandBinding Command="{StaticResource NewNode}" Executed="KnotenHinzufügen_Click"/>

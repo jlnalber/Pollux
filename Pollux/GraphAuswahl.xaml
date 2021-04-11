@@ -8,6 +8,20 @@
         WindowStartupLocation="CenterOwner"
         WindowStyle="ToolWindow"
         Title="GraphAuswahl" Height="600" Width="600" MaxWidth="700" MinWidth="400" MinHeight="300" MaxHeight="1000">
+
+    <!-- Shortcuts -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <RoutedUICommand x:Key="Close"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{StaticResource Close}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Close}" Executed="Escape"/>
+    </Window.CommandBindings>
+
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <TreeViewItem x:Name="LetzteDateiHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24">
@@ -17,7 +31,7 @@
                 <TextBlock x:Name="DateiSpeicherortText" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
                 <TextBox x:Name="DateiSpeicherort" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" Background="LightGray" Padding="3"/>
                 <Button x:Name="DateiDurchsuchen" Content=". . ." Margin="320,-28,0,0" Height="28" Padding="3" FontSize="15" VerticalAlignment="Top" Width="30" Background="LightGray" BorderBrush="Gray" Click="DateiDurchsuchen_Click"/>
-                <Button x:Name="Öffnen" MinWidth="10" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Öffnen_Click"/>
+                <Button x:Name="Öffnen" MinWidth="10" Margin="0,15,0,0" FontSize="12" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Öffnen_Click"/>
             </TreeViewItem>
             <TreeViewItem x:Name="NeueDateiErstellenHeader" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="24" Width="389">
                 <TextBlock x:Name="NeueDateiName" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="15" Focusable="False"/>
@@ -90,7 +104,7 @@
                         </ComboBoxItem.Content>
                     </ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="Erstellen" Margin="0,15,0,0" FontSize="12" Height="28" Padding="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
+                <Button x:Name="Erstellen" Margin="0,15,0,15" FontSize="12" Padding="5" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Erstellen_Click"/>
             </TreeViewItem>
         </StackPanel>
     </ScrollViewer>

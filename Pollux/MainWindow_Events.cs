@@ -151,10 +151,14 @@ namespace Pollux
 
         private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
-            //Erstelle ein neues "MainWindow"
-            Process p = new Process();
-            p.StartInfo.FileName = "Pollux.exe";
-            p.Start();
+            try
+            {
+                //Erstelle ein neues "MainWindow"
+                Process p = new Process();
+                p.StartInfo.FileName = "Pollux.exe";
+                p.Start();
+            }
+            catch { }
         }
 
         private void Einstellungen_Click(object sender, RoutedEventArgs e)
@@ -349,6 +353,11 @@ namespace Pollux
 
             //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
             this.OpenedEigenschaftenFenster[this.GetOpenTab()].OpenNode(knoten);
+        }
+
+        public void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.CloseTab(this.GetOpenTab());
         }
     }
 }

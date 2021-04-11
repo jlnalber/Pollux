@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Media;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -46,6 +46,8 @@ namespace Pollux
             this.GraphTab.Header = MainWindow.resman.GetString("GraphTab_Header", MainWindow.cul);
             this.UmbennenKnoten.Content = MainWindow.resman.GetString("UmbennenKnoten", MainWindow.cul);
             this.UmbennenKanten.Content = MainWindow.resman.GetString("UmbennenKanten", MainWindow.cul);
+            this.KnotenLöschen.Content = MainWindow.resman.GetString("KnotenLöschenContent", MainWindow.cul);
+            this.KanteLöschen.Content = MainWindow.resman.GetString("KanteLöschenContent", MainWindow.cul);
 
             this.Knoten_Design_Text.Header = MainWindow.resman.GetString("Knoten_Design_Text", MainWindow.cul);
 
@@ -97,70 +99,7 @@ namespace Pollux
             this.KantenPicker.SelectedIndex = 0;
 
             //Lasse das Grid aktualisieren
-            this.AktualisiereGridAsync();
-
-            /*
-            //Grid-Table
-            #region
-            //füge genügend "Columns" und "Rows" zum "Table" hinzu
-
-            for (int i = 0; i <= graph.Liste.GetLength(0); ++i)
-            {
-                ColumnDefinition columnDefinition = new ColumnDefinition();
-                this.Table.ColumnDefinitions.Add(columnDefinition);
-            }
-            for (int i = 0; i <= graph.Liste.GetLength(1); ++i)
-            {
-                RowDefinition rowDefinition = new RowDefinition();
-                this.Table.RowDefinitions.Add(rowDefinition);
-            }
-
-            //stelle die Namen der Knoten im "Table" dar
-            foreach (Graph.Graph.Knoten i in graph.GraphKnoten)
-            {
-                TextBlock textBlock1 = new TextBlock();
-                textBlock1.Text = i.Name + ":";
-                TextBlock textBlock2 = new TextBlock();
-                textBlock2.Text = i.Name + ":";
-
-                Thickness thickness = new Thickness();
-                thickness.Left = 10;
-                thickness.Right = 10;
-                thickness.Top = 10;
-                thickness.Bottom = 10;
-
-                textBlock1.Padding = thickness;
-                textBlock2.Padding = thickness;
-
-                Grid.SetRow(textBlock1, 0);
-                Grid.SetColumn(textBlock1, graph.GraphKnoten.IndexOf(i) + 1);
-
-                Grid.SetRow(textBlock2, graph.GraphKnoten.IndexOf(i) + 1);
-                Grid.SetColumn(textBlock2, 0);
-
-                this.Table.Children.Add(textBlock1);
-                this.Table.Children.Add(textBlock2);
-            }
-
-            //stelle die Liste im "Table" dar, sie gibt an wieviele Kanten die Knoten jeweils verbinden
-            for (int i = 0; i < graph.Liste.GetLength(0); ++i)
-            {
-                for (int f = 0; f < graph.Liste.GetLength(1); ++f)
-                {
-                    TextBlock textBlock = new TextBlock();
-                    textBlock.Text = graph.Liste[i, f].ToString();
-                    Thickness thickness = new Thickness();
-                    thickness.Left = 10;
-                    thickness.Right = 10;
-                    thickness.Top = 10;
-                    thickness.Bottom = 10;
-                    textBlock.Padding = thickness;
-                    Grid.SetColumn(textBlock, f + 1);
-                    Grid.SetRow(textBlock, i + 1);
-                    this.Table.Children.Add(textBlock);
-                }
-            }
-            #endregion*/
+            this.AktualisiereGrid();
             #endregion
         }
 
@@ -400,13 +339,25 @@ namespace Pollux
             return this.Graph.SucheKnoten(vs[vs.Length - 1]);
         }
 
+        public string GetSelectedKnotenName()
+        {
+            string[] vs = this.KnotenPicker.SelectedItem.ToString().Split(' ');
+            return vs[vs.Length - 1];
+        }
+
         public GraphDarstellung.Kanten GetSelectedKante()
         {
             string[] vs = this.KantenPicker.SelectedItem.ToString().Split(' ');
             return this.Graph.SucheKanten(vs[vs.Length - 1]);
         }
 
-        public async Task AktualisiereGridAsync()
+        public string GetSelectedKantenName()
+        {
+            string[] vs = this.KantenPicker.SelectedItem.ToString().Split(' ');
+            return vs[vs.Length - 1];
+        }
+
+        public void AktualisiereGrid()
         {
             //Aktualisiere das Fenster
 
@@ -451,14 +402,31 @@ namespace Pollux
             else
             {
                 //Aktualisiere "KnotenPicker"
-                this.KnotenPicker.Items.Clear();
+                int index = this.KnotenPicker.SelectedIndex;
+                List<ComboBoxItem> removeThoseNodes = new();
+                foreach (ComboBoxItem i in this.KnotenPicker.Items)
+                {
+                    if (!this.Graph.ContainsKnoten(i.Name))
+                    {
+                        removeThoseNodes.Add(i);
+                    }
+                }
+
+                foreach (ComboBoxItem i in removeThoseNodes)
+                {
+                    this.KnotenPicker.Items.Remove(i);
+                }
+
                 foreach (GraphDarstellung.Knoten i in this.Graph.GraphKnoten)
                 {
-                    ComboBoxItem comboBoxItem = new ComboBoxItem();
-                    comboBoxItem.Content = i.Name;
-                    this.KnotenPicker.Items.Add(comboBoxItem);
+                    if ((from ComboBoxItem n in this.KnotenPicker.Items where (string)n.Content == i.Name select n).Count() == 0)
+                    {
+                        ComboBoxItem comboBoxItem = new ComboBoxItem();
+                        comboBoxItem.Content = i.Name;
+                        this.KnotenPicker.Items.Add(comboBoxItem);
+                    }
                 }
-                this.KnotenPicker.SelectedIndex = 0;
+                this.KnotenPicker.SelectedIndex = (index < 0) ? 0 : (index >= this.KnotenPicker.Items.Count) ? this.KnotenPicker.Items.Count - 1 : index;
 
                 //Füge wieder alle Elemente zum StackPanel "KnotenContent" hinzu
                 this.KnotenContent.Children.Add(this.KnotenPickerText);
@@ -467,6 +435,8 @@ namespace Pollux
                 this.KnotenContent.Children.Add(this.KnotenNameText);
                 this.KnotenContent.Children.Add(this.KnotenName);
                 this.KnotenContent.Children.Add(this.UmbennenKnoten);
+
+                this.KnotenContent.Children.Add(this.KnotenLöschen);
 
                 this.KnotenContent.Children.Add(this.KnotenParentText);
                 this.KnotenContent.Children.Add(this.KnotenParent);
@@ -509,15 +479,32 @@ namespace Pollux
             }
             else
             {
-                //schreibe in die ComboBox, welche Ecken es alle gibt
-                this.KantenPicker.Items.Clear();
+                //schreibe in die ComboBox, welche Kanten es alle gibt
+                int index = this.KantenPicker.SelectedIndex;
+                List<ComboBoxItem> removeThoseEdges = new();
+                foreach (ComboBoxItem i in this.KantenPicker.Items)
+                {
+                    if (!this.Graph.ContainsKanten(i.Name))
+                    {
+                        removeThoseEdges.Add(i);
+                    }
+                }
+
+                foreach (ComboBoxItem i in removeThoseEdges)
+                {
+                    this.KantenPicker.Items.Remove(i);
+                }
+
                 foreach (GraphDarstellung.Kanten i in this.Graph.GraphKanten)
                 {
-                    ComboBoxItem comboBoxItem = new();
-                    comboBoxItem.Content = i.Name;
-                    this.KantenPicker.Items.Add(comboBoxItem);
+                    if ((from ComboBoxItem n in this.KantenPicker.Items where (string)n.Content == i.Name select n).Count() == 0)
+                    {
+                        ComboBoxItem comboBoxItem = new ComboBoxItem();
+                        comboBoxItem.Content = i.Name;
+                        this.KantenPicker.Items.Add(comboBoxItem);
+                    }
                 }
-                this.KantenPicker.SelectedIndex = 0;
+                this.KantenPicker.SelectedIndex = (index < 0) ? 0 : (index >= this.KantenPicker.Items.Count) ? this.KantenPicker.Items.Count - 1 : index;
 
                 //Füge wieder alle Elemente zum Grid "GridKanten" hinzu
                 this.GridKanten.Children.Add(this.KantenPickerText);
@@ -526,6 +513,8 @@ namespace Pollux
                 this.GridKanten.Children.Add(this.KantenNameText);
                 this.GridKanten.Children.Add(this.KantenName);
                 this.GridKanten.Children.Add(this.UmbennenKanten);
+
+                this.GridKanten.Children.Add(this.KanteLöschen);
 
                 this.GridKanten.Children.Add(this.KantenParentText);
                 this.GridKanten.Children.Add(this.KantenParent);
@@ -561,6 +550,7 @@ namespace Pollux
                 this.TextBox_GKnoten_Filling2.IsEnabled = true;
                 this.TextBox_BKnoten_Filling2.IsEnabled = true;
                 this.Sliders_KnotenDarstellung_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+                this.GetSelectedKnoten().Redraw(false);
             }
             catch { }
         }
@@ -582,6 +572,7 @@ namespace Pollux
                 this.TextBox_GKnoten_Filling2.IsEnabled = false;
                 this.TextBox_BKnoten_Filling2.IsEnabled = false;
                 this.Sliders_KnotenDarstellung_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, 100));
+                this.GetSelectedKnoten().Redraw(false);
             }
             catch { }
         }
@@ -671,6 +662,8 @@ namespace Pollux
                 this.TextBox_Knoten_Size.Text = knoten_Size.ToString();
                 this.TextBox_Knoten_SizeStroke.Text = knoten_SizeStroke.ToString();
                 #endregion
+
+                this.GetSelectedKnoten().Redraw(false);
             }
             catch { }
         }
@@ -1057,6 +1050,16 @@ namespace Pollux
         {
             //Schließe das Fenster.
             this.Close();
+        }
+
+        private void KnotenLöschen_Click(object sender, RoutedEventArgs e)
+        {
+            this.CommandConsole.Command("REMOVE " + this.GetSelectedKnotenName());
+        }
+
+        private void KanteLöschen_Click(object sender, RoutedEventArgs e)
+        {
+            this.CommandConsole.Command("REMOVE " + this.GetSelectedKantenName());
         }
     }
 }

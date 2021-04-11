@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
@@ -30,6 +29,9 @@ namespace Pollux
 
                 //Füge die Kante dem Canvas hinzu
                 this.Canvas.Children.Add(this.Line);
+
+                ((Knoten)this.Knoten[0]).Redraw(false);
+                ((Knoten)this.Knoten[1]).Redraw(false);
             }
 
             public Kanten(GraphDarstellung graph, Knoten[] knoten, string name, UIElement line, Canvas canvas) : base(graph, knoten, name)
@@ -45,75 +47,16 @@ namespace Pollux
                 this.Knoten = knoten;
                 this.Name = name;
                 this.Canvas = canvas;
-                if (line is Line line1)
-                {
-                    this.Line = line1;
-
-                    //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = ((Knoten)this.Knoten[0]).Ellipse.Margin;
-                    Thickness marginKnoten1 = ((Knoten)this.Knoten[1]).Ellipse.Margin;
-                    double height = ((Knoten)this.Knoten[0]).Ellipse.Height;
-
-                    //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                    const double maxDistance = 20;
-                    double distance = Strings.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
-                    distance = (distance > maxDistance) ? maxDistance : distance;
-                    double y = Math.Sqrt(distance * distance / (Math.Pow(Math.Abs((marginKnoten0.Left - marginKnoten1.Left) / (marginKnoten0.Top - marginKnoten1.Top)), 2) + 1));
-                    double x = Math.Sqrt(distance * distance - y * y);
-                    y = !(y > 0) ? 0 : y;
-                    x = !(x > 0) ? 0 : x;
-
-                    //schreibe diese Eigenschaften in die Linie
-                    if (marginKnoten0.Top > marginKnoten1.Top)
-                    {
-                        line1.Y1 = marginKnoten0.Top + height / 2 - y;
-                        line1.Y2 = marginKnoten1.Top + height / 2 + y;
-                    }
-                    else
-                    {
-                        line1.Y1 = marginKnoten0.Top + height / 2 + y;
-                        line1.Y2 = marginKnoten1.Top + height / 2 - y;
-                    }
-                    if (marginKnoten0.Left > marginKnoten1.Left)
-                    {
-                        line1.X1 = marginKnoten0.Left + height / 2 - x;
-                        line1.X2 = marginKnoten1.Left + height / 2 + x;
-                    }
-                    else
-                    {
-                        line1.X1 = marginKnoten0.Left + height / 2 + x;
-                        line1.X2 = marginKnoten1.Left + height / 2 - x;
-                    }
-                    Canvas.SetTop(line1, 0);
-                    Canvas.SetLeft(line1, 0);
-                }
-                else if (line is Ellipse ellipse)
-                {
-                    this.Line = ellipse;
-
-                    //Finde die Margins des Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten = ((Knoten)this.Knoten[0]).Ellipse.Margin;
-                    if (this.Canvas.Children.Count != 0)
-                    {
-                        Canvas.SetTop(this.Line, Canvas.GetTop(this.Canvas.Children[0]));
-                        Canvas.SetLeft(this.Line, Canvas.GetLeft(this.Canvas.Children[0]));
-                    }
-                    else
-                    {
-                        Canvas.SetTop(this.Line, 0);
-                        Canvas.SetLeft(this.Line, 0);
-                    }
-
-                    //lege die Position fest
-                    ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
-                }
-                else
+                if (!(line is Ellipse || line is Line))
                 {
                     throw new GraphExceptions.UnsupportedUIElementException();
                 }
 
                 //Füge die Kante dem Canvas hinzu
                 this.Canvas.Children.Add(this.Line);
+
+                ((Knoten)this.Knoten[0]).Redraw(false);
+                ((Knoten)this.Knoten[1]).Redraw(false);
             }
 
             public Graph.Graph.Kanten CastToKanten(Graph.Graph graph)
@@ -148,8 +91,6 @@ namespace Pollux
                     Ellipse ellipse = kantenEllipse.Ellipse;
                     kantenEllipse.Content = null;
 
-                    //Finde die Margins des Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten = ((Knoten)this.Knoten[0]).Ellipse.Margin;
                     if (this.Canvas.Children.Count != 0)
                     {
                         Canvas.SetTop(ellipse, Canvas.GetTop(this.Canvas.Children[0]));
@@ -161,9 +102,6 @@ namespace Pollux
                         Canvas.SetLeft(ellipse, 0);
                     }
 
-                    //lege die Position fest
-                    ellipse.Margin = new Thickness(marginKnoten.Left - ellipse.Width / 2 - 10, marginKnoten.Top - 5, 10, 10);
-
                     //Rückgabe
                     return ellipse;
                 }
@@ -174,45 +112,21 @@ namespace Pollux
                     Line line = kantenLine.Line;
                     kantenLine.Content = null;
 
-                    //Erstelle die visuelle Kante "kanten"
-
-                    //Finde die Margins der Knoten heraus, mit dem die Kante verbunden ist
-                    Thickness marginKnoten0 = ((Knoten)this.Knoten[0]).Ellipse.Margin;
-                    Thickness marginKnoten1 = ((Knoten)this.Knoten[1]).Ellipse.Margin;
-                    double height = ((Knoten)this.Knoten[0]).Ellipse.Height;
-
-                    //finde dadurch die Position heraus, wo die Kante starten und enden muss
-                    const double maxDistance = 20;
-                    double distance = Strings.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
-                    distance = (distance > maxDistance) ? maxDistance : distance;
-                    double y = Math.Sqrt(distance * distance / (Math.Pow(Math.Abs((marginKnoten0.Left - marginKnoten1.Left) / (marginKnoten0.Top - marginKnoten1.Top)), 2) + 1));
-                    double x = Math.Sqrt(distance * distance - y * y);
-                    y = !(y > 0) ? 0 : y;
-                    x = !(x > 0) ? 0 : x;
-
-                    //schreibe diese Eigenschaften in die Linie
-                    if (marginKnoten0.Top > marginKnoten1.Top)
+                    if (this.Canvas.Children.Count != 0)
                     {
-                        line.Y1 = marginKnoten0.Top + height / 2 - y;
-                        line.Y2 = marginKnoten1.Top + height / 2 + y;
+                        Canvas.SetTop(line, Canvas.GetTop(this.Canvas.Children[0]));
+                        Canvas.SetLeft(line, Canvas.GetLeft(this.Canvas.Children[0]));
                     }
                     else
                     {
-                        line.Y1 = marginKnoten0.Top + height / 2 + y;
-                        line.Y2 = marginKnoten1.Top + height / 2 - y;
+                        Canvas.SetTop(line, 0);
+                        Canvas.SetLeft(line, 0);
                     }
-                    if (marginKnoten0.Left > marginKnoten1.Left)
-                    {
-                        line.X1 = marginKnoten0.Left + height / 2 - x;
-                        line.X2 = marginKnoten1.Left + height / 2 + x;
-                    }
-                    else
-                    {
-                        line.X1 = marginKnoten0.Left + height / 2 + x;
-                        line.X2 = marginKnoten1.Left + height / 2 - x;
-                    }
-                    Canvas.SetTop(line, 0);
-                    Canvas.SetLeft(line, 0);
+
+                    line.X1 = 0;
+                    line.X2 = 0;
+                    line.Y1 = 0;
+                    line.Y2 = 0;
 
                     //Rückgabe
                     return line;

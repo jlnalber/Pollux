@@ -341,6 +341,12 @@ namespace Pollux
             }
         }
 
+        private void Escape(object sender, RoutedEventArgs e)
+        {
+            //Schließe das Fenster.
+            this.Close();
+        }
+
         //Die verschiedenen Zustände die dem Konstruktor übergeben werden
         public enum State
         {

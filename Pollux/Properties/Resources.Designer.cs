@@ -602,6 +602,15 @@ namespace Pollux.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Kante löschen ähnelt.
+        /// </summary>
+        public static string KanteLöschenContent {
+            get {
+                return ResourceManager.GetString("KanteLöschenContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Kanten: ähnelt.
         /// </summary>
         public static string Kanten {
@@ -841,6 +850,15 @@ namespace Pollux.Properties {
         public static string KnotenKantenText {
             get {
                 return ResourceManager.GetString("KnotenKantenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Knoten löschen ähnelt.
+        /// </summary>
+        public static string KnotenLöschenContent {
+            get {
+                return ResourceManager.GetString("KnotenLöschenContent", resourceCulture);
             }
         }
         

@@ -188,7 +188,7 @@ namespace Pollux
                     CommandConsole.FileMode fileMode = path.EndsWith(".poll") ? CommandConsole.FileMode.POLL : CommandConsole.FileMode.GRAPHML;
                     graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas, fileMode);
                 }
-                catch (Exception e)
+                catch
                 {
                     //Gebe eine Fehlermeldung aus
                     MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
@@ -314,7 +314,7 @@ namespace Pollux
         public void AktualisiereEigenschaftenFenster(TabItem tabItem)
         {
             //Aktualisiere das Eigenschaften-Fenster
-            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGridAsync();
+            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGrid();
         }
 
         public void AktualisiereEigenschaftenFenster()

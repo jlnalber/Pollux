@@ -84,6 +84,9 @@ namespace Pollux
             ++this.Liste[this.GraphKnoten.IndexOf(start), this.GraphKnoten.IndexOf(ende)];
             ++this.Liste[this.GraphKnoten.IndexOf(ende), this.GraphKnoten.IndexOf(start)];
 
+            start.Redraw(false);
+            ende.Redraw(false);
+
             //Rückgabe
             return kante;
         }

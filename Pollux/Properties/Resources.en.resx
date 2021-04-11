@@ -294,6 +294,9 @@
   <data name="KanteHinzufügen" xml:space="preserve">
     <value>Add edge</value>
   </data>
+  <data name="KanteLöschenContent" xml:space="preserve">
+    <value>Remove edge</value>
+  </data>
   <data name="Kanten" xml:space="preserve">
     <value>Edges:</value>
   </data>
@@ -356,6 +359,9 @@
   </data>
   <data name="KnotenKantenText" xml:space="preserve">
     <value>Edges:</value>
+  </data>
+  <data name="KnotenLöschenContent" xml:space="preserve">
+    <value>Remove node</value>
   </data>
   <data name="KnotenNameText" xml:space="preserve">
     <value>Name:</value>

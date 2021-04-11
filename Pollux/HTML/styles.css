@@ -9,6 +9,14 @@ header.head{
     z-index: 10;
 }
 
+img{
+    position: absolute;
+    width: 50px;
+    margin-left: 35%;
+    margin-top: 10px;
+    text-align: center;
+}
+
 body{
     padding: 0%;
 }
@@ -37,10 +45,11 @@ a{
     color: aliceblue;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-decoration-line:none;
-    background-color: dodgerblue;
+    background-color: transparent;
+    font-size: 13pt;	
     border-radius: 7px;
     padding: 10px;
-    margin-left: 50px;
+    margin-left: 60px;
     -webkit-user-select: none;      
     -moz-user-select: none;
     -ms-user-select: none;
@@ -48,11 +57,16 @@ a{
     cursor: pointer;
 }
 
+p{
+    text-align: center;
+}
+
 header.bottom p{
     color:aliceblue;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 9pt;
     margin: 3px;
+    text-align: left;
     -webkit-user-select: none;      
     -moz-user-select: none;
     -ms-user-select: none;
@@ -62,7 +76,7 @@ header.bottom p{
 div.content{
     margin-top: 150px;
     position: absolute;
-    border-color: grey;
+    border-color: transparent;
     border-width: 1px;
     border-radius: 5px;
     border-style:solid;

@@ -351,7 +351,7 @@ namespace Pollux
             if (changed)
             {
                 this.MainWindow.AktualisiereEigenschaftenFenster(this.TabItem);
-                await Task.Run(() => this.Save());
+                this.Save();
             }
         }
 
@@ -516,9 +516,6 @@ namespace Pollux
 
                     GraphDarstellung graph = new(knotenNamen, name, canvas);//Erstelle den Graphen
 
-                    Ellipse kantenEllipse = (new KantenEllipse()).Ellipse;
-                    Line kantenLine = (new KantenLine()).Line;
-
                     //Suche nach Kanten
                     int positionKanten = file.IndexOf("[EDGES]");
                     for (int i = positionKanten + 1; file[i] != "[/EDGES]"; ++i)
@@ -527,15 +524,11 @@ namespace Pollux
                         if (liste[1] == liste[2])
                         {
                             GraphDarstellung.Knoten knoten = graph.SucheKnoten(liste[1]);
-                            Ellipse ellipse = Strings.CopyEllipse(kantenEllipse);
-                            //ellipse.ContextMenu = KantenLine.GetContextMenu();
-                            graph.AddKante(liste[0], ellipse, knoten, knoten);
+                            graph.AddKante(liste[0], knoten, knoten);
                         }
                         else
                         {
-                            Line line = Strings.CopyLine(kantenLine);
-                            //line.ContextMenu = KantenLine.GetContextMenu();
-                            graph.AddKante(liste[0], line, graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
+                            graph.AddKante(liste[0], graph.SucheKnoten(liste[1]), graph.SucheKnoten(liste[2]));
                         }
                     }
                     #endregion

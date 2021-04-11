@@ -14,10 +14,10 @@
             <div class="menu">
             </div>
             <p>
-                <a href="">Pollux</a>
-                <a href="">Download</a>
-                <a onclick="showPdfHelp()">Documentation</a>
-                <a href="">About</a>
+                <a id="veryLeft" onclick="showPollux()">Pollux</a>
+                <a onclick="showDownload()">Download</a>
+                <a onclick="showPdfHelp()">Hilfe</a>
+                <a onclick="showAbout()">Über</a>
             </p>
         </header>
         <div class="content" id="content">
@@ -25,5 +25,8 @@
         <header class="bottom">
             <p>Pollux</p>
         </header>
+        <script>
+            showPollux();
+        </script>
     </body>
 </html>
