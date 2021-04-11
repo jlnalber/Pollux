@@ -9,7 +9,7 @@ Create graphs and do calculations in these graphs.
 * visualizing graphs
 * view statistics of a graph
 * do calculations in a graph
-* export graphs to all famous bitmap-files and to *.svg*
+* export graphs to all famous bitmap-formats and to *.svg*
 
 ## Requirements
 
