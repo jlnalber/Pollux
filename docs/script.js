@@ -14,13 +14,13 @@ function showAbout(){
     content.appendChild(aboutSection);
 }
 
-function showDownload(){
+/*function showDownload(){
     var downloadSection = document.createElement("iframe");
     downloadSection.src = "Download.html";
     var content = document.getElementById("content");
     content.innerHTML = "";
     content.appendChild(downloadSection);
-}
+}*/
 
 function showPollux(){
     var polluxSection = document.createElement("iframe");
