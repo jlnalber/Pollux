@@ -174,7 +174,7 @@ namespace Pollux
             try
             {
                 SaveFileDialog saveFileDialog = new();
-                saveFileDialog.Filter = "Pollux Graph (*.poll) | *.poll|Graph Markup Language (*.graphml) | *.graphml";
+                saveFileDialog.Filter = "Graph Markup Language (*.graphml) | *.graphml|Pollux Graph (*.poll) | *.poll";
                 saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.poll" : this.NameDatei.Text + ".poll";
                 saveFileDialog.RestoreDirectory = true;
                 if (saveFileDialog.ShowDialog() == true)
@@ -296,9 +296,7 @@ namespace Pollux
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Pollux Graph (*.poll) | *.poll|Graph Markup Language (*.graphml) | *.graphml";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.Filter = "Graph Markup Language (*.graphml) | *.graphml|Pollux Graph (*.poll) | *.poll";
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == true)
