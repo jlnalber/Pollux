@@ -358,6 +358,22 @@ namespace Pollux
             }
         }
 
+        private void DateiSpeicherort_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.Öffnen_Click(sender, e);
+            }
+        }
+
+        private void Speicherort_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.Erstellen_Click(sender, e);
+            }
+        }
+
         private void Escape(object sender, RoutedEventArgs e)
         {
             //Schließe das Fenster.
