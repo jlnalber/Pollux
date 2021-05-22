@@ -594,7 +594,7 @@ namespace Pollux
                     this.FontSizeBox.Text = "512";
                     this.FontSizeBox.SelectAll();
                 }
-                this.FontSizeBox.Text = Strings.ToNumberAsString(this.FontSizeBox.Text);
+                this.FontSizeBox.Text = Stuff.ToNumberAsString(this.FontSizeBox.Text);
                 this.PreviewConsole.FontSize = double.Parse(this.FontSizeBox.Text);
             }
             catch

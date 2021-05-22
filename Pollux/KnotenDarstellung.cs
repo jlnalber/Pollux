@@ -274,7 +274,7 @@ namespace Pollux
 
                         //finde dadurch die Position heraus, wo die Kante starten und enden muss
                         const double maxDistance = 10;
-                        double distance = Strings.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
+                        double distance = Stuff.Bigger(Math.Abs(marginKnoten0.Top - marginKnoten1.Top), Math.Abs(marginKnoten0.Left - marginKnoten1.Left)) * 0.1 + 1;
                         distance = ((distance > maxDistance) ? maxDistance : distance) + this.Ellipse.Height / 2 - 5;
                         double y = Math.Sqrt(distance * distance / (Math.Pow(Math.Abs((marginKnoten0.Left - marginKnoten1.Left) / (marginKnoten0.Top - marginKnoten1.Top)), 2) + 1));
                         double x = Math.Sqrt(distance * distance - y * y);

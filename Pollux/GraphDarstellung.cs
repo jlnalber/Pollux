@@ -92,7 +92,7 @@ namespace Pollux
 
             foreach (string i in knotenNamen)
             {
-                Ellipse ellipse2 = Strings.CopyEllipse(ellipse);
+                Ellipse ellipse2 = Stuff.CopyEllipse(ellipse);
                 ellipse2.ContextMenu = KnotenEllipse.GetContextMenu();
                 this.GraphKnoten.Add(new Knoten(this, new(), i.ToUpper(), ellipse2, this.Canvas));
             }

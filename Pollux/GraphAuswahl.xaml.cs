@@ -160,12 +160,15 @@ namespace Pollux
 
         private void ListBoxItem_Click(object sender, RoutedEventArgs e)
         {
-            //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
-            Del handler = this.MainWindow.OpenFile;
-            this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.SelectedIndex]);
+            if (File.Exists(Paths[this.LetzteDatei.SelectedIndex]))
+            {
+                //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
+                Del handler = this.MainWindow.OpenFile;
+                this.Dispatcher.BeginInvoke(handler, Paths[this.LetzteDatei.SelectedIndex]);
 
-            //schließe das Fenster
-            this.Close();
+                //schließe das Fenster
+                this.Close();
+            }
         }
 
         private void Durchsuchen_Click(object sender, RoutedEventArgs e)
@@ -175,7 +178,7 @@ namespace Pollux
             {
                 SaveFileDialog saveFileDialog = new();
                 saveFileDialog.Filter = "Graph Markup Language (*.graphml) | *.graphml|Pollux Graph (*.poll) | *.poll";
-                saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.poll" : this.NameDatei.Text + ".poll";
+                saveFileDialog.FileName = (this.NameDatei.Text == "") ? "graph.graphml" : this.NameDatei.Text + ".graphml";
                 saveFileDialog.RestoreDirectory = true;
                 if (saveFileDialog.ShowDialog() == true)
                 {
@@ -194,6 +197,12 @@ namespace Pollux
             string path = this.Speicherort.Text;
             try
             {
+                //Falls das Directory gar nicht existiert, werfe einen Fehler.
+                if (!Directory.Exists(Stuff.GetDirectory(path)))
+                {
+                    throw new DirectoryNotFoundException();
+                }
+
                 //Lege den Namen fest
                 string name = this.NameDatei.Text == "" ? "GRAPH" : this.NameDatei.Text.ToUpper();
 
@@ -283,7 +292,7 @@ namespace Pollux
             }
             catch (Exception t)
             {
-                MessageBox.Show(t.Message);
+                //MessageBox.Show(t.Message);
                 //dann mache einen Fehlersound und mache das Textfeld rot
                 SystemSounds.Asterisk.Play();
                 this.Speicherort.BorderBrush = Brushes.Red;
@@ -316,6 +325,16 @@ namespace Pollux
             string path = this.DateiSpeicherort.Text;
             try
             {
+                //Falls die Datei oder das Directory nicht existiert, werfe einen Fehler.
+                if (!File.Exists(path))
+                {
+                    throw new FileNotFoundException();
+                }
+                if (!Directory.Exists(Stuff.GetDirectory(path)))
+                {
+                    throw new DirectoryNotFoundException();
+                }
+
                 //führe die Methode "OpenFile" in der MainWindow-Klasse aus (aber über den anderen Thread, da sonst kein Tab entstehen kann, deshalb auch mit delegate...)
                 Del handler = this.MainWindow.OpenFile;
                 this.Dispatcher.BeginInvoke(handler, path);

@@ -608,11 +608,11 @@ namespace Pollux
                                             knoten3.RedrawName(); break;
                                         case "stroke":
                                             GraphDarstellung.Knoten knoten4 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
-                                            knoten4.Ellipse.Stroke = Strings.StringToColor(n.InnerText);
+                                            knoten4.Ellipse.Stroke = Stuff.StringToColor(n.InnerText);
                                             knoten4.RedrawName(); break;
                                         case "fill":
                                             GraphDarstellung.Knoten knoten5 = graph.SucheKnoten(i.GetAttribute("id").ToUpper());
-                                            knoten5.Ellipse.Fill = Strings.StringToColor(n.InnerText);
+                                            knoten5.Ellipse.Fill = Stuff.StringToColor(n.InnerText);
                                             knoten5.RedrawName(); break;
                                     }
                                 }
@@ -662,11 +662,11 @@ namespace Pollux
                                             GraphDarstellung.Kanten kanten0 = graph.SucheKanten(i.GetAttribute("id").ToUpper());
                                             if (kanten0.Line is Line line1)
                                             {
-                                                line1.Stroke = Strings.StringToColor(n.InnerText);
+                                                line1.Stroke = Stuff.StringToColor(n.InnerText);
                                             }
                                             else if (kanten0.Line is Ellipse ellipse1)
                                             {
-                                                ellipse1.Stroke = Strings.StringToColor(n.InnerText);
+                                                ellipse1.Stroke = Stuff.StringToColor(n.InnerText);
                                             }
                                             break;
                                     }
@@ -803,12 +803,12 @@ namespace Pollux
 
                     xmlWriter.WriteStartElement("data");
                     xmlWriter.WriteAttributeString("key", "d5");
-                    xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)i.Ellipse.Stroke));
+                    xmlWriter.WriteString(Stuff.ColorToString((SolidColorBrush)i.Ellipse.Stroke));
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteStartElement("data");
                     xmlWriter.WriteAttributeString("key", "d6");
-                    xmlWriter.WriteString(Strings.ColorToString((LinearGradientBrush)i.Ellipse.Fill));
+                    xmlWriter.WriteString(Stuff.ColorToString((LinearGradientBrush)i.Ellipse.Fill));
                     xmlWriter.WriteEndElement();
 
                     xmlWriter.WriteEndElement();
@@ -825,11 +825,11 @@ namespace Pollux
                     xmlWriter.WriteAttributeString("key", "d7");
                     if (i.Line is Line line)
                     {
-                        xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)line.Stroke));
+                        xmlWriter.WriteString(Stuff.ColorToString((SolidColorBrush)line.Stroke));
                     }
                     else if (i.Line is Ellipse ellipse)
                     {
-                        xmlWriter.WriteString(Strings.ColorToString((SolidColorBrush)ellipse.Stroke));
+                        xmlWriter.WriteString(Stuff.ColorToString((SolidColorBrush)ellipse.Stroke));
                     }
                     xmlWriter.WriteEndElement();
 

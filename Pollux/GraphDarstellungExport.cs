@@ -64,12 +64,12 @@ namespace Pollux
                 {
                     //Falls die Kante eine ganz normale Kante ist, also keine Schlinge schreibe sie als "line" hinein
                     //Finde die Attribute der Kante heraus
-                    string x1 = Strings.DoubleAsString(line.X1);
-                    string x2 = Strings.DoubleAsString(line.X2);
-                    string y1 = Strings.DoubleAsString(line.Y1);
-                    string y2 = Strings.DoubleAsString(line.Y2);
+                    string x1 = Stuff.DoubleAsString(line.X1);
+                    string x2 = Stuff.DoubleAsString(line.X2);
+                    string y1 = Stuff.DoubleAsString(line.Y1);
+                    string y2 = Stuff.DoubleAsString(line.Y2);
                     string stroke = Hexadezimal.BrushAsHexa(line.Stroke);
-                    string strokeWidth = Strings.DoubleAsString(line.StrokeThickness);
+                    string strokeWidth = Stuff.DoubleAsString(line.StrokeThickness);
 
                     //Schreibe die Ergebnisse in die Datei
                     streamWriter.WriteLine("\t<line x1=\"" + x1 + "\" y1=\"" + y1 + "\" x2=\"" + x2 + "\" y2=\"" + y2 + "\" stroke=\"" + stroke + "\" stroke-width=\"" + strokeWidth + "\"/>");
@@ -78,11 +78,11 @@ namespace Pollux
                 {
                     //Falls die Kante eine Schlinge ist, schreibe sie als "ellipse" hinein
                     //Finde die Attribute de Schlinge heraus
-                    string cx = Strings.DoubleAsString(ellipse.Margin.Left + ellipse.Width / 2);
-                    string cy = Strings.DoubleAsString(ellipse.Margin.Top + ellipse.Height / 2);
-                    string rx = Strings.DoubleAsString(ellipse.Width / 2);
-                    string ry = Strings.DoubleAsString(ellipse.Height / 2);
-                    string strokeWidth = Strings.DoubleAsString(ellipse.StrokeThickness);
+                    string cx = Stuff.DoubleAsString(ellipse.Margin.Left + ellipse.Width / 2);
+                    string cy = Stuff.DoubleAsString(ellipse.Margin.Top + ellipse.Height / 2);
+                    string rx = Stuff.DoubleAsString(ellipse.Width / 2);
+                    string ry = Stuff.DoubleAsString(ellipse.Height / 2);
+                    string strokeWidth = Stuff.DoubleAsString(ellipse.StrokeThickness);
 
                     //Schreibe sie in die Datei
                     streamWriter.WriteLine("\t<ellipse cx=\"" + cx + "\" cy=\"" + cy + "\" rx=\"" + rx + "\" ry=\"" + ry + "\" style=\"fill:" + Hexadezimal.BrushAsHexa(ellipse.Fill) + ";stroke:" + Hexadezimal.BrushAsHexa(ellipse.Stroke) + ";stroke-width:" + strokeWidth + "\"/>");
@@ -93,16 +93,16 @@ namespace Pollux
             foreach (Knoten i in this.GraphKnoten)
             {
                 //Finde die Attribute von dem Knoten heraus
-                string cx = Strings.DoubleAsString(i.Ellipse.Margin.Left + i.Ellipse.Width / 2);
-                string cy = Strings.DoubleAsString(i.Ellipse.Margin.Top + i.Ellipse.Height / 2);
-                string rx = Strings.DoubleAsString(i.Ellipse.Width / 2);
-                string ry = Strings.DoubleAsString(i.Ellipse.Height / 2);
-                string strokeWidth = Strings.DoubleAsString(i.Ellipse.StrokeThickness);
+                string cx = Stuff.DoubleAsString(i.Ellipse.Margin.Left + i.Ellipse.Width / 2);
+                string cy = Stuff.DoubleAsString(i.Ellipse.Margin.Top + i.Ellipse.Height / 2);
+                string rx = Stuff.DoubleAsString(i.Ellipse.Width / 2);
+                string ry = Stuff.DoubleAsString(i.Ellipse.Height / 2);
+                string strokeWidth = Stuff.DoubleAsString(i.Ellipse.StrokeThickness);
 
                 //Finde die Attribute von dem Label heraus
-                string x = Strings.DoubleAsString(i.Label.Margin.Left);
-                string y = Strings.DoubleAsString(i.Label.Margin.Top);
-                string fontSize = Strings.DoubleAsString(i.Label.FontSize);
+                string x = Stuff.DoubleAsString(i.Label.Margin.Left);
+                string y = Stuff.DoubleAsString(i.Label.Margin.Top);
+                string fontSize = Stuff.DoubleAsString(i.Label.FontSize);
                 string fontFamily = i.Label.FontFamily.Source;
 
                 //Schreibe schließlich alles in die Datei

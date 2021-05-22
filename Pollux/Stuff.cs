@@ -4,10 +4,11 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows;
 
 namespace Pollux
 {
-    public static class Strings
+    public static class Stuff
     {
         //Konstante Alphabet mit ihrer get-Methode
         private const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -74,7 +75,7 @@ namespace Pollux
         {
             //Variablen initialisieren und verändern
             string str = "";
-            string alphabet = Strings.Alphabet;
+            string alphabet = Stuff.Alphabet;
             text = text.ToUpper();
 
             //geht sie string durch, falls das Zeichen im Alphabet enthalten ist, so füge es zur anderen string hinzu
@@ -546,6 +547,11 @@ namespace Pollux
             {
                 return new SolidColorBrush();
             }
+        }
+
+        public static string GetDirectory(string filePath)
+        {
+            return filePath.Substring(0, filePath.LastIndexOf("\\") + 1); ;
         }
     }
 }
