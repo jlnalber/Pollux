@@ -858,7 +858,7 @@ namespace Castor
             //Versuche den Vertex zu öffnen.
             try
             {
-                this.KantenPicker.SelectedItem = (from ComboBoxItem item in this.KantenPicker.Items where item.Content.ToString() == name select item).First();
+                this.KnotenPicker.SelectedItem = (from ComboBoxItem item in this.KnotenPicker.Items where item.Content.ToString() == name select item).First();
             }
             catch { }
         }
@@ -871,7 +871,7 @@ namespace Castor
             //Versuche den Vertex zu öffnen.
             try
             {
-                this.KantenPicker.SelectedItem = (from ComboBoxItem item in this.KantenPicker.Items where item.Content.ToString() == vertex.Vertex.Name select item).First();
+                this.KnotenPicker.SelectedItem = (from ComboBoxItem item in this.KnotenPicker.Items where item.Content.ToString() == vertex.Vertex.Name select item).First();
             }
             catch { }
         }
