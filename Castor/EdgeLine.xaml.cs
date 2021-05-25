@@ -8,112 +8,64 @@ namespace Castor
 {
     public partial class EdgeLine : UserControl
     {
-        //public PathCollection Points;
-        private const double Addition = 10;
-
         //Members der Klasse
-        #region
-        private double x1;
-        public double X1
+        private FrameworkElement uiElement1;
+        public FrameworkElement UIElement1
         {
             get
             {
-                return this.x1;
+                return this.uiElement1;
             }
             set
             {
-                this.x1 = value;
+                this.uiElement1 = value;
                 this.Redraw();
             }
         }
-        private double y1;
-        public double Y1
+        private FrameworkElement uiElement2;
+        public FrameworkElement UIElement2
         {
             get
             {
-                return this.y1;
+                return this.uiElement2;
             }
             set
             {
-                this.y1 = value;
+                this.uiElement2 = value;
                 this.Redraw();
             }
         }
-        private double x2;
-        public double X2
-        {
-            get
-            {
-                return this.x2;
-            }
-            set
-            {
-                this.x2 = value;
-                this.Redraw();
-            }
-        }
-        private double y2;
-        public double Y2
-        {
-            get
-            {
-                return this.y2;
-            }
-            set
-            {
-                this.y2 = value;
-                this.Redraw();
-            }
-        }
-        #endregion
+
+        private const double LoopAddition = 100;
 
         public EdgeLine()
         {
             InitializeComponent();
 
-            this.X1 = 0;
-            this.Y1 = 0;
-            this.X2 = 0;
-            this.Y2 = 0;
-            //this.Direction1 = Directions.FromRight;
-            //this.Direction2 = Directions.FromLeft;
-
-            this.Redraw();
-            /*this.Points = new();
-            this.Points.OnChange += this.Redraw;*/
-        }
-
-        public EdgeLine(double x1, double y1, double x2, double y2)
-        {
-            /*if (((int)direction1 + (int) direction2) % 2 == 1)
-            {
-                throw new InvalidSidesException();
-            }*/
-
-            this.X1 = x1;
-            this.Y1 = y1;
-            this.X2 = x2;
-            this.Y2 = y2;
-            //this.Direction1 = direction1;
-            //this.Direction2 = direction2;
-
+            this.uiElement1 = new();
+            this.uiElement2 = new();
             this.Redraw();
         }
 
-        public void Set(double x1, double y1, double x2, double y2)
+        public EdgeLine(FrameworkElement uiElement1, FrameworkElement uiElement2)
         {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-            //this.direction1 = direction1;
-            //this.direction2 = direction2;
+            InitializeComponent();
+
+            this.uiElement1 = uiElement1;
+            this.uiElement2 = uiElement2;
+            this.Redraw();
+        }
+
+        public void Set(FrameworkElement uiElement1, FrameworkElement uiElement2)
+        {
+            this.uiElement1 = uiElement1;
+            this.uiElement2 = uiElement2;
             this.Redraw();
         }
 
         public SolidColorBrush GetStroke()
         {
-            return (SolidColorBrush)this.Line1.Stroke;
+            return (SolidColorBrush)this.Path.Stroke;
         }
 
         public void SetStroke(Color color)
@@ -123,181 +75,94 @@ namespace Castor
 
         public void SetStroke(SolidColorBrush brush)
         {
-            this.Line1.Stroke = brush;
-            this.Line2.Stroke = brush;
-            this.Line3.Stroke = brush;
+            this.Path.Stroke = brush;
         }
 
         public double GetStrokeThickness()
         {
-            return this.Line1.StrokeThickness;
+            return this.Path.StrokeThickness;
         }
 
         public void SetStrokeThicknes(double strokeThickness)
         {
-            this.Line1.StrokeThickness = strokeThickness;
-            this.Line2.StrokeThickness = strokeThickness;
-            this.Line3.StrokeThickness = strokeThickness;
+            this.Path.StrokeThickness = strokeThickness;
         }
 
         public void Redraw()
         {
-            //TODO: implementieren
-            this.Margin = new Thickness(x1 > x2 ? x2 : x1, (y1 > y2 ? y2 : y1) - Addition, 0, 0);
-            this.Width = Math.Abs(x1 - x2);
-            this.Height = Math.Abs(y1 - y2) + Addition;
-
-            this.Line1.X1 = (x1 > x2 ? x2 : x1) - this.Margin.Left;
-            this.Line1.Y1 = (x1 > x2 ? y2 : y1) - this.Margin.Top;
-            this.Line1.X2 = 0;
-            this.Line1.Y2 = 0;
-            this.Line2.X1 = 0;
-            this.Line2.Y1 = 0;
-            this.Line2.X2 = this.Width;
-            this.Line2.Y2 = 0;
-            this.Line3.X1 = this.Width;
-            this.Line3.Y1 = 0;
-            this.Line3.X2 = (x1 > x2 ? x1 : x2) - this.Margin.Left;
-            this.Line3.Y2 = (x1 > x2 ? y1 : y2) - this.Margin.Top;
-
-            Debug.WriteLine(this.Margin.Left + " " + this.Margin.Top + " " + this.Margin.Right + " " + this.Margin.Bottom);
-        }
-
-        public enum Directions
-        {
-            FromLeft = 0, FromTop = 1, FromRight = 2, FromBottom = 3
-        }
-
-        public class InvalidSidesException : Exception { }
-
-        /*
-        public static Line GetLine()
-        {
-            Line line = new();
-            return line;
-        }
-        public class PathCollection : IEnumerable
-        {
-            public delegate void Event();
-            public Event OnChange;
-            public PointWrapper Start;
-
-            public PathCollection()
+            try
             {
-                this.OnChange = () => { };
-            }
-
-            public void Add(Point p)
-            {
-                PointWrapper pw = new(p, null);
-                if (this.Start == null)
+                if (this.uiElement1 == this.uiElement2)
                 {
-                    this.Start = pw;
+                    //Im Falle einer Schlinge.
+                    this.Width = this.uiElement1.Width + LoopAddition / 2;
+                    this.Height = this.uiElement1.Height / 2 + LoopAddition;
+                    this.Margin = new Thickness(this.uiElement1.Margin.Left - LoopAddition / 4, this.uiElement1.Margin.Top - LoopAddition, this.uiElement1.Margin.Right + LoopAddition / 4, this.uiElement1.Margin.Bottom - this.uiElement1.Height / 2);
+                    this.PathFigure.StartPoint = new(this.uiElement1.Margin.Left - this.Margin.Left, this.uiElement1.Margin.Top + this.uiElement1.Height / 2 - this.Margin.Top);
+                    this.BezierSegment.Point1 = new(0, 2 * this.Height / 3);
+                    this.BezierSegment.Point2 = new(this.Width, 2 * this.Height / 3);
+                    this.BezierSegment.Point3 = new(this.uiElement1.Margin.Left + this.uiElement1.Width - this.Margin.Left, this.uiElement1.Margin.Top + this.uiElement1.Height / 2 - this.Margin.Top);
                 }
                 else
                 {
-                    PointWrapper last = this.Start;
-                    while (last.NextPointWrapper != null)
+                    //Im Falle einer normalen Kante.
+                    double x1, y1, x2, y2, x3, y3, x4, y4;
+                    if (Math.Abs(this.uiElement1.Margin.Left - this.uiElement2.Margin.Left) > Math.Abs(this.uiElement1.Margin.Top - this.uiElement2.Margin.Top))
                     {
-                        last = last.NextPointWrapper;
+                        if (this.uiElement1.Margin.Left > this.uiElement2.Margin.Left)
+                        {
+                            x1 = this.uiElement1.Margin.Left;
+                            y1 = this.uiElement1.Margin.Top + this.uiElement1.Height / 2;
+                            x4 = this.uiElement2.Margin.Left + this.uiElement2.Width;
+                            y4 = this.uiElement2.Margin.Top + this.uiElement2.Height / 2;
+                        }
+                        else
+                        {
+                            x1 = this.uiElement1.Margin.Left + this.uiElement1.Width;
+                            y1 = this.uiElement1.Margin.Top + this.uiElement1.Height / 2;
+                            x4 = this.uiElement2.Margin.Left;
+                            y4 = this.uiElement2.Margin.Top + this.uiElement2.Height / 2;
+                        }
+
+                        x2 = 2 * x1 / 3 + x4 / 3;
+                        y2 = 5 * y1 / 6 + y4 / 6;
+                        x3 = x1 / 3 + 2 * x4 / 3;
+                        y3 = y1 / 6 + 5 * y4 / 6;
                     }
-                    last.NextPointWrapper = pw;
-
-                    OnChange();
-                }
-            }
-
-            public void Remove(Point p)
-            {
-                PointWrapper before = this.Start;
-
-                try
-                {
-                    while(before.NextPointWrapper.Point != p)
+                    else
                     {
-                        before = before.NextPointWrapper;
-                    }
-                    before.NextPointWrapper = before.NextPointWrapper.NextPointWrapper;
+                        if (this.uiElement1.Margin.Top > this.uiElement2.Margin.Top)
+                        {
+                            x1 = this.uiElement1.Margin.Left + this.uiElement1.Width / 2;
+                            y1 = this.uiElement1.Margin.Top;
+                            x4 = this.uiElement2.Margin.Left + this.uiElement2.Width / 2;
+                            y4 = this.uiElement2.Margin.Top + this.uiElement2.Height;
+                        }
+                        else
+                        {
+                            x1 = this.uiElement1.Margin.Left + this.uiElement1.Width / 2;
+                            y1 = this.uiElement1.Margin.Top + this.uiElement1.Height;
+                            x4 = this.uiElement2.Margin.Left + this.uiElement2.Width / 2;
+                            y4 = this.uiElement2.Margin.Top;
+                        }
 
-                    OnChange();
-                }
-                catch { }
-            }
-
-            public void Insert(Point p, int index)
-            {
-                PointWrapper last = this.Start;
-                for (int i = 0; i < index; i++)
-                {
-                    last = last.NextPointWrapper;
-                }
-                last.NextPointWrapper = new PointWrapper(p, last.NextPointWrapper);
-
-                OnChange();
-            }
-
-            public int Count
-            {
-                get
-                {
-                    int counter = 0;
-                    PointWrapper last = this.Start;
-                    for (; last.NextPointWrapper != null; last = last.NextPointWrapper, counter++) ;
-                    return counter;
-                }
-            }
-
-            public IEnumerator GetEnumerator()
-            {
-                return new PathEnumerator(this);
-            }
-
-            public class PathEnumerator : IEnumerator
-            {
-                public PathEnumerator(PathCollection pathCollection)
-                {
-                    this.current = pathCollection.Start;
-                    this.PathCollection = pathCollection;
-                }
-
-                private PathCollection PathCollection;
-                private PointWrapper current;
-                public object Current
-                {
-                    get
-                    {
-                        return this.current.Point;
-                    }
-                }
-
-                public bool MoveNext()
-                {
-                    if (this.current == null || this.current.NextPointWrapper == null)
-                    {
-                        return false;
+                        x2 = 5 * x1 / 6 + x4 / 6;
+                        y2 = 2 * y1 / 3 + y4 / 3;
+                        x3 = x1 / 6 + 5 * x4 / 6;
+                        y3 = y1 / 3 + 2 * y4 / 3;
                     }
 
-                    this.current = this.current.NextPointWrapper;
-                    return true;
-                }
+                    this.Margin = new Thickness(x1 > x4 ? x4 : x1, (y1 > y4 ? y4 : y1), 0, 0);
+                    this.Width = Math.Abs(x1 - x4);
+                    this.Height = Math.Abs(y1 - y4);
 
-                public void Reset()
-                {
-                    this.current = this.PathCollection.Start;
-                }
-            }
-
-            public class PointWrapper
-            {
-                public Point Point;
-                public PointWrapper NextPointWrapper;
-
-                public PointWrapper(Point point, PointWrapper nextPointWrapper)
-                {
-                    this.Point = point;
-                    this.NextPointWrapper = nextPointWrapper;
+                    this.PathFigure.StartPoint = new Point(x1 - this.Margin.Left, y1 - this.Margin.Top);
+                    this.BezierSegment.Point1 = new Point(x2 - this.Margin.Left, y2 - this.Margin.Top);
+                    this.BezierSegment.Point2 = new Point(x3 - this.Margin.Left, y3 - this.Margin.Top);
+                    this.BezierSegment.Point3 = new Point(x4 - this.Margin.Left, y4 - this.Margin.Top);
                 }
             }
-        }*/
+            catch { }
+        }
     }
 }

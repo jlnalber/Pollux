@@ -97,7 +97,7 @@ namespace Castor
                 foreach (VisualEdge i in this.Edges)
                 {
                     //Eventuell auf eine Methode in KantenLine.xaml.cs auslagern.
-                    i.Line.Set(i[0].UIElement.Margin.Left + i[0].UIElement.Width / 2, i[0].UIElement.Margin.Top, i[1].UIElement.Margin.Left + i[1].UIElement.Width / 2, i[1].UIElement.Margin.Top/*, EdgeLine.Directions.FromLeft, EdgeLine.Directions.FromLeft*/);
+                    i.Line.Set(i[0].UIElement, i[1].UIElement);
 
 
                     //Für den alten Code: in Pollux oder älteren Versionen davon.

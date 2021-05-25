@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Thestias;
+using System;
 
 namespace Castor
 {
@@ -74,8 +75,9 @@ namespace Castor
                 {
                     this.Graph.AddEdge(new Graph.Edge(this.Graph.Graph, new Graph.Vertex[2], this.AusgewählterName.Text), this.Graph.SearchVertex(knoten1), this.Graph.SearchVertex(knoten2));
                 }
-                catch
+                catch (Exception f)
                 {
+                    MessageBox.Show(f.Message);
                     //Spiele den Error-Sound
                     SystemSounds.Asterisk.Play();
                 }

@@ -9,26 +9,26 @@ namespace Castor
         //Methoden zum hinzufügen, entfernen von Vertices/Edges
         //Methoden zum Hinzufügen von Vertices
         #region
-        public VisualVertex AddVertex(VisualVertex knotenDarstellung)
+        public VisualVertex AddVertex(VisualVertex visualVertex)
         {
             //Visuelle Darstellung
-            Canvas.SetZIndex(knotenDarstellung.UIElement, 100);
-            this.AddUIElementToCanvas(knotenDarstellung.UIElement);
+            Canvas.SetZIndex(visualVertex.UIElement, 100);
+            this.AddUIElementToCanvas(visualVertex.UIElement);
 
             //Knoten hinzufügen
-            this.Vertices.Add(knotenDarstellung);
-            knotenDarstellung.Graph = this;
+            this.Vertices.Add(visualVertex);
+            visualVertex.Graph = this;
 
             //Vertex zum Thestias.Graph hinzufügen
             this.Graph.IsEditable = true;
-            this.Graph.AddVertex(knotenDarstellung.Vertex);
+            this.Graph.AddVertex(visualVertex.Vertex);
             this.Graph.IsEditable = false;
 
             //Events hinzufügen
-            this.Canvas.MouseMove += knotenDarstellung.UIElement_MouseMove;
+            this.Canvas.MouseMove += visualVertex.UIElement_MouseMove;
 
             //Rückgabe
-            return knotenDarstellung;
+            return visualVertex;
         }
 
         public VisualVertex AddVertex(string name, FrameworkElement uiElement)
@@ -84,32 +84,35 @@ namespace Castor
 
         //Methoden zum Hinzufügen von Edges
         #region
-        public VisualEdge AddEdge(VisualEdge kantenDarstellung, VisualVertex endpoint1, VisualVertex endpoint2)
+        public VisualEdge AddEdge(VisualEdge visualEdge, VisualVertex endpoint1, VisualVertex endpoint2)
         {
             //Visuelle Darstellung
-            Canvas.SetZIndex(kantenDarstellung.Line, 0);
-            this.AddUIElementToCanvas(kantenDarstellung.Line);
+            Canvas.SetZIndex(visualEdge.Line, 0);
+            this.AddUIElementToCanvas(visualEdge.Line);
 
             //Füge die Edge zum Graph hinzu.
-            this.Edges.Add(kantenDarstellung);
-            kantenDarstellung.Graph = this;
-            kantenDarstellung.Vertices = new VisualVertex[2] { endpoint1, endpoint2 };
+            this.Edges.Add(visualEdge);
+            visualEdge.Graph = this;
+            visualEdge.Vertices = new VisualVertex[2] { endpoint1, endpoint2 };
 
             //Edge zu den Vertices hinzufügen.
-            endpoint1.Edges.Add(kantenDarstellung);
-            endpoint2.Edges.Add(kantenDarstellung);
+            endpoint1.Edges.Add(visualEdge);
+            endpoint2.Edges.Add(visualEdge);
 
             //Füge die Edge zum Thestias.Graph hinzu.
             this.Graph.IsEditable = true;
-            this.Graph.AddEdge(kantenDarstellung.Edge, endpoint1.Vertex, endpoint2.Vertex);
+            this.Graph.AddEdge(visualEdge.Edge, endpoint1.Vertex, endpoint2.Vertex);
             this.Graph.IsEditable = false;
 
             //Die Edge im Canvas malen (eventuell Überarbeitung, da vielleicht nur einmal nötig).
             endpoint1.Redraw(false);
             endpoint2.Redraw(false);
 
+            //Male die Kante.
+            visualEdge.Line.Redraw();
+
             //Rückgabe
-            return kantenDarstellung;
+            return visualEdge;
         }
 
         public VisualEdge AddEdge(Graph.Edge edge, VisualVertex endpoint1, VisualVertex endpoint2)
