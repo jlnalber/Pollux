@@ -291,7 +291,7 @@ namespace Pollux
                 //schließe das Fenster
                 this.Close();
             }
-            catch (Exception t)
+            catch
             {
                 //MessageBox.Show(t.Message);
                 //dann mache einen Fehlersound und mache das Textfeld rot
