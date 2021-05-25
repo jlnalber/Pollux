@@ -1,11 +1,13 @@
-﻿namespace Thestias
+﻿using System;
+
+namespace Thestias
 {
     public partial class Graph
     {
         public delegate void ChangedEvent(object sender, ChangedEventArgs e);
         public ChangedEvent Changed = (object sender, ChangedEventArgs e) => { };
 
-        public class ChangedEventArgs
+        public class ChangedEventArgs : EventArgs
         {
             public enum ChangedElements
             {

@@ -15,14 +15,14 @@ namespace Castor
             Canvas.SetZIndex(knotenDarstellung.UIElement, 100);
             this.AddUIElementToCanvas(knotenDarstellung.UIElement);
 
+            //Knoten hinzufügen
+            this.Vertices.Add(knotenDarstellung);
+            knotenDarstellung.Graph = this;
+
             //Vertex zum Thestias.Graph hinzufügen
             this.Graph.IsEditable = true;
             this.Graph.AddVertex(knotenDarstellung.Vertex);
             this.Graph.IsEditable = false;
-
-            //Knoten hinzufügen
-            this.Vertices.Add(knotenDarstellung);
-            knotenDarstellung.Graph = this;
 
             //Events hinzufügen
             this.Canvas.MouseMove += knotenDarstellung.UIElement_MouseMove;
@@ -90,11 +90,6 @@ namespace Castor
             Canvas.SetZIndex(kantenDarstellung.Line, 0);
             this.AddUIElementToCanvas(kantenDarstellung.Line);
 
-            //Füge die Edge zum Thestias.Graph hinzu.
-            this.Graph.IsEditable = true;
-            this.Graph.AddEdge(kantenDarstellung.Edge, endpoint1.Vertex, endpoint2.Vertex);
-            this.Graph.IsEditable = false;
-
             //Füge die Edge zum Graph hinzu.
             this.Edges.Add(kantenDarstellung);
             kantenDarstellung.Graph = this;
@@ -103,6 +98,11 @@ namespace Castor
             //Edge zu den Vertices hinzufügen.
             endpoint1.Edges.Add(kantenDarstellung);
             endpoint2.Edges.Add(kantenDarstellung);
+
+            //Füge die Edge zum Thestias.Graph hinzu.
+            this.Graph.IsEditable = true;
+            this.Graph.AddEdge(kantenDarstellung.Edge, endpoint1.Vertex, endpoint2.Vertex);
+            this.Graph.IsEditable = false;
 
             //Die Edge im Canvas malen (eventuell Überarbeitung, da vielleicht nur einmal nötig).
             endpoint1.Redraw(false);

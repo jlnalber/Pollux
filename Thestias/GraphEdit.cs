@@ -78,8 +78,8 @@ namespace Thestias
             endpoint2.Edges.Add(edge);
 
             //Erhöhe die Zahl an der Matrix
-            ++this.List[this.Vertices.IndexOf(endpoint1), this.Vertices.IndexOf(endpoint2)];
-            ++this.List[this.Vertices.IndexOf(endpoint2), this.Vertices.IndexOf(endpoint1)];
+            this.List[this.Vertices.IndexOf(endpoint1), this.Vertices.IndexOf(endpoint2)]++;
+            this.List[this.Vertices.IndexOf(endpoint2), this.Vertices.IndexOf(endpoint1)]++;
 
             //Event triggern.
             this.Changed(this, new(edge, ChangedEventArgs.ChangedElements.Edge, ChangedEventArgs.ChangedTypes.Addition));

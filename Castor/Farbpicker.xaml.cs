@@ -12,6 +12,9 @@ namespace Castor
 {
     public partial class Farbpicker : UserControl
     {
+        public delegate void ColorChanged_Del(object sender, EventArgs e);
+        public ColorChanged_Del ColorChanged = (object sender, EventArgs e) => { };
+
         public Farbpicker()
         {
             InitializeComponent();
@@ -30,6 +33,9 @@ namespace Castor
             this.Text_R.Text = VisualGraph.Resman.GetString("R", VisualGraph.Cul);
             this.Text_G.Text = VisualGraph.Resman.GetString("G", VisualGraph.Cul);
             this.Text_B.Text = VisualGraph.Resman.GetString("B", VisualGraph.Cul);
+
+            //Setze eine Standard-Farbe.
+            this.SetColor(Color.FromArgb(0, 0, 0, 0));
         }
 
         private void Sliders_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -53,6 +59,9 @@ namespace Castor
                 this.TextBox_R.Text = r.ToString();
                 this.TextBox_G.Text = g.ToString();
                 this.TextBox_B.Text = b.ToString();
+
+                //Löse das Event aus.
+                this.ColorChanged(this, new());
             }
             catch { }
         }
@@ -130,6 +139,9 @@ namespace Castor
             {
                 SystemSounds.Asterisk.Play();
             }
+
+            //Löse das Event aus.
+            this.ColorChanged(this, new());
         }
 
         private bool enabled = true;

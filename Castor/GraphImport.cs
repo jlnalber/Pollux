@@ -17,6 +17,7 @@ namespace Castor
                     //Initialisiere Variablen
                     List<string> file = new List<string>();//Eine Liste für die ausgelesene Datei
                     VisualGraph graph = new VisualGraph();
+                    graph.AutoReloadProperties = false;
 
                     //auslesen der Datei
                     //lese die Datei aus
@@ -48,6 +49,9 @@ namespace Castor
                         graph.AddEdge(liste[0], liste[1], liste[2]);
                     }
                     #endregion
+
+                    //Mache AutoReloadProperties wieder an.
+                    graph.AutoReloadProperties = true;
 
                     //Rückgabe
                     return graph;
@@ -204,6 +208,7 @@ namespace Castor
                     string name = graphXml.HasAttribute("id") ? graphXml.GetAttribute("id").ToUpper() : "GRAPH";
 
                     VisualGraph graph = new(new(new(), new(), new int[0, 0], name));
+                    graph.AutoReloadProperties = false;
 
                     XmlNodeList keys = xmlReader.GetElementsByTagName("key");
 
@@ -234,6 +239,9 @@ namespace Castor
                             graph.AddEdge(i.GetAttribute("source"), i.GetAttribute("target"));
                         }
                     }
+
+                    //Mache AutoReloadProperties wieder an.
+                    graph.AutoReloadProperties = true;
 
                     return graph;
                 }

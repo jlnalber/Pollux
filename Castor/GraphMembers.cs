@@ -53,6 +53,7 @@ namespace Castor
                     if (value)
                     {
                         this.Graph.Changed += this.ReloadProperties_Event;
+                        this.ReloadProperties();
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 
 namespace Castor
@@ -108,6 +109,35 @@ namespace Castor
             //this.direction1 = direction1;
             //this.direction2 = direction2;
             this.Redraw();
+        }
+
+        public SolidColorBrush GetStroke()
+        {
+            return (SolidColorBrush)this.Line1.Stroke;
+        }
+
+        public void SetStroke(Color color)
+        {
+            this.SetStroke(new SolidColorBrush(color));
+        }
+
+        public void SetStroke(SolidColorBrush brush)
+        {
+            this.Line1.Stroke = brush;
+            this.Line2.Stroke = brush;
+            this.Line3.Stroke = brush;
+        }
+
+        public double GetStrokeThickness()
+        {
+            return this.Line1.StrokeThickness;
+        }
+
+        public void SetStrokeThicknes(double strokeThickness)
+        {
+            this.Line1.StrokeThickness = strokeThickness;
+            this.Line2.StrokeThickness = strokeThickness;
+            this.Line3.StrokeThickness = strokeThickness;
         }
 
         public void Redraw()
