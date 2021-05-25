@@ -25,6 +25,7 @@ namespace Thestias
                     throw new GraphExceptions.NameAlreadyExistsException();
                 }
                 this.name = value;
+                this.Changed(this, new(this, ChangedEventArgs.ChangedElements.Graph, ChangedEventArgs.ChangedTypes.Renaming));
             }
         }
 

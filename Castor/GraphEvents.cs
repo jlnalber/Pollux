@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Thestias;
 
 namespace Castor
 {
@@ -79,6 +80,11 @@ namespace Castor
                 }
                 catch { }
             }
+        }
+
+        private void ReloadProperties_Event(object sender, Graph.ChangedEventArgs e)
+        {
+            this.ReloadProperties();
         }
     }
 }

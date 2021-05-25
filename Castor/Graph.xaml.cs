@@ -32,6 +32,7 @@ namespace Castor
             this.Edges = new();
             this.Vertices = new();
             this.Graph.IsEditable = false;
+            this.AutoReloadProperties = true;
 
             //Gebe Daten an "Show" weiter.
             this.PropertiesGrid.Graph = this;
@@ -60,6 +61,7 @@ namespace Castor
             this.Edges = new();
             this.Vertices = new();
             this.Graph.IsEditable = false;
+            this.AutoReloadProperties = true;
 
             //Gebe Daten an "Show" weiter.
             this.PropertiesGrid.Graph = this;

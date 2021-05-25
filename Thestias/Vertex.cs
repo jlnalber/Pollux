@@ -24,11 +24,12 @@ namespace Thestias
                 }
                 set
                 {
-                    if (this.Parent.ContainsVertex(value) || this.Parent.ContainsEdge(value))
+                    if (this.Parent.ContainsVertex(value) || this.Parent.ContainsEdge(value) || this.Parent.Name == value)
                     {
                         throw new GraphExceptions.NameAlreadyExistsException();
                     }
                     this.name = value;
+                    this.Parent.Changed(this.Parent, new(this, ChangedEventArgs.ChangedElements.Vertex, ChangedEventArgs.ChangedTypes.Renaming));
                 }
             }
 

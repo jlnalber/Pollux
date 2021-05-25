@@ -33,6 +33,9 @@ namespace Thestias
             }
             this.List = copy;
 
+            //Event triggern.
+            this.Changed(this, new(vertex, ChangedEventArgs.ChangedElements.Vertex, ChangedEventArgs.ChangedTypes.Addition));
+
             //Rückgabe
             return vertex;
         }
@@ -77,6 +80,9 @@ namespace Thestias
             //Erhöhe die Zahl an der Matrix
             ++this.List[this.Vertices.IndexOf(endpoint1), this.Vertices.IndexOf(endpoint2)];
             ++this.List[this.Vertices.IndexOf(endpoint2), this.Vertices.IndexOf(endpoint1)];
+
+            //Event triggern.
+            this.Changed(this, new(edge, ChangedEventArgs.ChangedElements.Edge, ChangedEventArgs.ChangedTypes.Addition));
 
             //Rückgabe
             return edge;
@@ -129,6 +135,9 @@ namespace Thestias
             //Entferne den Vertex "knoten" aus der Liste "GraphKnoten"
             this.Vertices.Remove(vertex);
 
+            //Event triggern.
+            this.Changed(this, new(vertex, ChangedEventArgs.ChangedElements.Vertex, ChangedEventArgs.ChangedTypes.Removal));
+
             //Rückgabe
             return vertex;
         }
@@ -155,8 +164,11 @@ namespace Thestias
             edge[0] = null;
             edge[1] = null;
 
-            //Entferne die Kante aus der Liste "GraphKanten" im Graphen
+            //Entferne die Kante aus der Liste "GraphKanten" im Graphen.
             this.Edges.Remove(edge);
+
+            //Event triggern.
+            this.Changed(this, new(edge, ChangedEventArgs.ChangedElements.Edge, ChangedEventArgs.ChangedTypes.Removal));
 
             //Rückgabe
             return edge;

@@ -60,7 +60,7 @@
 
   <ItemGroup>
     <Reference Include="Castor">
-      <HintPath>..\Castor\bin\Debug\net5.0-windows\Castor.dll</HintPath>
+      <HintPath>..\Castor\bin\Release\net5.0-windows\Castor.dll</HintPath>
     </Reference>
     <Reference Include="Thestias">
       <HintPath>..\Thestias\bin\Release\net5.0\Thestias.dll</HintPath>

@@ -8,8 +8,12 @@ namespace Castor
 {
     public partial class VisualGraph
     {
+        //Statische Members.
         public static CultureInfo Cul;
         public static ResourceManager Resman;
+
+        //Einstellungen
+        #region
         private bool showProperties = false;
         public bool ShowProperties
         {
@@ -32,7 +36,39 @@ namespace Castor
                 }
             }
         }
+
         public bool CanMoveVertices = true;
+
+        private bool autoReloadProperties = false;
+        public bool AutoReloadProperties
+        {
+            get
+            {
+                return this.autoReloadProperties;
+            }
+            set
+            {
+                if (value != this.autoReloadProperties)
+                {
+                    if (value)
+                    {
+                        this.Graph.Changed += this.ReloadProperties_Event;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            this.Graph.Changed -= this.ReloadProperties_Event;
+                        }
+                        catch { }
+                    }
+                    this.autoReloadProperties = value;
+                }
+            }
+        }
+        #endregion
+
+        //Sonstige Members.
         public Graph Graph;
         public List<VisualVertex> Vertices;
         public List<VisualEdge> Edges;

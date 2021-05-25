@@ -9,6 +9,10 @@
     <Copyright>Julian Alber</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="Thestias">
       <HintPath>..\Thestias\bin\Release\net5.0\Thestias.dll</HintPath>
