@@ -380,7 +380,7 @@ namespace Castor
                 this.KantenStart.Text = kante[0].Vertex.Name;
                 this.KantenEnde.Text = kante[1].Vertex.Name;
 
-                //TODO: Kante und sein Aussehen implementieren.
+                //TODO: Kante und ihr Aussehen implementieren.
                 /*//Design der Kante
                 #region
                 if (kante.Line is Line line)

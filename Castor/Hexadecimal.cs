@@ -2,7 +2,7 @@
 
 namespace Castor
 {
-    public static class Hexadezimal
+    public static class Hexadecimal
     {
         public static string NumberAsHexa(int number)
         {
