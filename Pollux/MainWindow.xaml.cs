@@ -24,7 +24,7 @@ namespace Pollux
             //Initialisiere die statischen Member
             #region
             //setze das MainWindow auf dieses Fenster
-            main = this;
+            Main = this;
 
             //füge das aktuelle Directory hinzu
             AppDirectory = Environment.GetCommandLineArgs()[0].Replace("Pollux.dll", "");
@@ -37,26 +37,23 @@ namespace Pollux
             Files = Files.Replace("Pollux.dll", "");
 
             //initialisiere Resource und rufe die Kultur ab
-            resman = new ResourceManager(typeof(Resources));
-            cul = CultureInfo.CurrentUICulture;
+            Resman = new ResourceManager(typeof(Resources));
+            Cul = CultureInfo.CurrentUICulture;
             //cul = new CultureInfo("en");
             //cul = new CultureInfo("fr");
             #endregion
 
-            //Initialisiere die Members
+            //Initialisiere die Members.
             #region
-            this.OpenedFiles = new Dictionary<TabItem, string>();
-            this.Outputs = new Dictionary<TabItem, System.Windows.Controls.TextBox>();
-            this.Inputs = new Dictionary<TabItem, System.Windows.Controls.TextBox>();
-            this.Consoles = new Dictionary<TabItem, CommandConsole>();
-            this.Canvases = new Dictionary<TabItem, Canvas>();
-            this.Graphs = new Dictionary<TabItem, GraphDarstellung>();
-            this.Headers = new Dictionary<TabItem, TextBlock>();
-            this.OpenedEigenschaftenFenster = new Dictionary<TabItem, Show>();
-            this.OpenedEigenschaftenFensterGrid = new Dictionary<TabItem, Grid>();
+            this.OpenedFiles = new();
+            this.Outputs = new();
+            this.Inputs = new();
+            this.Consoles = new();
+            this.Graphs = new();
+            this.Headers = new();
             #endregion
 
-            //Mache verschiedene Darstellungen
+            //Mache verschiedene Darstellungen.
             #region
             //Füge "Icons" hinzu
             this.Schließen.Icon = " x ";
@@ -69,35 +66,35 @@ namespace Pollux
 
             //setze die Texte auf die jeweils richtige Sprache
             #region
-            this.Title = resman.GetString("Title", cul);
-            this.Datei.Header = resman.GetString("Datei", cul);
+            this.Title = Resman.GetString("Title", Cul);
+            this.Datei.Header = Resman.GetString("Datei", Cul);
             //this.Ansicht.Header = resman.GetString("Ansicht", cul);
-            this.Fenster.Header = resman.GetString("Fenster", cul);
-            this.Hilfe.Header = resman.GetString("Hilfe", cul);
-            this.Bearbeiten.Header = resman.GetString("Bearbeiten", cul);
-            this.Speichern.Header = resman.GetString("Speichern", cul);
-            this.AlleSpeichern.Header = resman.GetString("AlleSpeichern", cul);
-            this.AlsSVGSpeichern.Header = resman.GetString("SaveAsSVG", cul);
-            this.Neu.Header = resman.GetString("Neu", cul);
-            this.Einstellungen.Header = resman.GetString("Einstellungen", cul);
-            this.Schließen.Header = resman.GetString("Schließen", cul);
-            this.AllesSchließen.Header = resman.GetString("AlleSchließen", cul);
-            this.Öffnen.Header = resman.GetString("Öffnen", cul);
-            this.HilfeDatei.Header = resman.GetString("Hilfe", cul);
-            this.GraphBearbeiten.Header = resman.GetString("GraphBearbeiten", cul);
-            this.KanteHinzufügen.Header = resman.GetString("KanteHinzufügen", cul);
-            this.KnotenHinzufügen.Header = resman.GetString("KnotenHinzufügen", cul);
-            this.EinstellungsFenster.Header = resman.GetString("Einstellungen", cul);
+            this.Fenster.Header = Resman.GetString("Fenster", Cul);
+            this.Hilfe.Header = Resman.GetString("Hilfe", Cul);
+            this.Bearbeiten.Header = Resman.GetString("Bearbeiten", Cul);
+            this.Speichern.Header = Resman.GetString("Speichern", Cul);
+            this.AlleSpeichern.Header = Resman.GetString("AlleSpeichern", Cul);
+            this.AlsSVGSpeichern.Header = Resman.GetString("SaveAsSVG", Cul);
+            this.Neu.Header = Resman.GetString("Neu", Cul);
+            this.Einstellungen.Header = Resman.GetString("Einstellungen", Cul);
+            this.Schließen.Header = Resman.GetString("Schließen", Cul);
+            this.AllesSchließen.Header = Resman.GetString("AlleSchließen", Cul);
+            this.Öffnen.Header = Resman.GetString("Öffnen", Cul);
+            this.HilfeDatei.Header = Resman.GetString("Hilfe", Cul);
+            this.GraphBearbeiten.Header = Resman.GetString("GraphBearbeiten", Cul);
+            this.KanteHinzufügen.Header = Resman.GetString("KanteHinzufügen", Cul);
+            this.KnotenHinzufügen.Header = Resman.GetString("KnotenHinzufügen", Cul);
+            this.EinstellungsFenster.Header = Resman.GetString("Einstellungen", Cul);
             //this.ZwischenTabsSpringen.Header = resman.GetString("ZwischenTabsSpringen", cul);
-            this.NeuesFenster.Header = resman.GetString("NeuesFenster", cul);
-            this.EigenschaftenFenster.Header = resman.GetString("EigenschaftenFenster", cul);
+            this.NeuesFenster.Header = Resman.GetString("NeuesFenster", Cul);
+            this.EigenschaftenFenster.Header = Resman.GetString("EigenschaftenFenster", Cul);
             #endregion
 
             #endregion
 
-            //Öffne die Tabs
+            //Öffne die Tabs.
             #region
-            //Lese die Einstellung "OpenedFiles" aus, die alle paths von den zuletzt verwendeten Dateien enthält; falls die Datei nicht existiert, lasse sie aus
+            //Lese die Einstellung "OpenedFiles" aus, die alle paths von den zuletzt verwendeten Dateien enthält; falls die Datei nicht existiert, lasse sie aus.
             List<string> paths = new List<string>();
             string[] pathsAsString = Settings.Default.OpenedFiles.Split("\n");
             foreach (string i in pathsAsString)
@@ -126,26 +123,12 @@ namespace Pollux
             //Erstelle die Tabs; öffne die Dateien, die beim letzten Schließen des Programms offen waren
             if (paths.Count == 0)
             {
-                //Experimenteller Browser
-                #region
-                /*//füge einen neuen WebBrowser "webBrowser" hinzu, um die HTML-Datei anzuzeigen
-                WebBrowser webBrowser = new WebBrowser();
-                string content = (new StreamReader(Files + @"HTML\index.html")).ReadToEnd();
-                webBrowser.NavigateToString(content);
-                webBrowser.Margin = new Thickness(5);
-                webBrowser.HorizontalAlignment = HorizontalAlignment.Left;
-                webBrowser.VerticalAlignment = VerticalAlignment.Top;
-
-                //Füge den WebBrowser "webBrowser"
-                AddNewTab<WebBrowser>("Pollux", webBrowser);*/
-                #endregion
-
                 //Füge neuen Tab hinzu mit WillkommensContent, falls keine Datei in der Setting "OpenedFiles" liegt
                 Grid grid = new();
 
                 //Erstelle den ersten TextBlock
                 TextBlock tb1 = new TextBlock();
-                tb1.Text = resman.GetString("Willkommenstext", cul);
+                tb1.Text = Resman.GetString("Willkommenstext", Cul);
                 tb1.FontSize = 23;
                 tb1.HorizontalAlignment = HorizontalAlignment.Left;
                 tb1.VerticalAlignment = VerticalAlignment.Top;
@@ -154,7 +137,7 @@ namespace Pollux
 
                 //Erstelle den zweiten TextBlock
                 TextBlock tb2 = new TextBlock();
-                tb2.Text = resman.GetString("Willkommenstext2", cul);
+                tb2.Text = Resman.GetString("Willkommenstext2", Cul);
                 tb2.FontSize = 15;
                 tb2.HorizontalAlignment = HorizontalAlignment.Left;
                 tb2.VerticalAlignment = VerticalAlignment.Top;
@@ -164,7 +147,7 @@ namespace Pollux
                 //Button zum Datei öffnen
                 Button button1 = new();
                 button1.Click += this.Open_Click;
-                button1.Content = resman.GetString("GraphÖffnen", cul);
+                button1.Content = Resman.GetString("GraphÖffnen", Cul);
                 button1.Padding = new(10);
                 button1.HorizontalAlignment = HorizontalAlignment.Left;
                 button1.VerticalAlignment = VerticalAlignment.Top;
@@ -174,7 +157,7 @@ namespace Pollux
                 //Button zum Datei erstellen
                 Button button2 = new();
                 button2.Click += this.Neu_Click;
-                button2.Content = resman.GetString("GraphErstellen", cul);
+                button2.Content = Resman.GetString("GraphErstellen", Cul);
                 button2.Padding = new(10);
                 button2.HorizontalAlignment = HorizontalAlignment.Left;
                 button2.VerticalAlignment = VerticalAlignment.Top;
@@ -184,7 +167,7 @@ namespace Pollux
                 //Button zum neuen Fenster öffnen
                 Button button3 = new();
                 button3.Click += this.NewWindow_Click;
-                button3.Content = resman.GetString("NeuesFenster", cul);
+                button3.Content = Resman.GetString("NeuesFenster", Cul);
                 button3.Padding = new(10);
                 button3.HorizontalAlignment = HorizontalAlignment.Left;
                 button3.VerticalAlignment = VerticalAlignment.Top;
@@ -194,7 +177,7 @@ namespace Pollux
                 //Button zum Hilfe-Datei öffnen
                 Button button4 = new();
                 button4.Click += this.HilfeDatei_Click;
-                button4.Content = resman.GetString("HilfeDateiÖffnen", cul);
+                button4.Content = Resman.GetString("HilfeDateiÖffnen", Cul);
                 button4.Padding = new(10);
                 button4.HorizontalAlignment = HorizontalAlignment.Left;
                 button4.VerticalAlignment = VerticalAlignment.Top;
@@ -223,7 +206,7 @@ namespace Pollux
             //speichere die Dateien noch schnell ab
             this.SaveAll();
 
-            if (main == this)
+            if (Main == this)
             {
                 //Schließe alle weiteren Fenster
                 System.Windows.Application.Current.Shutdown();

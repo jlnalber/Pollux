@@ -18,84 +18,84 @@ namespace Pollux
 
                 //Übersetze die Texte
                 #region
-                this.Title = MainWindow.resman.GetString("EinstellungenTitle", MainWindow.cul);
-                this.AppearanceHeader.Text = MainWindow.resman.GetString("Appearance", MainWindow.cul);
+                this.Title = MainWindow.Resman.GetString("EinstellungenTitle", MainWindow.Cul);
+                this.AppearanceHeader.Text = MainWindow.Resman.GetString("Appearance", MainWindow.Cul);
 
-                this.Node_Design_Text.Text = MainWindow.resman.GetString("Node_Design_Text", MainWindow.cul);
+                this.Node_Design_Text.Text = MainWindow.Resman.GetString("Node_Design_Text", MainWindow.Cul);
 
-                this.Node_DesignFilling_Text.Text = MainWindow.resman.GetString("Node_DesignFilling_Text", MainWindow.cul);
-                this.Slider_RNode_Filling_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
-                this.Slider_GNode_Filling_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
-                this.Slider_BNode_Filling_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
-                this.Slider_ANode_Filling_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+                this.Node_DesignFilling_Text.Text = MainWindow.Resman.GetString("Node_DesignFilling_Text", MainWindow.Cul);
+                this.Slider_RNode_Filling_Text.Text = MainWindow.Resman.GetString("R", MainWindow.Cul);
+                this.Slider_GNode_Filling_Text.Text = MainWindow.Resman.GetString("G", MainWindow.Cul);
+                this.Slider_BNode_Filling_Text.Text = MainWindow.Resman.GetString("B", MainWindow.Cul);
+                this.Slider_ANode_Filling_Text.Text = MainWindow.Resman.GetString("A", MainWindow.Cul);
 
-                this.Node_DesignFilling2_CheckBox.Content = MainWindow.resman.GetString("Node_DesignFilling2_CheckBox", MainWindow.cul);
-                this.Slider_RNode_Filling2_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
-                this.Slider_GNode_Filling2_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
-                this.Slider_BNode_Filling2_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
-                this.Slider_ANode_Filling2_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+                this.Node_DesignFilling2_CheckBox.Content = MainWindow.Resman.GetString("Node_DesignFilling2_CheckBox", MainWindow.Cul);
+                this.Slider_RNode_Filling2_Text.Text = MainWindow.Resman.GetString("R", MainWindow.Cul);
+                this.Slider_GNode_Filling2_Text.Text = MainWindow.Resman.GetString("G", MainWindow.Cul);
+                this.Slider_BNode_Filling2_Text.Text = MainWindow.Resman.GetString("B", MainWindow.Cul);
+                this.Slider_ANode_Filling2_Text.Text = MainWindow.Resman.GetString("A", MainWindow.Cul);
 
-                this.Node_DesignBorder_Text.Text = MainWindow.resman.GetString("Node_DesignBorder_Text", MainWindow.cul);
-                this.Slider_RNode_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
-                this.Slider_GNode_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
-                this.Slider_BNode_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
-                this.Slider_ANode_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+                this.Node_DesignBorder_Text.Text = MainWindow.Resman.GetString("Node_DesignBorder_Text", MainWindow.Cul);
+                this.Slider_RNode_Border_Text.Text = MainWindow.Resman.GetString("R", MainWindow.Cul);
+                this.Slider_GNode_Border_Text.Text = MainWindow.Resman.GetString("G", MainWindow.Cul);
+                this.Slider_BNode_Border_Text.Text = MainWindow.Resman.GetString("B", MainWindow.Cul);
+                this.Slider_ANode_Border_Text.Text = MainWindow.Resman.GetString("A", MainWindow.Cul);
 
-                this.Node_DesignSizes_Text.Text = MainWindow.resman.GetString("Node_DesignSizes_Text", MainWindow.cul);
-                this.Slider_Node_Size_Text.Text = MainWindow.resman.GetString("Slider_Node_Size_Text", MainWindow.cul);
-                this.Slider_Node_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Node_SizeStroke_Text", MainWindow.cul);
+                this.Node_DesignSizes_Text.Text = MainWindow.Resman.GetString("Node_DesignSizes_Text", MainWindow.Cul);
+                this.Slider_Node_Size_Text.Text = MainWindow.Resman.GetString("Slider_Node_Size_Text", MainWindow.Cul);
+                this.Slider_Node_SizeStroke_Text.Text = MainWindow.Resman.GetString("Slider_Node_SizeStroke_Text", MainWindow.Cul);
 
-                this.Edge_Design_Text.Text = MainWindow.resman.GetString("Edge_Design_Text", MainWindow.cul);
-                this.Edge_DesignBorder_Text.Text = MainWindow.resman.GetString("Edge_DesignBorder_Text", MainWindow.cul);
-                this.Slider_REdge_Border_Text.Text = MainWindow.resman.GetString("R", MainWindow.cul);
-                this.Slider_GEdge_Border_Text.Text = MainWindow.resman.GetString("G", MainWindow.cul);
-                this.Slider_BEdge_Border_Text.Text = MainWindow.resman.GetString("B", MainWindow.cul);
-                this.Slider_AEdge_Border_Text.Text = MainWindow.resman.GetString("A", MainWindow.cul);
+                this.Edge_Design_Text.Text = MainWindow.Resman.GetString("Edge_Design_Text", MainWindow.Cul);
+                this.Edge_DesignBorder_Text.Text = MainWindow.Resman.GetString("Edge_DesignBorder_Text", MainWindow.Cul);
+                this.Slider_REdge_Border_Text.Text = MainWindow.Resman.GetString("R", MainWindow.Cul);
+                this.Slider_GEdge_Border_Text.Text = MainWindow.Resman.GetString("G", MainWindow.Cul);
+                this.Slider_BEdge_Border_Text.Text = MainWindow.Resman.GetString("B", MainWindow.Cul);
+                this.Slider_AEdge_Border_Text.Text = MainWindow.Resman.GetString("A", MainWindow.Cul);
 
-                this.Edge_DesignSizes_Text.Text = MainWindow.resman.GetString("Edge_DesignSizes_Text", MainWindow.cul);
-                this.Slider_Edge_SizeStroke_Text.Text = MainWindow.resman.GetString("Slider_Edge_SizeStroke_Text", MainWindow.cul);
+                this.Edge_DesignSizes_Text.Text = MainWindow.Resman.GetString("Edge_DesignSizes_Text", MainWindow.Cul);
+                this.Slider_Edge_SizeStroke_Text.Text = MainWindow.Resman.GetString("Slider_Edge_SizeStroke_Text", MainWindow.Cul);
 
-                this.Apply.Content = MainWindow.resman.GetString("Apply", MainWindow.cul);
-                this.Apply.ToolTip = MainWindow.resman.GetString("ToolTipApply", MainWindow.cul);
-                this.Preview_Text.Text = MainWindow.resman.GetString("Preview_Text", MainWindow.cul);
-                this.Knoten_Preview_Text.Text = MainWindow.resman.GetString("Knoten_Preview_Text", MainWindow.cul);
-                this.Kanten_Preview_Text.Text = MainWindow.resman.GetString("Kanten_Preview_Text", MainWindow.cul);
-                this.KantenSchlinge_Preview_Text.Text = MainWindow.resman.GetString("KantenSchlinge_Preview_Text", MainWindow.cul);
+                this.Apply.Content = MainWindow.Resman.GetString("Apply", MainWindow.Cul);
+                this.Apply.ToolTip = MainWindow.Resman.GetString("ToolTipApply", MainWindow.Cul);
+                this.Preview_Text.Text = MainWindow.Resman.GetString("Preview_Text", MainWindow.Cul);
+                this.Knoten_Preview_Text.Text = MainWindow.Resman.GetString("Knoten_Preview_Text", MainWindow.Cul);
+                this.Kanten_Preview_Text.Text = MainWindow.Resman.GetString("Kanten_Preview_Text", MainWindow.Cul);
+                this.KantenSchlinge_Preview_Text.Text = MainWindow.Resman.GetString("KantenSchlinge_Preview_Text", MainWindow.Cul);
 
-                this.ConsoleHeader.Text = MainWindow.resman.GetString("ConsoleHeaderText", MainWindow.cul);
-                this.HeaderConsoleText.Text = MainWindow.resman.GetString("HeaderConsoleText", MainWindow.cul);
-                this.FontFamilyPickerText.Text = MainWindow.resman.GetString("FontFamilyPickerText", MainWindow.cul);
-                this.FontSizeBoxText.Text = MainWindow.resman.GetString("FontSizeBoxText", MainWindow.cul);
-                this.PreviewConsoleText.Text = MainWindow.resman.GetString("PreviewConsoleText", MainWindow.cul);
+                this.ConsoleHeader.Text = MainWindow.Resman.GetString("ConsoleHeaderText", MainWindow.Cul);
+                this.HeaderConsoleText.Text = MainWindow.Resman.GetString("HeaderConsoleText", MainWindow.Cul);
+                this.FontFamilyPickerText.Text = MainWindow.Resman.GetString("FontFamilyPickerText", MainWindow.Cul);
+                this.FontSizeBoxText.Text = MainWindow.Resman.GetString("FontSizeBoxText", MainWindow.Cul);
+                this.PreviewConsoleText.Text = MainWindow.Resman.GetString("PreviewConsoleText", MainWindow.Cul);
                 #endregion
 
                 //Stelle die Slider je nach Einstellung ein
                 #region
-                this.Slider_RNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.R;
-                this.Slider_GNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.G;
-                this.Slider_BNode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.B;
-                this.Slider_ANode_Filling.Value = Properties.Settings.Default.Knoten_FarbeFilling.A;
+                this.Slider_RNode_Filling.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling.R;
+                this.Slider_GNode_Filling.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling.G;
+                this.Slider_BNode_Filling.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling.B;
+                this.Slider_ANode_Filling.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling.A;
 
-                this.Node_DesignFilling2_CheckBox.IsChecked = Properties.Settings.Default.Transition;
-                this.Slider_RNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.R;
-                this.Slider_GNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.G;
-                this.Slider_BNode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.B;
-                this.Slider_ANode_Filling2.Value = Properties.Settings.Default.Knoten_FarbeFilling2.A;
+                this.Node_DesignFilling2_CheckBox.IsChecked = Castor.Properties.Settings.Default.Transition;
+                this.Slider_RNode_Filling2.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling2.R;
+                this.Slider_GNode_Filling2.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling2.G;
+                this.Slider_BNode_Filling2.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling2.B;
+                this.Slider_ANode_Filling2.Value = Castor.Properties.Settings.Default.Knoten_FarbeFilling2.A;
 
-                this.Slider_Node_Size.Value = Properties.Settings.Default.Knoten_Höhe;
-                this.Slider_Node_SizeStroke.Value = Properties.Settings.Default.Knoten_Border_Thickness;
+                this.Slider_Node_Size.Value = Castor.Properties.Settings.Default.Knoten_Höhe;
+                this.Slider_Node_SizeStroke.Value = Castor.Properties.Settings.Default.Knoten_Border_Thickness;
 
-                this.Slider_RNode_Border.Value = Properties.Settings.Default.Knoten_FarbeBorder.R;
-                this.Slider_GNode_Border.Value = Properties.Settings.Default.Knoten_FarbeBorder.G;
-                this.Slider_BNode_Border.Value = Properties.Settings.Default.Knoten_FarbeBorder.B;
-                this.Slider_ANode_Border.Value = Properties.Settings.Default.Knoten_FarbeBorder.A;
+                this.Slider_RNode_Border.Value = Castor.Properties.Settings.Default.Knoten_FarbeBorder.R;
+                this.Slider_GNode_Border.Value = Castor.Properties.Settings.Default.Knoten_FarbeBorder.G;
+                this.Slider_BNode_Border.Value = Castor.Properties.Settings.Default.Knoten_FarbeBorder.B;
+                this.Slider_ANode_Border.Value = Castor.Properties.Settings.Default.Knoten_FarbeBorder.A;
 
-                this.Slider_REdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.R;
-                this.Slider_GEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.G;
-                this.Slider_BEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.B;
-                this.Slider_AEdge_Border.Value = Properties.Settings.Default.Kante_FarbeBorder.A;
+                this.Slider_REdge_Border.Value = Castor.Properties.Settings.Default.Kante_FarbeBorder.R;
+                this.Slider_GEdge_Border.Value = Castor.Properties.Settings.Default.Kante_FarbeBorder.G;
+                this.Slider_BEdge_Border.Value = Castor.Properties.Settings.Default.Kante_FarbeBorder.B;
+                this.Slider_AEdge_Border.Value = Castor.Properties.Settings.Default.Kante_FarbeBorder.A;
 
-                this.Slider_Edge_SizeStroke.Value = Properties.Settings.Default.Kanten_Thickness;
+                this.Slider_Edge_SizeStroke.Value = Castor.Properties.Settings.Default.Kanten_Thickness;
                 #endregion
 
                 //Einstellungen für die Konsole
@@ -122,22 +122,22 @@ namespace Pollux
             }
             catch
             {
-                MessageBox.Show(MainWindow.resman.GetString("ErrorEinstellungen", MainWindow.cul));
+                MessageBox.Show(MainWindow.Resman.GetString("ErrorEinstellungen", MainWindow.Cul));
             }
         }
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
             //Wende die Eintellungen an
-            Properties.Settings.Default.Knoten_FarbeFilling = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString()));
-            Properties.Settings.Default.Knoten_FarbeFilling2 = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling2.Value).ToString()));
-            Properties.Settings.Default.Knoten_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString()));
-            Properties.Settings.Default.Kante_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString()));
-            Properties.Settings.Default.Knoten_Höhe = this.Slider_Node_Size.Value;
-            Properties.Settings.Default.Knoten_Breite = this.Slider_Node_Size.Value;
-            Properties.Settings.Default.Knoten_Border_Thickness = this.Slider_Node_SizeStroke.Value;
-            Properties.Settings.Default.Kanten_Thickness = this.Slider_Edge_SizeStroke.Value;
-            Properties.Settings.Default.Transition = this.Node_DesignFilling2_CheckBox.IsChecked == true;
+            Castor.Properties.Settings.Default.Knoten_FarbeFilling = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling.Value).ToString()));
+            Castor.Properties.Settings.Default.Knoten_FarbeFilling2 = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Filling2.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Filling2.Value).ToString()));
+            Castor.Properties.Settings.Default.Knoten_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_ANode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_RNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GNode_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BNode_Border.Value).ToString()));
+            Castor.Properties.Settings.Default.Kante_FarbeBorder = System.Drawing.Color.FromArgb(int.Parse(Math.Round(this.Slider_AEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_REdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_GEdge_Border.Value).ToString()), int.Parse(Math.Round(this.Slider_BEdge_Border.Value).ToString()));
+            Castor.Properties.Settings.Default.Knoten_Höhe = this.Slider_Node_Size.Value;
+            Castor.Properties.Settings.Default.Knoten_Breite = this.Slider_Node_Size.Value;
+            Castor.Properties.Settings.Default.Knoten_Border_Thickness = this.Slider_Node_SizeStroke.Value;
+            Castor.Properties.Settings.Default.Kanten_Thickness = this.Slider_Edge_SizeStroke.Value;
+            Castor.Properties.Settings.Default.Transition = this.Node_DesignFilling2_CheckBox.IsChecked == true;
             Properties.Settings.Default.FontConsole = this.FontFamilyPicker.Text;
             try
             {
@@ -147,6 +147,7 @@ namespace Pollux
 
             //Speichere ab
             Properties.Settings.Default.Save();
+            Castor.Properties.Settings.Default.Save();
 
             //Schließe das Fenster
             this.Close();

@@ -1,13 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Pollux
 {
@@ -63,7 +60,7 @@ namespace Pollux
                 this.SaveOpenedFiles();
 
                 //Gebe eine Nachricht aus
-                this.DisplayMessage(resman.GetString("DateiSpeichernNachricht", cul) + this.OpenedFiles[this.GetOpenTab()]);
+                this.DisplayMessage(Resman.GetString("DateiSpeichernNachricht", Cul) + this.OpenedFiles[this.GetOpenTab()]);
             }
             catch { }
         }
@@ -116,6 +113,7 @@ namespace Pollux
                 }
                 else
                 {
+                    //TODO: Implementieren, dass es nicht immer zu PNG exportiert wird.
                     this.GetOpenGraph().SaveAsBitmap(filePath);
                 }
             }
@@ -237,9 +235,7 @@ namespace Pollux
             }
             else
             {
-                //Öffne ein neues "KnotenHinzufügen"-Fenster
-                KnotenHinzufügen window = new(this.GetOpenGraph(), this);
-                window.Show();
+                this.GetOpenGraph().OpenAddVertexWindow();
             }
         }
 
@@ -252,107 +248,8 @@ namespace Pollux
             }
             else
             {
-                //Öffne ein neues "KantenHinzufügen"-Fenster
-                KanteHinzufügen window = new(this.GetOpenGraph(), this);
-                window.Show();
+                this.GetOpenGraph().OpenAddEdgeWindow();
             }
-        }
-
-        public void LöschenKnoten_Click(object sender, RoutedEventArgs e)
-        {
-            //Suche nach der offenen GraphDarstellung
-            GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
-
-            //Lösche den Knoten, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.GraphKnoten.Count; ++i)
-            {
-                if (((GraphDarstellung.Knoten)openGraphDarstellung.GraphKnoten[i]).Ellipse.ContextMenu.Items.Contains(sender))
-                {
-                    this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKnoten[i].Name);
-                    --i;
-                }
-            }
-        }
-
-        public void LöschenKante_Click(object sender, RoutedEventArgs e)
-        {
-            //Suche nach der offenen GraphDarstellung
-            GraphDarstellung openGraphDarstellung = this.GetOpenGraph();
-
-            //Lösche die Kante, bei dem das MenuItem das Event ausgelöst hat
-            for (int i = 0; i < openGraphDarstellung.GraphKanten.Count; ++i)
-            {
-                if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Line line)
-                {
-                    if (line.ContextMenu.Items.Contains(sender))
-                    {
-                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
-                        --i;
-                    }
-                }
-                else if (((GraphDarstellung.Kanten)openGraphDarstellung.GraphKanten[i]).Line is Ellipse ellipse)
-                {
-                    if (ellipse.ContextMenu.Items.Contains(sender))
-                    {
-                        this.GetOpenConsole().Command("REMOVE " + openGraphDarstellung.GraphKanten[i].Name);
-                        --i;
-                    }
-                }
-            }
-        }
-
-        private void GraphCanvas_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            const double scrollSpeed = 0.25;
-            if (sender is Canvas graphCanvas && graphCanvas.Children.Count != 0)
-            {
-                //Zoom
-                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-                {
-                    //Berechne den Zoom und suche nach der Position der Maus
-                    const double zoomSpeed = 0.001;
-                    Point point = e.GetPosition(graphCanvas);
-                    double zoom = 1 + e.Delta * zoomSpeed;
-                    try
-                    {
-                        zoom = e.Delta * zoomSpeed + ((ScaleTransform)graphCanvas.RenderTransform).ScaleX;
-                    }
-                    catch { }
-
-                    //Zoome herein oder heraus
-                    this.SetZoom(zoom, point, graphCanvas);
-                }
-
-                //Horizontaler Scroll
-                else if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
-                {
-                    this.SetScrollX(Canvas.GetLeft(graphCanvas.Children[0]) + e.Delta * scrollSpeed, graphCanvas);
-                }
-
-                //Vertikaler Scroll
-                else
-                {
-                    this.SetScrollY(Canvas.GetTop(graphCanvas.Children[0]) + e.Delta * scrollSpeed, graphCanvas);
-                }
-            }
-        }
-
-        public void EigenschaftenKanten_Click(object sender, RoutedEventArgs e)
-        {
-            //Finde den Sender heraus
-            GraphDarstellung.Kanten kante = (from edge in this.GetOpenGraph().GraphKanten where (edge.Line is Line line) ? line.ContextMenu.Items.Contains(sender) : (edge.Line is Ellipse ellipse) ? ellipse.ContextMenu.Items.Contains(sender) : false select edge).First();
-
-            //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
-            this.OpenedEigenschaftenFenster[this.GetOpenTab()].OpenEdge(kante);
-        }
-
-        public void EigenschaftenKnoten_Click(object sender, RoutedEventArgs e)
-        {
-            //Finde den Sender heraus
-            GraphDarstellung.Knoten knoten = (from node in this.GetOpenGraph().GraphKnoten where node.Ellipse.ContextMenu.Items.Contains(sender) select node).First();
-
-            //Methode, wenn das MenuItem "eigenschaften" geklickt wurde
-            this.OpenedEigenschaftenFenster[this.GetOpenTab()].OpenNode(knoten);
         }
 
         public void Close_Click(object sender, RoutedEventArgs e)

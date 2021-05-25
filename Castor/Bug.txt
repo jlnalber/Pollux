@@ -1,0 +1,1 @@
+In einem Canvas beim Scrollen bewegt sich der Knoten nicht wie er soll beim ziehen: Die Elemente, auch das UserControl müssen ein VerticalAlignment und ein HorizontalAlignment haben!!!

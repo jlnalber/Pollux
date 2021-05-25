@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Castor;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Pollux
@@ -44,13 +45,7 @@ namespace Pollux
             return this.Consoles[this.GetOpenTab()];
         }
 
-        public Canvas GetOpenCanvas()
-        {
-            //Suche den geöffneten Graphen
-            return this.Canvases[this.GetOpenTab()];
-        }
-
-        public GraphDarstellung GetOpenGraph()
+        public VisualGraph GetOpenGraph()
         {
             //find den geöffneten Tab heraus
             TabItem tab = this.GetOpenTab();
@@ -63,18 +58,6 @@ namespace Pollux
         {
             //suche nach dem geöffneten Tab und gib dann seinen Header zurück
             return this.Headers[this.GetOpenTab()];
-        }
-
-        public Show GetOpenEigenschaftenFenster()
-        {
-            //Gebe das aktuell geöffnete Eigenschaften-Fenster zurück
-            return this.OpenedEigenschaftenFenster[this.GetOpenTab()];
-        }
-
-        public Grid GetOpenEigenschaftenFensterGrid()
-        {
-            //Gebe das aktuell geöffnete Eigenschaften-Fenster-Grid zurück
-            return this.OpenedEigenschaftenFensterGrid[this.GetOpenTab()];
         }
         #endregion
 

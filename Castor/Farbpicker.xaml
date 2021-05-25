@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Castor.Farbpicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="0" d:DesignWidth="0">
+    <StackPanel Background="Transparent">
+        <TextBlock x:Name="Text_A" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,2,0,0" Height="15" FontSize="12"/>
+        <Slider x:Name="Slider_A" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+        <TextBox x:Name="TextBox_A" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+        <TextBlock x:Name="Text_R" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+        <Slider x:Name="Slider_R" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+        <TextBox x:Name="TextBox_R" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+        <TextBlock x:Name="Text_G" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+        <Slider x:Name="Slider_G" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+        <TextBox x:Name="TextBox_G" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+        <TextBlock x:Name="Text_B" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
+        <Slider x:Name="Slider_B" Maximum="255" Minimum="0" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Sliders_ValueChanged" Focusable="False"/>
+        <TextBox x:Name="TextBox_B" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KeyUp" LostFocus="TextBoxes_LostFocus" FontSize="12"/>
+    </StackPanel>
+</UserControl>

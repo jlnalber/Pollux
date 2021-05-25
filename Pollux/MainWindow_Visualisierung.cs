@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Castor;
+using System;
 using System.Collections.Generic;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Thestias;
 
 namespace Pollux
 {
@@ -93,82 +95,28 @@ namespace Pollux
 
                 //erstelle die Elemente für die Graph-Visualisierung
                 #region
-                //DockPanel "dockPanel", in dem sich alle Elemente befinden werden
-                Grid dockPanel = new Grid();
-                ColumnDefinition columnDefinition0 = new ColumnDefinition();
-                columnDefinition0.Width = new GridLength(2, GridUnitType.Star);
-                ColumnDefinition columnDefinition1 = new ColumnDefinition();
-                columnDefinition1.Width = new GridLength(525);
-                columnDefinition1.MaxWidth = 1000;
-                columnDefinition1.MinWidth = 200;
-                dockPanel.ColumnDefinitions.Add(columnDefinition0);
-                dockPanel.ColumnDefinitions.Add(columnDefinition1);
-                dockPanel.Background = Brushes.White;
+                //erstelle den Graphen, indem die Datei ausgelesen wird
+                VisualGraph graph = new();
+                try
+                {
+                    //Öffne die Datei
+                    Graph.FileMode fileMode = path.EndsWith(".poll") ? Graph.FileMode.POLL : Graph.FileMode.GRAPHML;
+                    graph = VisualGraph.TransformFileToVisualGraph(path, fileMode);
+                }
+                catch
+                {
+                    //Gebe eine Fehlermeldung aus
+                    MessageBox.Show(Resman.GetString("FehlermeldungBeschädigteDatei", Cul));
 
-                GridSplitter gridSplitter = new();
-                gridSplitter.HorizontalAlignment = HorizontalAlignment.Left;
-                gridSplitter.VerticalAlignment = VerticalAlignment.Stretch;
-                gridSplitter.ShowsPreview = false;
-                gridSplitter.Width = 6;
-                gridSplitter.ResizeDirection = GridResizeDirection.Columns;
-                gridSplitter.Background = Brushes.Transparent;
-                Grid.SetColumn(gridSplitter, 1);
+                    //Gebe eine Nachricht aus
+                    DisplayMessage(Resman.GetString("DateiNichtGeöffnetNachricht", Cul) + path);
+                }
 
-                //Grid "grid" für die Eigenschaften (wird später zugewiesen)
-                Grid grid = new();
-
-                //erstelle Canvas für den Graphen
-                Grid gridAroundCanvas = new Grid();
-                Canvas graphCanvas = new Canvas();
-                gridAroundCanvas.Children.Add(graphCanvas);
-                Grid.SetColumn(gridAroundCanvas, 0);
-                Grid.SetRow(gridAroundCanvas, 0);
-
-                //lege Eigenschaften für ihn fest
-                //MenuItems
-                //MenuItem zur Bearbeitung von Graph
-                MenuItem menuItem1 = new();
-                menuItem1.Header = resman.GetString("GraphBearbeiten", cul);
-
-                //MenuItem zum Hinzufügen von Kanten
-                MenuItem menuItem2 = new();
-                menuItem2.Header = resman.GetString("KanteHinzufügen", cul);
-                menuItem2.Icon = " + ";
-                menuItem2.Click += this.KanteHinzufügen_Click;
-
-                //MenuItem zum Hinzufügen von Knoten
-                MenuItem menuItem3 = new();
-                menuItem3.Header = resman.GetString("KnotenHinzufügen", cul);
-                menuItem3.Icon = " + ";
-                menuItem3.Click += this.KnotenHinzufügen_Click;
-
-                //Füge die MenuItems "menuItem2" und "menuItem3" zu "menuItem1" hinzu
-                menuItem1.Items.Add(menuItem2);
-                menuItem1.Items.Add(menuItem3);
-
-                //MenuItem zum Öffnen des Eiganschaften-Fensters
-                MenuItem menuItem4 = new();
-                menuItem4.Click += this.EigenschaftenFenster_Click;
-                menuItem4.Header = resman.GetString("EigenschaftenFenster", cul);
-
-                //Füge die MenuItems hinzu
-                graphCanvas.ContextMenu = new ContextMenu();
-                graphCanvas.ContextMenu.Items.Add(menuItem1);
-                graphCanvas.ContextMenu.Items.Add(menuItem4);
-
-                //Wenn Maus-Rad bewegt wird
-                graphCanvas.MouseWheel += GraphCanvas_MouseWheel;
-
-                //Eigene Darstellung
-                graphCanvas.Background = Brushes.White;
-                gridAroundCanvas.Background = Brushes.Transparent;
-                graphCanvas.Margin = new Thickness(0);
-                gridAroundCanvas.Margin = new Thickness(5);
-                graphCanvas.ClipToBounds = true;
-                gridAroundCanvas.ClipToBounds = true;
+                //Darstellung und Einstellungen des VisualGraphs "graph".
+                graph.ShowProperties = true;
 
                 //füge ihn zum TabItem hinzu
-                tabGraph.Content = dockPanel;
+                tabGraph.Content = graph;
                 #endregion
 
                 //erstelle einen neuen Tab
@@ -178,44 +126,8 @@ namespace Pollux
                 consoleInput.Focus();
                 #endregion
 
-                //erstelle neuen Graph und füge eine CommandConsole hinzu
-                #region
-                //erstelle den Graphen, indem die Datei ausgelesen wird
-                GraphDarstellung graph = new(new List<GraphDarstellung.Knoten>(), new List<GraphDarstellung.Kanten>(), new int[0, 0], "GRAPH");
-                try
-                {
-                    //Öffne die Datei
-                    CommandConsole.FileMode fileMode = path.EndsWith(".poll") ? CommandConsole.FileMode.POLL : CommandConsole.FileMode.GRAPHML;
-                    graph = CommandConsole.TransformFileToGraphDarstellung(path, graphCanvas, fileMode);
-                }
-                catch
-                {
-                    //Gebe eine Fehlermeldung aus
-                    MessageBox.Show(resman.GetString("FehlermeldungBeschädigteDatei", cul));
-
-                    //Gebe eine Nachricht aus
-                    DisplayMessage(resman.GetString("DateiNichtGeöffnetNachricht", cul) + path);
-                }
-
                 //erstelle die CommandConsole zum Graph
                 CommandConsole commandConsole = new CommandConsole(graph, consoleOutput, path, this, tab);
-                #endregion
-
-                //Erstelle weitere visuelle Elemente
-                #region
-                Show show = new Show(graph, commandConsole);
-                grid = show.ContentGrid;
-                grid.Margin = new Thickness(gridSplitter.Width / 2, grid.Margin.Top, grid.Margin.Right, grid.Margin.Bottom);
-                grid.MaxWidth = 1000;
-                show.Content = new Grid();
-                Grid.SetRow(grid, 0);
-                Grid.SetColumn(grid, 1);
-                dockPanel.Children.Add(grid);
-                show.Close();
-
-                dockPanel.Children.Add(gridAroundCanvas);
-                dockPanel.Children.Add(gridSplitter);
-                #endregion
 
                 //speichere in der Liste ab, dass diese Datei gerade geöffnet ist und speichere auch ab, welche TextBox hier der Output ist, und welche Input, sowie die Commands
                 #region
@@ -223,10 +135,7 @@ namespace Pollux
                 this.Outputs.Add(tab, consoleOutput);
                 this.Inputs.Add(tab, consoleInput);
                 this.Consoles.Add(tab, commandConsole);
-                this.Canvases.Add(tab, graphCanvas);
                 this.Graphs.Add(tab, graph);
-                this.OpenedEigenschaftenFenster.Add(tab, show);
-                this.OpenedEigenschaftenFensterGrid.Add(tab, grid);
                 #endregion
 
                 //Finalisierung
@@ -235,7 +144,7 @@ namespace Pollux
                 this.SaveOpenedFiles();
 
                 //Gebe eine Nachricht aus
-                DisplayMessage(resman.GetString("DateiGeöffnetNachricht", cul) + path);
+                DisplayMessage(Resman.GetString("DateiGeöffnetNachricht", Cul) + path);
                 #endregion
             }
             catch (Exception e)
@@ -248,14 +157,11 @@ namespace Pollux
                 this.Outputs.Remove(tab);
                 this.Inputs.Remove(tab);
                 this.Consoles.Remove(tab);
-                this.Canvases.Remove(tab);
                 this.Graphs.Remove(tab);
-                this.OpenedEigenschaftenFenster.Remove(tab);
-                this.OpenedEigenschaftenFensterGrid.Remove(tab);
                 MessageBox.Show(e.Message);
 
                 //Gebe eine Nachricht aus
-                DisplayMessage(resman.GetString("DateiNichtGeöffnetNachricht", cul) + path);
+                DisplayMessage(Resman.GetString("DateiNichtGeöffnetNachricht", Cul) + path);
                 #endregion
             }
         }
@@ -287,7 +193,7 @@ namespace Pollux
             closeButton.VerticalAlignment = VerticalAlignment.Top;
             closeButton.Width = 20;
             closeButton.Height = 20;
-            closeButton.ToolTip = resman.GetString("TabSchließen", cul);
+            closeButton.ToolTip = Resman.GetString("TabSchließen", Cul);
             Thickness thickness = new Thickness();
             thickness.Top = 0;
             thickness.Right = 0;
@@ -309,18 +215,6 @@ namespace Pollux
 
             //Rückgabe von diesem Tab
             return tab1;
-        }
-
-        public void AktualisiereEigenschaftenFenster(TabItem tabItem)
-        {
-            //Aktualisiere das Eigenschaften-Fenster
-            this.OpenedEigenschaftenFenster[tabItem].AktualisiereGrid();
-        }
-
-        public void AktualisiereEigenschaftenFenster()
-        {
-            //Aktualisiere das Eigenschaften-Fenster, die Daten + Rückgabe
-            this.AktualisiereEigenschaftenFenster(this.GetOpenTab());
         }
 
         public void CloseTab(TabItem tab)
@@ -366,49 +260,10 @@ namespace Pollux
             }
         }
 
-        public void SetScrollX(double x, Canvas graphCanvas)
-        {
-            //Methode, um horizontal zu scrollen
-            foreach (UIElement i in graphCanvas.Children)
-            {
-                Canvas.SetLeft(i, x);
-            }
-        }
-
-        public void SetScrollY(double y, Canvas graphCanvas)
-        {
-            //Methode, um vertikal zu scrollen
-            foreach (UIElement i in graphCanvas.Children)
-            {
-                Canvas.SetTop(i, y);
-            }
-        }
-
-        public void SetZoom(double zoom, Point point, Canvas graphCanvas)
-        {
-            //Initialisierung
-            const double zoomMax = 5;
-            const double zoomMin = 0.25;
-            double height = graphCanvas.ActualHeight;
-            double width = graphCanvas.ActualWidth;
-
-            //Zoome herein oder heraus
-            if (zoom >= 1 && zoom < zoomMax)
-            {
-                graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, point.X, point.Y);
-            }
-            else if (zoom > zoomMin && zoom < 1)
-            {
-                graphCanvas.RenderTransform = new ScaleTransform(zoom, zoom, 0, 0);
-                graphCanvas.Width = width / zoom;
-                graphCanvas.Height = height / zoom;
-            }
-        }
-
         public void DisplayMessageFromResman(string stringName)
         {
             //Stelle die Nachricht rechts unten im TextBlock "ProgramTextBlock" in der entsprechenden Sprache dar
-            DisplayMessage(resman.GetString(stringName, cul));
+            DisplayMessage(Resman.GetString(stringName, Cul));
         }
 
         public void DisplayMessage(string message)

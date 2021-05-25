@@ -2,38 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Pollux.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Knoten_FarbeFilling" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">100, 100, 255</Value>
-    </Setting>
     <Setting Name="OpenedFiles" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RecentFiles" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="Knoten_FarbeBorder" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Black</Value>
-    </Setting>
-    <Setting Name="Kante_FarbeBorder" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Black</Value>
-    </Setting>
-    <Setting Name="Knoten_Höhe" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
-    <Setting Name="Knoten_Breite" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
-    <Setting Name="Knoten_Border_Thickness" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="Kanten_Thickness" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="Knoten_FarbeFilling2" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">156, 70, 200</Value>
-    </Setting>
-    <Setting Name="Transition" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="FontConsole" Type="System.String" Scope="User">
       <Value Profile="(Default)">Consolas</Value>

@@ -6,6 +6,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Thestias;
 
 namespace Pollux
 {
@@ -36,35 +37,35 @@ namespace Pollux
             //Übersetzen
             #region
             //lege den Titel und weiteren Text je nach Kultur fest
-            this.Title = MainWindow.resman.GetString("GraphAuswahlHeader", MainWindow.cul);
-            this.LetzteDateiHeader.Header = MainWindow.resman.GetString("LetzteDateien", MainWindow.cul);
-            this.NeueDateiErstellenHeader.Header = MainWindow.resman.GetString("ErstelleNeueDatei", MainWindow.cul);
-            this.NeueDateiName.Text = MainWindow.resman.GetString("NeueDateiName", MainWindow.cul);
-            this.NeueDateiSpeicherort.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
-            this.Erstellen.Content = MainWindow.resman.GetString("Erstelle", MainWindow.cul);
-            this.DateiÖffnen.Header = MainWindow.resman.GetString("DateiÖffnen", MainWindow.cul);
-            this.DateiSpeicherortText.Text = MainWindow.resman.GetString("Speicherort", MainWindow.cul);
-            this.Öffnen.Content = MainWindow.resman.GetString("Öffnen", MainWindow.cul);
-            this.TemplateText.Text = MainWindow.resman.GetString("Template", MainWindow.cul);
-            this.NothingTemplate_Header.Text = MainWindow.resman.GetString("NothingTemplate_Header", MainWindow.cul);
-            this.NothingTemplate_Text.Text = MainWindow.resman.GetString("NothingTemplate_Text", MainWindow.cul);
-            this.CircleTemplate_Header.Text = MainWindow.resman.GetString("CircleTemplate_Header", MainWindow.cul);
-            this.CircleTemplate_Text.Text = MainWindow.resman.GetString("CircleTemplate_Text", MainWindow.cul);
-            this.CircleTemplate_KnotenText.Text = MainWindow.resman.GetString("CircleTemplate_KnotenText", MainWindow.cul);
-            this.VieleckTemplate_Header.Text = MainWindow.resman.GetString("VieleckTemplate_Header", MainWindow.cul);
-            this.VieleckTemplate_Text.Text = MainWindow.resman.GetString("VieleckTemplate_Text", MainWindow.cul);
-            this.VieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VieleckTemplate_KnotenText", MainWindow.cul);
-            this.VollständigesVieleckTemplate_Header.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Header", MainWindow.cul);
-            this.VollständigesVieleckTemplate_Text.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_Text", MainWindow.cul);
-            this.VollständigesVieleckTemplate_KnotenText.Text = MainWindow.resman.GetString("VollständigesVieleckTemplate_KnotenText", MainWindow.cul);
-            this.BipartiterGraphTemplate_Header.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Header", MainWindow.cul);
-            this.BipartiterGraphTemplate_Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Text", MainWindow.cul);
-            this.BipartiterGraphTemplate_Knoten1Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten1Text", MainWindow.cul);
-            this.BipartiterGraphTemplate_Knoten2Text.Text = MainWindow.resman.GetString("BipartiterGraphTemplate_Knoten2Text", MainWindow.cul);
-            this.BaumTemplate_Header.Text = MainWindow.resman.GetString("BaumTemplate_Header", MainWindow.cul);
-            this.BaumTemplate_Text.Text = MainWindow.resman.GetString("BaumTemplate_Text", MainWindow.cul);
-            this.BaumTemplate_StufenText.Text = MainWindow.resman.GetString("BaumTemplate_StufenText", MainWindow.cul);
-            this.BaumTemplate_VerzweigungenText.Text = MainWindow.resman.GetString("BaumTemplate_VerzweigungenText", MainWindow.cul);
+            this.Title = MainWindow.Resman.GetString("GraphAuswahlHeader", MainWindow.Cul);
+            this.LetzteDateiHeader.Header = MainWindow.Resman.GetString("LetzteDateien", MainWindow.Cul);
+            this.NeueDateiErstellenHeader.Header = MainWindow.Resman.GetString("ErstelleNeueDatei", MainWindow.Cul);
+            this.NeueDateiName.Text = MainWindow.Resman.GetString("NeueDateiName", MainWindow.Cul);
+            this.NeueDateiSpeicherort.Text = MainWindow.Resman.GetString("Speicherort", MainWindow.Cul);
+            this.Erstellen.Content = MainWindow.Resman.GetString("Erstelle", MainWindow.Cul);
+            this.DateiÖffnen.Header = MainWindow.Resman.GetString("DateiÖffnen", MainWindow.Cul);
+            this.DateiSpeicherortText.Text = MainWindow.Resman.GetString("Speicherort", MainWindow.Cul);
+            this.Öffnen.Content = MainWindow.Resman.GetString("Öffnen", MainWindow.Cul);
+            this.TemplateText.Text = MainWindow.Resman.GetString("Template", MainWindow.Cul);
+            this.NothingTemplate_Header.Text = MainWindow.Resman.GetString("NothingTemplate_Header", MainWindow.Cul);
+            this.NothingTemplate_Text.Text = MainWindow.Resman.GetString("NothingTemplate_Text", MainWindow.Cul);
+            this.CircleTemplate_Header.Text = MainWindow.Resman.GetString("CircleTemplate_Header", MainWindow.Cul);
+            this.CircleTemplate_Text.Text = MainWindow.Resman.GetString("CircleTemplate_Text", MainWindow.Cul);
+            this.CircleTemplate_KnotenText.Text = MainWindow.Resman.GetString("CircleTemplate_KnotenText", MainWindow.Cul);
+            this.VieleckTemplate_Header.Text = MainWindow.Resman.GetString("VieleckTemplate_Header", MainWindow.Cul);
+            this.VieleckTemplate_Text.Text = MainWindow.Resman.GetString("VieleckTemplate_Text", MainWindow.Cul);
+            this.VieleckTemplate_KnotenText.Text = MainWindow.Resman.GetString("VieleckTemplate_KnotenText", MainWindow.Cul);
+            this.VollständigesVieleckTemplate_Header.Text = MainWindow.Resman.GetString("VollständigesVieleckTemplate_Header", MainWindow.Cul);
+            this.VollständigesVieleckTemplate_Text.Text = MainWindow.Resman.GetString("VollständigesVieleckTemplate_Text", MainWindow.Cul);
+            this.VollständigesVieleckTemplate_KnotenText.Text = MainWindow.Resman.GetString("VollständigesVieleckTemplate_KnotenText", MainWindow.Cul);
+            this.BipartiterGraphTemplate_Header.Text = MainWindow.Resman.GetString("BipartiterGraphTemplate_Header", MainWindow.Cul);
+            this.BipartiterGraphTemplate_Text.Text = MainWindow.Resman.GetString("BipartiterGraphTemplate_Text", MainWindow.Cul);
+            this.BipartiterGraphTemplate_Knoten1Text.Text = MainWindow.Resman.GetString("BipartiterGraphTemplate_Knoten1Text", MainWindow.Cul);
+            this.BipartiterGraphTemplate_Knoten2Text.Text = MainWindow.Resman.GetString("BipartiterGraphTemplate_Knoten2Text", MainWindow.Cul);
+            this.BaumTemplate_Header.Text = MainWindow.Resman.GetString("BaumTemplate_Header", MainWindow.Cul);
+            this.BaumTemplate_Text.Text = MainWindow.Resman.GetString("BaumTemplate_Text", MainWindow.Cul);
+            this.BaumTemplate_StufenText.Text = MainWindow.Resman.GetString("BaumTemplate_StufenText", MainWindow.Cul);
+            this.BaumTemplate_VerzweigungenText.Text = MainWindow.Resman.GetString("BaumTemplate_VerzweigungenText", MainWindow.Cul);
             #endregion
 
             //stelle die zuletzt geöffneten Dateien in der ListBox "LetzteDatei" dar
@@ -109,7 +110,7 @@ namespace Pollux
                 //zweiter Textblock, der den Dateipfad enthält
                 TextBlock textBlock2 = new TextBlock();
                 textBlock2.FontSize = 15;
-                textBlock2.Text = MainWindow.resman.GetString("Weg", MainWindow.cul) + ": " + i;
+                textBlock2.Text = MainWindow.Resman.GetString("Weg", MainWindow.Cul) + ": " + i;
                 dock.Children.Add(textBlock2);
 
                 //lege Layout für Textblöcke fest
@@ -207,7 +208,7 @@ namespace Pollux
                 string name = this.NameDatei.Text == "" ? "GRAPH" : this.NameDatei.Text.ToUpper();
 
                 //Finde den FileMode heraus
-                CommandConsole.FileMode fileMode = path.EndsWith(".poll") ? CommandConsole.FileMode.POLL : CommandConsole.FileMode.GRAPHML;
+                Graph.FileMode fileMode = path.EndsWith(".poll") ? Graph.FileMode.POLL : Graph.FileMode.GRAPHML;
 
                 //Erstelle den Graphen bzw. seine Datei
                 #region
@@ -215,62 +216,62 @@ namespace Pollux
                 {
                     //schreibe eine "leere" Datei
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(new Graph.Graph(new(), new(), new int[0, 0], name), fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(new Graph(new(), new(), new int[0, 0], name), fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.CircleTemplate)
                 {
                     //Erstelle den Graphen
-                    Graph.Graph graph = Graph.Graph.GraphTemplates.Kreis(int.Parse(this.CircleTemplate_Knoten.Text));
+                    Graph graph = Graph.GraphTemplates.Kreis(int.Parse(this.CircleTemplate_Knoten.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.VieleckTemplate)
                 {
                     //Erstelle den Graphen
-                    Graph.Graph graph = Graph.Graph.GraphTemplates.Vieleck(int.Parse(this.VieleckTemplate_Knoten.Text));
+                    Graph graph = Graph.GraphTemplates.Vieleck(int.Parse(this.VieleckTemplate_Knoten.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.VollständigesVieleckTemplate)
                 {
                     //Erstelle den Graphen
-                    Graph.Graph graph = Graph.Graph.GraphTemplates.VollständigesVieleck(int.Parse(this.VollständigesVieleckTemplate_Knoten.Text));
+                    Graph graph = Graph.GraphTemplates.VollständigesVieleck(int.Parse(this.VollständigesVieleckTemplate_Knoten.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.BipartiterGraphTemplate)
                 {
                     //Erstelle den Graphen
-                    Graph.Graph graph = Graph.Graph.GraphTemplates.VollständigerBipartiterGraph(int.Parse(this.BipartiterGraphTemplate_Knoten1.Text), int.Parse(this.BipartiterGraphTemplate_Knoten2.Text));
+                    Graph graph = Graph.GraphTemplates.VollständigerBipartiterGraph(int.Parse(this.BipartiterGraphTemplate_Knoten1.Text), int.Parse(this.BipartiterGraphTemplate_Knoten2.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 else if (this.TemplateListBox.SelectedItem == this.BaumTemplate)
                 {
                     //Erstelle den Graphen
-                    Graph.Graph graph = Graph.Graph.GraphTemplates.Baum(int.Parse(this.BaumTemplate_Stufen.Text), int.Parse(this.BaumTemplate_Verzweigungen.Text));
+                    Graph graph = Graph.GraphTemplates.Baum(int.Parse(this.BaumTemplate_Stufen.Text), int.Parse(this.BaumTemplate_Verzweigungen.Text));
                     graph.Name = name;
 
                     //schreibe eine neue Datei für den Graphen
                     StreamWriter streamWriter1 = new StreamWriter(path);
-                    streamWriter1.WriteLine(CommandConsole.TransformGraphToString(graph, fileMode));
+                    streamWriter1.WriteLine(Graph.TransformGraphToString(graph, fileMode));
                     streamWriter1.Close();
                 }
                 #endregion

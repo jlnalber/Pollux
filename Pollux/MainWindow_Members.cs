@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Castor;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Resources;
 using System.Windows.Controls;
@@ -9,9 +10,9 @@ namespace Pollux
     {
         //statiche Members
         #region
-        public static CultureInfo cul;
-        public static ResourceManager resman;
-        public static MainWindow main;
+        public static CultureInfo Cul;
+        public static ResourceManager Resman;
+        public static MainWindow Main;
         public static string AppDirectory;
         public static string Files;
         #endregion
@@ -22,11 +23,8 @@ namespace Pollux
         public Dictionary<TabItem, TextBox> Outputs { get; set; }//enthält alle output-Konsolen mit ihren jeweiligen Tabs
         public Dictionary<TabItem, TextBox> Inputs { get; set; }//enthält alle intput-TextBoxen mit ihren jeweiligen Tabs
         public Dictionary<TabItem, CommandConsole> Consoles { get; set; }//enthält alle CommandConsoles mit ihren jeweiligen Tabs
-        public Dictionary<TabItem, Canvas> Canvases { get; set; }//enthält alle Canvases mit ihren jeweiligen Tabs
-        public Dictionary<TabItem, GraphDarstellung> Graphs { get; set; }//enthält alle Graphen (natürlich mit visuellen Elementen) mit ihren jeweiligen Tabs
+        public Dictionary<TabItem, VisualGraph> Graphs { get; set; }//enthält alle Graphen (natürlich mit visuellen Elementen) mit ihren jeweiligen Tabs
         public Dictionary<TabItem, TextBlock> Headers { get; set; }//enthält alle Headers von den Tabs mit ihren jeweiligen Tabs
-        public Dictionary<TabItem, Show> OpenedEigenschaftenFenster { get; set; }//Enthält alle Eigenschaften-Fenster ("Show"'s) mit ihren jeweiligen Tabs
-        public Dictionary<TabItem, Grid> OpenedEigenschaftenFensterGrid { get; set; }//Enthält alle Eigenschaften-Fenster-Grids mit ihren jeweiligen Tabs
         #endregion
     }
 }

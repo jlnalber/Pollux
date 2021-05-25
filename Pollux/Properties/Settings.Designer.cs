@@ -25,18 +25,6 @@ namespace Pollux.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 255")]
-        public global::System.Drawing.Color Knoten_FarbeFilling {
-            get {
-                return ((global::System.Drawing.Color)(this["Knoten_FarbeFilling"]));
-            }
-            set {
-                this["Knoten_FarbeFilling"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OpenedFiles {
             get {
@@ -56,102 +44,6 @@ namespace Pollux.Properties {
             }
             set {
                 this["RecentFiles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color Knoten_FarbeBorder {
-            get {
-                return ((global::System.Drawing.Color)(this["Knoten_FarbeBorder"]));
-            }
-            set {
-                this["Knoten_FarbeBorder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color Kante_FarbeBorder {
-            get {
-                return ((global::System.Drawing.Color)(this["Kante_FarbeBorder"]));
-            }
-            set {
-                this["Kante_FarbeBorder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public double Knoten_Höhe {
-            get {
-                return ((double)(this["Knoten_Höhe"]));
-            }
-            set {
-                this["Knoten_Höhe"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public double Knoten_Breite {
-            get {
-                return ((double)(this["Knoten_Breite"]));
-            }
-            set {
-                this["Knoten_Breite"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public double Knoten_Border_Thickness {
-            get {
-                return ((double)(this["Knoten_Border_Thickness"]));
-            }
-            set {
-                this["Knoten_Border_Thickness"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public double Kanten_Thickness {
-            get {
-                return ((double)(this["Kanten_Thickness"]));
-            }
-            set {
-                this["Kanten_Thickness"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("156, 70, 200")]
-        public global::System.Drawing.Color Knoten_FarbeFilling2 {
-            get {
-                return ((global::System.Drawing.Color)(this["Knoten_FarbeFilling2"]));
-            }
-            set {
-                this["Knoten_FarbeFilling2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Transition {
-            get {
-                return ((bool)(this["Transition"]));
-            }
-            set {
-                this["Transition"] = value;
             }
         }
         

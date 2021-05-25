@@ -1,0 +1,33 @@
+﻿<Window x:Class="Castor.KnotenHinzufügen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Castor"
+        mc:Ignorable="d"
+        WindowStyle="ToolWindow"
+        ShowInTaskbar="True"
+        WindowStartupLocation="CenterScreen"
+        Height="150" Width="200" MinWidth="150" MinHeight="100" MaxWidth="250" MaxHeight="250">
+
+    <!-- Shortcuts -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <RoutedUICommand x:Key="Close"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{StaticResource Close}"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource Close}" Executed="Escape"/>
+    </Window.CommandBindings>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" KeyUp="AusgewählterName_KeyUp">
+        <Grid>
+            <TextBlock Text="" x:Name="NameText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+            <TextBox x:Name="AusgewählterName" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" AllowDrop="False" Width="100" Height="23"/>
+            <Button x:Name="Bestätigen" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,80,0,0" Width="100" Height="20" Click="Bestätigen_Click"/>
+        </Grid>
+    </ScrollViewer>
+</Window>

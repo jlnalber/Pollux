@@ -58,6 +58,15 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Castor">
+      <HintPath>..\Castor\bin\Debug\net5.0-windows\Castor.dll</HintPath>
+    </Reference>
+    <Reference Include="Thestias">
+      <HintPath>..\Thestias\bin\Release\net5.0\Thestias.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <!--<ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.9.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
