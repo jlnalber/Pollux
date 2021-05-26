@@ -330,6 +330,18 @@
   <data name="Kanten_DesignSizes_Text" xml:space="preserve">
     <value>Kante:</value>
   </data>
+  <data name="Kanten_DesignTyp_BezierEdge" xml:space="preserve">
+    <value>Bézier-Kante</value>
+  </data>
+  <data name="Kanten_DesignTyp_NormalEdge" xml:space="preserve">
+    <value>Normale Kante</value>
+  </data>
+  <data name="Kanten_DesignTyp_StraightEdge" xml:space="preserve">
+    <value>Gerade Kante</value>
+  </data>
+  <data name="Kanten_DesignTyp_Text" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
   <data name="Kanten_Design_Text" xml:space="preserve">
     <value>Design der Kante</value>
   </data>

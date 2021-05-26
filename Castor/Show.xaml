@@ -98,7 +98,7 @@
                         <TextBlock x:Name="KantenEndeText" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,10"/>
                         <TextBlock x:Name="KantenEnde" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,-25,0,10"/>
 
-                        <TreeViewItem x:Name="Kanten_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,25,0,0" FontSize="14">
+                        <TreeViewItem x:Name="Kanten_Design_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,25,0,0">
                             <StackPanel x:Name="PanelKanten_Appearance" Grid.Column="0" Grid.Row="1">
                                 <TextBlock x:Name="Kanten_DesignBorder_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" FontSize="13"/>
                                 <local:Farbpicker x:Name="KantenBorder" Margin="0,20,0,0"/>
@@ -107,6 +107,13 @@
                                 <TextBlock x:Name="Slider_Kanten_SizeStroke_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0" Height="15" FontSize="12"/>
                                 <Slider x:Name="Slider_Kanten_SizeStroke" Maximum="12" Minimum="1" SmallChange="1" TickFrequency="1" LargeChange="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,-15,0,0" Width="256" ValueChanged="Edge_ValuesChanged" Focusable="False"/>
                                 <TextBox x:Name="TextBox_Kanten_SizeStroke" AllowDrop="False" Height="25" Width="50" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="345,-22,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="TextBoxes_KantenDarstellung_KeyUp" LostFocus="TextBoxes_KantenDarstellung_LostFocus" FontSize="12"/>
+                                
+                                <TextBlock x:Name="Kanten_DesignTyp_Text" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,10" FontSize="13"/>
+                                <ComboBox x:Name="Kanten_DesignTyp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,-26,0,0" MinWidth="100" SelectionChanged="Kanten_DesignTyp_SelectionChanged">
+                                    <ComboBoxItem x:Name="Kanten_DesignTyp_NormalEdge"/>
+                                    <ComboBoxItem x:Name="Kanten_DesignTyp_StraightEdge"/>
+                                    <ComboBoxItem x:Name="Kanten_DesignTyp_BezierEdge"/>
+                                </ComboBox>
                             </StackPanel>
                         </TreeViewItem>
                     </StackPanel>

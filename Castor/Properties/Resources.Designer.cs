@@ -637,6 +637,42 @@ namespace Castor.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bézier-Kante ähnelt.
+        /// </summary>
+        internal static string Kanten_DesignTyp_BezierEdge {
+            get {
+                return ResourceManager.GetString("Kanten_DesignTyp_BezierEdge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Normale Kante ähnelt.
+        /// </summary>
+        internal static string Kanten_DesignTyp_NormalEdge {
+            get {
+                return ResourceManager.GetString("Kanten_DesignTyp_NormalEdge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gerade Kante ähnelt.
+        /// </summary>
+        internal static string Kanten_DesignTyp_StraightEdge {
+            get {
+                return ResourceManager.GetString("Kanten_DesignTyp_StraightEdge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Typ: ähnelt.
+        /// </summary>
+        internal static string Kanten_DesignTyp_Text {
+            get {
+                return ResourceManager.GetString("Kanten_DesignTyp_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Vorschau der Kanten: ähnelt.
         /// </summary>
         internal static string Kanten_Preview_Text {

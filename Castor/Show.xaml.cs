@@ -84,6 +84,11 @@ namespace Castor
 
             this.Kanten_DesignSizes_Text.Text = VisualGraph.Resman.GetString("Kanten_DesignSizes_Text", VisualGraph.Cul);
             this.Slider_Kanten_SizeStroke_Text.Text = VisualGraph.Resman.GetString("Slider_Kanten_SizeStroke_Text", VisualGraph.Cul);
+
+            this.Kanten_DesignTyp_Text.Text = VisualGraph.Resman.GetString("Kanten_DesignTyp_Text", VisualGraph.Cul);
+            this.Kanten_DesignTyp_NormalEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_NormalEdge", VisualGraph.Cul);
+            this.Kanten_DesignTyp_StraightEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_StraightEdge", VisualGraph.Cul);
+            this.Kanten_DesignTyp_BezierEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_BezierEdge", VisualGraph.Cul);
             #endregion
 
             //Darstellung
@@ -161,6 +166,11 @@ namespace Castor
 
             this.Kanten_DesignSizes_Text.Text = VisualGraph.Resman.GetString("Kanten_DesignSizes_Text", VisualGraph.Cul);
             this.Slider_Kanten_SizeStroke_Text.Text = VisualGraph.Resman.GetString("Slider_Kanten_SizeStroke_Text", VisualGraph.Cul);
+
+            this.Kanten_DesignTyp_Text.Text = VisualGraph.Resman.GetString("Kanten_DesignTyp_Text", VisualGraph.Cul);
+            this.Kanten_DesignTyp_NormalEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_NormalEdge", VisualGraph.Cul);
+            this.Kanten_DesignTyp_StraightEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_StraightEdge", VisualGraph.Cul);
+            this.Kanten_DesignTyp_BezierEdge.Content = VisualGraph.Resman.GetString("Kanten_DesignTyp_BezierEdge", VisualGraph.Cul);
             #endregion
 
             //Darstellung
@@ -193,7 +203,7 @@ namespace Castor
             try
             {
                 //erstelle Knoten, welcher der ausgewählte Knoten ist
-                VisualVertex knoten = this.GetSelectedKnoten();
+                VisualVertex knoten = this.GetSelectedVertex();
 
                 //lege die Eigenschaften fest
                 this.KnotenName.Text = knoten.Vertex.Name;
@@ -266,7 +276,7 @@ namespace Castor
                 this.KnotenContent.Children.Remove(this.DataGridKnoten);//Entferne das DataGrid "DataGridKnoten", um sicherzustellen, dass es auch wirklich nicht mehr drin ist.
 
                 //Aktualisiere das DataGrid "DataGridKnoten" auch nur, wenn es auch Verbindungen mit anderen Knoten hat.
-                if (this.GetSelectedKnoten().Vertex.Degree != 0)
+                if (this.GetSelectedVertex().Vertex.Degree != 0)
                 {
                     int position = this.Graph.Graph.Vertices.IndexOf(knoten.Vertex);
                     HashSet<ElementsKnoten> list = new();
@@ -298,7 +308,7 @@ namespace Castor
             try
             {
                 //Suche nach der ausgewählten Kante.
-                VisualEdge kante = this.GetSelectedKante();
+                VisualEdge kante = this.GetSelectedEdge();
 
                 //Lege die Eigenschaften fest.
                 this.KantenName.Text = kante.Edge.Name;
@@ -310,6 +320,12 @@ namespace Castor
                 this.KantenBorder.SetSolidColorBrush(kante.Line.GetStroke());
                 double strokeWidth = Math.Round(kante.Line.GetStrokeThickness(), 0);
                 this.Slider_Kanten_SizeStroke.Value = strokeWidth;
+                switch (kante.Line.EdgeType)
+                {
+                    case EdgeLine.EdgeTypes.NormalEdge: this.Kanten_DesignTyp.SelectedItem = this.Kanten_DesignTyp_NormalEdge; break;
+                    case EdgeLine.EdgeTypes.StraightEdge: this.Kanten_DesignTyp.SelectedItem = this.Kanten_DesignTyp_StraightEdge; break;
+                    case EdgeLine.EdgeTypes.BezierEdge: this.Kanten_DesignTyp.SelectedItem = this.Kanten_DesignTyp_BezierEdge; break;
+                }
             }
             catch { }
         }
@@ -348,7 +364,7 @@ namespace Castor
             try
             {
                 //Falls sich der Text in der TexBox "KnotenName" ändert
-                if (this.KnotenName.Text != this.GetSelectedKnoten().Vertex.Name)
+                if (this.KnotenName.Text != this.GetSelectedVertex().Vertex.Name)
                 {
                     this.UmbennenKnoten.Visibility = Visibility.Visible;
                 }
@@ -372,7 +388,7 @@ namespace Castor
             int index = this.KnotenPicker.SelectedIndex;//Index des aktuell geöffneten Knotens
             try
             {
-                this.GetSelectedKnoten().Vertex.Name = this.KnotenName.Text;
+                this.GetSelectedVertex().Vertex.Name = this.KnotenName.Text;
             }
             catch
             {
@@ -381,7 +397,7 @@ namespace Castor
                     SystemSounds.Asterisk.Play();
                 }
             }
-            this.KnotenName.Text = this.GetSelectedKnoten().Vertex.Name;
+            this.KnotenName.Text = this.GetSelectedVertex().Vertex.Name;
             this.KnotenPicker.SelectedIndex = index;//Öffne den vorher ausgewählten Knoten
             this.UmbennenKnoten.Visibility = Visibility.Hidden;
         }
@@ -391,7 +407,7 @@ namespace Castor
             try
             {
                 //Falls sich der Text in der TexBox "KantenName" ändert
-                if (this.KantenName.Text != this.GetSelectedKante().Edge.Name)
+                if (this.KantenName.Text != this.GetSelectedEdge().Edge.Name)
                 {
                     this.UmbennenKanten.Visibility = Visibility.Visible;
                 }
@@ -415,7 +431,7 @@ namespace Castor
             int index = this.KantenPicker.SelectedIndex;//Index der aktuell geöffneten Kante.
             try
             {
-                this.GetSelectedKante().Edge.Name = this.KantenName.Text;
+                this.GetSelectedEdge().Edge.Name = this.KantenName.Text;
             }
             catch
             {
@@ -424,12 +440,12 @@ namespace Castor
                     SystemSounds.Asterisk.Play();
                 }
             }
-            this.KantenName.Text = this.GetSelectedKante().Edge.Name;
+            this.KantenName.Text = this.GetSelectedEdge().Edge.Name;
             this.KantenPicker.SelectedIndex = index;//Öffne die vorher ausgewählte Kante.
             this.UmbennenKanten.Visibility = Visibility.Hidden;
         }
 
-        public VisualVertex GetSelectedKnoten()
+        public VisualVertex GetSelectedVertex()
         {
             try
             {
@@ -442,7 +458,7 @@ namespace Castor
             }
         }
 
-        public string GetSelectedKnotenName()
+        public string GetSelectedVertexName()
         {
             try
             {
@@ -455,7 +471,7 @@ namespace Castor
             }
         }
 
-        public VisualEdge GetSelectedKante()
+        public VisualEdge GetSelectedEdge()
         {
             try
             {
@@ -468,7 +484,7 @@ namespace Castor
             }
         }
 
-        public string GetSelectedKantenName()
+        public string GetSelectedEdgeName()
         {
             try
             {
@@ -514,7 +530,7 @@ namespace Castor
                 //schreibe in die ComboBox, welche Ecken es alle gibt.
                 if (this.Graph.Vertices.Count == 0)
                 {
-                    this.VisibilityKnotenContent(Visibility.Collapsed);
+                    //this.VisibilityKnotenContent(Visibility.Collapsed);
 
                     //falls es keine Knoten gibt, schreibe das anstatt von dem restlichen Inhalt von "KnotenContent"
                     Thickness thickness = new Thickness();//für Margin
@@ -581,7 +597,7 @@ namespace Castor
                     {
                         this.KnotenContent.Children.Remove(this.DataGridKnoten);
                     }
-                    if (this.GetSelectedKnoten().Vertex.Degree != 0)
+                    if (this.GetSelectedVertex().Vertex.Degree != 0)
                     {
                         this.KnotenContent.Children.Add(this.DataGridKnoten);
                     }
@@ -755,7 +771,7 @@ namespace Castor
 
                 //Wende die Änderungen für den Knoten an
                 //Suche den Knoten heraus
-                VisualVertex vertex = this.GetSelectedKnoten();
+                VisualVertex vertex = this.GetSelectedVertex();
 
                 if (vertex.UIElement is VertexEllipse vertexEllipse)
                 {
@@ -800,7 +816,7 @@ namespace Castor
 
                 //Wende die Änderungen für die Kante an.
                 //Suche die ausgewählte Kante
-                VisualEdge kante = this.GetSelectedKante();
+                VisualEdge kante = this.GetSelectedEdge();
 
                 //Fahre die Farbe der Kante nach
                 kante.Line.SetStroke(this.KantenBorder.GetColor());
@@ -843,6 +859,16 @@ namespace Castor
                     SystemSounds.Asterisk.Play();
                 }
                 this.TextBox_Kanten_SizeStroke.Text = this.Slider_Kanten_SizeStroke.Value.ToString();
+            }
+        }
+
+        private void Kanten_DesignTyp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (this.Kanten_DesignTyp.SelectedIndex)
+            {
+                case 0: this.GetSelectedEdge().Line.EdgeType = EdgeLine.EdgeTypes.NormalEdge;  break;
+                case 1: this.GetSelectedEdge().Line.EdgeType = EdgeLine.EdgeTypes.StraightEdge; break;
+                case 2: this.GetSelectedEdge().Line.EdgeType = EdgeLine.EdgeTypes.BezierEdge; break;
             }
         }
         #endregion
@@ -907,7 +933,7 @@ namespace Castor
         {
             try
             {
-                this.Graph.RemoveVertex(this.GetSelectedKnotenName());
+                this.Graph.RemoveVertex(this.GetSelectedVertexName());
             }
             catch { }
         }
@@ -916,7 +942,7 @@ namespace Castor
         {
             try
             {
-                this.Graph.RemoveEdge(this.GetSelectedKante());
+                this.Graph.RemoveEdge(this.GetSelectedEdge());
             }
             catch { }
         }
