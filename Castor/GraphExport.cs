@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Thestias;
+using System.Windows.Shapes;
+using System.Windows.Controls;
+using System;
 
 namespace Castor
 {
@@ -302,15 +305,29 @@ namespace Castor
             streamWriter.Close();*/
         }
 
-        public void SaveAsBitmap(string path, BitmapEncoder encoder = null)
+        public void SaveAsBitmap(string path, double dpi, BitmapEncoder encoder = null)
         {
+            //Finde die Höhe und die Breite heraus.
+            double width = 0;
+            double height = 0;
+            foreach (FrameworkElement i in this.Canvas.Children)
+            {
+                if (i.Margin.Left + i.Width > width)
+                {
+                    width = i.Margin.Left + i.Width;
+                }
+
+                if (i.Margin.Top + i.Height > height)
+                {
+                    height = i.Margin.Top + i.Height;
+                }
+            }
+
             //Canvas neu berechnen.
-            var size = new Size(this.Canvas.Width, this.Canvas.Height);
-            this.Canvas.Arrange(new Rect(size));
-            this.Canvas.Measure(size);
+            var size = new Size(1.5 * Math.Abs(width + 100 + Canvas.GetLeft(this.Canvas.Children[0])), 1*5 * Math.Abs(height + 100 + Canvas.GetTop(this.Canvas.Children[0])));
 
             //Konvertiere den Canvas in ein Bitmap-Bild.
-            var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96.0D, 96.0D, PixelFormats.Pbgra32);
+            var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, dpi, dpi, PixelFormats.Pbgra32);
             renderBitmap.Render(this.Canvas);
 
             //Speichere das Bild ab.

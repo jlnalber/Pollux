@@ -9,7 +9,7 @@
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" x:Name="Graph_Column"></ColumnDefinition>
-            <ColumnDefinition Width="525" x:Name="Eigenschaften_Column"></ColumnDefinition>
+            <ColumnDefinition Width="525" MaxWidth="1000" x:Name="Eigenschaften_Column"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <!-- Wrapper for "Eigenschaften". -->

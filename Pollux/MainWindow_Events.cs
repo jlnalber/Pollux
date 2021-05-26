@@ -5,6 +5,8 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Castor;
+using System.Windows.Media.Imaging;
 
 namespace Pollux
 {
@@ -87,12 +89,13 @@ namespace Pollux
             string filePath = "";
             try
             {
+                VisualGraph graph = this.GetOpenGraph();
                 //Erstelle einen SaveFileDialog "openFileDialog"
                 SaveFileDialog openFileDialog = new();
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Exchangeable Image File Format (*.exif)|*exif|JPEG-File (*jpg)|*jpg|Portable Network Graphics (*png)|*png|Tagged Image File Format (*tiff)|*tiff";
+                openFileDialog.Filter = "Scalable Vector Graphics (*.svg)|*.svg|Bitmap (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Windows Media Photo (*.wmp)|*.wmp|JPEG-File (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png|Tagged Image File Format (*.tiff)|*.tiff";
                 openFileDialog.FilterIndex = 1;
-                openFileDialog.FileName = "graph.svg";
+                openFileDialog.FileName = graph.Graph.Name + ".svg";
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == true)
@@ -101,20 +104,40 @@ namespace Pollux
                     filePath = openFileDialog.FileName;
                 }
 
-                if (!(filePath.EndsWith(".svg") || filePath.EndsWith(".bmp") || filePath.EndsWith(".gif") || filePath.EndsWith(".exif") || filePath.EndsWith(".jpg") || filePath.EndsWith(".png") || filePath.EndsWith(".tiff")))
+                if (!(filePath.EndsWith(".svg") || filePath.EndsWith(".bmp") || filePath.EndsWith(".gif") || filePath.EndsWith(".wmp") || filePath.EndsWith(".jpg") || filePath.EndsWith(".jpeg") || filePath.EndsWith(".png") || filePath.EndsWith(".tiff")))
                 {
                     filePath += ".svg";
                 }
 
                 //Erstelle die Datei in der gewollten Datei
+                const double dpi = 150;
                 if (filePath.EndsWith(".svg"))
                 {
-                    this.GetOpenGraph().SaveAsSVG(filePath);
+                    graph.SaveAsSVG(filePath);
                 }
-                else
+                else if (filePath.EndsWith(".bmp"))
                 {
-                    //TODO: Implementieren, dass es nicht immer zu PNG exportiert wird.
-                    this.GetOpenGraph().SaveAsBitmap(filePath);
+                    graph.SaveAsBitmap(filePath, dpi, new BmpBitmapEncoder());
+                }
+                else if (filePath.EndsWith(".gif"))
+                {
+                    graph.SaveAsBitmap(filePath, dpi, new GifBitmapEncoder());
+                }
+                else if (filePath.EndsWith(".wmp"))
+                {
+                    graph.SaveAsBitmap(filePath, dpi, new WmpBitmapEncoder());
+                }
+                else if (filePath.EndsWith(".jpg") || filePath.EndsWith(".jpeg"))
+                {
+                    graph.SaveAsBitmap(filePath, dpi, new JpegBitmapEncoder());
+                }
+                else if (filePath.EndsWith(".png"))
+                {
+                    graph.SaveAsBitmap(filePath, dpi, new PngBitmapEncoder());
+                }
+                else if (filePath.EndsWith(".tiff"))
+                {
+                    graph.SaveAsBitmap(filePath, dpi, new TiffBitmapEncoder());
                 }
             }
             catch { }
