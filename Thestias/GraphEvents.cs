@@ -5,7 +5,7 @@ namespace Thestias
     public partial class Graph
     {
         public delegate void ChangedEvent(object sender, ChangedEventArgs e);
-        public ChangedEvent Changed = (object sender, ChangedEventArgs e) => { };
+        public event ChangedEvent Changed = (object sender, ChangedEventArgs e) => { };
 
         public class ChangedEventArgs : EventArgs
         {
