@@ -15,7 +15,3 @@ Create graphs and do calculations in these graphs.
 
 * Windows-PC
 * .NET 5.0 (it will auto-install if you don't have it yet)
-
-Pollux is available in English and German, it should detect your language.
-
-__Found an issue or want a new feature?__ Report [here](https://github.com/jlnalber/Pollux/issues).
