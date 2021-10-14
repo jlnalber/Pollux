@@ -1,6 +1,6 @@
 # Pollux
 
-Create graphs and do calculations in these graphs.
+Software for visualising and doing calculations in graphs.
 
 
 ## Features
